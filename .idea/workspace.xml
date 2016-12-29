@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="" />
+    <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/movement_ecog_data_gen.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/movement_video_data_gen.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/ecogdeep.iml" afterPath="$PROJECT_DIR$/.idea/ecogdeep.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,13 +21,16 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="ecogdeep" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="vid_train.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="vid_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/vid_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="58" column="34" lean-forward="false" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
+            <state relative-caret-position="1189">
+              <caret line="50" column="19" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -27,35 +38,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="training.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/training.py">
+      <file leaf-file-name="movement_video_data_gen.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20340">
-              <caret line="1366" column="31" lean-forward="false" selection-start-line="1366" selection-start-column="31" selection-end-line="1366" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="image.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/preprocessing/image.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4080">
-              <caret line="289" column="13" lean-forward="false" selection-start-line="289" selection-start-column="4" selection-end-line="289" selection-end-column="13" />
+            <state relative-caret-position="710">
+              <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding>
-                <element signature="e#163#201#0" expanded="true" />
+                <element signature="e#0#15#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vgg16.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/applications/vgg16.py">
+      <file leaf-file-name="movement_ecog_data_gen.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1425">
-              <caret line="106" column="8" lean-forward="false" selection-start-line="106" selection-start-column="8" selection-end-line="106" selection-end-column="38" />
+            <state relative-caret-position="1568">
+              <caret line="116" column="60" selection-start-line="116" selection-start-column="60" selection-end-line="116" selection-end-column="60" />
               <folding>
-                <element signature="e#174#211#0" expanded="true" />
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vid_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train/vid_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -76,19 +89,33 @@
       <find>center_cr</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="/usr/local/lib/python2.7/dist-packages/keras/preprocessing/image.py" />
         <option value="$PROJECT_DIR$/train/vid_train.py" />
+        <option value="$PROJECT_DIR$/data/movement_ecog_data_gen.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="650" />
-    <option name="y" value="86" />
-    <option name="width" value="2165" />
-    <option name="height" value="1000" />
+    <option name="x" value="-16" />
+    <option name="y" value="-16" />
+    <option name="width" value="3872" />
+    <option name="height" value="2092" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -106,8 +133,15 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecogdeep" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="ecogdeep" />
@@ -122,10 +156,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecogdeep" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ecogdeep" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="C:/Python27/python.exe" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Nancy\PycharmProjects\ecogdeep\data" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.vid_train">
     <configuration default="false" name="vid_train" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -302,10 +359,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="650" y="86" width="2165" height="1000" extended-state="0" />
+    <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16166282" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08958333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -324,6 +381,14 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -335,82 +400,66 @@
     <entry file="file://$PROJECT_DIR$/train/vid_train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20490">
-          <caret line="1366" column="31" lean-forward="false" selection-start-line="1366" selection-start-column="31" selection-end-line="1366" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/preprocessing/image.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4080">
-          <caret line="289" column="13" lean-forward="false" selection-start-line="289" selection-start-column="4" selection-end-line="289" selection-end-column="13" />
-          <folding>
-            <element signature="e#163#201#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/applications/vgg16.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1425">
-          <caret line="106" column="8" lean-forward="true" selection-start-line="106" selection-start-column="8" selection-end-line="106" selection-end-column="38" />
-          <folding>
-            <element signature="e#174#211#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/callbacks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="201" column="6" lean-forward="false" selection-start-line="201" selection-start-column="6" selection-end-line="201" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/preprocessing/image.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4080">
-          <caret line="289" column="13" lean-forward="false" selection-start-line="289" selection-start-column="4" selection-end-line="289" selection-end-column="13" />
-          <folding>
-            <element signature="e#163#201#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20340">
-          <caret line="1366" column="31" lean-forward="false" selection-start-line="1366" selection-start-column="31" selection-end-line="1366" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/applications/vgg16.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1425">
-          <caret line="106" column="8" lean-forward="false" selection-start-line="106" selection-start-column="8" selection-end-line="106" selection-end-column="38" />
-          <folding>
-            <element signature="e#174#211#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train/vid_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="58" column="34" lean-forward="false" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/training.py" />
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/preprocessing/image.py" />
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/applications/vgg16.py" />
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/callbacks.py" />
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/preprocessing/image.py" />
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/training.py" />
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/applications/vgg16.py" />
+    <entry file="file://$PROJECT_DIR$/train/vid_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/vid_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1189">
+          <caret line="50" column="19" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="710">
+          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1568">
+          <caret line="116" column="60" selection-start-line="116" selection-start-column="60" selection-end-line="116" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>

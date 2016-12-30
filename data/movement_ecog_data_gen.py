@@ -6,7 +6,7 @@ import numpy as np
 import os
 import pdb
 import matplotlib.pyplot as plt
-import pyedflib
+import mne.io
 
 def scoring(truth, predicted):
     plt.plot(np.array(range(len(truth)))/30.0, truth*5, label="truth")
@@ -26,17 +26,25 @@ def scoring(truth, predicted):
 
     return [precision, recall, true/30.0]
 
-def main(mv_file, edf_file, save_dir, vid_start_end, offset):
-    mv_file = pickle.load(open(mv_file))
+def main(mv_file, edf, save_dir, vid_start_end, offset):
     vid_name = os.path.split(mv_file)[-1].split('.')[0]
+    print vid_name
+    mv_file = pickle.load(open(mv_file))
     sbj_id, day, vid_num, _ = vid_name.split('_')
-    edf = pyedflib.EdfReader(edf_file)
-    n_channels = len(edf.getNSamples())
+    #print edf_file
+    #edf = pyedflib.EdfReader(edf_file)
 
     start_sec = (vid_start_end["start"][int(vid_num)] - vid_start_end["start"][0]).total_seconds()
-    end_sec = (vid_start_end["end"][int(vid_num)] - vid_start_end["start"][int(vid_num)]).total_seconds()
-    sig = np.zeros(shape=((end_sec - start_sec) * 1000, n_channels))
-    edf_clip = np.array([edf.readsignal(c, start_sec*1000, end_sec*1000, sig) for c in n_channels])
+    end_sec = (vid_start_end["end"][int(vid_num)] - vid_start_end["start"][0]).total_seconds()
+    #pdb.set_trace()
+#    n_channels = len(edf.ch_names)
+#    edf_clip_len = int(end_sec*1000)-int(start_sec*1000)
+#    edf_clip = np.zeros(shape=(n_channels, edf_clip_len))
+#    for c in xrange(n_channels): 
+#        pdb.set_trace()
+#        edf_clip[c,:] = edf[c][0][0,int(start_sec*1000):int(end_sec*1000)]
+#        print c
+    edf_clip = edf[:,int(start_sec*1000):int(end_sec*1000)]
     left_arm_mvmt = np.sum(mv_file[:,(2,4,6)], axis=1)
     right_arm_mvmt = np.sum(mv_file[:,(1,3,5)], axis=1)
     head_mvmt = mv_file[:,0]
@@ -108,11 +116,18 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--save_dir', required=True, help="Save directory")
     parser.add_argument('-o', '--offset', default=15, type=int, help="how many frames into the future")
     args = parser.parse_args()
-
-    for file in sorted(glob.glob(args.mv_dir + "/*.p")):
+    files = glob.glob(args.mv_dir + "/*.p")
+    sbj_id, day, vid_num, _ = os.path.split(files[0])[-1].split(".")[0].split("_")  
+    ecog_name = os.path.join(args.edf_dir, "%s_%s.edf" %( sbj_id, day))
+    edf = mne.io.read_raw_edf(ecog_name)
+    n_channels = len(edf.ch_names)
+    edf_data = np.zeros(shape=(96, len(edf)))
+    for c in xrange(96):
+        print c
+        edf_data[c,:] = edf[c][0][0,:]
+    for file in sorted(files):
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")
-        ecog_name = os.path.join(args.vid_dir, "%s_%s.edf" %( sbj_id, day))
-        vid_start_end = os.path.join(args.vid_time_dir, "%s_%s.p" % (sbj_id, day))
-        main(file, ecog_name, args.save_dir, vid_start_end, args.offset)
-
+        vid_start_end = pickle.load(open(os.path.join(args.vid_time_dir, "%s_%s.p" % (sbj_id, day))))
+        main(file, edf_data, args.save_dir, vid_start_end, args.offset)
+        

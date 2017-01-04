@@ -44,7 +44,7 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
 #        pdb.set_trace()
 #        edf_clip[c,:] = edf[c][0][0,int(start_sec*1000):int(end_sec*1000)]
 #        print c
-    edf_clip = edf[:,int(start_sec*1000):int(end_sec*1000)]
+    edf_clip = edf[:,int(start_sec*1000):int((end_sec+1)*1000)]
     left_arm_mvmt = np.sum(mv_file[:,(2,4,6)], axis=1)
     right_arm_mvmt = np.sum(mv_file[:,(1,3,5)], axis=1)
     head_mvmt = mv_file[:,0]
@@ -79,9 +79,9 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
     else:
         cur_dir = test_dir
 
-    for f in range(offset+1,len(mv_file), 10):
-        edf_part = edf_clip[:,(f-offset-15)*(1000/30):(f-offset+15)*(1000/30)]
-
+    for f in range(offset+1+15,len(mv_file)-1, 10):
+        edf_part = edf_clip[:,int((f-offset-15)*(1000/30.0)):int((f-offset-15)*(1000/30.0)+500)]
+        
         if np.mean(left_arm_mvmt[f:f+5]>5):
             #cv2.imwrite(os.path.join(cur_dir, "l_arm_1", "%s_%i.png" %(vid_name,f - offset)), img)
             pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_1", "%s_%i.p" % (vid_name, f - offset)), "wb"))
@@ -92,8 +92,8 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
             #cv2.imwrite(os.path.join(cur_dir, "head_1", "%s_%i.png" % (vid_name, f - offset)), img)
             pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_1", "%s_%i.p" % (vid_name, f - offset)), "wb"))
 
-    for f in range(offset+1, len(mv_file), 60):
-        edf_part = edf_clip[:, (f - offset - 15) * (1000 / 30):(f - offset + 15) * (1000 / 30)]
+    for f in range(offset+1+15, len(mv_file)-1, 60):
+        edf_part = edf_clip[:, int((f - offset - 15) * (1000 / 30.0)):int((f - offset - 15) * (1000 / 30.0)+500)]
         flag = 0
 
         if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:

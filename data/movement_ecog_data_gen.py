@@ -80,20 +80,20 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
         cur_dir = test_dir
 
     for f in range(offset+1+15,len(mv_file)-1, 10):
-        edf_part = edf_clip[:,int((f-offset-15)*(1000/30.0)):int((f-offset-15)*(1000/30.0)+500)]
+        edf_part = edf_clip[:,int((f-offset-15)*(1000/30.0)):int((f-offset-15)*(1000/30.0)+1000)]
         
-        if np.mean(left_arm_mvmt[f:f+5]>5):
+        if np.mean(left_arm_mvmt[f:f+5])>2:
             #cv2.imwrite(os.path.join(cur_dir, "l_arm_1", "%s_%i.png" %(vid_name,f - offset)), img)
             pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_1", "%s_%i.p" % (vid_name, f - offset)), "wb"))
-        elif np.mean(right_arm_mvmt[f:f+5]>5):
+        elif np.mean(right_arm_mvmt[f:f+5])>2:
             #cv2.imwrite(os.path.join(cur_dir, "r_arm_1", "%s_%i.png" % (vid_name, f - offset)), img)
             pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_1", "%s_%i.p" % (vid_name, f - offset)), "wb"))
-        elif np.mean(head_mvmt[f:f+5]>3):
+        elif np.mean(head_mvmt[f:f+5])>1:
             #cv2.imwrite(os.path.join(cur_dir, "head_1", "%s_%i.png" % (vid_name, f - offset)), img)
             pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_1", "%s_%i.p" % (vid_name, f - offset)), "wb"))
 
-    for f in range(offset+1+15, len(mv_file)-1, 60):
-        edf_part = edf_clip[:, int((f - offset - 15) * (1000 / 30.0)):int((f - offset - 15) * (1000 / 30.0)+500)]
+    for f in range(offset+1+15, len(mv_file)-1, 20):
+        edf_part = edf_clip[:, int((f - offset - 15) * (1000 / 30.0)):int((f - offset - 15) * (1000 / 30.0)+1000)]
         flag = 0
 
         if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
@@ -102,7 +102,7 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
         if np.all(right_arm_mvmt[f:f + 5] >= 0) and np.mean(right_arm_mvmt[f:f + 5]) < 1:
             #cv2.imwrite(os.path.join(cur_dir, "r_arm_0", "%s_%i.png" % (vid_name, f - offset)), img)
             flag+=1
-        if np.all(head_mvmt[f:f + 5] >= 0) and np.mean(head_mvmt[f:f + 5]) < 1:
+        if np.all(head_mvmt[f:f + 5] >= 0) and np.mean(head_mvmt[f:f + 5]) < 0.5:
             #cv2.imwrite(os.path.join(cur_dir, "head_0", "%s_%i.png" % (vid_name, f - offset)), img)
             flag+=1
         if flag==3:

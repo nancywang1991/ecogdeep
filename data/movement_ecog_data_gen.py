@@ -115,16 +115,31 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--vid_time_dir', required=True, help="video start and end time directory")
     parser.add_argument('-s', '--save_dir', required=True, help="Save directory")
     parser.add_argument('-o', '--offset', default=15, type=int, help="how many frames into the future")
+    parser.add_argument('-n', '--norm_factors_file', help="optional normalization mean and stdev")
     args = parser.parse_args()
     files = glob.glob(args.mv_dir + "/*.p")
-    sbj_id, day, vid_num, _ = os.path.split(files[0])[-1].split(".")[0].split("_")  
+    sbj_id, day, vid_num, _ = os.path.split(files[0])[-1].split(".")[0].split("_")
     ecog_name = os.path.join(args.edf_dir, "%s_%s.edf" %( sbj_id, day))
     edf = mne.io.read_raw_edf(ecog_name)
     n_channels = len(edf.ch_names)
-    edf_data = np.zeros(shape=(96, len(edf)))
-    for c in xrange(96):
+    edf_data = np.zeros(shape=(n_channels, len(edf)))
+    if args.norm_factors_file is None:
+        norm_factors = np.zeros(shape=(n_channels,2))
+    else:
+        norm_factors = pickle.load(open(args.norm_factors_file))
+
+    for c in range(1,65):
+        temp_data = edf[c][0][0,:]
+        if args.norm_factors_file is None:
+            norm_factors[c,0] = np.mean(temp_data)
+            norm_factors[c,1] = np.std(temp_data)
+        edf_data[c, :] = (temp_data - norm_factors[c, 0])/norm_factors[c, 1]
+    if args.norm_factors_file is None:
+        pickle.dump(norm_factors, open("%s/%s_%s_norm_factors.p", "wb"))
+    for c in range(1,65):
         print c
-        edf_data[c,:] = edf[c][0][0,:]
+        edf_data[c,:] = (edf[c][0][0,:]-norm_factors[c,0])/norm_factors[c,1]
+
     for file in sorted(files):
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")

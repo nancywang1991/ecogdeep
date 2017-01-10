@@ -136,24 +136,26 @@ if __name__ == "__main__":
     sbj_id, day, vid_num, _ = os.path.split(files[0])[-1].split(".")[0].split("_")
     ecog_name = os.path.join(args.edf_dir, "%s_%s.edf" %( sbj_id, day))
     edf = mne.io.read_raw_edf(ecog_name)
-    n_channels = len(edf.ch_names)
+    n_channels = 64
     edf_data = np.zeros(shape=(n_channels, len(edf)))
     if args.norm_factors_file is None:
         norm_factors = np.zeros(shape=(n_channels,2))
     else:
         norm_factors = pickle.load(open(args.norm_factors_file))
 
-    for c in range(1,65):
-        temp_data = edf[c][0][0,:]
-        if args.norm_factors_file is None:
-            norm_factors[c,0] = np.mean(temp_data)
-            norm_factors[c,1] = np.std(temp_data)
-        edf_data[c, :] = (temp_data - norm_factors[c, 0])/norm_factors[c, 1]
     if args.norm_factors_file is None:
+        for c in range(1,65):
+            print c
+            temp_data = edf[c][0][0,:]
+            if args.norm_factors_file is None:
+                norm_factors[c,0] = np.mean(temp_data)
+                norm_factors[c,1] = np.std(temp_data)
+            edf_data[c, :] = (temp_data - norm_factors[c, 0])/norm_factors[c, 1]
         pickle.dump(norm_factors, open("%s/%s_%s_norm_factors.p", "wb"))
-    for c in range(1,65):
-        print c
-        edf_data[c,:] = (edf[c][0][0,:]-norm_factors[c,0])/norm_factors[c,1]
+    else:
+        for c in range(1,65):
+            print c
+            edf_data[c,:] = (edf[c][0][0,:]-norm_factors[c,0])/norm_factors[c,1]
 
     for file in sorted(files):
         #pdb.set_trace()

@@ -7,6 +7,7 @@ import os
 import pdb
 import matplotlib.pyplot as plt
 import mne.io
+import gc
 
 def scoring(truth, predicted):
     plt.plot(np.array(range(len(truth)))/30.0, truth*5, label="truth")
@@ -162,6 +163,8 @@ if __name__ == "__main__":
         vid_start_end = pickle.load(open(os.path.join(args.vid_time_dir, "%s_%s.p" % (sbj_id, day))))
         main(file, edf_data, args.save_dir, vid_start_end, args.offset)
 
+    edf_data = []
+    gc.collect()
     edf_data = np.zeros(shape=(n_channels, len(edf)))
 
     for c in range(64):

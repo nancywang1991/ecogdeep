@@ -101,7 +101,7 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
         if np.mean(head_mvmt[f:f+5])>1:
             flag = 1
             #cv2.imwrite(os.path.join(cur_dir, "head_1", "%s_%i.png" % (vid_name, f - offset)), img)
-            pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_1", "%s_%i.p" % (vid_name, f - offset)), "wb"))
+            #pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_1", "%s_%i.p" % (vid_name, f - offset)), "wb"))
         if flag:
             save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f - offset))
             edf_part = edf_clip[:,(int((f-offset-15)*(1000/30.0))-100):(int((f-offset-15)*(1000/30.0)+1100))]

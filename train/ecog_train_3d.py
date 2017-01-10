@@ -1,6 +1,6 @@
 import keras
 from keras.applications.vgg16 import VGG16
-from keras.preprocessing.ecog import EcogDataGenerator
+from keras.preprocessing.ecog3D import Ecog3DDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model

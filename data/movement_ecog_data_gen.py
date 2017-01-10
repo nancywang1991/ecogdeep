@@ -145,21 +145,31 @@ if __name__ == "__main__":
 
     if args.norm_factors_file is None:
         for c in range(1,65):
-            print c
+            print "normalization:%i" % c
             temp_data = edf[c][0][0,:]
             if args.norm_factors_file is None:
                 norm_factors[c,0] = np.mean(temp_data)
                 norm_factors[c,1] = np.std(temp_data)
-            edf_data[c, :] = (temp_data - norm_factors[c, 0])/norm_factors[c, 1]
         pickle.dump(norm_factors, open("%s/%s_%s_norm_factors.p", "wb"))
-    else:
-        for c in range(1,65):
-            print c
-            edf_data[c,:] = (edf[c][0][0,:]-norm_factors[c,0])/norm_factors[c,1]
 
-    for file in sorted(files):
+    for c in range(1,65):
+        print "edf_data_part1:%i" % c
+        edf_data[c,:int(0.6*len(edf))] = (edf[c][0][0,:int(0.6*len(edf))]-norm_factors[c,0])/norm_factors[c,1]
+
+    for file in sorted(files)[:len(files)/2]:
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")
         vid_start_end = pickle.load(open(os.path.join(args.vid_time_dir, "%s_%s.p" % (sbj_id, day))))
         main(file, edf_data, args.save_dir, vid_start_end, args.offset)
-        
+
+    edf_data = np.zeros(shape=(n_channels, len(edf)))
+
+    for c in range(1,65):
+        print "edf_data_part2:%i" % c
+        edf_data[c,int(0.5*len(edf)):] = (edf[c][0][0,int(0.5*len(edf)):]-norm_factors[c,0])/norm_factors[c,1]
+
+    for file in sorted(files)[len(files)/2:]:
+        #pdb.set_trace()
+        sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")
+        vid_start_end = pickle.load(open(os.path.join(args.vid_time_dir, "%s_%s.p" % (sbj_id, day))))
+        main(file, edf_data, args.save_dir, vid_start_end, args.offset)

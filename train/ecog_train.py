@@ -14,17 +14,17 @@ test_datagen = EcogDataGenerator()
 
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
-        '/home/wangnxr/Documents/dataset/ecog/cb46fd46_5/train_small/',
+        '/home/nancy/Documents/ecog_dataset/d6532718/train/',
         batch_size=24,
-        target_size=(96,1000),
+        target_size=(64,1200),
         class_mode='binary')
-
+pdb.set_trace()
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/wangnxr/Documents/dataset/ecog/cb46fd46_5/train_small/',
+        '/home/nancy/Documents/ecog_dataset/d6532718/test/',
         batch_size=24,
         shuffle=False,
-        target_size=(96,1000),
+        target_size=(64,1000),
         class_mode='binary')
 
 #train_datagen.fit_generator(dgdx, nb_iter=100)

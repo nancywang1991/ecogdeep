@@ -150,7 +150,7 @@ if __name__ == "__main__":
             if args.norm_factors_file is None:
                 norm_factors[c,0] = np.mean(temp_data)
                 norm_factors[c,1] = np.std(temp_data)
-        pickle.dump(norm_factors, open("%s/%s_%s_norm_factors.p", "wb"))
+        pickle.dump(norm_factors, open("%s/%s_%s_norm_factors.p" % (args.save_dir, sbj_id, day), "wb"))
 
     for c in range(64):
         print "edf_data_part1:%i" % (c+1)

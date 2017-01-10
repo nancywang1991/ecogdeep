@@ -40,24 +40,27 @@ input_tensor=Input(shape=(96,1000,1))
 
 # Block 1
 x = MaxPooling2D((1,5),  name='pre_pool')(input_tensor)
-x = Convolution2D(32, 1, 10, activation='relu', border_mode='same', name='block1_conv1')(x)
-x = MaxPooling2D((1,2),  name='block1_pool')(x)
+#x = Convolution2D(32, 1, 10, activation='relu', border_mode='same', name='block1_conv1')(x)
+
+#x = Convolution2D(32, 1, 10, activation='relu', border_mode='same', name='block1_conv2')(x)
+#x = MaxPooling2D((1,2),  name='block1_pool')(x)
 
 # Block 2
-x = Convolution2D(64, 1, 10, activation='relu', border_mode='same', name='block2_conv1')(x)
-x = MaxPooling2D((1,2),  name='block2_pool')(x)
+#x = Convolution2D(64, 1, 10, activation='relu', border_mode='same', name='block2_conv1')(x)
+#x = Convolution2D(64, 1, 10, activation='relu', border_mode='same', name='block2_conv2')(x)
+#x = MaxPooling2D((1,2),  name='block2_pool')(x)
 
 # Block 3
-x = Convolution2D(128, 1, 10, activation='relu', border_mode='same', name='block3_conv1')(x)
+#x = Convolution2D(128, 1, 10, activation='relu', border_mode='same', name='block3_conv1')(x)
 #x = Convolution2D(128, 1, 10, activation='relu', border_mode='same', name='block3_conv2')(x)
 #x = Convolution2D(128, 1, 10, activation='relu', border_mode='same', name='block3_conv3')(x)
-x = MaxPooling2D((1,2),  name='block3_pool')(x)
+#x = MaxPooling2D((1,2),  name='block3_pool')(x)
 
 # Block 4
-x = Convolution2D(256, 1, 10, activation='relu', border_mode='same', name='block4_conv1')(x)
+#x = Convolution2D(256, 1, 10, activation='relu', border_mode='same', name='block4_conv1')(x)
 #x = Convolution2D(256, 1, 10, activation='relu', border_mode='same', name='block4_conv2')(x)
 #x = Convolution2D(256, 1, 10, activation='relu', border_mode='same', name='block4_conv3')(x)
-x = MaxPooling2D((1,2), name='block4_pool')(x)
+#x = MaxPooling2D((1,2), name='block4_pool')(x)
 
 
 x = Flatten(name='flatten')(x)
@@ -69,7 +72,7 @@ x = Dense(256, name='fc2')(x)
 #x = BatchNormalization()(x)
 x = Activation('relu')(x)
 #x = Dropout(0.5)(x)
-#x = Dense(1, name='predictions')(x)
+x = Dense(1, name='predictions')(x)
 #x = BatchNormalization()(x)
 predictions = Activation('sigmoid')(x)
 
@@ -87,7 +90,7 @@ model.compile(optimizer=sgd,
 history_callback = model.fit_generator(
         train_generator,
         samples_per_epoch=48,
-        nb_epoch=100,
+        nb_epoch=50,
         validation_data=validation_generator,
         nb_val_samples=48)
 #pdb.set_trace()

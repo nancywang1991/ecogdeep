@@ -26,6 +26,14 @@ def scoring(truth, predicted):
 
     return [precision, recall, true/30.0]
 
+def write_edf_part(edf_part, filename_root, randomize=False):
+    if randomize:
+        for i in xrange(100):
+            time_shift = np.random.randint(0,100)
+            noise_shift = np.random.normal(0, 0.1, size=(edf_part.shape))
+            pickle.dump((edf_part+noise_shift)[time_shift:(1000+time_shift)], open(filename_root + "_%03i.p" % i, "wb"))
+    else:
+        pickle.dump(edf_part[100:-100], open(filename_root + ".p", "wb"))
 def main(mv_file, edf, save_dir, vid_start_end, offset):
     vid_name = os.path.split(mv_file)[-1].split('.')[0]
     print vid_name
@@ -76,24 +84,29 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
         os.makedirs(os.path.join(test_dir,"mv_0"))
     if np.random.randint(100) < 75:
         cur_dir = train_dir
+        randomize=True
     else:
         cur_dir = test_dir
+        randomize=False
 
     for f in range(offset+1+15,len(mv_file)-1, 10):
+        flag = 0
         edf_part = edf_clip[:,int((f-offset-15)*(1000/30.0)):int((f-offset-15)*(1000/30.0)+1000)]
         
         if np.mean(left_arm_mvmt[f:f+5])>2:
             #cv2.imwrite(os.path.join(cur_dir, "l_arm_1", "%s_%i.png" %(vid_name,f - offset)), img)
-            pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_1", "%s_%i.p" % (vid_name, f - offset)), "wb"))
-        elif np.mean(right_arm_mvmt[f:f+5])>2:
-            #cv2.imwrite(os.path.join(cur_dir, "r_arm_1", "%s_%i.png" % (vid_name, f - offset)), img)
-            pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_1", "%s_%i.p" % (vid_name, f - offset)), "wb"))
-        elif np.mean(head_mvmt[f:f+5])>1:
+            flag = 1
+        if np.mean(right_arm_mvmt[f:f+5])>2:
+            flag = 1
+        if np.mean(head_mvmt[f:f+5])>1:
+            flag = 1
             #cv2.imwrite(os.path.join(cur_dir, "head_1", "%s_%i.png" % (vid_name, f - offset)), img)
             pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_1", "%s_%i.p" % (vid_name, f - offset)), "wb"))
-
+        if flag:
+            save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f - offset))
+            edf_part = edf_clip[:,(int((f-offset-15)*(1000/30.0))-100):(int((f-offset-15)*(1000/30.0)+1100))]
+            write_edf_part(edf_part, save_filename, randomize=randomize)
     for f in range(offset+1+15, len(mv_file)-1, 20):
-        edf_part = edf_clip[:, int((f - offset - 15) * (1000 / 30.0)):int((f - offset - 15) * (1000 / 30.0)+1000)]
         flag = 0
 
         if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
@@ -106,7 +119,9 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
             #cv2.imwrite(os.path.join(cur_dir, "head_0", "%s_%i.png" % (vid_name, f - offset)), img)
             flag+=1
         if flag==3:
-            pickle.dump(edf_part, open(os.path.join(cur_dir, "mv_0", "%s_%i.p" % (vid_name, f - offset)), "wb"))
+            save_filename = os.path.join(cur_dir, "mv_0", "%s_%i" % (vid_name, f - offset))
+            edf_part = edf_clip[:,(int((f - offset - 15) * (1000 / 30.0)) - 100):(int((f - offset - 15) * (1000 / 30.0) + 1100))]
+            write_edf_part(edf_part, save_filename, randomize=randomize)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -164,9 +164,9 @@ if __name__ == "__main__":
 
     edf_data = np.zeros(shape=(n_channels, len(edf)))
 
-    for c in range(1,65):
-        print "edf_data_part2:%i" % c
-        edf_data[c,int(0.5*len(edf)):] = (edf[c][0][0,int(0.5*len(edf)):]-norm_factors[c,0])/norm_factors[c,1]
+    for c in range(64):
+        print "edf_data_part2:%i" % (c+1)
+        edf_data[c,int(0.5*len(edf)):] = (edf[c+1][0][0,int(0.5*len(edf)):]-norm_factors[c,0])/norm_factors[c,1]
 
     for file in sorted(files)[len(files)/2:]:
         #pdb.set_trace()

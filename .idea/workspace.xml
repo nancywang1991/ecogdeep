@@ -45,7 +45,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ecog_train_3d.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ecog_train_3d.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_train_3d.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3036">
@@ -69,11 +69,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="movement_ecog_data_gen.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="movement_ecog_data_gen.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="823">
-              <caret line="170" column="43" selection-start-line="170" selection-start-column="43" selection-end-line="170" selection-end-column="43" />
+            <state relative-caret-position="545">
+              <caret line="147" column="42" selection-start-line="147" selection-start-column="42" selection-end-line="147" selection-end-column="42" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -124,8 +124,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-283" />
-    <option name="y" value="86" />
+    <option name="x" value="4" />
+    <option name="y" value="297" />
     <option name="width" value="3856" />
     <option name="height" value="2092" />
   </component>
@@ -414,11 +414,18 @@
       <option name="project" value="LOCAL" />
       <updated>1484010371313</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="adjusted data gen memory needs&#10;">
+      <created>1484011188094</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1484011188094</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-283" y="86" width="3856" height="2092" extended-state="0" />
+    <frame x="4" y="297" width="3856" height="2092" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22437239" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -456,7 +463,8 @@
     <MESSAGE value="added ecog training" />
     <MESSAGE value="changed ecog data gen" />
     <MESSAGE value="added randomization to ecog data generation" />
-    <option name="LAST_COMMIT_MESSAGE" value="added randomization to ecog data generation" />
+    <MESSAGE value="adjusted data gen memory needs&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="adjusted data gen memory needs&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -540,16 +548,6 @@
     <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/preprocessing/image.py" />
     <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/engine/training.py" />
     <entry file="file:///usr/local/lib/python2.7/dist-packages/keras/applications/vgg16.py" />
-    <entry file="file://$PROJECT_DIR$/train/vid_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train/vid_train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1067">
@@ -570,6 +568,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_train_3d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3036">
+          <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -580,22 +588,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
+    <entry file="file://$PROJECT_DIR$/train/vid_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="823">
-          <caret line="170" column="43" selection-start-line="170" selection-start-column="43" selection-end-line="170" selection-end-column="43" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_train_3d.py">
+    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3036">
-          <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+        <state relative-caret-position="545">
+          <caret line="147" column="42" selection-start-line="147" selection-start-column="42" selection-end-line="147" selection-end-column="42" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>

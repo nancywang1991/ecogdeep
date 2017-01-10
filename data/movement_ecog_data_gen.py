@@ -145,7 +145,7 @@ if __name__ == "__main__":
 
     if args.norm_factors_file is None:
         for c in range(64):
-            print "normalization:%i" % c+1
+            print "normalization:%i" % (c+1)
             temp_data = edf[c+1][0][0,:]
             if args.norm_factors_file is None:
                 norm_factors[c,0] = np.mean(temp_data)
@@ -153,7 +153,7 @@ if __name__ == "__main__":
         pickle.dump(norm_factors, open("%s/%s_%s_norm_factors.p", "wb"))
 
     for c in range(64):
-        print "edf_data_part1:%i" % c+1
+        print "edf_data_part1:%i" % (c+1)
         edf_data[c,:int(0.6*len(edf))] = (edf[c+1][0][0,:int(0.6*len(edf))]-norm_factors[c,0])/norm_factors[c,1]
 
     for file in sorted(files)[:len(files)/2]:

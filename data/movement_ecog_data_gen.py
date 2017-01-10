@@ -32,9 +32,9 @@ def write_edf_part(edf_part, filename_root, randomize=False):
         for i in xrange(100):
             time_shift = np.random.randint(0,100)
             noise_shift = np.random.normal(0, 0.1, size=(edf_part.shape))
-            np.save(filename_root + "_%03i.npy" % i,(edf_part+noise_shift)[:,time_shift:(1000+time_shift)])
+            np.savez_compressed(filename_root + "_%03i.npz" % i,(edf_part+noise_shift)[:,time_shift:(1000+time_shift)])
     else:
-        np.save(filename_root + ".npy", edf_part[:,100:-100])
+        np.savez_compressed(filename_root + ".npz", edf_part[:,100:-100])
 def main(mv_file, edf, save_dir, vid_start_end, offset):
     vid_name = os.path.split(mv_file)[-1].split('.')[0]
     print vid_name

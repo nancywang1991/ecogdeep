@@ -72,8 +72,8 @@
       <file leaf-file-name="movement_ecog_data_gen.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+            <state relative-caret-position="875">
+              <caret line="36" column="49" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -470,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1484020101675</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="adjusted data gen memory needs&#10;">
+      <created>1484021478852</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1484021478852</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -649,8 +656,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+        <state relative-caret-position="875">
+          <caret line="36" column="49" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

@@ -34,8 +34,23 @@ model = load_model("ecog_model_1d.h5")
 #pdb.set_trace()
 files = validation_generator.filenames
 results = model.predict_generator(validation_generator, validation_generator.nb_sample)
+true = validation_generator
+true_0 = 0
+true_1 = 0
+
+for r, result in enumerate(results):
+    if true[r]== 0 and result<0.5:
+        true_0+=1
+    if true[r]== 1 and result>=0.5:
+        true_1+=1
+
+recall = true_1/float(len(np.where(true==1)[0]))
+precision = true_1/float((true_1 + (len(np.where(true==0)[0])-true_0)))
+
 
 with open("ecog_1d_results.txt", "wb") as writer:
+        writer.write("recall:%f\n" % recall)
+        writer.write("precision:%f\n" % precision)
         for f, file in enumerate(files):
                 writer.write("%s:%f\n" % (file, results[f][0]))
 

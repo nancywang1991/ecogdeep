@@ -48,8 +48,8 @@
       <file leaf-file-name="ecog_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="973">
-              <caret line="39" column="37" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
+            <state relative-caret-position="977">
+              <caret line="52" column="49" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -492,6 +492,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="" />
@@ -710,7 +713,14 @@
       <option name="project" value="LOCAL" />
       <updated>1484162551693</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="ecog test">
+      <created>1484162859325</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1484162859325</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -896,8 +906,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="973">
-          <caret line="39" column="37" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
+        <state relative-caret-position="977">
+          <caret line="52" column="49" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

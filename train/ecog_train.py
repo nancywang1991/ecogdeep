@@ -24,7 +24,6 @@ dgdx = train_datagen.flow_from_directory(
         batch_size=24,
         target_size=(64,1000),
         class_mode='binary')
-pdb.set_trace()
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
         '/home/nancy/Documents/ecog_dataset/d6532718/test/',
@@ -42,7 +41,7 @@ validation_generator=dgdx_val
 #base_model = VGG16(input_tensor=(Input(shape=(224, 224, 3))), include_top=False)
 
 # Determine proper input shape
-input_tensor=Input(shape=(96,1000,1))
+input_tensor=Input(shape=(64,1000,1))
 
 # Block 1
 x = MaxPooling2D((1,5),  name='pre_pool')(input_tensor)

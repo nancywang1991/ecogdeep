@@ -45,8 +45,8 @@ input_tensor=Input(shape=(64,1000,1))
 
 # Block 1
 x = MaxPooling2D((1,5),  name='pre_pool')(input_tensor)
-x = Convolution2D(32, 1, 10, activation='relu', border_mode='same', name='block1_conv1')(x)
-x = MaxPooling2D((1,2),  name='block1_pool')(x)
+x = Convolution2D(16, 1, 10, activation='relu', border_mode='same', name='block1_conv1')(x)
+x = MaxPooling2D((1,3),  name='block1_pool')(x)
 
 # Block 2
 x = Convolution2D(64, 1, 10, activation='relu', border_mode='same', name='block2_conv1')(x)

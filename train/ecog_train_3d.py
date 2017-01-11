@@ -55,19 +55,19 @@ x = MaxPooling3D((1,1,2),  name='block1_pool')(x)
 # Block 2
 x = Convolution3D(64, 2, 2, 5, activation='relu', border_mode='same', name='block2_conv1')(x)
 #x = Convolution2D(64, 1, 10, activation='relu', border_mode='same', name='block2_conv2')(x)
-x = MaxPooling3D((2,2,5),  name='block2_pool')(x)
+x = MaxPooling3D((2,2,2),  name='block2_pool')(x)
 
 # Block 3
 x = Convolution3D(128, 2,2, 5, activation='relu', border_mode='same', name='block3_conv1')(x)
 #x = Convolution2D(128, 1, 10, activation='relu', border_mode='same', name='block3_conv2')(x)
 #x = Convolution2D(128, 1, 10, activation='relu', border_mode='same', name='block3_conv3')(x)
-x = MaxPooling3D((2,2,5),  name='block3_pool')(x)
+x = MaxPooling3D((2,2,2),  name='block3_pool')(x)
 
 # Block 4
 x = Convolution3D(256, 2, 2, 5, activation='relu', border_mode='same', name='block4_conv1')(x)
 #x = Convolution2D(256, 1, 10, activation='relu', border_mode='same', name='block4_conv2')(x)
 #x = Convolution2D(256, 1, 10, activation='relu', border_mode='same', name='block4_conv3')(x)
-x = MaxPooling3D((2,2,5), name='block4_pool')(x)
+x = MaxPooling3D((2,2,2), name='block4_pool')(x)
 
 
 x = Flatten(name='flatten')(x)

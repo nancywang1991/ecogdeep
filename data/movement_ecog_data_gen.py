@@ -102,7 +102,8 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
         if flag:
             save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f - offset))
             edf_part = edf_clip[:,(int((f-offset-15)*(1000/30.0))-100):(int((f-offset-15)*(1000/30.0)+1100))]
-            write_edf_part(edf_part, save_filename, randomize=randomize)
+            if edf_part.shape[1]==1200:
+                write_edf_part(edf_part, save_filename, randomize=randomize)
     for f in range(offset+1+15, len(mv_file)-1, 20):
         flag = 0
 
@@ -118,7 +119,8 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
         if flag==3:
             save_filename = os.path.join(cur_dir, "mv_0", "%s_%i" % (vid_name, f - offset))
             edf_part = edf_clip[:,(int((f - offset - 15) * (1000 / 30.0)) - 100):(int((f - offset - 15) * (1000 / 30.0) + 1100))]
-            write_edf_part(edf_part, save_filename, randomize=randomize)
+            if edf_part.shape[1]==1200:
+                write_edf_part(edf_part, save_filename, randomize=randomize)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

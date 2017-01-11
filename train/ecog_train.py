@@ -67,15 +67,15 @@ x = MaxPooling2D((1,2), name='block4_pool')(x)
 
 x = Flatten(name='flatten')(x)
 x = Dense(1024,  name='fc1')(x)
-#x = BatchNormalization()(x)
+x = BatchNormalization()(x)
 x = Activation('relu')(x)
 #x = Dropout(0.5)(x)
 x = Dense(256, name='fc2')(x)
-#x = BatchNormalization()(x)
+x = BatchNormalization()(x)
 x = Activation('relu')(x)
 #x = Dropout(0.5)(x)
-#x = Dense(1, name='predictions')(x)
-#x = BatchNormalization()(x)
+x = Dense(1, name='predictions')(x)
+x = BatchNormalization()(x)
 predictions = Activation('sigmoid')(x)
 
 #for layer in base_model.layers[:10]:
@@ -91,10 +91,10 @@ model.compile(optimizer=sgd,
 
 history_callback = model.fit_generator(
         train_generator,
-        samples_per_epoch=48,
+        samples_per_epoch=30000,
         nb_epoch=100,
         validation_data=validation_generator,
-        nb_val_samples=48)
+        nb_val_samples=3000)
 #pdb.set_trace()
 #loss_history = history_callback.history["loss"]
 #numpy_loss_history = np.array(loss_history)

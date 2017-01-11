@@ -8,23 +8,30 @@ from keras.layers import Convolution3D, MaxPooling3D
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
 import pdb
-train_datagen = EcogData3DGenerator()
+train_datagen = Ecog3DDataGenerator(
+        time_shift_range=200,
+        gaussian_noise_range=0.01,
+        center=False
+)
 
-test_datagen = EcogData3DGenerator()
+test_datagen = Ecog3DDataGenerator(
+        center=True
+)
+
 
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
-        '/home/wangnxr/Documents/dataset/ecog/cb46fd46_5/train_small/',
+        '/home/nancy/Documents/ecog_dataset/d6532718/train/',
         batch_size=24,
-        target_size=(8,8,1000),
+        target_size=(8,8,1000,1),
         class_mode='binary')
 
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/wangnxr/Documents/dataset/ecog/cb46fd46_5/train_small/',
+        '/home/nancy/Documents/ecog_dataset/d6532718/test/',
         batch_size=24,
         shuffle=False,
-        target_size=(8,8,1000),
+        target_size=(8,8,1000,1),
         class_mode='binary')
 
 #train_datagen.fit_generator(dgdx, nb_iter=100)
@@ -89,10 +96,10 @@ model.compile(optimizer=sgd,
 
 history_callback = model.fit_generator(
         train_generator,
-        samples_per_epoch=48,
+        samples_per_epoch=30000,
         nb_epoch=100,
         validation_data=validation_generator,
-        nb_val_samples=48)
+        nb_val_samples=3000)
 #pdb.set_trace()
 #loss_history = history_callback.history["loss"]
 #numpy_loss_history = np.array(loss_history)

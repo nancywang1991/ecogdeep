@@ -31,6 +31,7 @@ validation_generator=dgdx_val
 
 
 model = load_model("ecog_model_1d.h5")
+pdb.set_trace()
 files = validation_generator.files
 results = model.predict_generator(validation_generator, validation_generator.nb_samples)
 
@@ -38,7 +39,7 @@ with open("ecog_1d_results.txt") as writer:
         for f, file in enumerate(results):
                 writer.write("%s:%f" % (file, results[f]))
 
-                
+
 
 
 

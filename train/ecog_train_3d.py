@@ -96,10 +96,10 @@ model.compile(optimizer=sgd,
 
 history_callback = model.fit_generator(
         train_generator,
-        samples_per_epoch=30000,
+        samples_per_epoch=24000,
         nb_epoch=100,
         validation_data=validation_generator,
-        nb_val_samples=3000)
+        nb_val_samples=2400)
 #pdb.set_trace()
 #loss_history = history_callback.history["loss"]
 #numpy_loss_history = np.array(loss_history)

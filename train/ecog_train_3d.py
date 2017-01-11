@@ -87,7 +87,7 @@ predictions = Activation('sigmoid')(x)
 #    layer.trainable = False
 
 model = Model(input=input_tensor, output=predictions)
-#pdb.set_trace()
+pdb.set_trace()
 sgd = keras.optimizers.SGD(lr=0.01)
 
 model.compile(optimizer=sgd,

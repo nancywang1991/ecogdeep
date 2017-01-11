@@ -10,7 +10,7 @@ import numpy as np
 import pdb
 train_datagen = EcogDataGenerator(
         time_shift_range=200,
-        gaussian_noise_range=0.01,
+        gaussian_noise_range=0.001,
         center=False
 )
 

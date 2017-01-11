@@ -31,7 +31,6 @@ dgdx_val = test_datagen.flow_from_directory(
         batch_size=24,
         shuffle=False,
         target_size=(64,1000),
-        center=True,
         class_mode='binary')
 
 #train_datagen.fit_generator(dgdx, nb_iter=100)

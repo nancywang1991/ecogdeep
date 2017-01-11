@@ -22,14 +22,14 @@ dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
         '/home/nancy/Documents/ecog_dataset/d6532718/train/',
         batch_size=24,
-        target_size=(64,1000),
+        target_size=(64,1000,1),
         class_mode='binary')
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
         '/home/nancy/Documents/ecog_dataset/d6532718/test/',
         batch_size=24,
         shuffle=False,
-        target_size=(64,1000),
+        target_size=(64,1000,1),
         class_mode='binary')
 
 #train_datagen.fit_generator(dgdx, nb_iter=100)

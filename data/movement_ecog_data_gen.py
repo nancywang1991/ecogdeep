@@ -89,7 +89,6 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
 
     for f in range(offset+1+15,len(mv_file)-1, 10):
         flag = 0
-        edf_part = edf_clip[:,int((f-offset-15)*(1000/30.0)):int((f-offset-15)*(1000/30.0)+1000)]
         
         if np.mean(left_arm_mvmt[f:f+5])>2:
             #cv2.imwrite(os.path.join(cur_dir, "l_arm_1", "%s_%i.png" %(vid_name,f - offset)), img)

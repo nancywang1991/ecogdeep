@@ -8,15 +8,21 @@ from keras.layers import Convolution2D, MaxPooling2D
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
 import pdb
-train_datagen = EcogDataGenerator()
+train_datagen = EcogDataGenerator(
+        time_shift_range=200,
+        gaussian_noise_range=0.01,
+        center=False
+)
 
-test_datagen = EcogDataGenerator()
+test_datagen = EcogDataGenerator(
+        center=True
+)
 
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
         '/home/nancy/Documents/ecog_dataset/d6532718/train/',
         batch_size=24,
-        target_size=(64,1200),
+        target_size=(64,1000),
         class_mode='binary')
 pdb.set_trace()
 dgdx_val = test_datagen.flow_from_directory(
@@ -25,6 +31,7 @@ dgdx_val = test_datagen.flow_from_directory(
         batch_size=24,
         shuffle=False,
         target_size=(64,1000),
+        center=True,
         class_mode='binary')
 
 #train_datagen.fit_generator(dgdx, nb_iter=100)

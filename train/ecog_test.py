@@ -37,7 +37,7 @@ results = model.predict_generator(validation_generator, validation_generator.nb_
 
 with open("ecog_1d_results.txt", "wb") as writer:
         for f, file in enumerate(files):
-                writer.write("%s:%f" % (file, results[f][0]))
+                writer.write("%s:%f\n" % (file, results[f][0]))
 
 
 

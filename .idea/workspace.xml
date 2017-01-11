@@ -48,8 +48,8 @@
       <file leaf-file-name="ecog_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="775">
-              <caret line="33" column="1" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
+            <state relative-caret-position="940">
+              <caret line="38" column="42" selection-start-line="38" selection-start-column="42" selection-end-line="38" selection-end-column="42" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -61,7 +61,7 @@
         <entry file="file://$PROJECT_DIR$/train/ecog_train_3d.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2031">
-              <caret line="101" column="25" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
+              <caret line="100" column="25" selection-start-line="100" selection-start-column="25" selection-end-line="100" selection-end-column="25" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -135,8 +135,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="309" />
-    <option name="y" value="116" />
+    <option name="x" value="1129" />
+    <option name="y" value="149" />
     <option name="width" value="2696" />
     <option name="height" value="2074" />
   </component>
@@ -689,11 +689,18 @@
       <option name="project" value="LOCAL" />
       <updated>1484162333164</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="ecog test">
+      <created>1484162449138</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1484162449138</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="309" y="116" width="2696" height="2074" extended-state="0" />
+    <frame x="1129" y="149" width="2696" height="2074" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32207206" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -848,7 +855,7 @@
     <entry file="file://$PROJECT_DIR$/train/ecog_train_3d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2031">
-          <caret line="101" column="25" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
+          <caret line="100" column="25" selection-start-line="100" selection-start-column="25" selection-end-line="100" selection-end-column="25" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -875,8 +882,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="33" column="1" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
+        <state relative-caret-position="940">
+          <caret line="38" column="42" selection-start-line="38" selection-start-column="42" selection-end-line="38" selection-end-column="42" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

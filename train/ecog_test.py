@@ -31,11 +31,11 @@ validation_generator=dgdx_val
 
 
 model = load_model("ecog_model_1d.h5")
-pdb.set_trace()
+#pdb.set_trace()
 files = validation_generator.filenames
 results = model.predict_generator(validation_generator, validation_generator.nb_sample)
 
-with open("ecog_1d_results.txt") as writer:
+with open("ecog_1d_results.txt", "wb") as writer:
         for f, file in enumerate(results):
                 writer.write("%s:%f" % (file, results[f][0]))
 

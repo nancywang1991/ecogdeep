@@ -48,8 +48,8 @@
       <file leaf-file-name="ecog_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="977">
-              <caret line="52" column="49" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
+            <state relative-caret-position="449">
+              <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -135,8 +135,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1129" />
-    <option name="y" value="149" />
+    <option name="x" value="1376" />
+    <option name="y" value="136" />
     <option name="width" value="2696" />
     <option name="height" value="2074" />
   </component>
@@ -720,11 +720,18 @@
       <option name="project" value="LOCAL" />
       <updated>1484162859325</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="added recall precision&#10;">
+      <created>1484163503909</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1484163503909</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1129" y="149" width="2696" height="2074" extended-state="0" />
+    <frame x="1376" y="136" width="2696" height="2074" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32207206" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -764,7 +771,8 @@
     <MESSAGE value="added randomization to ecog data generation" />
     <MESSAGE value="adjusted data gen memory needs&#10;" />
     <MESSAGE value="ecog test" />
-    <option name="LAST_COMMIT_MESSAGE" value="ecog test" />
+    <MESSAGE value="added recall precision&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="added recall precision&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -906,8 +914,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="977">
-          <caret line="52" column="49" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
+        <state relative-caret-position="449">
+          <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

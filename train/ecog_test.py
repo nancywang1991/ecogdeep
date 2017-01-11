@@ -34,7 +34,7 @@ model = load_model("ecog_model_1d.h5")
 #pdb.set_trace()
 files = validation_generator.filenames
 results = model.predict_generator(validation_generator, validation_generator.nb_sample)
-true = validation_generator
+true = validation_generator.classes
 true_0 = 0
 true_1 = 0
 

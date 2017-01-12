@@ -8,6 +8,7 @@ from keras.layers import Convolution2D, MaxPooling2D
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
 import pdb
+import pickle
 train_datagen = EcogDataGenerator(
         time_shift_range=200,
         gaussian_noise_range=0.001,
@@ -21,7 +22,7 @@ test_datagen = EcogDataGenerator(
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
         '/home/nancy/Documents/ecog_dataset/d6532718/train/',
-        batch_size=24,
+        batch_size=25,
         target_size=(64,1000,1),
         class_mode='binary')
 dgdx_val = test_datagen.flow_from_directory(
@@ -89,11 +90,11 @@ model.compile(optimizer=sgd,
               loss='binary_crossentropy',
               metrics=['accuracy'])
 
-history = keras.callbacks.ModelCheckpoint("weights.{epoch:02d}-{val_loss:.2f}.hdf5")
+history = keras.callbacks.ModelCheckpoint("weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
 history_callback = model.fit_generator(
         train_generator,
-        samples_per_epoch=24000,
-        nb_epoch=10,
+        samples_per_epoch=31800,
+        nb_epoch=200,
         validation_data=validation_generator,
         nb_val_samples=3198, callbacks=[history])
 #pdb.set_trace()
@@ -104,6 +105,7 @@ with open("loss_history.txt", 'w') as f:
 	for key, value in history_callback.history.items():
 		f.write('%s:%s\n' % (key, value))
 
-model.save("my_model.h5")
+model.save("my_model_ecog_1d.h5")
+pickle.dump(history_callback.history,open("ecog_1d_history.p", "wb"))
 
 

@@ -102,7 +102,7 @@ history_callback = model.fit_generator(
         samples_per_epoch=7950,
         nb_epoch=100,
         validation_data=validation_generator,
-        nb_val_samples=3198, callbacks=[history])
+        nb_val_samples=1400, callbacks=[history])
 #pdb.set_trace()
 #loss_history = history_callback.history["loss"]
 #numpy_loss_history = np.array(loss_history)

@@ -62,7 +62,8 @@ space = {"conv_layer1_units": hp.uniform("conv1", 5, 15),
 def f_nn(params):
     # Determine proper input shape
     global itr
-    print "testing itration %i" % itr
+    print "testing iteration %i" % itr
+    print params
     itr+=1
     input_tensor=Input(shape=(1,64,1000))
 

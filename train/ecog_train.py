@@ -139,7 +139,7 @@ def f_nn(params):
 
     return {'loss': loss,'status': STATUS_OK}
 
-count = 0
+itr = 0
 trials = Trials()
 best = fmin(f_nn, space, algo=tpe.suggest, max_evals=50, trials=trials)
 print 'best: '

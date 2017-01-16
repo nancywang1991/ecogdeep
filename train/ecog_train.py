@@ -41,14 +41,14 @@ validation_generator=dgdx_val
 
 ## Hyperparameter optimization space
 
-space = {"conv_layer1_units": hp.uniform("conv1", 5, 15),
-         "conv_layer2_units": hp.uniform("conv2", 5, 15),
-         "conv_layer3_units": hp.uniform("conv3", 5, 15),
-         "conv_layer4_units": hp.uniform("conv4", 5, 15),
-         "pool_layer1": hp.uniform("pool1", 1, 3),
-         "pool_layer2": hp.uniform("pool2", 1, 3),
-         "pool_layer3": hp.uniform("pool3", 1, 3),
-         "pool_layer4": hp.uniform("pool4", 1, 3),
+space = {"conv_layer1_units": hp.choice("conv1", range(5,16)),
+         "conv_layer2_units": hp.choice("conv2", range(5,16)),
+         "conv_layer3_units": hp.choice("conv3", range(5,16)),
+         "conv_layer4_units": hp.choice("conv4", range(5,16)),
+         "pool_layer1": hp.choice("pool1", range(1,4)),
+         "pool_layer2": hp.choice("pool2", range(1,4)),
+         "pool_layer3": hp.choice("pool3", range(1,4)),
+         "pool_layer4": hp.choice("pool4", range(1,4)),
          "dense1_units": hp.choice("fc1",[256, 512, 1024, 2048]),
          "dense2_units": hp.choice("fc2",[256, 512, 1024, 2048]),
          "conv_layer1_filters": hp.choice("filters1",[16, 32, 64, 128]),

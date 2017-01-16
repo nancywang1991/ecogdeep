@@ -37,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/train/ecog_train.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="438">
-              <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
+              <caret line="59" column="10" selection-start-line="59" selection-start-column="10" selection-end-line="59" selection-end-column="10" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -910,7 +910,14 @@
       <option name="project" value="LOCAL" />
       <updated>1484540752894</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="flipped dimensions for ecog3d&#10;">
+      <created>1484540961765</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1484540961765</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1193,7 +1200,7 @@
     <entry file="file://$PROJECT_DIR$/train/ecog_train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="438">
-          <caret line="65" column="16" selection-start-line="65" selection-start-column="16" selection-end-line="65" selection-end-column="16" />
+          <caret line="59" column="10" selection-start-line="59" selection-start-column="10" selection-end-line="59" selection-end-column="10" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

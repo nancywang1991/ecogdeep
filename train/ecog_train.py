@@ -43,8 +43,8 @@ validation_generator=dgdx_val
 
 space = {"conv_layer1_units": hp.uniform("conv1", 5, 15),
          "conv_layer2_units": hp.uniform("conv2", 5, 15),
-         "conv_layer3_units": hp.uniform("conv2", 5, 15),
-         "conv_layer4_units": hp.uniform("conv2", 5, 15),
+         "conv_layer3_units": hp.uniform("conv3", 5, 15),
+         "conv_layer4_units": hp.uniform("conv4", 5, 15),
          "pool_layer1": hp.uniform("pool1", 1, 3),
          "pool_layer2": hp.uniform("pool2", 1, 3),
          "pool_layer3": hp.uniform("pool3", 1, 3),

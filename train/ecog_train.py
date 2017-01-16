@@ -69,25 +69,25 @@ def f_nn(params):
     # Block 1
     x = MaxPooling2D((1,5),  name='pre_pool')(input_tensor)
     x = Convolution2D(params['conv_layer1_filters'], 1, params['conv_layer1_units'], border_mode='same', name='block1_conv1')(x)
-    x = BatchNormalization()(x)
+    x = BatchNormalization()(x, axis=1)
     x = Activation('relu')(x)
     x = MaxPooling2D((1,params['pool_layer1']),  name='block1_pool')(x)
 
     # Block 2
     x = Convolution2D(params['conv_layer2_filters'], 1, params['conv_layer2_units'],  border_mode='same', name='block2_conv1')(x)
-    x = BatchNormalization()(x)
+    x = BatchNormalization()(x, axis=1)
     x = Activation('relu')(x)
     x = MaxPooling2D((1,params['pool_layer1']),  name='block2_pool')(x)
 
     # Block 3
     x = Convolution2D(params['conv_layer3_filters'], 1, params['conv_layer3_units'], border_mode='same', name='block3_conv1')(x)
-    x = BatchNormalization()(x)
+    x = BatchNormalization()(x, axis=1)
     x = Activation('relu')(x)
     x = MaxPooling2D((1,params['pool_layer1']),  name='block3_pool')(x)
 
     # Block 4
     x = Convolution2D(params['conv_layer4_filters'], 1, params['conv_layer4_units'], border_mode='same', name='block4_conv1')(x)
-    x = BatchNormalization()(x)
+    x = BatchNormalization()(x, axis=1)
     x = Activation('relu')(x)
     x = MaxPooling2D((1,params['pool_layer1']), name='block4_pool')(x)
 

@@ -136,7 +136,7 @@ def f_nn(params):
     pickle.dump(params, open("ecog_1d_params_%i.p" % itr, "wb"))
     pickle.dump(history_callback.history,open("ecog_1d_history_%i.p" % itr, "wb"))
 
-    loss = history_callback.history["loss_val"][-1]
+    loss = history_callback.history["val_loss"][-1]
 
     return {'loss': loss,'status': STATUS_OK}
 

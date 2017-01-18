@@ -10,7 +10,7 @@ from keras.models import Model, load_model
 import numpy as np
 import pdb
 
-test_datagen = EcogDataGenerator(
+test_datagen = Ecog3DDataGenerator(
         center=True
 )
 
@@ -31,8 +31,8 @@ validation_generator=dgdx_val
 
 
 
-#model = load_model("my_model_ecog3D.h5")
-model = load_model("my_model_ecog_1d.h5")
+model = load_model("my_model_ecog3D.h5")
+#model = load_model("my_model_ecog_1d.h5")
 #pdb.set_trace()
 files = validation_generator.filenames
 results = model.predict_generator(validation_generator, validation_generator.nb_sample)
@@ -55,7 +55,7 @@ accuracy_0 = true_0/float((len(np.where(true==0)[0])))
 #=======
 #pdb.set_trace()
 
-with open("ecog_1d_results.txt", "wb") as writer:
+with open("ecog_3d_results.txt", "wb") as writer:
         writer.write("recall:%f\n" % recall)
         writer.write("precision:%f\n" % precision)
         writer.write("accuracy_1:%f\n" % accuracy_1)

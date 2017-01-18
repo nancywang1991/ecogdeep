@@ -29,7 +29,7 @@ dgdx = train_datagen.flow_from_directory(
         class_mode='binary')
 
 dgdx_val = test_datagen.flow_from_directory(
-        '/mnt/ecog_dataset/d6532718/test/',
+        '/mnt/ecog_dataset/d6532718/test_bal/',
         #'/home/nancy/Documents/ecog_dataset/d6532718/test/',
         batch_size=24,
         shuffle=False,

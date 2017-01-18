@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train/ecog_test_3D.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train/vid_test_3D.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_test.py" afterPath="$PROJECT_DIR$/train/ecog_test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_train.py" afterPath="$PROJECT_DIR$/train/ecog_train.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_train_3d.py" afterPath="$PROJECT_DIR$/train/ecog_train_3d.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -72,8 +68,8 @@
       <file leaf-file-name="ecog_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-478">
-              <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+            <state relative-caret-position="66">
+              <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -163,8 +159,8 @@
         <option value="$PROJECT_DIR$/train/ecog_train_3d.py" />
         <option value="$PROJECT_DIR$/train/ecog_train.py" />
         <option value="$PROJECT_DIR$/train/vid_test_3D.py" />
-        <option value="$PROJECT_DIR$/train/ecog_test.py" />
         <option value="$PROJECT_DIR$/train/ecog_test_3D.py" />
+        <option value="$PROJECT_DIR$/train/ecog_test.py" />
       </list>
     </option>
   </component>
@@ -930,7 +926,14 @@
       <option name="project" value="LOCAL" />
       <updated>1484541111965</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="new ecog test 3d&#10;">
+      <created>1484768905012</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1484768905012</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -976,7 +979,8 @@
     <MESSAGE value="ecog test" />
     <MESSAGE value="added recall precision&#10;" />
     <MESSAGE value="flipped dimensions for ecog3d&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="flipped dimensions for ecog3d&#10;" />
+    <MESSAGE value="new ecog test 3d&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="new ecog test 3d&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1238,8 +1242,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-478">
-          <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+        <state relative-caret-position="66">
+          <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
           <folding />
         </state>
       </provider>

@@ -16,10 +16,10 @@ test_datagen = EcogDataGenerator(
 
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/mnt/ecog_dataset/d6532718/test_bal/',
+        '/mnt/ecog_dataset/d6532718/test/',
         batch_size=24,
         shuffle=False,
-        target_size=(8,8,1000,1),
+        target_size=(1,64, 1000),
         class_mode='binary')
 
 #train_datagen.fit_generator(dgdx, nb_iter=100)

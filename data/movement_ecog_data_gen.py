@@ -80,12 +80,10 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
         os.makedirs(os.path.join(test_dir,"l_arm_1"))
         os.makedirs(os.path.join(test_dir,"mv_1"))
         os.makedirs(os.path.join(test_dir,"mv_0"))
-    if np.random.randint(100) < 90:
-        cur_dir = train_dir
-        randomize=True
-    else:
+    if int(day)==9:
         cur_dir = test_dir
-        randomize=False
+    else:
+        cur_dir = train_dir
 
     for f in range(offset+1+15,len(mv_file)-1, 10):
         flag = 0
@@ -103,8 +101,8 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
             save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f - offset))
             edf_part = edf_clip[:,(int((f-offset-15)*(1000/30.0))-100):(int((f-offset-15)*(1000/30.0)+1100))]
             if edf_part.shape[1]==1200:
-                write_edf_part(edf_part, save_filename, randomize=randomize)
-    for f in range(offset+1+15, len(mv_file)-1, 20):
+                write_edf_part(edf_part, save_filename)
+    for f in range(offset+1+15, len(mv_file)-1, 60):
         flag = 0
 
         if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
@@ -120,7 +118,7 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
             save_filename = os.path.join(cur_dir, "mv_0", "%s_%i" % (vid_name, f - offset))
             edf_part = edf_clip[:,(int((f - offset - 15) * (1000 / 30.0)) - 100):(int((f - offset - 15) * (1000 / 30.0) + 1100))]
             if edf_part.shape[1]==1200:
-                write_edf_part(edf_part, save_filename, randomize=randomize)
+                write_edf_part(edf_part, save_filename)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

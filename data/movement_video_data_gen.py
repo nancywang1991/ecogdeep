@@ -64,10 +64,10 @@ def main(mv_file, vid_file, save_dir, offset):
         os.makedirs(os.path.join(test_dir,"l_arm_1"))
         os.makedirs(os.path.join(test_dir,"mv_1"))
         os.makedirs(os.path.join(test_dir,"mv_0"))
-    if np.random.randint(100) < 75:
-        cur_dir = train_dir
-    else:
+    if int(day)==9:
         cur_dir = test_dir
+    else:
+        cur_dir = train_dir
 
     for f in range(offset+1,len(mv_file), 10):
         vid_file.forward_to(f - offset)
@@ -83,7 +83,7 @@ def main(mv_file, vid_file, save_dir, offset):
             cv2.imwrite(os.path.join(cur_dir, "head_1", "%s_%i.png" % (vid_name, f - offset)), img)
             cv2.imwrite(os.path.join(cur_dir, "mv_1", "%s_%i.png" % (vid_name, f - offset)), img)
     vid_file.rewind()
-    for f in range(offset+1, len(mv_file), 20):
+    for f in range(offset+1, len(mv_file), 60):
         vid_file.forward_to(f-offset)
         img = vid_file.read()
         flag = 0

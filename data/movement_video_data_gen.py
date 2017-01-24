@@ -111,7 +111,7 @@ if __name__ == "__main__":
     parser.add_argument('-o', '--offset', default=15, type=int, help="how many frames into the future")
     args = parser.parse_args()
 
-    for file in sorted(glob.glob(args.mv_dir + "/*.p")[args.start_vid:]):
+    for file in sorted(glob.glob(args.mv_dir + "/*.p"))[args.start_vid:]:
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")
         vid_name = os.path.join(args.vid_dir, "%s_%s_%s.avi" %( sbj_id, day, vid_num))

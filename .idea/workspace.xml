@@ -78,8 +78,8 @@
       <file leaf-file-name="movement_video_data_gen.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="619">
-              <caret line="109" column="70" selection-start-line="109" selection-start-column="70" selection-end-line="109" selection-end-column="70" />
+            <state relative-caret-position="751">
+              <caret line="113" column="72" selection-start-line="113" selection-start-column="72" selection-end-line="113" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -477,13 +477,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00008" summary="adjusted data gen memory needs&#10;">
-      <created>1484011807208</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1484011807208</updated>
-    </task>
     <task id="LOCAL-00009" summary="adjusted data gen memory needs&#10;">
       <created>1484011830327</created>
       <option name="number" value="00009" />
@@ -820,7 +813,14 @@
       <option name="project" value="LOCAL" />
       <updated>1485287543915</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="new ecog test 3d&#10;">
+      <created>1485287831249</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1485287831249</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1183,8 +1183,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="619">
-          <caret line="109" column="70" selection-start-line="109" selection-start-column="70" selection-end-line="109" selection-end-column="70" />
+        <state relative-caret-position="751">
+          <caret line="113" column="72" selection-start-line="113" selection-start-column="72" selection-end-line="113" selection-end-column="72" />
           <folding />
         </state>
       </provider>

@@ -28,6 +28,7 @@ def scoring(truth, predicted):
     return [precision, recall, true/30.0]
 
 def main(mv_file, vid_file, save_dir, offset):
+
     mv_file = pickle.load(open(mv_file))
     if np.sum(mv_file[np.where(mv_file>0)])<(0.5*3000):
         #Very little going on in this file
@@ -106,10 +107,11 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--mv_dir', required=True, help="Joint movement directory")
     parser.add_argument('-v', '--vid_dir', required=True, help="video directory")
     parser.add_argument('-s', '--save_dir', required=True, help="Save directory")
+    parser.add_argument('-start', '--start_vid', default=0, help="starting video")
     parser.add_argument('-o', '--offset', default=15, type=int, help="how many frames into the future")
     args = parser.parse_args()
 
-    for file in sorted(glob.glob(args.mv_dir + "/*.p")):
+    for file in sorted(glob.glob(args.mv_dir + "/*.p")[args.start:]):
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")
         vid_name = os.path.join(args.vid_dir, "%s_%s_%s.avi" %( sbj_id, day, vid_num))

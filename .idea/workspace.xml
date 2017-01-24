@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="new ecog test 3d&#10;">
+    <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/movement_ecog_data_gen.py" afterPath="$PROJECT_DIR$/data/movement_ecog_data_gen.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/movement_video_data_gen.py" afterPath="$PROJECT_DIR$/data/movement_video_data_gen.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -65,21 +65,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="movement_ecog_data_gen.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="movement_ecog_data_gen.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-461">
+            <state relative-caret-position="-1457">
               <caret line="102" column="55" selection-start-line="102" selection-start-column="55" selection-end-line="102" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="movement_video_data_gen.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="movement_video_data_gen.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-430">
-              <caret line="60" column="53" selection-start-line="60" selection-start-column="53" selection-end-line="60" selection-end-column="53" />
+            <state relative-caret-position="784">
+              <caret line="113" column="65" selection-start-line="113" selection-start-column="65" selection-end-line="113" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -159,8 +159,8 @@
         <option value="$PROJECT_DIR$/train/vid_test_3D.py" />
         <option value="$PROJECT_DIR$/train/ecog_test_3D.py" />
         <option value="$PROJECT_DIR$/train/ecog_test.py" />
-        <option value="$PROJECT_DIR$/data/movement_video_data_gen.py" />
         <option value="$PROJECT_DIR$/data/movement_ecog_data_gen.py" />
+        <option value="$PROJECT_DIR$/data/movement_video_data_gen.py" />
       </list>
     </option>
   </component>
@@ -476,13 +476,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
-    </task>
-    <task id="LOCAL-00005" summary="added randomization to ecog data generation">
-      <created>1484010371313</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1484010371313</updated>
     </task>
     <task id="LOCAL-00006" summary="adjusted data gen memory needs&#10;">
       <created>1484011188094</created>
@@ -820,7 +813,14 @@
       <option name="project" value="LOCAL" />
       <updated>1485215273159</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="new ecog test 3d&#10;">
+      <created>1485223406324</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1485223406324</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1173,18 +1173,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
+    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-430">
-          <caret line="60" column="53" selection-start-line="60" selection-start-column="53" selection-end-line="60" selection-end-column="53" />
+        <state relative-caret-position="-1457">
+          <caret line="102" column="55" selection-start-line="102" selection-start-column="55" selection-end-line="102" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
+    <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-461">
-          <caret line="102" column="55" selection-start-line="102" selection-start-column="55" selection-end-line="102" selection-end-column="55" />
+        <state relative-caret-position="784">
+          <caret line="113" column="65" selection-start-line="113" selection-start-column="65" selection-end-line="113" selection-end-column="65" />
           <folding />
         </state>
       </provider>

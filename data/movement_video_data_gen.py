@@ -107,7 +107,7 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--mv_dir', required=True, help="Joint movement directory")
     parser.add_argument('-v', '--vid_dir', required=True, help="video directory")
     parser.add_argument('-s', '--save_dir', required=True, help="Save directory")
-    parser.add_argument('-start', '--start_vid', default=0, help="starting video")
+    parser.add_argument('-start', '--start_vid', default=0, type=int, help="starting video")
     parser.add_argument('-o', '--offset', default=15, type=int, help="how many frames into the future")
     args = parser.parse_args()
 

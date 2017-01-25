@@ -31,7 +31,7 @@ dgdx = train_datagen.flow_from_directory(
 dgdx_val = test_datagen.flow_from_directory(
         '/home/wangnxr/dataset/vid_ecog_15/test/',
         #'/home/nancy/Documents/ecog_dataset/d6532718/test/',
-        batch_size=24,
+        batch_size=25,
         shuffle=False,
         target_size=(1,8,8,1000),
         class_mode='binary')
@@ -102,7 +102,7 @@ history_callback = model.fit_generator(
         samples_per_epoch=7950,
         nb_epoch=100,
         validation_data=validation_generator,
-        nb_val_samples=5555*2, callbacks=[history])
+        nb_val_samples=11110, callbacks=[history])
 #pdb.set_trace()
 #loss_history = history_callback.history["loss"]
 #numpy_loss_history = np.array(loss_history)

@@ -105,7 +105,7 @@ def f_nn():
             samples_per_epoch=31800,
             nb_epoch=50, callbacks=[history],
             validation_data=validation_generator,
-            nb_val_samples=5555*2)
+            nb_val_samples=11110)
     #pdb.set_trace()
     #loss_history = history_callback.history["loss"]
     #numpy_loss_history = np.array(loss_history)

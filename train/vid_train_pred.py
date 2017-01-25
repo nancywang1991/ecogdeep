@@ -27,14 +27,14 @@ test_datagen.set_pipeline([center_crop])
 dgdx = train_datagen.flow_from_directory(
         '/home/wangnxr/dataset/vid_offset_15/train/',
         read_formats={'png'},
-        target_size=(int(240), int(240)),
+        target_size=(int(300), int(224)),
         batch_size=32,
         class_mode='binary')
 
 dgdx_val = test_datagen.flow_from_directory(
         '/home/wangnxr/dataset/vid_offset_15/test/',
         read_formats={'png'},
-        target_size=(int(240), int(240)),
+        target_size=(int(300), int(224)),
         batch_size=32,
         class_mode='binary')
 

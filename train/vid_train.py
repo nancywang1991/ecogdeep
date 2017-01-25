@@ -4,6 +4,8 @@ from keras.preprocessing.image import ImageDataGenerator, center_crop
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
+import pickle
+
 import numpy as np
 import pdb
 train_datagen = ImageDataGenerator(
@@ -23,21 +25,21 @@ test_datagen.set_pipeline([center_crop])
 
 
 dgdx = train_datagen.flow_from_directory(
-        '/home/nancy/mvmt_vid_dataset/train/',
+        '/home/wangnxr/dataset/vid_offset_0/train/',
         read_formats={'png'},
         target_size=(int(256*(224/192.0)), int(192*(224/192.0))),
         batch_size=32,
         class_mode='binary')
 
 dgdx_val = test_datagen.flow_from_directory(
-        '/home/nancy/mvmt_vid_dataset/test/',
+        '/home/wangnxr/dataset/vid_offset_0/test/',
         read_formats={'png'},
-        target_size=(int(256*(224/192.0)), int(192*(224/192.0))),
+        target_size=(int(256), int(192)),
         batch_size=32,
         class_mode='binary')
 
-train_datagen.fit_generator(dgdx, nb_iter=100)
-test_datagen.fit_generator(dgdx_val, nb_iter=100)
+train_datagen.fit_generator(dgdx, nb_iter=96)
+test_datagen.fit_generator(dgdx_val, nb_iter=96)
 
 train_generator=dgdx
 validation_generator=dgdx_val
@@ -80,10 +82,7 @@ history_callback = model.fit_generator(
 #loss_history = history_callback.history["loss"]
 #numpy_loss_history = np.array(loss_history)
 #writefile = open("loss_history.txt", "wb")
-with open("loss_history.txt", 'w') as f:
-	for key, value in history_callback.history.items():
-		f.write('%s:%s\n' % (key, value))
-
-model.save("my_model.h5")
+model.save("vid_model.h5")
+pickle.dump(history_callback.history, open("vid_history.p", "wb"))
 
 

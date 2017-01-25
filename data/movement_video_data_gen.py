@@ -70,7 +70,7 @@ def main(mv_file, vid_file, save_dir, offset):
     else:
         cur_dir = train_dir
 
-    for f in range(offset+1,len(mv_file), 10):
+    for f in range(offset+1+15,len(mv_file), 10):
         vid_file.forward_to(f - offset)
         img = vid_file.read()
 
@@ -84,7 +84,7 @@ def main(mv_file, vid_file, save_dir, offset):
             cv2.imwrite(os.path.join(cur_dir, "head_1", "%s_%i.png" % (vid_name, f - offset)), img)
             cv2.imwrite(os.path.join(cur_dir, "mv_1", "%s_%i.png" % (vid_name, f - offset)), img)
     vid_file.rewind()
-    for f in range(offset+1, len(mv_file), 60):
+    for f in range(offset+1+15, len(mv_file), 60):
         vid_file.forward_to(f-offset)
         img = vid_file.read()
         flag = 0

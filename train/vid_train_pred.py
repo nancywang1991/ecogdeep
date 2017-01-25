@@ -25,14 +25,14 @@ test_datagen.set_pipeline([center_crop])
 
 
 dgdx = train_datagen.flow_from_directory(
-        '/home/wangnxr/dataset/vid_offset_0/train/',
+        '/home/wangnxr/dataset/vid_offset_15/train/',
         read_formats={'png'},
         target_size=(int(320), int(240)),
         batch_size=32,
         class_mode='binary')
 
 dgdx_val = test_datagen.flow_from_directory(
-        '/home/wangnxr/dataset/vid_offset_0/test/',
+        '/home/wangnxr/dataset/vid_offset_15/test/',
         read_formats={'png'},
         target_size=(int(320), int(240)),
         batch_size=32,
@@ -77,12 +77,12 @@ history_callback = model.fit_generator(
         samples_per_epoch=20000,
         nb_epoch=100,
         validation_data=validation_generator,
-        nb_val_samples=11236)
+        nb_val_samples=11074)
 #pdb.set_trace()
 #loss_history = history_callback.history["loss"]
 #numpy_loss_history = np.array(loss_history)
 #writefile = open("loss_history.txt", "wb")
-model.save("vid_model.h5")
-pickle.dump(history_callback.history, open("vid_history.p", "wb"))
+model.save("vid_model_pred.h5")
+pickle.dump(history_callback.history, open("vid_history_pred.p", "wb"))
 
 

@@ -23,14 +23,14 @@ test_datagen = EcogDataGenerator(
 
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
-        '/home/nancy/Documents/ecog_dataset/d6532718/train/',
+        '/home/wangnxr/Documents/dataset/vid_ecog_0/train/',
         batch_size=25,
         target_size=(1,64,1000),
         class_mode='binary')
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/nancy/Documents/ecog_dataset/d6532718/test/',
-        batch_size=24,
+        '/home/wangnxr/Documents/dataset/vid_ecog_0/test/',
+        batch_size=25,
         shuffle=False,
         target_size=(1,64,1000),
         class_mode='binary')
@@ -104,8 +104,8 @@ def f_nn():
             train_generator,
             samples_per_epoch=31800,
             nb_epoch=50, callbacks=[history])
-            #validation_data=validation_generator,
-            #nb_val_samples=1400, )
+            validation_data=validation_generator,
+            nb_val_samples=11200)
     #pdb.set_trace()
     #loss_history = history_callback.history["loss"]
     #numpy_loss_history = np.array(loss_history)

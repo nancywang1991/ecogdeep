@@ -103,7 +103,7 @@ def f_nn():
     history_callback = model.fit_generator(
             train_generator,
             samples_per_epoch=31800,
-            nb_epoch=50, callbacks=[history])
+            nb_epoch=50, callbacks=[history],
             validation_data=validation_generator,
             nb_val_samples=11200)
     #pdb.set_trace()

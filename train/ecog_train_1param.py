@@ -4,7 +4,6 @@ from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras.layers import Convolution2D, MaxPooling2D
-from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
@@ -41,64 +40,47 @@ validation_generator=dgdx_val
 
 ## Hyperparameter optimization space
 
-space = {"conv_layer1_units": hp.choice("conv1", range(10,11)),
-         "conv_layer2_units": hp.choice("conv2", range(10,11)),
-         "conv_layer3_units": hp.choice("conv3", range(10,11)),
-         "conv_layer4_units": hp.choice("conv4", range(10,11)),
-         "pool_layer1": hp.choice("pool1", range(3,4)),
-         "pool_layer2": hp.choice("pool2", range(3,4)),
-         "pool_layer3": hp.choice("pool3", range(2,3)),
-         "pool_layer4": hp.choice("pool4", range(2,3)),
-         "dense1_units": hp.choice("fc1",[1024]),
-         "dense2_units": hp.choice("fc2",[256]),
-         "conv_layer1_filters": hp.choice("filters1",[16]),
-         "conv_layer2_filters": hp.choice("filters2",[32]),
-         "conv_layer3_filters": hp.choice("filters3",[64]),
-         "conv_layer4_filters": hp.choice("filters4",[128]),
-         #"batch_size" : hp.uniform('batch_size', 16, 32),
-         #'optimizer': hp.choice('optimizer', ['adadelta', 'adam', 'rmsprop'])
-         }
 
-def f_nn(params):
+
+def f_nn():
     # Determine proper input shape
     global itr
     print "testing iteration %i" % itr
-    print params
     itr+=1
     input_tensor=Input(shape=(1,64,1000))
 
     # Block 1
     x = MaxPooling2D((1,5),  name='pre_pool')(input_tensor)
-    x = Convolution2D(params['conv_layer1_filters'], 1, params['conv_layer1_units'], border_mode='same', name='block1_conv1')(x)
+    x = Convolution2D(16, 1, 10, border_mode='same', name='block1_conv1')(x)
     x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = MaxPooling2D((1,params['pool_layer1']),  name='block1_pool')(x)
+    x = MaxPooling2D((1,3),  name='block1_pool')(x)
 
     # Block 2
-    x = Convolution2D(params['conv_layer2_filters'], 1, params['conv_layer2_units'],  border_mode='same', name='block2_conv1')(x)
+    x = Convolution2D(32, 1, 10,  border_mode='same', name='block2_conv1')(x)
     x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = MaxPooling2D((1,params['pool_layer1']),  name='block2_pool')(x)
+    x = MaxPooling2D((1,3),  name='block2_pool')(x)
 
     # Block 3
-    x = Convolution2D(params['conv_layer3_filters'], 1, params['conv_layer3_units'], border_mode='same', name='block3_conv1')(x)
+    x = Convolution2D(64, 1, 10, border_mode='same', name='block3_conv1')(x)
     x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = MaxPooling2D((1,params['pool_layer1']),  name='block3_pool')(x)
+    x = MaxPooling2D((1,2),  name='block3_pool')(x)
 
     # Block 4
-    x = Convolution2D(params['conv_layer4_filters'], 1, params['conv_layer4_units'], border_mode='same', name='block4_conv1')(x)
+    x = Convolution2D(128, 1, 10, border_mode='same', name='block4_conv1')(x)
     x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = MaxPooling2D((1,params['pool_layer1']), name='block4_pool')(x)
+    x = MaxPooling2D((1,2), name='block4_pool')(x)
 
 
     x = Flatten(name='flatten')(x)
-    x = Dense(params['dense1_units'],  name='fc1')(x)
+    x = Dense(1024,  name='fc1')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
     #x = Dropout(0.5)(x)
-    x = Dense(params['dense2_units'], name='fc2')(x)
+    x = Dense(256, name='fc2')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
     #x = Dropout(0.5)(x)
@@ -133,16 +115,14 @@ def f_nn(params):
             f.write('%s:%s\n' % (key, value))
 
     model.save("ecog_1d_%i.h5" % itr)
-    pickle.dump(params, open("ecog_1d_params_%i.p" % itr, "wb"))
     pickle.dump(history_callback.history,open("ecog_1d_history_%i.p" % itr, "wb"))
 
     loss = history_callback.history["val_loss"][-1]
 
-    return {'loss': loss,'status': STATUS_OK}
+    return {'loss': loss}
 
 itr = 0
-trials = Trials()
-best = fmin(f_nn, space, algo=tpe.suggest, max_evals=50, trials=trials)
+best = f_nn()
 print 'best: '
 print best
 

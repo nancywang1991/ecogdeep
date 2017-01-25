@@ -9,7 +9,7 @@ import pickle
 import numpy as np
 import pdb
 train_datagen = ImageDataGenerator(
-        rotation_range=90,
+        rotation_range=40,
         rescale=1./255,
         zoom_range=0.2,
         horizontal_flip=True)
@@ -27,14 +27,14 @@ test_datagen.set_pipeline([center_crop])
 dgdx = train_datagen.flow_from_directory(
         '/home/wangnxr/dataset/vid_offset_0/train/',
         read_formats={'png'},
-        target_size=(int(320), int(240)),
+        target_size=(int(240), int(240)),
         batch_size=32,
         class_mode='binary')
 
 dgdx_val = test_datagen.flow_from_directory(
         '/home/wangnxr/dataset/vid_offset_0/test/',
         read_formats={'png'},
-        target_size=(int(320), int(240)),
+        target_size=(int(240), int(240)),
         batch_size=32,
         class_mode='binary')
 
@@ -44,7 +44,7 @@ test_datagen.fit_generator(dgdx_val, nb_iter=96)
 train_generator=dgdx
 validation_generator=dgdx_val
 
-base_model = VGG16(input_tensor=(Input(shape=(224, 224, 3))), weights='imagenet', include_top=False)
+base_model = VGG16(input_tensor=(Input(shape=(3, 224, 224))), weights='imagenet', include_top=False)
 #base_model = VGG16(input_tensor=(Input(shape=(224, 224, 3))), include_top=False)
 
 x = base_model.output
@@ -66,7 +66,7 @@ predictions = Activation('sigmoid')(x)
 
 model = Model(input=base_model.input, output=predictions)
 
-sgd = keras.optimizers.SGD(lr=0.001, clipnorm=0.5)
+sgd = keras.optimizers.SGD(lr=0.01)
 
 model.compile(optimizer=sgd,
               loss='binary_crossentropy',

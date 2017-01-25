@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train/vid_train_pred.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/vid_train.py" afterPath="$PROJECT_DIR$/train/vid_train.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/vid_train_pred.py" afterPath="$PROJECT_DIR$/train/vid_train_pred.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -56,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vid_train.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="vid_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/vid_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1002">
-              <caret line="36" column="38" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+            <state relative-caret-position="347">
+              <caret line="68" column="34" selection-start-line="68" selection-start-column="34" selection-end-line="68" selection-end-column="34" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -68,11 +68,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vid_train_pred.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="vid_train_pred.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/vid_train_pred.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="850">
-              <caret line="85" column="57" selection-start-line="85" selection-start-column="57" selection-end-line="85" selection-end-column="57" />
+            <state relative-caret-position="1947">
+              <caret line="68" column="33" selection-start-line="68" selection-start-column="33" selection-end-line="68" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vgg16.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../keras/keras/applications/vgg16.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1991">
+              <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -91,7 +101,7 @@
       <file leaf-file-name="movement_video_data_gen.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="-2216">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -114,16 +124,6 @@
         <entry file="file://$PROJECT_DIR$/train/ecog_train_3d_pred.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="553">
-              <caret line="104" column="28" selection-start-line="104" selection-start-column="28" selection-end-line="104" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ecog_train_3d.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train/ecog_train_3d.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="709">
               <caret line="104" column="28" selection-start-line="104" selection-start-column="28" selection-end-line="104" selection-end-column="28" />
               <folding />
             </state>
@@ -166,8 +166,8 @@
         <option value="$PROJECT_DIR$/data/movement_video_data_gen.py" />
         <option value="$PROJECT_DIR$/../keras/keras/models.py" />
         <option value="$PROJECT_DIR$/../keras/keras/preprocessing/image.py" />
-        <option value="$PROJECT_DIR$/train/vid_train.py" />
         <option value="$PROJECT_DIR$/train/vid_train_pred.py" />
+        <option value="$PROJECT_DIR$/train/vid_train.py" />
       </list>
     </option>
   </component>
@@ -594,13 +594,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00018" summary="adjusted data gen memory needs&#10;">
-      <created>1484092958045</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1484092958045</updated>
-    </task>
     <task id="LOCAL-00019" summary="adjusted data gen memory needs&#10;">
       <created>1484093911613</created>
       <option name="number" value="00019" />
@@ -937,7 +930,14 @@
       <option name="project" value="LOCAL" />
       <updated>1485340433857</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="new ecog test 3d&#10;">
+      <created>1485369054740</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1485369054740</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1317,29 +1317,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1676">
-          <caret line="34" column="54" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../keras/keras/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="28" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1351,21 +1333,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/vid_train.py">
+    <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1002">
-          <caret line="36" column="38" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+        <state relative-caret-position="-2216">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1676">
+          <caret line="34" column="54" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../keras/keras/applications/vgg16.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1991">
+          <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train/vid_train_pred.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="85" column="57" selection-start-line="85" selection-start-column="57" selection-end-line="85" selection-end-column="57" />
+        <state relative-caret-position="1947">
+          <caret line="68" column="33" selection-start-line="68" selection-start-column="33" selection-end-line="68" selection-end-column="33" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/vid_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="68" column="34" selection-start-line="68" selection-start-column="34" selection-end-line="68" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

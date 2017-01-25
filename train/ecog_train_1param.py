@@ -99,11 +99,11 @@ def f_nn():
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
 
-    history = keras.callbacks.ModelCheckpoint("weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
+    #history = keras.callbacks.ModelCheckpoint("weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
     history_callback = model.fit_generator(
             train_generator,
             samples_per_epoch=31800,
-            nb_epoch=50, callbacks=[history],
+            nb_epoch=50,
             validation_data=validation_generator,
             nb_val_samples=11200)
     #pdb.set_trace()

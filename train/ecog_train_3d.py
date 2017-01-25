@@ -96,13 +96,13 @@ model.compile(optimizer=sgd,
               loss='binary_crossentropy',
               metrics=['accuracy'])
 
-history = keras.callbacks.ModelCheckpoint("/mnt/weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
+#history = keras.callbacks.ModelCheckpoint("/mnt/weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
 history_callback = model.fit_generator(
         train_generator,
         samples_per_epoch=7950,
         nb_epoch=100,
         validation_data=validation_generator,
-        nb_val_samples=11200, callbacks=[history])
+        nb_val_samples=11200)
 #pdb.set_trace()
 #loss_history = history_callback.history["loss"]
 #numpy_loss_history = np.array(loss_history)

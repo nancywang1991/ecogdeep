@@ -23,13 +23,13 @@ test_datagen = EcogDataGenerator(
 
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
-        '/home/wangnxr/dataset/vid_ecog_0/train/',
+        '/home/wangnxr/dataset/vid_ecog_15/train/',
         batch_size=25,
         target_size=(1,64,1000),
         class_mode='binary')
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/wangnxr/dataset/vid_ecog_0/test/',
+        '/home/wangnxr/dataset/vid_ecog_15/test/',
         batch_size=25,
         shuffle=False,
         target_size=(1,64,1000),
@@ -105,7 +105,7 @@ def f_nn():
             samples_per_epoch=31800,
             nb_epoch=50, callbacks=[history],
             validation_data=validation_generator,
-            nb_val_samples=11200)
+            nb_val_samples=5555*2)
     #pdb.set_trace()
     #loss_history = history_callback.history["loss"]
     #numpy_loss_history = np.array(loss_history)
@@ -114,8 +114,8 @@ def f_nn():
         for key, value in history_callback.history.items():
             f.write('%s:%s\n' % (key, value))
 
-    model.save("ecog_1d_%i.h5" % itr)
-    pickle.dump(history_callback.history,open("ecog_1d_history_%i.p" % itr, "wb"))
+    model.save("ecog_1d_%i_offset_15.h5" % itr)
+    pickle.dump(history_callback.history,open("ecog_1d_history_%i_offset_15.p" % itr, "wb"))
 
     loss = history_callback.history["val_loss"][-1]
 

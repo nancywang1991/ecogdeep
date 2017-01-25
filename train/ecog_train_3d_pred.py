@@ -22,16 +22,16 @@ test_datagen = Ecog3DDataGenerator(
 
 
 dgdx = train_datagen.flow_from_directory(
-        '/home/wangnxr/dataset/vid_ecog_0/train/',
+        '/home/wangnxr/dataset/vid_ecog_15/train/',
         #'/home/nancy/Documents/ecog_dataset/d6532718/train/',
         batch_size=25,
         target_size=(1,8,8,1000),
         class_mode='binary')
 
 dgdx_val = test_datagen.flow_from_directory(
-        '/home/wangnxr/dataset/vid_ecog_0/test/',
+        '/home/wangnxr/dataset/vid_ecog_15/test/',
         #'/home/nancy/Documents/ecog_dataset/d6532718/test/',
-        batch_size=25,
+        batch_size=24,
         shuffle=False,
         target_size=(1,8,8,1000),
         class_mode='binary')
@@ -102,15 +102,15 @@ history_callback = model.fit_generator(
         samples_per_epoch=7950,
         nb_epoch=100,
         validation_data=validation_generator,
-        nb_val_samples=11200, callbacks=[history])
+        nb_val_samples=5555*2, callbacks=[history])
 #pdb.set_trace()
 #loss_history = history_callback.history["loss"]
 #numpy_loss_history = np.array(loss_history)
 #writefile = open("loss_history.txt", "wb")
-with open("loss_history.txt", 'w') as f:
-	for key, value in history_callback.history.items():
-		f.write('%s:%s\n' % (key, value))
+#with open("loss_history.txt", 'w') as f:
+#	for key, value in history_callback.history.items():
+#		f.write('%s:%s\n' % (key, value))
 
-model.save("my_model_ecog3D.h5")
-pickle.dump(history_callback.history, open("3d_ecog_history.p", "wb"))
+model.save("my_model_ecog3D_pred.h5")
+pickle.dump(history_callback.history, open("ecog_history_3d_pred.p", "wb"))
 

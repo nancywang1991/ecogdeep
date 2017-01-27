@@ -93,7 +93,7 @@ def f_nn():
 
     model = Model(input=input_tensor, output=predictions)
     #pdb.set_trace()
-    sgd = keras.optimizers.SGD(lr=0.01)
+    sgd = keras.optimizers.SGD(lr=0.001)
 
     model.compile(optimizer=sgd,
                   loss='binary_crossentropy',
@@ -103,7 +103,7 @@ def f_nn():
     history_callback = model.fit_generator(
             train_generator,
             samples_per_epoch=31800,
-            nb_epoch=50,
+            nb_epoch=150,
             validation_data=validation_generator,
             nb_val_samples=11200)
     #pdb.set_trace()

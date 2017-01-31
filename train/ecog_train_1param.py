@@ -1,4 +1,5 @@
 import keras
+from keras.regularizers import l2
 from keras.preprocessing.ecog import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
@@ -76,14 +77,15 @@ def f_nn():
 
 
     x = Flatten(name='flatten')(x)
-    x = Dense(1024,  name='fc1')(x)
+    x = Dropout(0.5)(x)
+    x = Dense(1024, W_regularizer=l2(0.01), name='fc1')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    #x = Dropout(0.5)(x)
-    x = Dense(256, name='fc2')(x)
+    x = Dropout(0.5)(x)
+    x = Dense(256, W_regularizer=l2(0.01), name='fc2')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    #x = Dropout(0.5)(x)
+    x = Dropout(0.5)(x)
     x = Dense(1, name='predictions')(x)
     x = BatchNormalization()(x)
     predictions = Activation('sigmoid')(x)

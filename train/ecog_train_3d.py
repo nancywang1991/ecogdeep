@@ -76,11 +76,11 @@ x = Flatten(name='flatten')(x)
 x = Dense(1024,  name='fc1')(x)
 #x = BatchNormalization()(x)
 x = Activation('relu')(x)
-#x = Dropout(0.5)(x)
+x = Dropout(0.5)(x)
 x = Dense(256, name='fc2')(x)
 #x = BatchNormalization()(x)
 x = Activation('relu')(x)
-#x = Dropout(0.5)(x)
+x = Dropout(0.5)(x)
 x = Dense(1, name='predictions')(x)
 #x = BatchNormalization()(x)
 predictions = Activation('sigmoid')(x)
@@ -90,7 +90,7 @@ predictions = Activation('sigmoid')(x)
 
 model = Model(input=input_tensor, output=predictions)
 #apdb.set_trace()
-sgd = keras.optimizers.SGD(lr=0.1)
+sgd = keras.optimizers.SGD(lr=0.001)
 
 model.compile(optimizer=sgd,
               loss='binary_crossentropy',
@@ -99,7 +99,7 @@ model.compile(optimizer=sgd,
 #history = keras.callbacks.ModelCheckpoint("/mnt/weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
 history_callback = model.fit_generator(
         train_generator,
-        samples_per_epoch=7950,
+        samples_per_epoch=79500,
         nb_epoch=100,
         validation_data=validation_generator,
         nb_val_samples=11200)

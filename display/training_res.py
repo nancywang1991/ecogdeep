@@ -1,10 +1,13 @@
+import matplotlib
+matplotlib.use("agg")
 import numpy as np
 import cPickle as pickle
 import matplotlib.pyplot as plt
 import pdb
+import os
 
-filename="C:\\Users\\Nancy\\Downloads\\deep\\ecog_1d_history.p"
-save_folder="C:\\Users\\Nancy\\Downloads\\deep\\"
+filename="ecog_history_3d_pred.p"
+save_folder="/home/wangnxr/Documents/ecogdeep/"
 
 history = pickle.load(open(filename))
 
@@ -15,7 +18,7 @@ plt.legend()
 plt.title("Accuracy over training epochs")
 plt.ylim([0,1])
 plt.xlabel("epochs")
-plt.savefig(save_folder+filename.split("\\")[-1].split(".")[0]+"acc.png")
+plt.savefig(save_folder+os.path.basename(filename).split(".")[0]+"acc.png")
 plt.clf()
 #loss plot
 plt.plot(history["loss"], label="training")
@@ -24,5 +27,5 @@ plt.legend()
 plt.title("Loss over training epochs")
 plt.ylim([0,5])
 plt.xlabel("epochs")
-plt.savefig(save_folder+filename.split("\\")[-1].split(".")[0]+"loss.png")
+plt.savefig(save_folder+os.path.basename(filename).split(".")[0]+"loss.png")
 #pdb.set_trace()

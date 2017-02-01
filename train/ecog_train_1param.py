@@ -1,4 +1,5 @@
 import keras
+from keras.regularizers import l2
 from keras.preprocessing.ecog import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
@@ -76,14 +77,15 @@ def f_nn():
 
 
     x = Flatten(name='flatten')(x)
-    x = Dense(1024,  name='fc1')(x)
+    x = Dropout(0.5)(x)
+    x = Dense(1024, W_regularizer=l2(0.01), name='fc1')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    #x = Dropout(0.5)(x)
-    x = Dense(256, name='fc2')(x)
+    x = Dropout(0.5)(x)
+    x = Dense(256, W_regularizer=l2(0.01), name='fc2')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    #x = Dropout(0.5)(x)
+    x = Dropout(0.5)(x)
     x = Dense(1, name='predictions')(x)
     x = BatchNormalization()(x)
     predictions = Activation('sigmoid')(x)
@@ -93,7 +95,7 @@ def f_nn():
 
     model = Model(input=input_tensor, output=predictions)
     #pdb.set_trace()
-    sgd = keras.optimizers.SGD(lr=0.01)
+    sgd = keras.optimizers.SGD(lr=0.001)
 
     model.compile(optimizer=sgd,
                   loss='binary_crossentropy',
@@ -103,7 +105,7 @@ def f_nn():
     history_callback = model.fit_generator(
             train_generator,
             samples_per_epoch=31800,
-            nb_epoch=50,
+            nb_epoch=150,
             validation_data=validation_generator,
             nb_val_samples=11200)
     #pdb.set_trace()

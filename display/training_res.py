@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pdb
 import os
 
-filename="ecog_history_3d_pred.p"
+filename="history_Ecog_1d.p"
 save_folder="/home/wangnxr/Documents/ecogdeep/"
 
 history = pickle.load(open(filename))

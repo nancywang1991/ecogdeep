@@ -63,7 +63,7 @@ x = BatchNormalization()(x)
 x = Activation('relu')(x)
 x = Dropout(0.5)(x)
 x = Dense(1, name='predictions')(x)
-x = BatchNormalization()(x)
+#x = BatchNormalization()(x)
 predictions = Activation('sigmoid')(x)
 
 #for layer in base_model.layers[:10]:

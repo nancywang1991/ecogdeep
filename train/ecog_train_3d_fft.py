@@ -13,10 +13,16 @@ import pickle
 train_datagen = Ecog3DDataGenerator(
         time_shift_range=200,
         gaussian_noise_range=0.001,
+        f_lo=10,
+        f_hi=210,
+        fft=True,
         center=False
 )
 
 test_datagen = Ecog3DDataGenerator(
+        f_lo=10,
+        f_hi=210,
+        fft=True,
         center=True
 )
 
@@ -26,6 +32,7 @@ dgdx = train_datagen.flow_from_directory(
         #'/home/nancy/Documents/ecog_dataset/d6532718/train/',
         batch_size=24,
         target_size=(1,8,8,1000),
+        final_size=(1,8,8,200),
         class_mode='binary')
 
 dgdx_val = test_datagen.flow_from_directory(
@@ -34,6 +41,7 @@ dgdx_val = test_datagen.flow_from_directory(
         batch_size=25,
         shuffle=False,
         target_size=(1,8,8,1000),
+        final_size=(1,8,8,200),
         class_mode='binary')
 
 #train_datagen.fit_generator(dgdx, nb_iter=100)
@@ -45,31 +53,32 @@ validation_generator=dgdx_val
 #base_model = VGG16(input_tensor=(Input(shape=(224, 224, 3))), include_top=False)
 
 # Determine proper input shape
-input_tensor=Input(shape=(1,8,8,1000))
+#pdb.set_trace()
+input_tensor=Input(shape=(1,8,8,200))
 
 # Block 1
-x = MaxPooling3D((1,1,5),  name='pre_pool')(input_tensor)
+#x = MaxPooling3D((1,1,5),  name='pre_pool')(input_tensor)
 #x = Convolution2D(32, 1, 10, activation='relu', border_mode='same', name='block1_conv1')(x)
-
+x = BatchNormalization()(input_tensor)
 x = Convolution3D(32, 2, 2, 10, activation='relu', border_mode='same', name='block1_conv2')(x)
 x = MaxPooling3D((1,1,2),  name='block1_pool')(x)
 
 # Block 2
 x = Convolution3D(64, 2, 2, 10, activation='relu', border_mode='same', name='block2_conv1')(x)
 #x = Convolution2D(64, 1, 10, activation='relu', border_mode='same', name='block2_conv2')(x)
-x = MaxPooling3D((1,1,2),  name='block2_pool')(x)
+x = MaxPooling3D((2,2,2),  name='block2_pool')(x)
 
 # Block 3
-x = Convolution3D(128, 2,2, 10, activation='relu', border_mode='same', name='block3_conv1')(x)
+#x = Convolution3D(128, 2,2, 10, activation='relu', border_mode='same', name='block3_conv1')(x)
 #x = Convolution2D(128, 1, 10, activation='relu', border_mode='same', name='block3_conv2')(x)
 #x = Convolution2D(128, 1, 10, activation='relu', border_mode='same', name='block3_conv3')(x)
-x = MaxPooling3D((1,1,2),  name='block3_pool')(x)
+#x = MaxPooling3D((1,1,2),  name='block3_pool')(x)
 
 # Block 4
-x = Convolution3D(256, 2, 2, 10, activation='relu', border_mode='same', name='block4_conv1')(x)
+#x = Convolution3D(256, 2, 2, 10, activation='relu', border_mode='same', name='block4_conv1')(x)
 #x = Convolution2D(256, 1, 10, activation='relu', border_mode='same', name='block4_conv2')(x)
 #x = Convolution2D(256, 1, 10, activation='relu', border_mode='same', name='block4_conv3')(x)
-x = MaxPooling3D((1,1,2), name='block4_pool')(x)
+#x = MaxPooling3D((1,1,2), name='block4_pool')(x)
 
 
 x = Flatten(name='flatten')(x)
@@ -91,7 +100,7 @@ predictions = Activation('sigmoid')(x)
 
 model = Model(input=input_tensor, output=predictions)
 #apdb.set_trace()
-sgd = keras.optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9)
+sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
 model.compile(optimizer=sgd,
               loss='binary_crossentropy',
@@ -112,6 +121,6 @@ history_callback = model.fit_generator(
 #	for key, value in history_callback.history.items():
 #		f.write('%s:%s\n' % (key, value))
 
-model.save("model_ecog_3d.h5")
-pickle.dump(history_callback.history, open("history_ecog_3d.p", "wb"))
+model.save("model_ecog_3d_fft2.h5")
+pickle.dump(history_callback.history, open("history_ecog_3d_fft2.p", "wb"))
 

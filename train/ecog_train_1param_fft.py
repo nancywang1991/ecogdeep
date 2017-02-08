@@ -15,10 +15,16 @@ import pickle
 train_datagen = EcogDataGenerator(
         time_shift_range=200,
         gaussian_noise_range=0.001,
-        center=False
+        center=False,
+        f_lo=10,
+        f_hi=210,
+        fft=True
 )
 
 test_datagen = EcogDataGenerator(
+        f_lo=10,
+        f_hi=210,
+        fft=True,
         center=True
 )
 
@@ -27,6 +33,7 @@ dgdx = train_datagen.flow_from_directory(
         '/home/wangnxr/dataset/vid_ecog_0/train/',
         batch_size=24,
         target_size=(1,64,1000),
+        final_size=(1,64,200),
         class_mode='binary')
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
@@ -34,6 +41,7 @@ dgdx_val = test_datagen.flow_from_directory(
         batch_size=25,
         shuffle=False,
         target_size=(1,64,1000),
+        final_size=(1,64,200),
         class_mode='binary')
 
 train_generator=dgdx
@@ -41,19 +49,17 @@ validation_generator=dgdx_val
 
 ## Hyperparameter optimization space
 
-
-
 def f_nn():
     # Determine proper input shape
     global itr
     print "testing iteration %i" % itr
     itr+=1
-    input_tensor=Input(shape=(1,64,1000))
-
+    input_tensor=Input(shape=(1,64,200))
+    x = BatchNormalization()(input_tensor)
     # Block 1
-    x = MaxPooling2D((1,5),  name='pre_pool')(input_tensor)
+    #x = MaxPooling2D((1,5),  name='pre_pool')(input_tensor)
     x = Convolution2D(16, 1, 10, border_mode='same', name='block1_conv1')(x)
-    #x = BatchNormalization(axis=1)(x)
+    x = BatchNormalization()(x)
     x = Activation('relu')(x)
     x = MaxPooling2D((1,3),  name='block1_pool')(x)
 
@@ -116,8 +122,8 @@ def f_nn():
     #    for key, value in history_callback.history.items():
     #        f.write('%s:%s\n' % (key, value))
 
-    model.save("model_ecog_1d.h5")
-    pickle.dump(history_callback.history,open("history_Ecog_1d.p", "wb"))
+    model.save("model_ecog_fft_1d.h5")
+    pickle.dump(history_callback.history,open("history_ecog_fft_1d.p", "wb"))
 
     loss = history_callback.history["val_loss"][-1]
 

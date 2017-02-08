@@ -55,3 +55,4 @@ for e in xrange(nb_epoch):
         mean_test_score.append(model.score(test_data[0], test_data[1]))
     print "Val_acc = %f" % np.mean(np.array(mean_test_score))
 
+

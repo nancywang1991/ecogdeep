@@ -74,6 +74,7 @@ def main(mv_file, vid_file, save_dir, offset):
         cur_dir = test_dir
     else:
         cur_dir = train_dir
+<<<<<<< HEAD
     #pdb.set_trace()
     for f in range(offset+46,len(mv_file), 10):
         imgs=[]
@@ -85,9 +86,8 @@ def main(mv_file, vid_file, save_dir, offset):
             #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "l_arm_1", vid_name))
             save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
         if np.mean(right_arm_mvmt[f:f+5])>2:
-            save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "r_arm_1", vid_name))
+            #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "r_arm_1", vid_name))
             save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
-
         if np.mean(head_mvmt[f:f+5])>1:
             #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "head_1", vid_name))
             save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))

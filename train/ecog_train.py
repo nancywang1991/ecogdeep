@@ -5,6 +5,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras.layers import Convolution2D, MaxPooling2D
 from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
+from keras.regularizers import l2
 
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
@@ -94,14 +95,15 @@ def f_nn(params):
 
 
     x = Flatten(name='flatten')(x)
-    x = Dense(params['dense1_units'],  name='fc1')(x)
+    x = Dropout(0.5)(x)
+    x = Dense(params['dense1_units'], W_regularizer=l2(0.01),  name='fc1')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    #x = Dropout(0.5)(x)
-    x = Dense(params['dense2_units'], name='fc2')(x)
+    x = Dropout(0.5)(x)
+    x = Dense(params['dense2_units'], W_regularizer=l2(0.01), name='fc2')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    #x = Dropout(0.5)(x)
+    x = Dropout(0.5)(x)
     x = Dense(1, name='predictions')(x)
     x = BatchNormalization()(x)
     predictions = Activation('sigmoid')(x)
@@ -133,8 +135,8 @@ def f_nn(params):
             f.write('%s:%s\n' % (key, value))
 
     model.save("ecog_1d_%i.h5" % itr)
-    pickle.dump(params, open("ecog_1d_params_%i.p" % itr, "wb"))
-    pickle.dump(history_callback.history,open("ecog_1d_history_%i.p" % itr, "wb"))
+    pickle.dump(params, open("ecog_1d_params.p", "wb"))
+    pickle.dump(history_callback.history,open("ecog_1d_history.p", "wb"))
 
     loss = history_callback.history["val_loss"][-1]
 

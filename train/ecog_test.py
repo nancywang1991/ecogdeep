@@ -16,7 +16,7 @@ test_datagen = EcogDataGenerator(
 
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/mnt/ecog_dataset/d6532718/test_bal/',
+        '/home/wangnxr/dataset/vid_ecog_15/test/',
         batch_size=24,
         shuffle=False,
         target_size=(1,64, 1000),
@@ -32,7 +32,7 @@ validation_generator=dgdx_val
 
 
 #model = load_model("my_model_ecog3D.h5")
-model = load_model("my_model_ecog_1d.h5")
+model = load_model("ecog_1d_1_offset_15.h5")
 #pdb.set_trace()
 files = validation_generator.filenames
 results = model.predict_generator(validation_generator, validation_generator.nb_sample)
@@ -55,7 +55,7 @@ accuracy_0 = true_0/float((len(np.where(true==0)[0])))
 #=======
 #pdb.set_trace()
 
-with open("ecog_1d_results.txt", "wb") as writer:
+with open("ecog_1d_results_pred.txt", "wb") as writer:
         writer.write("recall:%f\n" % recall)
         writer.write("precision:%f\n" % precision)
         writer.write("accuracy_1:%f\n" % accuracy_1)

@@ -22,14 +22,14 @@ test_datagen = Ecog3DDataGenerator(
 
 
 dgdx = train_datagen.flow_from_directory(
-        '/home/wangnxr/dataset/ecog_offset_0_arm/train/',
+        '/home/wangnxr/dataset/ecog_offset_15_arm/train/',
         #'/home/nancy/Documents/ecog_dataset/d6532718/train/',
         batch_size=25,
         target_size=(1,8,8,1000),
         class_mode='binary')
 
 dgdx_val = test_datagen.flow_from_directory(
-        '/home/wangnxr/dataset/ecog_offset_0_arm/test/',
+        '/home/wangnxr/dataset/ecog_offset_15_arm/test/',
         #'/home/nancy/Documents/ecog_dataset/d6532718/test/',
         batch_size=22,
         shuffle=False,
@@ -60,13 +60,13 @@ def f_nn(params):
 	x = MaxPooling3D((params[2],params[2],params[3]),  name='block2_pool')(x)
 
 	# Block 3
-	x = Convolution3D(128, 2,2, 5, activation='relu', border_mode='same', name='block3_conv1')(x)
+	x = Convolution3D(128, 2,2, 3, activation='relu', border_mode='same', name='block3_conv1')(x)
 	#x = Convolution2D(128, 1, 10, activation='relu', border_mode='same', name='block3_conv2')(x)
 	#x = Convolution2D(128, 1, 10, activation='relu', border_mode='same', name='block3_conv3')(x)
 	x = MaxPooling3D((1,1,2),  name='block3_pool')(x)
 
 	# Block 4
-	x = Convolution3D(256, 2, 2, 5, activation='relu', border_mode='same', name='block4_conv1')(x)
+	x = Convolution3D(256, 2, 2, 3, activation='relu', border_mode='same', name='block4_conv1')(x)
 	x = MaxPooling3D((1,1,2), name='block4_pool')(x)
 
 
@@ -96,7 +96,7 @@ def f_nn(params):
 	#history = keras.callbacks.ModelCheckpoint("/mnt/weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
 	history_callback = model.fit_generator(
         	train_generator,
-        	samples_per_epoch=11375,
+        	samples_per_epoch=11500,
         	nb_epoch=60,
         	validation_data=validation_generator,
         	nb_val_samples=748)
@@ -108,10 +108,10 @@ def f_nn(params):
 #	for key, value in history_callback.history.items():
 #		f.write('%s:%s\n' % (key, value))
 
-	model.save("/home/wangnxr/model_ecog_3d_%s.h5" % "_".join([str(param) for param in params]))
-	pickle.dump(history_callback.history, open("/home/wangnxr/history_ecog_3d_%s.p" % "_".join([str(param) for param in params]), "wb"))
+	model.save("/home/wangnxr/model_ecog_3d_%s_small_filt.h5" % "_".join([str(param) for param in params]))
+	pickle.dump(history_callback.history, open("/home/wangnxr/history_ecog_3d_%s_small_filt.p" % "_".join([str(param) for param in params]), "wb"))
 
 if __name__=="__main__":
-	params_list = [(2, 5, 2,2), (2,10, 2,2),(3,5,2,2),(3,10,2,2)]
+	params_list = [(2, 5, 2,2), (2,10, 2,2),(3,5,2,2),(3,10,2,2), (2, 5, 1,2), (2,10, 1,2),(3,5,1,2),(3,10,1,2)]
 	for params in params_list:
 		f_nn(params)

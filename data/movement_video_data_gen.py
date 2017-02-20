@@ -27,6 +27,11 @@ def scoring(truth, predicted):
 
     return [precision, recall, true/30.0]
 
+def save_imgs(imgs, offsets, main_name): 
+    img = np.concatenate(imgs, axis=1)
+    a,b,c,d=offsets[0],offsets[1],offsets[2],offsets[3]
+    cv2.imwrite(os.path.join("%s_%i_%i_%i_%i.png" % (main_name,a,b,c,d)), img)
+
 def main(mv_file, vid_file, save_dir, offset):
 
     mv_file = pickle.load(open(mv_file))
@@ -69,38 +74,36 @@ def main(mv_file, vid_file, save_dir, offset):
         cur_dir = test_dir
     else:
         cur_dir = train_dir
-
-    for f in range(offset+1,len(mv_file), 10):
-        vid_file.forward_to(f - offset)
-        img = vid_file.read()
-
+    #pdb.set_trace()
+    for f in range(offset+46,len(mv_file), 10):
+        imgs=[]
+        flag=0
+        for f2 in range(f-offset-45, f-offset+1, 15):
+            vid_file.forward_to(f2)
+            imgs.append(vid_file.read())
         if np.mean(left_arm_mvmt[f:f+5])>2:
-            cv2.imwrite(os.path.join(cur_dir, "l_arm_1", "%s_%i.png" %(vid_name,f - offset)), img)
-            cv2.imwrite(os.path.join(cur_dir, "mv_1", "%s_%i.png" % (vid_name, f - offset)), img)
+            #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "l_arm_1", vid_name))
+            save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
         if np.mean(right_arm_mvmt[f:f+5])>2:
-            cv2.imwrite(os.path.join(cur_dir, "r_arm_1", "%s_%i.png" % (vid_name, f - offset)), img)
-            cv2.imwrite(os.path.join(cur_dir, "mv_1", "%s_%i.png" % (vid_name, f - offset)), img)
-        if np.mean(head_mvmt[f:f+5])>1:
-            cv2.imwrite(os.path.join(cur_dir, "head_1", "%s_%i.png" % (vid_name, f - offset)), img)
-            cv2.imwrite(os.path.join(cur_dir, "mv_1", "%s_%i.png" % (vid_name, f - offset)), img)
-    vid_file.rewind()
-    for f in range(offset+1, len(mv_file), 60):
-        vid_file.forward_to(f-offset)
-        img = vid_file.read()
-        flag = 0
+            save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "r_arm_1", vid_name))
+            save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
 
-        if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
-            cv2.imwrite(os.path.join(cur_dir, "l_arm_0", "%s_%i.png" % (vid_name, f - offset)), img)
-            flag+=1
-        if np.all(right_arm_mvmt[f:f+5] >= 0) and np.mean(right_arm_mvmt[f:f + 5]) < 1:
-            cv2.imwrite(os.path.join(cur_dir, "r_arm_0", "%s_%i.png" % (vid_name, f - offset)), img)
-            flag+=1
-        if np.all(head_mvmt[f:f+5] >= 0) and np.mean(head_mvmt[f:f + 5]) < 0.5:
-            cv2.imwrite(os.path.join(cur_dir, "head_0", "%s_%i.png" % (vid_name, f - offset)), img)
-            flag+=1
-        #print (np.mean(left_arm_mvmt[f:f + 5]), np.mean(right_arm_mvmt[f:f + 5]), np.mean(head_mvmt[f:f + 5]))
-        if flag==3:
-            cv2.imwrite(os.path.join(cur_dir, "mv_0", "%s_%i.png" % (vid_name, f - offset)), img)
+        if np.mean(head_mvmt[f:f+5])>1:
+            #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "head_1", vid_name))
+            save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
+	if (f/10)%6==0:
+            if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
+                #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "l_arm_0", vid_name))
+                flag+=1
+            if np.all(right_arm_mvmt[f:f+5] >= 0) and np.mean(right_arm_mvmt[f:f + 5]) < 1:
+                #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "r_arm_0", vid_name))
+                flag+=1
+            if np.all(head_mvmt[f:f+5] >= 0) and np.mean(head_mvmt[f:f + 5]) < 0.5:
+                #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "head_0", vid_name))
+                flag+=1
+                #print (np.mean(left_arm_mvmt[f:f + 5]), np.mean(right_arm_mvmt[f:f + 5]), np.mean(head_mvmt[f:f + 5]))
+            if flag==3:
+                save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_0", vid_name))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

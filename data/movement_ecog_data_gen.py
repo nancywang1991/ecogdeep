@@ -85,50 +85,48 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
     else:
         cur_dir = train_dir
 
-    for f in range(offset+1+15,len(mv_file)-1, 10):
+    for f in range(offset+1+20,len(mv_file)-1, 10):
         flag = 0
         edf_part = edf_clip[:,(int((f - offset - 15) * (1000 / 30.0)) - 100):(int((f - offset - 15) * (1000 / 30.0) + 1100))]
         if np.mean(left_arm_mvmt[f:f+5])>2:
             flag = 1
-            save_filename = os.path.join(cur_dir, "l_arm_1", "%s_%i" % (vid_name, f - offset))
+            save_filename = os.path.join(cur_dir, "l_arm_1", "%s_%i" % (vid_name, f ))
             if edf_part.shape[1] == 1200:
                 write_edf_part(edf_part, save_filename)
         if np.mean(right_arm_mvmt[f:f+5])>2:
             flag = 1
-            save_filename = os.path.join(cur_dir, "r_arm_1", "%s_%i" % (vid_name, f - offset))
+            save_filename = os.path.join(cur_dir, "r_arm_1", "%s_%i" % (vid_name, f ))
             if edf_part.shape[1] == 1200:
                 write_edf_part(edf_part, save_filename)
         if np.mean(head_mvmt[f:f+5])>1:
             flag = 1
-            save_filename = os.path.join(cur_dir, "head_1", "%s_%i" % (vid_name, f - offset))
+            save_filename = os.path.join(cur_dir, "head_1", "%s_%i" % (vid_name, f ))
             if edf_part.shape[1] == 1200:
                 write_edf_part(edf_part, save_filename)
         if flag:
-            save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f - offset))
+            save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f ))
             if edf_part.shape[1]==1200:
                 write_edf_part(edf_part, save_filename)
-    for f in range(offset+1+15, len(mv_file)-1, 60):
-        flag = 0
-        edf_part = edf_clip[:,(int((f - offset - 15) * (1000 / 30.0)) - 100):(int((f - offset - 15) * (1000 / 30.0) + 1100))]
-        if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
-            save_filename = os.path.join(cur_dir, "l_arm_0", "%s_%i" % (vid_name, f - offset))
-            if edf_part.shape[1]==1200:
-                write_edf_part(edf_part, save_filename)
-            flag+=1
-        if np.all(right_arm_mvmt[f:f + 5] >= 0) and np.mean(right_arm_mvmt[f:f + 5]) < 1:
-            save_filename = os.path.join(cur_dir, "r_arm_0", "%s_%i" % (vid_name, f - offset))
-            if edf_part.shape[1]==1200:
-                write_edf_part(edf_part, save_filename)
-            flag+=1
-        if np.all(head_mvmt[f:f + 5] >= 0) and np.mean(head_mvmt[f:f + 5]) < 0.5:
-            save_filename = os.path.join(cur_dir, "head_0", "%s_%i" % (vid_name, f - offset))
-            if edf_part.shape[1]==1200:
-                write_edf_part(edf_part, save_filename)
-            flag+=1
-        if flag==3:
-            save_filename = os.path.join(cur_dir, "mv_0", "%s_%i" % (vid_name, f - offset))
-            if edf_part.shape[1]==1200:
-                write_edf_part(edf_part, save_filename)
+        if (f / 10) % 6 == 0:
+            if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
+                save_filename = os.path.join(cur_dir, "l_arm_0", "%s_%i" % (vid_name, f ))
+                if edf_part.shape[1]==1200:
+                    write_edf_part(edf_part, save_filename)
+                flag+=1
+            if np.all(right_arm_mvmt[f:f + 5] >= 0) and np.mean(right_arm_mvmt[f:f + 5]) < 1:
+                save_filename = os.path.join(cur_dir, "r_arm_0", "%s_%i" % (vid_name, f ))
+                if edf_part.shape[1]==1200:
+                    write_edf_part(edf_part, save_filename)
+                flag+=1
+            if np.all(head_mvmt[f:f + 5] >= 0) and np.mean(head_mvmt[f:f + 5]) < 0.5:
+                save_filename = os.path.join(cur_dir, "head_0", "%s_%i" % (vid_name, f))
+                if edf_part.shape[1]==1200:
+                    write_edf_part(edf_part, save_filename)
+                flag+=1
+            if flag==3:
+                save_filename = os.path.join(cur_dir, "mv_0", "%s_%i" % (vid_name, f ))
+                if edf_part.shape[1]==1200:
+                    write_edf_part(edf_part, save_filename)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

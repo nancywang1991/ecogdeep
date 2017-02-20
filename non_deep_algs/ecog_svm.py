@@ -25,14 +25,14 @@ test_datagen = EcogDataGenerator(
 
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
-        '/home/wangnxr/dataset/vid_ecog_0/train/',
+        '/home/wangnxr/dataset/ecog_offset_0/train/',
         batch_size=24,
         target_size=(1,64,1000),
         final_size=(1,64,200),
         class_mode='binary')
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/wangnxr/dataset/vid_ecog_0/test/',
+        '/home/wangnxr/dataset/ecog_offset_0/test/',
         batch_size=25,
         shuffle=False,
         target_size=(1,64,1000),

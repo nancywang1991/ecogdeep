@@ -11,10 +11,11 @@ import pickle
 import numpy as np
 import pdb
 train_datagen = ImageDataGenerator(
-        rotation_range=40,
+        #rotation_range=40,
         rescale=1./255,
-        zoom_range=0.2,
-        horizontal_flip=True)
+        #zoom_range=0.2,
+        #horizontal_flip=True
+)
 
 test_datagen = ImageDataGenerator(rescale=1./255)
 
@@ -27,7 +28,7 @@ test_datagen.set_pipeline([center_crop])
 
 
 dgdx = train_datagen.flow_from_directory(
-        '/home/wangnxr/dataset/vid_offset_0/train/',
+        '/home/wangnxr/dataset/vid_offset_0_mf/train/',
         read_formats={'png'},
         num_frames=4,
         target_size=(int(340), int(256)),
@@ -35,7 +36,7 @@ dgdx = train_datagen.flow_from_directory(
         class_mode='binary')
 
 dgdx_val = test_datagen.flow_from_directory(
-        '/home/wangnxr/dataset/vid_offset_0/test/',
+        '/home/wangnxr/dataset/vid_offset_0_mf/test/',
         read_formats={'png'},
         num_frames=4,
         target_size=(int(340), int(256)),
@@ -53,25 +54,29 @@ alexnet_model = convnet('alexnet', weights_path="/home/wangnxr/Documents/ecogdee
 base_model = Model(alexnet_model.input, alexnet_model.get_layer("dense_2").output)
 
 frame_a = Input(shape=(3,227,227))
-frame_b = Input(shape=(3,227,227))
-frame_c = Input(shape=(3,227,227))
+#frame_b = Input(shape=(3,227,227))
+#frame_c = Input(shape=(3,227,227))
 frame_d = Input(shape=(3,227,227))
 
 
 tower1 = base_model(frame_a)
-tower2 = base_model(frame_b)
-tower3 = base_model(frame_c)
+#tower2 = base_model(frame_b)
+#tower3 = base_model(frame_c)
 tower4 = base_model(frame_d)
-x = merge([tower1, tower2, tower3, tower4], mode='concat')
+x = merge([tower1, tower4], mode='concat', concat_axis=-1)
 
 #x = base_model.output
 #x = Flatten(name='flatten')(x)
+#x = Dropout(0.5)(x)
+#x = Dense(2048, W_regularizer=l2(0.01), name='fc1')(x)
+#x = BatchNormalization()(x)
+#x = Activation('relu')(x)
 x = Dropout(0.5)(x)
-x = Dense(512, W_regularizer=l2(0.01), name='fc1')(x)
+x = Dense(1024, W_regularizer=l2(0.01), name='fc2')(x)
 x = BatchNormalization()(x)
 x = Activation('relu')(x)
 x = Dropout(0.5)(x)
-x = Dense(256, W_regularizer=l2(0.01), name='fc2')(x)
+x = Dense(256, W_regularizer=l2(0.01), name='fc3')(x)
 x = BatchNormalization()(x)
 x = Activation('relu')(x)
 x = Dropout(0.5)(x)
@@ -82,9 +87,9 @@ predictions = Activation('sigmoid')(x)
 #for layer in base_model.layers[:10]:
 #    layer.trainable = False
 
-model = Model(input=[frame_a, frame_b, frame_c, frame_d], output=predictions)
+model = Model(input=[frame_a, frame_d], output=predictions)
 
-sgd = keras.optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9)
+sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
 model.compile(optimizer=sgd,
               loss='binary_crossentropy',
@@ -93,11 +98,11 @@ model.compile(optimizer=sgd,
 history_callback = model.fit_generator(
         train_generator,
         samples_per_epoch=43904,
-        nb_epoch=200,
+        nb_epoch=60,
         validation_data=validation_generator,
-        nb_val_samples=11232)
+        nb_val_samples=9668)
 
-model.save("vid_model_alexnet_4towers.h5")
-pickle.dump(history_callback.history, open("vid_history_alexnet_4towers.p", "wb"))
+model.save("vid_model_alexnet_2towers_dense2.h5")
+pickle.dump(history_callback.history, open("vid_history_alexnet_2towers_dense2.p", "wb"))
 
 

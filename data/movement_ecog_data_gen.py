@@ -1,6 +1,8 @@
 import argparse
 import glob
 import cPickle as pickle
+import matplotlib
+matplotlib.use("agg")
 import csv
 import numpy as np
 import os
@@ -98,7 +100,7 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
             flag = 1
             save_filename = os.path.join(cur_dir, "r_arm_1", "%s_%i" % (vid_name, f ))
             if edf_part.shape[1] == 1200:
-                write_edf_part(edf_part, save_filename)
+		write_edf_part(edf_part, save_filename)
         if np.mean(head_mvmt[f:f+5])>1:
             flag = 1
             save_filename = os.path.join(cur_dir, "head_1", "%s_%i" % (vid_name, f ))
@@ -158,7 +160,7 @@ if __name__ == "__main__":
                 norm_factors[c,0] = np.mean(temp_data)
                 norm_factors[c,1] = np.std(temp_data)
         pickle.dump(norm_factors, open("%s/%s_%s_norm_factors.p" % (args.save_dir, sbj_id, day), "wb"))
-
+    start_time, end_time, start, end = get_disconnected_times(args.disconnect_file)
     for c in range(64):
         print "edf_data_part1:%i" % (c+1)
         edf_data[c,:int(0.6*len(edf))] = (edf[c+1][0][0,:int(0.6*len(edf))]-norm_factors[c,0])/norm_factors[c,1]
@@ -167,7 +169,7 @@ if __name__ == "__main__":
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")
         vid_start_end = pickle.load(open(os.path.join(args.vid_time_dir, "%s_%s.p" % (sbj_id, day))))
-        main(file, edf_data, args.save_dir, vid_start_end, args.offset)
+        main(file, edf_data, args.save_dir, vid_start_end, start_time, args.offset)
 
     edf_data = []
     gc.collect()
@@ -176,7 +178,6 @@ if __name__ == "__main__":
     for c in range(64):
         print "edf_data_part2:%i" % (c+1)
         edf_data[c,int(0.5*len(edf)):] = (edf[c+1][0][0,int(0.5*len(edf)):]-norm_factors[c,0])/norm_factors[c,1]
-    start_time, end_time, start, end = get_disconnected_times(args.disconnect_file)
     for file in sorted(files)[len(files)/2:]:
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")

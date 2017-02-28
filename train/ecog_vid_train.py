@@ -86,7 +86,6 @@ dgdx_val_vid = test_datagen_vid.flow_from_directory(
 train_datagen_vid.fit_generator(dgdx_vid, nb_iter=96)
 test_datagen_vid.fit_generator(dgdx_val_vid, nb_iter=96)
 
-
 train_generator = izip(dgdx_edf, dgdx_vid)
 validation_generator = izip(dgdx_edf, dgdx_vid)
 
@@ -121,7 +120,7 @@ predictions = Activation('sigmoid')(x)
 #for layer in base_model.layers[:10]:
 #    layer.trainable = False
 
-model = Model(input=[[frame_a, frame_b], ecog_series], output=predictions)
+model = Model(input=[base_model_vid.input, base_model_ecog.input], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 

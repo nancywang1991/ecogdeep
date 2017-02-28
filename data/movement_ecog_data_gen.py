@@ -8,6 +8,7 @@ import pdb
 import matplotlib.pyplot as plt
 import mne.io
 import gc
+from pyESig2.vid.video_sync.vid_start_end import get_disconnected_times
 
 def scoring(truth, predicted):
     plt.plot(np.array(range(len(truth)))/30.0, truth*5, label="truth")
@@ -32,7 +33,7 @@ def write_edf_part(edf_part, filename_root, randomize=False):
     np.save(filename_root + ".npy", edf_part)
 
 
-def main(mv_file, edf, save_dir, vid_start_end, offset):
+def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
     vid_name = os.path.split(mv_file)[-1].split('.')[0]
     print vid_name
     mv_file = pickle.load(open(mv_file))
@@ -40,8 +41,8 @@ def main(mv_file, edf, save_dir, vid_start_end, offset):
     #print edf_file
     #edf = pyedflib.EdfReader(edf_file)
 
-    start_sec = (vid_start_end["start"][int(vid_num)] - vid_start_end["start"][0]).total_seconds()
-    end_sec = (vid_start_end["end"][int(vid_num)] - vid_start_end["start"][0]).total_seconds()
+    start_sec = (vid_start_end["start"][int(vid_num)] - start_time).total_seconds()
+    end_sec = (vid_start_end["end"][int(vid_num)] - start_time).total_seconds()
     #pdb.set_trace()
 #    n_channels = len(edf.ch_names)
 #    edf_clip_len = int(end_sec*1000)-int(start_sec*1000)
@@ -133,6 +134,7 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--mv_dir', required=True, help="Joint movement directory")
     parser.add_argument('-e', '--edf_dir', required=True, help="edf directory")
     parser.add_argument('-t', '--vid_time_dir', required=True, help="video start and end time directory")
+    parser.add_argument('-df', '--disconnect_file', required=True, help="video disconnect times")
     parser.add_argument('-s', '--save_dir', required=True, help="Save directory")
     parser.add_argument('-o', '--offset', default=15, type=int, help="how many frames into the future")
     parser.add_argument('-n', '--norm_factors_file', help="optional normalization mean and stdev")
@@ -174,9 +176,9 @@ if __name__ == "__main__":
     for c in range(64):
         print "edf_data_part2:%i" % (c+1)
         edf_data[c,int(0.5*len(edf)):] = (edf[c+1][0][0,int(0.5*len(edf)):]-norm_factors[c,0])/norm_factors[c,1]
-
+    start_time, end_time, start, end = get_disconnected_times(args.disconnect_file)
     for file in sorted(files)[len(files)/2:]:
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")
         vid_start_end = pickle.load(open(os.path.join(args.vid_time_dir, "%s_%s.p" % (sbj_id, day))))
-        main(file, edf_data, args.save_dir, vid_start_end, args.offset)
+        main(file, edf_data, args.save_dir, vid_start_end, start_time, args.offset)

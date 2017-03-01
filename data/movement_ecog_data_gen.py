@@ -106,10 +106,10 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
             save_filename = os.path.join(cur_dir, "head_1", "%s_%i" % (vid_name, f ))
             if edf_part.shape[1] == 1200:
                 write_edf_part(edf_part, save_filename)
-        if flag:
-            save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f ))
-            if edf_part.shape[1]==1200:
-                write_edf_part(edf_part, save_filename)
+        #if flag:
+        #    save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f ))
+        #    if edf_part.shape[1]==1200:
+        #        write_edf_part(edf_part, save_filename)
         if (f / 10) % 6 == 0:
             if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
                 #save_filename = os.path.join(cur_dir, "l_arm_0", "%s_%i" % (vid_name, f ))

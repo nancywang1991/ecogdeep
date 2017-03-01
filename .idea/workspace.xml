@@ -82,8 +82,8 @@
       <file leaf-file-name="movement_ecog_data_gen.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="700">
-              <caret line="157" column="32" selection-start-line="157" selection-start-column="32" selection-end-line="157" selection-end-column="32" />
+            <state relative-caret-position="601">
+              <caret line="165" column="27" selection-start-line="165" selection-start-column="27" selection-end-line="165" selection-end-column="27" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -660,13 +660,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00030" summary="ecog test">
-      <created>1484162551693</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1484162551693</updated>
-    </task>
     <task id="LOCAL-00031" summary="ecog test">
       <created>1484162859325</created>
       <option name="number" value="00031" />
@@ -1003,7 +996,14 @@
       <option name="project" value="LOCAL" />
       <updated>1488247630508</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="increased speed of mne loading">
+      <created>1488409993180</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1488409993180</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1052,7 +1052,8 @@
     <MESSAGE value="new ecog test 3d&#10;" />
     <MESSAGE value="added multiframe support" />
     <MESSAGE value="combine ecog and vid" />
-    <option name="LAST_COMMIT_MESSAGE" value="combine ecog and vid" />
+    <MESSAGE value="increased speed of mne loading" />
+    <option name="LAST_COMMIT_MESSAGE" value="increased speed of mne loading" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1401,8 +1402,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="157" column="32" selection-start-line="157" selection-start-column="32" selection-end-line="157" selection-end-column="32" />
+        <state relative-caret-position="601">
+          <caret line="165" column="27" selection-start-line="165" selection-start-column="27" selection-end-line="165" selection-end-column="27" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

@@ -155,7 +155,7 @@ if __name__ == "__main__":
     if args.norm_factors_file is None:
         for c in range(64):
             print "normalization:%i" % (c+1)
-            temp_data = edf[c+1,:]
+            temp_data,_ = edf[c+1,:]
             if args.norm_factors_file is None:
                 norm_factors[c,0] = np.mean(temp_data)
                 norm_factors[c,1] = np.std(temp_data)
@@ -163,7 +163,7 @@ if __name__ == "__main__":
     start_time, end_time, start, end = get_disconnected_times(args.disconnect_file)
     for c in range(64):
         print "edf_data_part1:%i" % (c+1)
-        edf_data[c,:int(0.6*len(edf))] = (edf[c+1,int(0.6*len(edf))]-norm_factors[c,0])/norm_factors[c,1]
+        edf_data[c,:int(0.6*len(edf))], _ = (edf[c+1,int(0.6*len(edf))]-norm_factors[c,0])/norm_factors[c,1]
 
     for file in sorted(files)[:len(files)/2]:
         #pdb.set_trace()
@@ -177,7 +177,7 @@ if __name__ == "__main__":
 
     for c in range(64):
         print "edf_data_part2:%i" % (c+1)
-        edf_data[c,int(0.5*len(edf)):] = (edf[c+1,int(0.5*len(edf)):]-norm_factors[c,0])/norm_factors[c,1]
+        edf_data[c,int(0.5*len(edf)):],_ = (edf[c+1,int(0.5*len(edf)):]-norm_factors[c,0])/norm_factors[c,1]
     for file in sorted(files)[len(files)/2:]:
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")

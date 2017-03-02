@@ -24,14 +24,14 @@ test_datagen = EcogDataGenerator(
 
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
-        '/home/wangnxr/dataset/ecog_offset_0_arm/train/',
-        batch_size=25,
+        '/home/wangnxr/dataset/ecog_offset_0_arm_a0f/train/',
+        batch_size=22,
         target_size=(1,64,1000),
         class_mode='binary')
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/wangnxr/dataset/ecog_offset_0_arm/test/',
-        batch_size=22,
+        '/home/wangnxr/dataset/ecog_offset_0_arm_a0f/test/',
+        batch_size=14,
         shuffle=False,
         target_size=(1,64,1000),
         class_mode='binary')
@@ -102,10 +102,10 @@ def f_nn(params):
     #history = keras.callbacks.ModelCheckpoint("weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
     history_callback = model.fit_generator(
             train_generator,
-            samples_per_epoch=11375,
-            nb_epoch=60,
+            samples_per_epoch=7590,
+            nb_epoch=20,
             validation_data=validation_generator,
-            nb_val_samples=748)
+            nb_val_samples=686)
     #pdb.set_trace()
     #loss_history = history_callback.history["loss"]
     #numpy_loss_history = np.array(loss_history)
@@ -121,7 +121,7 @@ def f_nn(params):
 
     return loss
 
-params_list = [(1,3,1,3),(1,10,1,3),(5,3,1,3),(5,10,1,3), (1,3,2,3),(1,10,2,3),(5,3,2,3),(5,10,2,3)]
+params_list = [(1,3,1,3),(1,3,1,2),(1,10,1,2),(2,10,1,2),(2,10,2,2)]
 losses = []
 for params in params_list:
     losses.append(f_nn(params))

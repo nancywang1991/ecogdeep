@@ -13,7 +13,7 @@ import pdb
 
 def video_2tower_model(weights=None):
         alexnet_model = convnet('alexnet', weights_path="/home/wangnxr/Documents/ecogdeep/convnets-keras/examples/alexnet_weights.h5")
-        base_model = Model(alexnet_model.input, alexnet_model.get_layer("dense_2").output)
+        base_model = Model(alexnet_model.input, alexnet_model.get_layer("dense_1").output)
 
         frame_a = Input(shape=(3,227,227))
         frame_d = Input(shape=(3,227,227))

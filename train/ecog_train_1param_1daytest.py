@@ -24,14 +24,14 @@ test_datagen = EcogDataGenerator(
 
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
-        '/home/wangnxr/dataset/ecog_offset_15_arm_a0f/train/',
-        batch_size=24,
+        '/home/wangnxr/dataset/ecog_offset_0_arm_test1day/train/',
+        batch_size=25,
         target_size=(1,64,1000),
         class_mode='binary')
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/wangnxr/dataset/ecog_offset_15_arm_a0f/test/',
-        batch_size=20,
+        '/home/wangnxr/dataset/ecog_offset_0_arm_test1day/test/',
+        batch_size=16,
         shuffle=False,
         target_size=(1,64,1000),
         class_mode='binary')
@@ -102,10 +102,10 @@ def f_nn(params):
     #history = keras.callbacks.ModelCheckpoint("weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
     history_callback = model.fit_generator(
             train_generator,
-            samples_per_epoch=7056,
-            nb_epoch=20,
+            samples_per_epoch=10125,
+            nb_epoch=60,
             validation_data=validation_generator,
-            nb_val_samples=1020)
+            nb_val_samples=1312)
     #pdb.set_trace()
     #loss_history = history_callback.history["loss"]
     #numpy_loss_history = np.array(loss_history)
@@ -114,17 +114,17 @@ def f_nn(params):
     #    for key, value in history_callback.history.items():
     #        f.write('%s:%s\n' % (key, value))
 
-    model.save("/home/wangnxr/model_ecog_1d_offset_15_%s_v2.h5" % "_".join([str(param) for param in params]))
-    pickle.dump(history_callback.history,open("/home/wangnxr/history_ecog_1d_offset_15_%s_v2.p" % "_".join([str(param) for param in params]), "wb"))
+    model.save("/home/wangnxr/results/nn/model_ecog_1d_%s_test1day_small_filt.h5" % "_".join([str(param) for param in params]))
+    pickle.dump(history_callback.history,open("/home/wangnxr/results/nn/history_ecog_1d_%s_test1day_small_filt.p" % "_".join([str(param) for param in params]), "wb"))
 
     loss = history_callback.history["val_loss"][-1]
 
     return loss
 
-params_list = [(1,3,1,2), (2,3,1,2),(1,10,1,2),(2,10,1,2),(1,3,1,2), (2,3,2,2),(1,10,2,2),(2,10,2,2)]
+params_list = [(1,3,1,3),(1,10,1,3)]
 losses = []
 for params in params_list:
     losses.append(f_nn(params))
-#best_ind = losses.argmin()
-#print 'best: %s %f' % ("_".join(params_list[best_ind]), losses[best_ind])
+best_ind = np.array(losses).argmin()
+print 'best: %s %f' % ("_".join(params_list[best_ind]), losses[best_ind])
 

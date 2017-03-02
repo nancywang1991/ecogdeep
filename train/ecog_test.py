@@ -16,8 +16,8 @@ test_datagen = EcogDataGenerator(
 
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/wangnxr/dataset/vid_ecog_15/test/',
-        batch_size=24,
+        '/home/wangnxr/dataset/ecog_offset_15_arm_a0f/test/',
+        batch_size=20,
         shuffle=False,
         target_size=(1,64, 1000),
         class_mode='binary')
@@ -30,12 +30,13 @@ validation_generator=dgdx_val
 #base_model = VGG16(input_tensor=(Input(shape=(224, 224, 3))), include_top=False)
 
 
-
 #model = load_model("my_model_ecog3D.h5")
-model = load_model("ecog_1d_1_offset_15.h5")
+model = load_model("/home/wangnxr/model_ecog_1d_offset_15_1_3_1_2_v2.h5")
 #pdb.set_trace()
 files = validation_generator.filenames
-results = model.predict_generator(validation_generator, validation_generator.nb_sample)
+pdb.set_trace()
+results = model.predict_generator(validation_generator, 1020)
+pdb.set_trace()
 true = validation_generator.classes
 true_0 = 0
 true_1 = 0
@@ -55,14 +56,17 @@ accuracy_0 = true_0/float((len(np.where(true==0)[0])))
 #=======
 #pdb.set_trace()
 
-with open("ecog_1d_results_pred.txt", "wb") as writer:
+with open("/home/wangnxr/ecog_1d_results_pred.txt", "wb") as writer:
         writer.write("recall:%f\n" % recall)
         writer.write("precision:%f\n" % precision)
         writer.write("accuracy_1:%f\n" % accuracy_1)
         writer.write("accuracy_0:%f\n" % accuracy_0)
 
         for f, file in enumerate(files):
-                writer.write("%s:%f\n" % (file, results[f][0]))
+		try:
+                	writer.write("%s:%f\n" % (file, results[f][0]))
+		except:
+			pass
 	
 
 

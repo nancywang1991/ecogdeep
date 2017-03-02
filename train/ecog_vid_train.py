@@ -107,6 +107,8 @@ ecog_model = ecog_1d_model(weights="/home/wangnxr/model_ecog_1d_offset_15_1_3_1_
 #ecog_model = ecog_1d_model()
 base_model_vid = Model(vid_model.input, vid_model.get_layer("fc2").output)
 base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
+
+
 frame_a = Input(shape=(3,227,227))
 frame_b = Input(shape=(3,227,227))
 ecog_series = Input(shape=(1,64,1000))
@@ -135,7 +137,11 @@ for layer in base_model_ecog.layers:
     layer.trainable = False
 
 
+<<<<<<< HEAD
 model = Model(input=[frame_a, frame_b, ecog_series], output=predictions)
+=======
+model = Model(input=[base_model_vid.input, base_model_ecog.input], output=predictions)
+>>>>>>> ea9cb98dbb0bf32698276128c60852daccf3f40a
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 

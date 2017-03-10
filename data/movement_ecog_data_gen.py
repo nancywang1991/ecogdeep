@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import mne.io
 import gc
 from pyESig2.vid.video_sync.vid_start_end import get_disconnected_times
+import scipy.sparse
 
 def scoring(truth, predicted):
     plt.plot(np.array(range(len(truth)))/30.0, truth*5, label="truth")
@@ -145,7 +146,8 @@ if __name__ == "__main__":
     sbj_id, day, vid_num, _ = os.path.split(files[0])[-1].split(".")[0].split("_")
     ecog_name = os.path.join(args.edf_dir, "%s_%s.edf" %( sbj_id, day))
     edf = mne.io.read_raw_edf(ecog_name)
-    n_channels = 64
+    n_channels = edf.ch_names.index('EOGL')-1
+    #pdb.set_trace()
     edf_data = np.zeros(shape=(n_channels, len(edf)))
     if args.norm_factors_file is None:
         norm_factors = np.zeros(shape=(n_channels,2))
@@ -153,7 +155,7 @@ if __name__ == "__main__":
         norm_factors = pickle.load(open(args.norm_factors_file))
 
     if args.norm_factors_file is None:
-        for c in range(64):
+        for c in range(n_channels):
             print "normalization:%i" % (c+1)
             temp_data,_ = edf[c+1,:]
             if args.norm_factors_file is None:
@@ -161,11 +163,11 @@ if __name__ == "__main__":
                 norm_factors[c,1] = np.std(temp_data)
         pickle.dump(norm_factors, open("%s/%s_%s_norm_factors.p" % (args.save_dir, sbj_id, day), "wb"))
     start_time, end_time, start, end = get_disconnected_times(args.disconnect_file)
-    for c in range(64):
+    for c in range(n_channels):
         print "edf_data_part1:%i" % (c+1)
-        edf_data[c,:int(0.6*len(edf))], _ = (edf[c+1,int(0.6*len(edf))]-norm_factors[c,0])/norm_factors[c,1]
+        edf_data[c,:int(0.35*len(edf))], _ = (edf[c+1,:int(0.35*len(edf))]-norm_factors[c,0])/norm_factors[c,1]
 
-    for file in sorted(files)[:len(files)/2]:
+    for file in sorted(files)[:len(files)/3]:
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")
         vid_start_end = pickle.load(open(os.path.join(args.vid_time_dir, "%s_%s.p" % (sbj_id, day))))
@@ -175,11 +177,23 @@ if __name__ == "__main__":
     gc.collect()
     edf_data = np.zeros(shape=(n_channels, len(edf)))
 
-    for c in range(64):
+    for c in range(n_channels):
         print "edf_data_part2:%i" % (c+1)
-        edf_data[c,int(0.5*len(edf)):],_ = (edf[c+1,int(0.5*len(edf)):]-norm_factors[c,0])/norm_factors[c,1]
-    for file in sorted(files)[len(files)/2:]:
+        edf_data[c,int(0.3*len(edf)):int(0.7*len(edf))],_ = (edf[c+1,int(0.3*len(edf)):int(0.7*len(edf))]-norm_factors[c,0])/norm_factors[c,1]
+    for file in sorted(files)[len(files)/3:2*len(files)/3]:
         #pdb.set_trace()
         sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")
-        vid_start_end = pickle.load(open(os.path.join(args.vid_time_dir, "%s_%s.p" % (sbj_id, day))))
         main(file, edf_data, args.save_dir, vid_start_end, start_time, args.offset)
+    
+    edf_data = []
+    gc.collect()
+    edf_data = np.zeros(shape=(n_channels, len(edf)))
+
+    for c in range(n_channels):
+        print "edf_data_part3:%i" % (c+1)
+        edf_data[c,int(0.65*len(edf)):],_ = (edf[c+1,int(0.65*len(edf)):]-norm_factors[c,0])/norm_factors[c,1]
+    for file in sorted(files)[2*len(files)/3:]:
+        #pdb.set_trace()
+        sbj_id, day, vid_num, _ = os.path.split(file)[-1].split(".")[0].split("_")
+        main(file, edf_data, args.save_dir, vid_start_end, start_time, args.offset)
+

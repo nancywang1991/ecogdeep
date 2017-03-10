@@ -173,10 +173,6 @@ if __name__ == "__main__":
         vid_start_end = pickle.load(open(os.path.join(args.vid_time_dir, "%s_%s.p" % (sbj_id, day))))
         main(file, edf_data, args.save_dir, vid_start_end, start_time, args.offset)
 
-    edf_data = []
-    gc.collect()
-    edf_data = np.zeros(shape=(n_channels, len(edf)))
-
     for c in range(n_channels):
         print "edf_data_part2:%i" % (c+1)
         edf_data[c,int(0.3*len(edf)):int(0.7*len(edf))],_ = (edf[c+1,int(0.3*len(edf)):int(0.7*len(edf))]-norm_factors[c,0])/norm_factors[c,1]

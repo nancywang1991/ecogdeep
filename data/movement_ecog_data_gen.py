@@ -54,7 +54,10 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
 #        pdb.set_trace()
 #        edf_clip[c,:] = edf[c][0][0,int(start_sec*1000):int(end_sec*1000)]
 #        print c
-    edf_clip = edf[:,int(start_sec*1000):int((end_sec+1)*1000)]
+    if int((start_sec-5)*1000) < 0:
+        # Clip is too early
+        return
+    edf_clip = edf[:,int((start_sec-5)*1000):int((end_sec+1)*1000)]
     left_arm_mvmt = np.sum(mv_file[:,(2,4,6)], axis=1)
     right_arm_mvmt = np.sum(mv_file[:,(1,3,5)], axis=1)
     head_mvmt = mv_file[:,0]
@@ -91,21 +94,21 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
 
     for f in range(offset+1+20,len(mv_file)-1, 10):
         flag = 0
-        edf_part = edf_clip[:,(int((f - offset - 15) * (1000 / 30.0)) - 100):(int((f - offset - 15) * (1000 / 30.0) + 1100))]
+        edf_part = edf_clip[:,(int(((f+30*5) - offset - 15) * (1000 / 30.0)) - 4100):(int(((f+30*5) - offset - 15) * (1000 / 30.0) + 1100))]
         if np.mean(left_arm_mvmt[f:f+5])>2:
             flag = 1
             save_filename = os.path.join(cur_dir, "l_arm_1", "%s_%i" % (vid_name, f ))
-            if edf_part.shape[1] == 1200:
+            if edf_part.shape[1] == 5200:
                 write_edf_part(edf_part, save_filename)
         if np.mean(right_arm_mvmt[f:f+5])>2:
             flag = 1
             save_filename = os.path.join(cur_dir, "r_arm_1", "%s_%i" % (vid_name, f ))
-            if edf_part.shape[1] == 1200:
-		write_edf_part(edf_part, save_filename)
+            if edf_part.shape[1] == 5200:
+                write_edf_part(edf_part, save_filename)
         if np.mean(head_mvmt[f:f+5])>1:
             flag = 1
             save_filename = os.path.join(cur_dir, "head_1", "%s_%i" % (vid_name, f ))
-            if edf_part.shape[1] == 1200:
+            if edf_part.shape[1] == 5200:
                 write_edf_part(edf_part, save_filename)
         #if flag:
         #    save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f ))
@@ -129,7 +132,7 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
                 flag+=1
             if flag==3:
                 save_filename = os.path.join(cur_dir, "mv_0", "%s_%i" % (vid_name, f ))
-                if edf_part.shape[1]==1200:
+                if edf_part.shape[1]==5200:
                     write_edf_part(edf_part, save_filename)
 
 if __name__ == "__main__":

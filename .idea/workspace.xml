@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/movement_ecog_data_normalization.py" afterPath="$PROJECT_DIR$/data/movement_ecog_data_normalization.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/movement_ecog_data_gen.py" afterPath="$PROJECT_DIR$/data/movement_ecog_data_gen.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -55,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="movement_ecog_data_gen.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="movement_ecog_data_gen.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1580">
-              <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
+            <state relative-caret-position="-2126">
+              <caret line="106" column="16" selection-start-line="106" selection-start-column="16" selection-end-line="106" selection-end-column="16" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -67,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="movement_ecog_data_normalization.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="movement_ecog_data_normalization.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_normalization.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="660">
-              <caret line="23" column="61" selection-start-line="23" selection-start-column="61" selection-end-line="23" selection-end-column="61" />
+              <caret line="23" column="64" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -179,8 +179,8 @@
         <option value="$PROJECT_DIR$/data/ecog_vid_data_combine.py" />
         <option value="$PROJECT_DIR$/data/movement_video_data_gen.py" />
         <option value="$PROJECT_DIR$/train/ecog_vid_train.py" />
-        <option value="$PROJECT_DIR$/data/movement_ecog_data_gen.py" />
         <option value="$PROJECT_DIR$/data/movement_ecog_data_normalization.py" />
+        <option value="$PROJECT_DIR$/data/movement_ecog_data_gen.py" />
       </list>
     </option>
   </component>
@@ -659,13 +659,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00034" summary="added recall precision&#10;">
-      <created>1484164396368</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1484164396369</updated>
-    </task>
     <task id="LOCAL-00035" summary="added recall precision&#10;">
       <created>1484164599181</created>
       <option name="number" value="00035" />
@@ -1002,7 +995,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489191072342</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="increased speed of mne loading">
+      <created>1489192236957</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1489192236957</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1078,7 +1078,7 @@
         <state relative-caret-position="198">
           <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="false" />
             <marker date="1489190364921" expanded="true" signature="3033:3046" ph="..." />
             <marker date="1489190364921" expanded="true" signature="3667:3759" ph="..." />
           </folding>
@@ -1119,7 +1119,7 @@
         <state relative-caret-position="198">
           <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="false" />
             <marker date="1489190364921" expanded="true" signature="3033:3046" ph="..." />
             <marker date="1489190364921" expanded="true" signature="3667:3759" ph="..." />
           </folding>
@@ -1312,7 +1312,7 @@
         <state relative-caret-position="2739">
           <caret line="92" column="8" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="23" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="false" />
             <marker date="1489190364921" expanded="true" signature="3033:3046" ph="..." />
             <marker date="1489190364921" expanded="true" signature="3667:3759" ph="..." />
           </folding>
@@ -1400,21 +1400,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1580">
-          <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_normalization.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
-          <caret line="23" column="61" selection-start-line="23" selection-start-column="61" selection-end-line="23" selection-end-column="61" />
+          <caret line="23" column="64" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2126">
+          <caret line="106" column="16" selection-start-line="106" selection-start-column="16" selection-end-line="106" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

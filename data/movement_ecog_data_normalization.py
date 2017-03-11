@@ -21,7 +21,8 @@ if __name__ == "__main__":
         print "Working on channel %i" % c
         edf_data = []
         for edf in edfs:
-            edf_data.append(mne.io.read_raw_edf(edf[c+1, :][0]))
+            temp_data, _ = mne.io.read_raw_edf(edf[c+1, :])
+            edf_data.append(temp_data)
             norm_factors[c, 0] = np.mean(np.hstack(edf_data))
             norm_factors[c, 1] = np.std(np.hstack(edf_data))
     pickle.dump(norm_factors, open("%s/%s_norm_factors.p" % (args.save_dir, sbj_id), "wb"))

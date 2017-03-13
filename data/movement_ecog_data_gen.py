@@ -62,12 +62,9 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
     right_arm_mvmt = np.sum(mv_file[:,(1,3,5)], axis=1)
     head_mvmt = mv_file[:,0]
     train_dir = os.path.join(save_dir, "train")
-    test_dir = os.path.join(save_dir, "test")
 
     if not os.path.exists(train_dir):
         os.makedirs(train_dir)
-    if not os.path.exists(test_dir):
-        os.makedirs(test_dir)
     if not os.path.exists(os.path.join(train_dir, "l_arm_1")):
         os.makedirs(os.path.join(train_dir,"head_0"))
         os.makedirs(os.path.join(train_dir,"head_1"))
@@ -78,61 +75,47 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
         os.makedirs(os.path.join(train_dir,"mv_1"))
         os.makedirs(os.path.join(train_dir,"mv_0"))
 
-    if not os.path.exists(os.path.join(test_dir,"l_arm_1")):
-        os.makedirs(os.path.join(test_dir,"head_0"))
-        os.makedirs(os.path.join(test_dir,"head_1"))
-        os.makedirs(os.path.join(test_dir,"r_arm_0"))
-        os.makedirs(os.path.join(test_dir,"r_arm_1"))
-        os.makedirs(os.path.join(test_dir,"l_arm_0"))
-        os.makedirs(os.path.join(test_dir,"l_arm_1"))
-        os.makedirs(os.path.join(test_dir,"mv_1"))
-        os.makedirs(os.path.join(test_dir,"mv_0"))
-    if int(day)==9:
-        cur_dir = test_dir
-    else:
-        cur_dir = train_dir
+    cur_dir = train_dir
 
-    for f in range(offset+1+20,len(mv_file)-1, 10):
+    for f in range(0,len(mv_file), 5):
         flag = 0
-        edf_part = edf_clip[:,(int(((f+30*5) - offset - 15) * (1000 / 30.0)) - 4100):(int(((f+30*5) - offset - 15) * (1000 / 30.0) + 1100))]
-        if np.mean(left_arm_mvmt[f:f+5])>2:
-            flag = 1
-            save_filename = os.path.join(cur_dir, "l_arm_1", "%s_%i" % (vid_name, f ))
-            if edf_part.shape[1] == 5200:
+        offset_f = int(f+(30*5)-offset-15)
+        edf_part = edf_clip[:,(offset_f * (1000 / 30.0) - 4000):(offset_f * (1000 / 30.0) + 1000)]
+        if edf_part.shape[1] == 5000:
+            if np.mean(left_arm_mvmt[f:f+5])>2:
+            	flag = 1
+            	save_filename = os.path.join(cur_dir, "l_arm_1", "%s_%i" % (vid_name, f ))
                 write_edf_part(edf_part, save_filename)
-        if np.mean(right_arm_mvmt[f:f+5])>2:
-            flag = 1
-            save_filename = os.path.join(cur_dir, "r_arm_1", "%s_%i" % (vid_name, f ))
-            if edf_part.shape[1] == 5200:
+            if np.mean(right_arm_mvmt[f:f+5])>2:
+            	flag = 1
+            	save_filename = os.path.join(cur_dir, "r_arm_1", "%s_%i" % (vid_name, f ))
                 write_edf_part(edf_part, save_filename)
-        if np.mean(head_mvmt[f:f+5])>1:
-            flag = 1
-            save_filename = os.path.join(cur_dir, "head_1", "%s_%i" % (vid_name, f ))
-            if edf_part.shape[1] == 5200:
+            if np.mean(head_mvmt[f:f+5])>1:
+            	flag = 1
+            	save_filename = os.path.join(cur_dir, "head_1", "%s_%i" % (vid_name, f ))
                 write_edf_part(edf_part, save_filename)
         #if flag:
         #    save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f ))
         #    if edf_part.shape[1]==1200:
         #        write_edf_part(edf_part, save_filename)
-        if (f / 10) % 6 == 0:
-            if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
+            if (f / 5) % 6 == 0:
+            	if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
                 #save_filename = os.path.join(cur_dir, "l_arm_0", "%s_%i" % (vid_name, f ))
                 #if edf_part.shape[1]==1200:
                 #    write_edf_part(edf_part, save_filename)
-                flag+=1
-            if np.all(right_arm_mvmt[f:f + 5] >= 0) and np.mean(right_arm_mvmt[f:f + 5]) < 1:
+                    flag+=1
+            	if np.all(right_arm_mvmt[f:f + 5] >= 0) and np.mean(right_arm_mvmt[f:f + 5]) < 1:
                 #save_filename = os.path.join(cur_dir, "r_arm_0", "%s_%i" % (vid_name, f ))
                 #if edf_part.shape[1]==1200:
                 #    write_edf_part(edf_part, save_filename)
-                flag+=1
-            if np.all(head_mvmt[f:f + 5] >= 0) and np.mean(head_mvmt[f:f + 5]) < 0.5:
+                    flag+=1
+            	if np.all(head_mvmt[f:f + 5] >= 0) and np.mean(head_mvmt[f:f + 5]) < 0.5:
                 #save_filename = os.path.join(cur_dir, "head_0", "%s_%i" % (vid_name, f))
                 #if edf_part.shape[1]==1200:
                 #    write_edf_part(edf_part, save_filename)
-                flag+=1
-            if flag==3:
-                save_filename = os.path.join(cur_dir, "mv_0", "%s_%i" % (vid_name, f ))
-                if edf_part.shape[1]==5200:
+                    flag+=1
+                if flag==3:
+                    save_filename = os.path.join(cur_dir, "mv_0", "%s_%i" % (vid_name, f ))
                     write_edf_part(edf_part, save_filename)
 
 if __name__ == "__main__":

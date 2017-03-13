@@ -45,12 +45,9 @@ def main(mv_file, vid_file, save_dir, offset):
     right_arm_mvmt = np.sum(mv_file[:,(1,3,5)], axis=1)
     head_mvmt = mv_file[:,0]
     train_dir = os.path.join(save_dir, "train")
-    test_dir = os.path.join(save_dir, "test")
 
     if not os.path.exists(train_dir):
         os.makedirs(train_dir)
-    if not os.path.exists(test_dir):
-        os.makedirs(test_dir)
     if not os.path.exists(os.path.join(train_dir, "l_arm_1")):
         os.makedirs(os.path.join(train_dir,"head_0"))
         os.makedirs(os.path.join(train_dir,"head_1"))
@@ -61,34 +58,21 @@ def main(mv_file, vid_file, save_dir, offset):
         os.makedirs(os.path.join(train_dir,"mv_1"))
         os.makedirs(os.path.join(train_dir,"mv_0"))
 
-    if not os.path.exists(os.path.join(test_dir,"l_arm_1")):
-        os.makedirs(os.path.join(test_dir,"head_0"))
-        os.makedirs(os.path.join(test_dir,"head_1"))
-        os.makedirs(os.path.join(test_dir,"r_arm_0"))
-        os.makedirs(os.path.join(test_dir,"r_arm_1"))
-        os.makedirs(os.path.join(test_dir,"l_arm_0"))
-        os.makedirs(os.path.join(test_dir,"l_arm_1"))
-        os.makedirs(os.path.join(test_dir,"mv_1"))
-        os.makedirs(os.path.join(test_dir,"mv_0"))
-    if int(day)==9:
-        cur_dir = test_dir
-    else:
-        cur_dir = train_dir
-    #pdb.set_trace()
-    for f in range(offset+46,len(mv_file), 10):
+    cur_dir = train_dir
+    for f in range(offset+30*5,len(mv_file), 5):
         imgs=[]
         flag=0
-        for f2 in range(f-offset-45, f-offset+1, 15):
+        for f2 in range(f-offset-30*5, f-offset+1, 15):
             vid_file.forward_to(f2)
             imgs.append(vid_file.read())
         if np.mean(left_arm_mvmt[f:f+5])>2:
-            save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "l_arm_1", vid_name))
+            save_imgs(imgs, range(f-offset-30*5, f-offset+1, 15), os.path.join(cur_dir, "l_arm_1", vid_name))
             #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
         if np.mean(right_arm_mvmt[f:f+5])>2:
-            save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "r_arm_1", vid_name))
+            save_imgs(imgs, range(f-offset-30*5, f-offset+1, 15), os.path.join(cur_dir, "r_arm_1", vid_name))
             #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
         if np.mean(head_mvmt[f:f+5])>1:
-            save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "head_1", vid_name))
+            save_imgs(imgs, range(f-offset-30*5, f-offset+1, 15), os.path.join(cur_dir, "head_1", vid_name))
             #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
         if (f/10)%6==0:
             if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:

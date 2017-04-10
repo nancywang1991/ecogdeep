@@ -29,20 +29,20 @@ def scoring(truth, predicted):
 
 def save_imgs(imgs, offsets, main_name): 
     img = np.concatenate(imgs, axis=1)
-    a,b,c,d=offsets[0],offsets[1],offsets[2],offsets[3]
+    a,b,c,d=offsets[-4],offsets[-3],offsets[-2],offsets[-1]
     cv2.imwrite(os.path.join("%s_%i_%i_%i_%i.png" % (main_name,a,b,c,d)), img)
 
 def main(mv_file, vid_file, save_dir, offset):
 
     mv_file = pickle.load(open(mv_file))
-    if np.sum(mv_file[np.where(mv_file>0)])<(0.5*3000):
+#    if np.sum(mv_file[np.where(mv_file>0)])<(0.5*3000):
         #Very little going on in this file
-        print vid_file
-        return
+#        print vid_file     
+#        return
     vid_name = os.path.split(vid_file)[-1].split('.')[0]
     vid_file = my_video_capture(vid_file, 30)
-    left_arm_mvmt = np.sum(mv_file[:,(2,4,6)], axis=1)
-    right_arm_mvmt = np.sum(mv_file[:,(1,3,5)], axis=1)
+    left_arm_mvmt = mv_file[:,2]
+    right_arm_mvmt = mv_file[:,1]
     head_mvmt = mv_file[:,0]
     train_dir = os.path.join(save_dir, "train")
 
@@ -59,34 +59,34 @@ def main(mv_file, vid_file, save_dir, offset):
         os.makedirs(os.path.join(train_dir,"mv_0"))
 
     cur_dir = train_dir
-    for f in range(offset+30*5,len(mv_file), 5):
+    for f in range(offset+10*9,len(mv_file)-16, 2):
         imgs=[]
         flag=0
-        for f2 in range(f-offset-30*5, f-offset+1, 15):
+        for f2 in range(f-offset-10*9+1, f-offset+16, 10):
             vid_file.forward_to(f2)
             imgs.append(vid_file.read())
-        if np.mean(left_arm_mvmt[f:f+5])>2:
-            save_imgs(imgs, range(f-offset-30*5, f-offset+1, 15), os.path.join(cur_dir, "l_arm_1", vid_name))
+        if np.mean(left_arm_mvmt[f:f+5])>1 and np.all(left_arm_mvmt[f-10:f] >= 0) and np.mean(left_arm_mvmt[f-10:f]) < 0.5:
+            save_imgs(imgs, range(f-offset-15*9, f-offset+15, 15), os.path.join(cur_dir, "l_arm_1", vid_name))
             #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
-        if np.mean(right_arm_mvmt[f:f+5])>2:
+        if np.mean(right_arm_mvmt[f:f+5])>1 and np.all(right_arm_mvmt[f-10:f] >= 0) and np.mean(right_arm_mvmt[f-10:f]) < 0.5:
             save_imgs(imgs, range(f-offset-30*5, f-offset+1, 15), os.path.join(cur_dir, "r_arm_1", vid_name))
             #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
-        if np.mean(head_mvmt[f:f+5])>1:
+        if  np.mean(head_mvmt[f:f+5])>1 and np.all(head_mvmt[f-10:f] >= 0) and np.mean(head_mvmt[f-10:f]) < 0.5:
             save_imgs(imgs, range(f-offset-30*5, f-offset+1, 15), os.path.join(cur_dir, "head_1", vid_name))
             #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_1", vid_name))
-        if (f/10)%6==0:
-            if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
+        if (f)%10==0:
+            if np.all(left_arm_mvmt[f-30:f+30] >= 0) and np.mean(left_arm_mvmt[f-30:f + 30]) < 0.5:
                 #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "l_arm_0", vid_name))
                 flag+=1
-            if np.all(right_arm_mvmt[f:f+5] >= 0) and np.mean(right_arm_mvmt[f:f + 5]) < 1:
+            if np.all(right_arm_mvmt[f-30:f+30] >= 0) and np.mean(right_arm_mvmt[f-30:f + 30]) < 0.5:
                 #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "r_arm_0", vid_name))
                 flag+=1
-            if np.all(head_mvmt[f:f+5] >= 0) and np.mean(head_mvmt[f:f + 5]) < 0.5:
+            if np.all(head_mvmt[f-30:f+30] >= 0) and np.mean(head_mvmt[f-30:f + 30]) < 0.5:
                 #save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "head_0", vid_name))
                 flag+=1
                 #print (np.mean(left_arm_mvmt[f:f + 5]), np.mean(right_arm_mvmt[f:f + 5]), np.mean(head_mvmt[f:f + 5]))
             if flag==3:
-                save_imgs(imgs, range(f-offset-45, f-offset+1, 15), os.path.join(cur_dir, "mv_0", vid_name))
+                save_imgs(imgs, range(f-offset-10*9+1, f-offset-10*9+42, 10), os.path.join(cur_dir, "mv_0", vid_name))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

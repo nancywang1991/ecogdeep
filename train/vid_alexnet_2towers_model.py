@@ -11,7 +11,7 @@ import pickle
 import numpy as np
 import pdb
 
-def video_2tower_model(weights=None, alexnet_layer):
+def video_2tower_model(weights=None, alexnet_layer="convpool_5"):
         alexnet_model = convnet('alexnet', weights_path="/home/wangnxr/Documents/ecogdeep/convnets-keras/examples/alexnet_weights.h5")
         base_model = Model(alexnet_model.input, alexnet_model.get_layer(alexnet_layer).output)
 

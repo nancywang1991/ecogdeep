@@ -23,15 +23,17 @@ main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined/'
 #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
 ## Data generation ECoG
 train_datagen_edf = EcogDataGenerator(
+    start_time=3800,
     time_shift_range=200,
     gaussian_noise_range=0.001,
     center=False
 )
 
 test_datagen_edf = EcogDataGenerator(
+    start_time=3800,
     center=True
 )
-
+channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
 dgdx_edf = train_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/train/',
     '%s/train/' % main_ecog_dir,
@@ -39,6 +41,7 @@ dgdx_edf = train_datagen_edf.flow_from_directory(
     target_size=(1,64,1000),
     class_mode='binary',
     shuffle=False,
+    channels = channels,
     pre_shuffle_ind=1)
 
 dgdx_val_edf = test_datagen_edf.flow_from_directory(
@@ -47,6 +50,7 @@ dgdx_val_edf = test_datagen_edf.flow_from_directory(
     batch_size=10,
     shuffle=False,
     target_size=(1,64,1000),
+    channels = channels,
     class_mode='binary')
 
 # Video data generators

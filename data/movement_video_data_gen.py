@@ -86,7 +86,7 @@ def main(mv_file, vid_file, save_dir, offset):
                 flag+=1
                 #print (np.mean(left_arm_mvmt[f:f + 5]), np.mean(right_arm_mvmt[f:f + 5]), np.mean(head_mvmt[f:f + 5]))
             if flag==3:
-                save_imgs(imgs, range(f-offset-10*9+1, f-offset-10*9+42, 10), os.path.join(cur_dir, "mv_0", vid_name))
+                save_imgs(imgs, range(f-offset-10*9, f-offset+15, 10)[-4:], os.path.join(cur_dir, "mv_0", vid_name))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -10,30 +10,40 @@ from keras.layers import Convolution2D, MaxPooling2D, AveragePooling2D
 import numpy as np
 import pdb
 import pickle
+import gc
 
 ## Data generation
 train_datagen = EcogDataGenerator(
+        start_time=3800,
         time_shift_range=200,
         gaussian_noise_range=0.001,
         center=False
 )
 
 test_datagen = EcogDataGenerator(
+        start_time=3800,
         center=True
 )
 
+channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
+#channels = np.arange(24)
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
-        '/home/wangnxr/dataset/ecog_offset_15_arm_a0f/train/',
+        '/home/wangnxr/dataset/ecog_offset_0_a0f_day6/train/',
+        shuffle=True,
         batch_size=24,
-        target_size=(1,64,1000),
+        target_size=(1,len(channels),1000),
+        final_size=(1,len(channels),1000),
+        channels = channels,
         class_mode='binary')
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/wangnxr/dataset/ecog_offset_15_arm_a0f/test/',
-        batch_size=20,
+        '/home/wangnxr/dataset/ecog_offset_0_a0f_day6/val/',
+        batch_size=10,
         shuffle=False,
-        target_size=(1,64,1000),
+        target_size=(1,len(channels),1000),
+        final_size=(1,len(channels),1000),
+        channels = channels,
         class_mode='binary')
 
 train_generator=dgdx
@@ -42,28 +52,27 @@ validation_generator=dgdx_val
 ## Hyperparameter optimization space
 
 
-
 def f_nn(params):
     # Determine proper input shape
     
-    input_tensor=Input(shape=(1,64,1000))
+    input_tensor=Input(shape=(1,len(channels),1000))
 
     # Block 1
     x = AveragePooling2D((1,5),  name='pre_pool')(input_tensor)
     x = Convolution2D(16, params[0], params[1], border_mode='same', name='block1_conv1')(x)
-    #x = BatchNormalization(axis=1)(x)
+    x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = MaxPooling2D((params[2],params[3]),  name='block1_pool')(x)
 
     # Block 2
     x = Convolution2D(32, params[0], params[1],  border_mode='same', name='block2_conv1')(x)
-    #x = BatchNormalization(axis=1)(x)
+    x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = MaxPooling2D((params[2],params[3]),  name='block2_pool')(x)
 
     # Block 3
     x = Convolution2D(64, 1, 3, border_mode='same', name='block3_conv1')(x)
-    #x = BatchNormalization(axis=1)(x)
+    x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = MaxPooling2D((1,2),  name='block3_pool')(x)
 
@@ -85,9 +94,9 @@ def f_nn(params):
     x = Activation('relu')(x)
     x = Dropout(0.5)(x)
     x = Dense(1, name='predictions')(x)
-    #x = BatchNormalization()(x)
+    x = BatchNormalization()(x)
     predictions = Activation('sigmoid')(x)
-
+    #predictions = Dense(4, activation='softmax', name='predictions')(x)
     #for layer in base_model.layers[:10]:
     #    layer.trainable = False
 
@@ -102,10 +111,10 @@ def f_nn(params):
     #history = keras.callbacks.ModelCheckpoint("weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
     history_callback = model.fit_generator(
             train_generator,
-            samples_per_epoch=7056,
-            nb_epoch=20,
+            samples_per_epoch=len(train_generator.filenames),
+            nb_epoch=60,
             validation_data=validation_generator,
-            nb_val_samples=1020)
+            nb_val_samples=len(validation_generator.filenames))
     #pdb.set_trace()
     #loss_history = history_callback.history["loss"]
     #numpy_loss_history = np.array(loss_history)
@@ -114,11 +123,11 @@ def f_nn(params):
     #    for key, value in history_callback.history.items():
     #        f.write('%s:%s\n' % (key, value))
 
-    model.save("/home/wangnxr/model_ecog_1d_offset_15_%s_v2.h5" % "_".join([str(param) for param in params]))
-    pickle.dump(history_callback.history,open("/home/wangnxr/history_ecog_1d_offset_15_%s_v2.p" % "_".join([str(param) for param in params]), "wb"))
+    model.save("/home/wangnxr/models/model_ecog_1d_offset_0_%s_a0f.h5" % "_".join([str(param) for param in params]))
+    pickle.dump(history_callback.history,open("/home/wangnxr/history/history_ecog_1d_offset_150_%s_a0f.p" % "_".join([str(param) for param in params]), "wb"))
 
     loss = history_callback.history["val_loss"][-1]
-
+    gc.collect()
     return loss
 
 params_list = [(1,3,1,2), (2,3,1,2),(1,10,1,2),(2,10,1,2),(1,3,1,2), (2,3,2,2),(1,10,2,2),(2,10,2,2)]

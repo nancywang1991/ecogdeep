@@ -7,9 +7,12 @@ from keras.models import Model
 from keras.regularizers import l2
 from convnetskeras.convnets import convnet
 import pickle
-
+import matplotlib
+matplotlib.use("agg")
+import matplotlib.pyplot as plt
 import numpy as np
 import pdb
+
 
 train_datagen = ImageDataGenerator(
         #rotation_range=40,
@@ -27,28 +30,30 @@ test_datagen.config['center_crop_size'] = (227,227)
 test_datagen.set_pipeline([center_crop])
 
 
-
 dgdx = train_datagen.flow_from_directory(
-        '/home/wangnxr/dataset/ecog_vid_combined/train/',
+        '/home/wangnxr/dataset/vid_offset_0/train/',
+        shuffle=True,
         read_formats={'png'},
-        num_frames=4,
+        num_frames=10,
+        frame_ind=8,
         target_size=(int(340), int(256)),
         batch_size=24,
         class_mode='binary')
-
+train_datagen.fit_generator(dgdx, nb_iter=len(dgdx.filenames)/24+1)
 dgdx_val = test_datagen.flow_from_directory(
-        '/home/wangnxr/dataset/ecog_vid_combined/test/',
+        '/home/wangnxr/dataset/vid_offset_0/val/',
+        shuffle=False,
         read_formats={'png'},
-        num_frames=4,
+        num_frames=10,
+        frame_ind=8,
         target_size=(int(340), int(256)),
-        batch_size=12,
+        batch_size=10,
         class_mode='binary')
-#pdb.set_trace()
-train_datagen.fit_generator(dgdx, nb_iter=len(dgdx.filenames)/24)
-test_datagen.fit_generator(dgdx_val, nb_iter=len(dgdx_val.filenames)/12)
+test_datagen.fit_generator(dgdx_val, nb_iter=len(dgdx_val.filenames)/10+1)
 
 train_generator=dgdx
 validation_generator=dgdx_val
+#pdb.set_trace()
 alexnet_model = convnet('alexnet', weights_path="/home/wangnxr/Documents/ecogdeep/convnets-keras/examples/alexnet_weights.h5")
 base_model = Model(alexnet_model.input, alexnet_model.get_layer("dense_1").output)
 
@@ -84,13 +89,15 @@ model.compile(optimizer=sgd,
 
 history_callback = model.fit_generator(
         train_generator,
-        samples_per_epoch=9816,
+        samples_per_epoch=len(dgdx.filenames),
         nb_epoch=5,
         validation_data=validation_generator,
-        nb_val_samples=2124)
+        nb_val_samples=len(dgdx_val.filenames))
+with open('vid_model_alexnet_2towers_dense1_5_sec.yaml', 'w') as yaml_file:
+    yaml_file.write(model.to_yaml())
 
-model.save("vid_model_alexnet_2towers_dense1.h5")
+model.save_weights("vid_model_alexnet_2towers_dense1_5_sec.h5")
 
-pickle.dump(history_callback.history, open("vid_history_alexnet_2towers_dense1.p", "wb"))
+pickle.dump(history_callback.history, open("vid_history_alexnet_2towers_dense1_5_sec.p", "wb"))
 
 

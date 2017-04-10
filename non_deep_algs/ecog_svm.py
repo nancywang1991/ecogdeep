@@ -11,37 +11,37 @@ train_datagen = EcogDataGenerator(
         time_shift_range=200,
         gaussian_noise_range=0.001,
         center=False,
-        f_lo=10,
-        f_hi=210,
+        f_lo=60,
+        f_hi=90,
         fft=True
 )
 
 test_datagen = EcogDataGenerator(
-        f_lo=10,
-        f_hi=210,
+        f_lo=60,
+        f_hi=90,
         fft=True,
         center=True
 )
 
 dgdx = train_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/train/',
-        '/home/wangnxr/dataset/ecog_offset_0/train/',
+        '/home/wangnxr/dataset/ecog_offset_0_arm_a0f/train/',
         batch_size=24,
         target_size=(1,64,1000),
-        final_size=(1,64,200),
+        final_size=(1,64,30),
         class_mode='binary')
 dgdx_val = test_datagen.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/wangnxr/dataset/ecog_offset_0/test/',
+        '/home/wangnxr/dataset/ecog_offset_0_arm_a0f/test/',
         batch_size=25,
         shuffle=False,
         target_size=(1,64,1000),
-        final_size=(1,64,200),
+        final_size=(1,64,30),
         class_mode='binary')
 
 train_generator=dgdx
 validation_generator=dgdx_val
-samples_per_epoch=10000
+samples_per_epoch=4000
 samples_per_epoch_test=validation_generator.nb_sample
 nb_epoch=30
 

@@ -11,9 +11,9 @@ import pickle
 import numpy as np
 import pdb
 
-def video_2tower_model(weights=None):
+def video_2tower_model(weights=None, alexnet_layer):
         alexnet_model = convnet('alexnet', weights_path="/home/wangnxr/Documents/ecogdeep/convnets-keras/examples/alexnet_weights.h5")
-        base_model = Model(alexnet_model.input, alexnet_model.get_layer("dense_1").output)
+        base_model = Model(alexnet_model.input, alexnet_model.get_layer(alexnet_layer).output)
 
         frame_a = Input(shape=(3,227,227))
         frame_d = Input(shape=(3,227,227))
@@ -21,7 +21,7 @@ def video_2tower_model(weights=None):
 
         tower1 = base_model(frame_a)
         tower4 = base_model(frame_d)
-        x = merge([tower1, tower4], mode='concat', concat_axis=-1)
+        x = merge([tower1, tower4], mode='concat', concat_axis=-1, name="concat")
         x = Dropout(0.5)(x)
         x = Dense(1024, W_regularizer=l2(0.01), name='fc2')(x)
         x = BatchNormalization()(x)

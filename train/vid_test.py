@@ -7,32 +7,33 @@ from keras.models import Model, load_model
 import numpy as np
 import pdb
 
+
 test_datagen = ImageDataGenerator(rescale=1./255)
 
-test_datagen.config['center_crop_size'] = (224,224)
+test_datagen.config['center_crop_size'] = (227,227)
 test_datagen.set_pipeline([center_crop])
 
 dgdx_val = test_datagen.flow_from_directory(
-        '/home/nancy/mvmt_vid_dataset/test/',
-        read_formats={'png'},
-        target_size=(300, 224),
-        batch_size=32,
+        '/home/wangnxr/dataset/vid_offset_0/val/',
         shuffle=False,
-        class_mode=None)
-
-
-test_datagen.fit_generator(dgdx_val, nb_iter=100)
+        read_formats={'png'},
+        num_frames=10,
+        frame_ind=9,
+        target_size=(int(340), int(256)),
+        batch_size=10,
+        class_mode='binary')
+test_datagen.fit_generator(dgdx_val, nb_iter=len(dgdx_val.filenames)/10)
 
 validation_generator=dgdx_val
 
 #for layer in base_model.layers[:10]:
 #    layer.trainable = False
-
-model = load_model("my_model.h5")
+pdb.set_trace()
+model = load_model("/home/wangnxr/vid_model_alexnet_2towers_dense1_5_sec.h5")
 
 #pdb.set_trace()
 files = validation_generator.filenames
-results = model.predict_generator(validation_generator, validation_generator.nb_sample)
+results = model.predict_generator(validation_generator, len(files))
 true = validation_generator.classes
 true_0 = 0
 true_1 = 0

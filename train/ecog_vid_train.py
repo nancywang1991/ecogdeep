@@ -44,7 +44,7 @@ dgdx_edf = train_datagen_edf.flow_from_directory(
 dgdx_val_edf = test_datagen_edf.flow_from_directory(
         #'/mnt/cb46fd46_5_no_offset/test/',
         '%s/test/' % main_ecog_dir,
-        batch_size=12,
+        batch_size=10,
         shuffle=False,
         target_size=(1,64,1000),
         class_mode='binary')
@@ -82,10 +82,11 @@ dgdx_val_vid = test_datagen_vid.flow_from_directory(
         read_formats={'png'},
         target_size=(int(340), int(256)),
         num_frames=4,
-        batch_size=12,
+        batch_size=10,
+        shuffle=False,
         class_mode='binary')
 train_datagen_vid.fit_generator(dgdx_vid, nb_iter=len(dgdx_vid.filenames)/24)
-test_datagen_vid.fit_generator(dgdx_val_vid, nb_iter=len(dgdx_val_vid.filenames)/12)
+test_datagen_vid.fit_generator(dgdx_val_vid, nb_iter=len(dgdx_val_vid.filenames)/10)
 
 def izip_input(gen1, gen2):
 	while 1:
@@ -137,11 +138,8 @@ for layer in base_model_ecog.layers:
     layer.trainable = False
 
 
-<<<<<<< HEAD
 model = Model(input=[frame_a, frame_b, ecog_series], output=predictions)
-=======
-model = Model(input=[base_model_vid.input, base_model_ecog.input], output=predictions)
->>>>>>> ea9cb98dbb0bf32698276128c60852daccf3f40a
+#model = Model(input=[base_model_vid.input, base_model_ecog.input], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
@@ -151,12 +149,12 @@ model.compile(optimizer=sgd,
 
 history_callback = model.fit_generator(
         train_generator,
-        samples_per_epoch=9816,
-        nb_epoch=40,
+        samples_per_epoch=7032,
+        nb_epoch=150,
         validation_data=validation_generator,
-        nb_val_samples=2124)
+        nb_val_samples=1010)
 
-model.save("ecog_vid_model_alexnet_3towers_dense1.h5")
-pickle.dump(history_callback.history, open("ecog_vid_history_alexnet_3towers_dense1", "wb"))
+model.save("ecog_vid_model_alexnet_3towers_dense1_d65.h5")
+pickle.dump(history_callback.history, open("ecog_vid_history_alexnet_3towers_dense1_d65", "wb"))
 #model.save("ecog_vid_model_alexnet_3towers_dense1_pre_train_weights.h5")
 #pickle.dump(history_callback.history, open("ecog_vid_history_alexnet_3towers_dense1_pre_train_Weights.p", "wb"))

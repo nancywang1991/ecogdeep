@@ -82,7 +82,7 @@ history_callback = model.fit_generator(
 #loss_history = history_callback.history["loss"]
 #numpy_loss_history = np.array(loss_history)
 #writefile = open("loss_history.txt", "wb")
-model.save("vid_model_pred.h5")
-pickle.dump(history_callback.history, open("vid_history_pred.p", "wb"))
+model.save("vid_model_pred_45.h5")
+pickle.dump(history_callback.history, open("vid_history_pred_45.p", "wb"))
 
 

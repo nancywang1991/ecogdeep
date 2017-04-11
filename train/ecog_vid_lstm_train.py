@@ -21,6 +21,7 @@ main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
 main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
 #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
 ## Data generation ECoG
+channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
 train_datagen_edf = EcogDataGenerator(
     time_shift_range=200,
     gaussian_noise_range=0.001,
@@ -29,6 +30,7 @@ train_datagen_edf = EcogDataGenerator(
     seq_start=2000,
     seq_num = 9,
     seq_st = 333,
+    channels=len(channels)
 )
 
 test_datagen_edf = EcogDataGenerator(
@@ -37,13 +39,14 @@ test_datagen_edf = EcogDataGenerator(
     seq_start=2000,
     seq_num=9,
     seq_st=333,
+    channels=len(channels)
 )
-channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
+
 dgdx_edf = train_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/train/',
     '%s/train/' % main_ecog_dir,
     batch_size=24,
-    target_size=(1,64,1000),
+    target_size=(1,len(channels),1000),
     class_mode='binary',
     shuffle=False,
     channels = channels,
@@ -55,7 +58,7 @@ dgdx_val_edf = test_datagen_edf.flow_from_directory(
     '%s/val/' % main_ecog_dir,
     batch_size=10,
     shuffle=False,
-    target_size=(1,64,1000),
+    target_size=(1,len(channels),1000),
     channels = channels,
     class_mode='binary')
 

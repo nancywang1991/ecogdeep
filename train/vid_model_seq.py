@@ -12,7 +12,7 @@ import pickle
 
 def vid_model(weights=None):
 
-    input_tensor = Input(shape=( 3, 1, 224, 224 ))
+    input_tensor = Input(shape=(3, 1, 224, 224 ))
     # Block 1
     x = TimeDistributed(Convolution2D(48, 11, 11, border_mode='same', subsample=(4,4)), name='block1_conv1')(input_tensor)
     # x = BatchNormalization(axis=1)(x)

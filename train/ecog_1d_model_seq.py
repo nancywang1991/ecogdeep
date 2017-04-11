@@ -11,7 +11,7 @@ import pickle
 
 def ecog_1d_model(weights=None, channels=None):
 
-    input_tensor = Input(shape=( 10, 1, channels, 200))
+    input_tensor = Input(shape=( 9, 1, len(channels), 200))
     # Block 1
     x = TimeDistributed(Convolution2D(16, 1, 3, border_mode='same', name='block1_conv1'))(input_tensor)
     # x = BatchNormalization(axis=1)(x)

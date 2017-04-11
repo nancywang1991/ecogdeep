@@ -11,26 +11,26 @@ import pickle
 
 def ecog_1d_model(weights=None, channels=None):
 
-    input_tensor = Input(shape=( 1, 10, channels, 200 ))
+    input_tensor = Input(shape=( 10, 1, channels, 200))
     # Block 1
-    x = TimeDistributed(Convolution2D(16, 10, 1, 3, border_mode='same', name='block1_conv1'))(input_tensor)
+    x = TimeDistributed(Convolution2D(16, 1, 3, border_mode='same', name='block1_conv1'))(input_tensor)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((1, 3), name='block1_pool'))(x)
 
     # Block 2
-    x = TimeDistributed(Convolution2D(32, 10, 1, 3, border_mode='same', name='block2_conv1'))(x)
+    x = TimeDistributed(Convolution2D(32, 1, 3, border_mode='same', name='block2_conv1'))(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((1, 3), name='block2_pool'))(x)
     # Block 3
-    x = TimeDistributed(Convolution2D(64, 10, 1, 3, border_mode='same', name='block3_conv1'))(x)
+    x = TimeDistributed(Convolution2D(64, 1, 3, border_mode='same', name='block3_conv1'))(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((1, 3), name='block3_pool'))(x)
 
     # Block 4
-    x = TimeDistributed(Convolution2D(128, 10, 1, 3, border_mode='same', name='block4_conv1'))(x)
+    x = TimeDistributed(Convolution2D(128, 1, 3, border_mode='same', name='block4_conv1'))(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((1, 3), name='block4_pool'))(x)

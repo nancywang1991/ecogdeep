@@ -59,7 +59,6 @@ train_generator = dgdx_vid
 validation_generator = dgdx_val_vid
 
 base_model_vid = Model(vid_model.input, vid_model.get_layer("fc2").output)
-base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
 
 frame_a = Input(shape=(3,227,227))
 frame_b = Input(shape=(3,227,227))
@@ -77,9 +76,6 @@ predictions = Activation('sigmoid')(x)
 
 for layer in base_model_vid.layers:
     layer.trainable = True
-for layer in base_model_ecog.layers:
-    layer.trainable = True
-
 
 model = Model(input=[frame_a, frame_b], output=predictions)
 

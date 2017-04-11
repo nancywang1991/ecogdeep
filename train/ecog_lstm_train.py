@@ -8,6 +8,7 @@ from keras.models import Model
 from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 from keras.regularizers import l2
 from itertools import izip
+from keras.callbacks import ModelCheckpoint
 from ecogdeep.train.ecog_1d_model_seq import ecog_1d_model
 from ecogdeep.train.vid_model_seq import vid_model
 
@@ -26,7 +27,7 @@ train_datagen_edf = EcogDataGenerator(
     gaussian_noise_range=0.001,
     center=False,
     seq_len=200,
-    seq_start=4000,
+    seq_start=3500,
     seq_num = 3,
     seq_st = 333
 )
@@ -34,7 +35,7 @@ train_datagen_edf = EcogDataGenerator(
 test_datagen_edf = EcogDataGenerator(
     center=False,
     seq_len=200,
-    seq_start=4000,
+    seq_start=3500,
     seq_num=3,
     seq_st=333
 )
@@ -103,16 +104,17 @@ model = Model(input=[ecog_series], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
+model_savepath = "/home/wangnxr/models/ecog_model_lstm_a0f_3st_pred"
 model.compile(optimizer=sgd,
               loss='binary_crossentropy',
               metrics=['accuracy'])
-
+checkpoint = ModelCheckpoint("%s_chkpt.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
 history_callback = model.fit_generator(
     train_generator,
     samples_per_epoch=len(dgdx_edf.filenames),
     nb_epoch=40,
     validation_data=validation_generator,
-    nb_val_samples=len(dgdx_val_edf.filenames))
+    nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint])
 
-model.save("/home/wangnxr/models/ecog_model_lstm_a0f_3st.h5")
-pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_history_lstm_a0f_3st", "wb"))
+model.save("%s.h5" % model_savepath)
+pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_history_lstm_a0f_3st_pred", "wb"))

@@ -8,7 +8,7 @@ from keras.layers import Convolution2D, MaxPooling2D
 from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 from keras.regularizers import l2
 from itertools import izip
-from convnetskeras.convnets import convnet
+from keras.callbacks import ModelCheckpoint
 from ecogdeep.train.ecog_1d_model import ecog_1d_model
 from ecogdeep.train.vid_alexnet_2towers_model import video_2tower_model
 
@@ -23,14 +23,14 @@ main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
 #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
 ## Data generation ECoG
 train_datagen_edf = EcogDataGenerator(
-    start_time=3800,
+    start_time=3300,
     time_shift_range=200,
     gaussian_noise_range=0.001,
     center=False
 )
 
 test_datagen_edf = EcogDataGenerator(
-    start_time=3800,
+    start_time=3300,
     center=True
 )
 channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
@@ -61,11 +61,11 @@ train_datagen_vid = ImageDataGenerator(
     rescale=1./255,
     #zoom_range=0.2,
     #horizontal_flip=True,
-    random_crop=(227,227))
+    random_crop=(224,224))
 
 test_datagen_vid = ImageDataGenerator(
     rescale=1./255,
-    center_crop=(227, 227))
+    center_crop=(224, 224))
 
 vid_model = video_2tower_model()
 ecog_model = ecog_1d_model()
@@ -73,7 +73,7 @@ ecog_model = ecog_1d_model()
 dgdx_vid = train_datagen_vid.flow_from_directory(
     '/%s/train/' % main_vid_dir,
     read_formats={'png'},
-    target_size=(int(227), int(227)),
+    target_size=(int(224), int(224)),
     resize_size = (int(340), int(256)),
     num_frames=11,
     batch_size=24,
@@ -84,7 +84,7 @@ dgdx_vid = train_datagen_vid.flow_from_directory(
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
     '/%s/val/' % main_vid_dir,
     read_formats={'png'},
-    target_size=(int(227), int(227)),
+    target_size=(int(224), int(224)),
     resize_size = (int(340), int(256)), 
     num_frames=11,
     batch_size=10,
@@ -103,11 +103,11 @@ def izip_input(gen1, gen2):
 train_generator = izip_input(dgdx_vid, dgdx_edf)
 validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
 
-base_model_vid = Model(vid_model.input, vid_model.get_layer("fc2").output)
+base_model_vid = Model(vid_model.input, vid_model.get_layer("fc1").output)
 base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
 
-frame_a = Input(shape=(3,227,227))
-frame_b = Input(shape=(3,227,227))
+frame_a = Input(shape=(3,224,224))
+frame_b = Input(shape=(3,224,224))
 ecog_series = Input(shape=(1,len(channels),1000))
 
 
@@ -138,16 +138,17 @@ model = Model(input=[frame_a, frame_b, ecog_series], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
+model_savepath = "/home/wangnxr/models/ecog_vid_history_alexnet_3towers_dense1_a0f_pred"
 model.compile(optimizer=sgd,
               loss='binary_crossentropy',
               metrics=['accuracy'])
-
+checkpoint = ModelCheckpoint("%s_chkpt.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
 history_callback = model.fit_generator(
     train_generator,
     samples_per_epoch=len(dgdx_vid.filenames),
     nb_epoch=40,
     validation_data=validation_generator,
-    nb_val_samples=len(dgdx_val_vid.filenames))
+    nb_val_samples=len(dgdx_val_vid.filenames), callbacks=[checkpoint])
 
-model.save("/home/wangnxr/models/ecog_vid_model_alexnet_3towers_dense1_a0f.h5")
-pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_vid_history_alexnet_3towers_dense1_a0f", "wb"))
+model.save("%s.h5" % model_savepath)
+pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_vid_history_alexnet_3towers_dense1_a0f_pred", "wb"))

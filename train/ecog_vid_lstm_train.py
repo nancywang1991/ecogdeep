@@ -43,11 +43,11 @@ dgdx_edf = train_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/train/',
     '%s/train/' % main_ecog_dir,
     batch_size=24,
-    target_size=(1,len(channels),1000),
     class_mode='binary',
     shuffle=False,
     channels = channels,
     pre_shuffle_ind=1,
+    final_size=(1,len(channels),200),
     )
 
 dgdx_val_edf = test_datagen_edf.flow_from_directory(
@@ -55,7 +55,7 @@ dgdx_val_edf = test_datagen_edf.flow_from_directory(
     '%s/val/' % main_ecog_dir,
     batch_size=10,
     shuffle=False,
-    target_size=(1,len(channels),1000),
+    final_size=(1,len(channels),200),
     channels = channels,
     class_mode='binary')
 

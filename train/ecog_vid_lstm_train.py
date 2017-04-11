@@ -113,8 +113,8 @@ def izip_input(gen1, gen2):
 train_generator = izip_input(dgdx_vid, dgdx_edf)
 validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
 
-base_model_vid = Model(vid_model.input, vid_model.get_layer("flatten").output)
-base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("flatten").output)
+base_model_vid = Model(vid_model.input, vid_model.get_layer("fc1").output)
+base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
 
 
 frame_a = Input(shape=(3,3,224,224))

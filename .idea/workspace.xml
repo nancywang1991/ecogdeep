@@ -46,8 +46,8 @@
       <file leaf-file-name="ecog_vid_lstm_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="805">
-              <caret line="162" column="35" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
+            <state relative-caret-position="275">
+              <caret line="39" column="1" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -185,8 +185,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-243" />
-    <option name="y" value="44" />
+    <option name="x" value="1788" />
+    <option name="y" value="224" />
     <option name="width" value="3249" />
     <option name="height" value="2058" />
   </component>
@@ -707,13 +707,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00057" summary="new ecog test 3d&#10;">
-      <created>1485287831249</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1485287831249</updated>
-    </task>
     <task id="LOCAL-00058" summary="new ecog test 3d&#10;">
       <created>1485288293874</created>
       <option name="number" value="00058" />
@@ -1050,11 +1043,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491896543339</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="smth">
+      <created>1491896588376</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1491896588376</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-243" y="44" width="3249" height="2058" extended-state="0" />
+    <frame x="1788" y="224" width="3249" height="2058" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2576935" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1458,8 +1458,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="805">
-          <caret line="162" column="35" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
+        <state relative-caret-position="275">
+          <caret line="39" column="1" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

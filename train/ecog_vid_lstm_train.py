@@ -24,7 +24,6 @@ main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
 ## Data generation ECoG
 channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
 train_datagen_edf = EcogDataGenerator(
-    time_shift_range=200,
     gaussian_noise_range=0.001,
     center=False,
     seq_len=200,
@@ -34,7 +33,6 @@ train_datagen_edf = EcogDataGenerator(
 )
 
 test_datagen_edf = EcogDataGenerator(
-    center=True,
     seq_len=200,
     seq_start=2000,
     seq_num=9,

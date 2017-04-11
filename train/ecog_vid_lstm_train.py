@@ -29,8 +29,7 @@ train_datagen_edf = EcogDataGenerator(
     seq_len=200,
     seq_start=2000,
     seq_num = 9,
-    seq_st = 333,
-    channels=len(channels)
+    seq_st = 333
 )
 
 test_datagen_edf = EcogDataGenerator(
@@ -38,8 +37,7 @@ test_datagen_edf = EcogDataGenerator(
     seq_len=200,
     seq_start=2000,
     seq_num=9,
-    seq_st=333,
-    channels=len(channels)
+    seq_st=333
 )
 
 dgdx_edf = train_datagen_edf.flow_from_directory(
@@ -79,7 +77,7 @@ test_datagen_vid = ImageDataGenerator(
 #vid_model = video_2tower_model(weights="/home/wangnxr/vid_model_alexnet_2towers_dense1.h5")
 #ecog_model = ecog_1d_model(weights="/home/wangnxr/model_ecog_1d_offset_15_1_3_1_3_v2.h5")
 vid_model = vid_model()
-ecog_model = ecog_1d_model()
+ecog_model = ecog_1d_model(channels=len(channels))
 
 dgdx_vid = train_datagen_vid.flow_from_directory(
     '/%s/train/' % main_vid_dir,

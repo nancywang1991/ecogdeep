@@ -1,8 +1,9 @@
 import keras
 from keras.preprocessing.ecog import EcogDataGenerator
 from keras.preprocessing.image2 import ImageDataGenerator, center_crop
-from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge, LSTM
+from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge
 from keras.layers.normalization import BatchNormalization
+from keras.layers.recurrent import LSTM
 from keras.models import Model
 from keras.layers import TimeDistributedDense
 from hyperopt import Trials, fmin, tpe, hp, STATUS_OK

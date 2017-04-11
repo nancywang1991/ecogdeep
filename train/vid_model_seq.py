@@ -20,7 +20,7 @@ def vid_model(weights=None):
     x = TimeDistributed(MaxPooling2D((3, 3)),name='block1_pool')(x)
 
     # Block 2
-    x = TimeDistributed(Convolution2D(32, 3, 3, border_mode='same'), name='block2_conv1')(input_tensor)
+    x = TimeDistributed(Convolution2D(32, 3, 3, border_mode='same'), name='block2_conv1')(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((3, 3)),name='block2_pool')(x)
@@ -28,15 +28,16 @@ def vid_model(weights=None):
     # x = TimeDistributed(Convolution2D(192, 3, 3, border_mode='same', name='block3_conv1'))(input_tensor)
     # # x = BatchNormalization(axis=1)(x)
     # x = Activation('relu')(x)
-    # # Block 3
-    # x = TimeDistributed(Convolution2D(192, 3, 3, border_mode='same'), name='block4_conv1')(input_tensor)
-    # # x = BatchNormalization(axis=1)(x)
-    # x = Activation('relu')(x)
+     # Block 3
+    x = TimeDistributed(Convolution2D(64, 3, 3, border_mode='same'), name='block3_conv1')(x)
+     # x = BatchNormalization(axis=1)(x)
+    x = Activation('relu')(x)
+    x = TimeDistributed(MaxPooling2D((3, 3)), name='block3_pool')(x)
     # Block 4
-    x = TimeDistributed(Convolution2D(64, 3, 3, border_mode='same'), name='block5_conv1')(input_tensor)
+    x = TimeDistributed(Convolution2D(128, 3, 3, border_mode='same'), name='block4_conv1')(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = TimeDistributed(MaxPooling2D((3, 3)), name='block5_pool')(x)
+    x = TimeDistributed(MaxPooling2D((3, 3)), name='block4_pool')(x)
 
     x = TimeDistributed(Flatten(),name='flatten')(x)
     x = Dropout(0.5)(x)

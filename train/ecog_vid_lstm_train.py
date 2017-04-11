@@ -86,7 +86,8 @@ dgdx_vid = train_datagen_vid.flow_from_directory(
     batch_size=24,
     class_mode='binary',
     shuffle=False,
-    pre_shuffle_ind=1)
+    pre_shuffle_ind=1
+)
 
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
     '/%s/test/' % main_vid_dir,
@@ -142,7 +143,7 @@ for layer in base_model_ecog.layers:
     layer.trainable = False
 
 
-model = Model(input=[frame_a, frame_b, ecog_series], output=predictions)
+model = Model(input=[frame_a, ecog_series], output=predictions)
 #model = Model(input=[base_model_vid.input, base_model_ecog.input], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)

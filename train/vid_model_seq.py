@@ -32,7 +32,7 @@ def vid_model(weights=None):
     x = TimeDistributed(Convolution2D(64, 3, 3, border_mode='same'), name='block3_conv1')(x)
      # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = TimeDistributed(MaxPooling2D((3, 3)), name='block3_pool')(x)
+    #x = TimeDistributed(MaxPooling2D((3, 3)), name='block3_pool')(x)
     # Block 4
     x = TimeDistributed(Convolution2D(128, 3, 3, border_mode='same'), name='block4_conv1')(x)
     # x = BatchNormalization(axis=1)(x)

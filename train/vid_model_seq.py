@@ -14,7 +14,7 @@ def vid_model(weights=None):
 
     input_tensor = Input(shape=( 9, 1, 224, 224 ))
     # Block 1
-    x = TimeDistributed(Convolution2D(96, 11, 11, border_mode='same'), name='block1_conv1', subsample=(4,4))(input_tensor)
+    x = TimeDistributed(Convolution2D(96, 11, 11, border_mode='same', subsample=(4,4)), name='block1_conv1')(input_tensor)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((3, 3), strides=(2,2)),name='block1_pool')(x)

@@ -27,15 +27,15 @@ train_datagen_edf = EcogDataGenerator(
     gaussian_noise_range=0.001,
     center=False,
     seq_len=200,
-    seq_start=2000,
-    seq_num = 9,
+    seq_start=4000,
+    seq_num = 3,
     seq_st = 333
 )
 
 test_datagen_edf = EcogDataGenerator(
     seq_len=200,
-    seq_start=2000,
-    seq_num=9,
+    seq_start=4000,
+    seq_num=3,
     seq_st=333
 )
 
@@ -66,12 +66,12 @@ train_datagen_vid = ImageDataGenerator(
     #zoom_range=0.2,
     #horizontal_flip=True,
     random_crop=(224,224),
-    keep_frames=range(2,11))
+    keep_frames=range(8,11))
 
 test_datagen_vid = ImageDataGenerator(
     rescale=1./255,
     center_crop=(224, 224),
-    keep_frames=range(2,11))
+    keep_frames=range(8,11))
 
 #vid_model = video_2tower_model(weights="/home/wangnxr/vid_model_alexnet_2towers_dense1.h5")
 #ecog_model = ecog_1d_model(weights="/home/wangnxr/model_ecog_1d_offset_15_1_3_1_3_v2.h5")

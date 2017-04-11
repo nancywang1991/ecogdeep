@@ -12,7 +12,7 @@ import pickle
 
 def ecog_1d_model(weights=None):
 
-    input_tensor = Input(shape=(1, 91, 1000))
+    input_tensor = Input(shape=(3,1, 91, 1000))
     # Block 1
     x = AveragePooling2D((1, 5), name='pre_pool')(input_tensor)
     x = Convolution2D(16, 1, 3, border_mode='same', name='block1_conv1')(x)

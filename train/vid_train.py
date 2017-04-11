@@ -27,11 +27,11 @@ train_datagen_vid = ImageDataGenerator(
     rescale=1./255,
     #zoom_range=0.2,
     #horizontal_flip=True,
-    random_crop=(227,227))
+    random_crop=(224,224))
 
 test_datagen_vid = ImageDataGenerator(
     rescale=1./255,
-    center_crop=(227, 227))
+    center_crop=(224, 224))
 
 vid_model = video_2tower_model()
 ecog_model = ecog_1d_model()
@@ -39,8 +39,7 @@ ecog_model = ecog_1d_model()
 dgdx_vid = train_datagen_vid.flow_from_directory(
     '/%s/train/' % main_vid_dir,
     read_formats={'png'},
-    target_size=(int(227), int(227)),
-    resize_size = (int(340), int(256)),
+    target_size=(int(224), int(224)),
     num_frames=11,
     batch_size=24,
     class_mode='binary',
@@ -50,8 +49,7 @@ dgdx_vid = train_datagen_vid.flow_from_directory(
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
     '/%s/val/' % main_vid_dir,
     read_formats={'png'},
-    target_size=(int(227), int(227)),
-    resize_size = (int(340), int(256)), 
+    target_size=(int(224), int(224)),
     num_frames=11,
     batch_size=10,
     shuffle=False,
@@ -61,8 +59,8 @@ validation_generator = dgdx_val_vid
 
 base_model_vid = Model(vid_model.input, vid_model.get_layer("fc2").output)
 
-frame_a = Input(shape=(3,227,227))
-frame_b = Input(shape=(3,227,227))
+frame_a = Input(shape=(3,224,224))
+frame_b = Input(shape=(3,224,224))
 
 
 x = base_model_vid([frame_a, frame_b])

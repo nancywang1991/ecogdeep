@@ -14,16 +14,16 @@ def vid_model(weights=None):
 
     input_tensor = Input(shape=( 3, 1, 224, 224 ))
     # Block 1
-    x = TimeDistributed(Convolution2D(24, 11, 11, border_mode='same', subsample=(4,4)), name='block1_conv1')(input_tensor)
+    x = TimeDistributed(Convolution2D(24, 5, 5, border_mode='same', subsample=(4,4)), name='block1_conv1')(input_tensor)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = TimeDistributed(MaxPooling2D((3, 3), strides=(2,2)),name='block1_pool')(x)
+    x = TimeDistributed(MaxPooling2D((3, 3)),name='block1_pool')(x)
 
     # Block 2
-    x = TimeDistributed(Convolution2D(64, 5, 5, border_mode='same'), name='block2_conv1')(input_tensor)
+    x = TimeDistributed(Convolution2D(64, 3, 3, border_mode='same'), name='block2_conv1')(input_tensor)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = TimeDistributed(MaxPooling2D((3, 3), strides=(2,2)),name='block2_pool')(x)
+    x = TimeDistributed(MaxPooling2D((3, 3)),name='block2_pool')(x)
     # Block 3
     x = TimeDistributed(Convolution2D(192, 3, 3, border_mode='same', name='block3_conv1'))(input_tensor)
     # x = BatchNormalization(axis=1)(x)

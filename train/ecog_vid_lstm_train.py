@@ -17,8 +17,8 @@ import pdb
 import pickle
 import glob
 
-main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined/'
-main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined/'
+main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
+main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
 #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
 ## Data generation ECoG
 train_datagen_edf = EcogDataGenerator(
@@ -52,7 +52,7 @@ dgdx_edf = train_datagen_edf.flow_from_directory(
 
 dgdx_val_edf = test_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/test/',
-    '%s/test/' % main_ecog_dir,
+    '%s/val/' % main_ecog_dir,
     batch_size=10,
     shuffle=False,
     target_size=(1,64,1000),
@@ -90,7 +90,7 @@ dgdx_vid = train_datagen_vid.flow_from_directory(
 )
 
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
-    '/%s/test/' % main_vid_dir,
+    '/%s/val/' % main_vid_dir,
     read_formats={'png'},
     target_size=(int(340), int(256)),
     num_frames=11,

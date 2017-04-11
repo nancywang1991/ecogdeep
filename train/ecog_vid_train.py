@@ -18,8 +18,8 @@ import pdb
 import pickle
 import glob
 
-main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined/'
-main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined/'
+main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
+main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
 #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
 ## Data generation ECoG
 train_datagen_edf = EcogDataGenerator(
@@ -38,7 +38,8 @@ dgdx_edf = train_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/train/',
     '%s/train/' % main_ecog_dir,
     batch_size=24,
-    target_size=(1,64,1000),
+    target_size=(1,len(channels),1000),
+    final_size=(1,len(channels),1000),
     class_mode='binary',
     shuffle=False,
     channels = channels,
@@ -46,10 +47,11 @@ dgdx_edf = train_datagen_edf.flow_from_directory(
 
 dgdx_val_edf = test_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/test/',
-    '%s/test/' % main_ecog_dir,
+    '%s/val/' % main_ecog_dir,
     batch_size=10,
     shuffle=False,
-    target_size=(1,64,1000),
+    target_size=(1,len(channels),1000),
+    final_size=(1,len(channels),1000),
     channels = channels,
     class_mode='binary')
 
@@ -59,11 +61,11 @@ train_datagen_vid = ImageDataGenerator(
     rescale=1./255,
     #zoom_range=0.2,
     #horizontal_flip=True,
-    random_crop=(224,224))
+    random_crop=(227,227))
 
 test_datagen_vid = ImageDataGenerator(
     rescale=1./255,
-    center_crop=(224, 224))
+    center_crop=(227, 227))
 
 #vid_model = video_2tower_model(weights="/home/wangnxr/vid_model_alexnet_2towers_dense1.h5")
 #ecog_model = ecog_1d_model(weights="/home/wangnxr/model_ecog_1d_offset_15_1_3_1_3_v2.h5")
@@ -73,7 +75,8 @@ ecog_model = ecog_1d_model()
 dgdx_vid = train_datagen_vid.flow_from_directory(
     '/%s/train/' % main_vid_dir,
     read_formats={'png'},
-    target_size=(int(340), int(256)),
+    target_size=(int(227), int(227)),
+    resize_size = (int(340), int(256)),
     num_frames=11,
     batch_size=24,
     class_mode='binary',
@@ -81,14 +84,14 @@ dgdx_vid = train_datagen_vid.flow_from_directory(
     pre_shuffle_ind=1)
 
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
-    '/%s/test/' % main_vid_dir,
+    '/%s/val/' % main_vid_dir,
     read_formats={'png'},
-    target_size=(int(340), int(256)),
+    target_size=(int(227), int(227)),
+    resize_size = (int(340), int(256)), 
     num_frames=11,
     batch_size=10,
     shuffle=False,
     class_mode='binary')
-
 def izip_input(gen1, gen2):
     while 1:
         #pdb.set_trace()
@@ -105,10 +108,9 @@ validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
 base_model_vid = Model(vid_model.input, vid_model.get_layer("fc2").output)
 base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
 
-
 frame_a = Input(shape=(3,227,227))
 frame_b = Input(shape=(3,227,227))
-ecog_series = Input(shape=(1,64,1000))
+ecog_series = Input(shape=(1,len(channels),1000))
 
 
 tower1 = base_model_vid([frame_a, frame_b])
@@ -145,10 +147,10 @@ model.compile(optimizer=sgd,
 
 history_callback = model.fit_generator(
     train_generator,
-    samples_per_epoch=len(train_generator.filenames),
-    nb_epoch=10,
+    samples_per_epoch=len(dgdx_vid.filenames),
+    nb_epoch=40,
     validation_data=validation_generator,
-    nb_val_samples=len(validation_generator.filenames))
+    nb_val_samples=len(dgdx_val_vid.filenames))
 
 model.save("/home/wangnxr/models/ecog_vid_model_alexnet_3towers_dense1_a0f.h5")
 pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_vid_history_alexnet_3towers_dense1_a0f", "wb"))

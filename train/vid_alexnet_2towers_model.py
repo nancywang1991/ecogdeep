@@ -23,6 +23,7 @@ def video_2tower_model(weights=None, alexnet_layer="convpool_5"):
         tower4 = base_model(frame_d)
         x = merge([tower1, tower4], mode='concat', concat_axis=-1, name="concat")
         x = Dropout(0.5)(x)
+        x = Flatten(name="flatten")(x)
         x = Dense(1024, W_regularizer=l2(0.01), name='fc2')(x)
         x = BatchNormalization()(x)
         x = Activation('relu')(x)

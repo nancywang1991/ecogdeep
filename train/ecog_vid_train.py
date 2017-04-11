@@ -67,8 +67,6 @@ test_datagen_vid = ImageDataGenerator(
     rescale=1./255,
     center_crop=(227, 227))
 
-#vid_model = video_2tower_model(weights="/home/wangnxr/vid_model_alexnet_2towers_dense1.h5")
-#ecog_model = ecog_1d_model(weights="/home/wangnxr/model_ecog_1d_offset_15_1_3_1_3_v2.h5")
 vid_model = video_2tower_model()
 ecog_model = ecog_1d_model()
 
@@ -131,13 +129,12 @@ x = Dense(1, name='predictions')(x)
 predictions = Activation('sigmoid')(x)
 
 for layer in base_model_vid.layers:
-    layer.trainable = False
+    layer.trainable = True
 for layer in base_model_ecog.layers:
-    layer.trainable = False
+    layer.trainable = True
 
 
 model = Model(input=[frame_a, frame_b, ecog_series], output=predictions)
-#model = Model(input=[base_model_vid.input, base_model_ecog.input], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 

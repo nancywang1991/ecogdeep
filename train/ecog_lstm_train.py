@@ -73,60 +73,17 @@ test_datagen_vid = ImageDataGenerator(
     center_crop=(224, 224),
     keep_frames=range(8,11))
 
-#vid_model = video_2tower_model(weights="/home/wangnxr/vid_model_alexnet_2towers_dense1.h5")
-#ecog_model = ecog_1d_model(weights="/home/wangnxr/model_ecog_1d_offset_15_1_3_1_3_v2.h5")
-vid_model = vid_model()
 ecog_model = ecog_1d_model(channels=len(channels))
 
-dgdx_vid = train_datagen_vid.flow_from_directory(
-    '/%s/train/' % main_vid_dir,
-    img_mode="seq",
-    read_formats={'png'},
-    target_size=(int(224), int(224)),
-    resize_size = (int(340), int(256)),
-    num_frames=11,
-    batch_size=24,
-    class_mode='binary',
-    shuffle=False,
-    pre_shuffle_ind=1)
 
-dgdx_val_vid = test_datagen_vid.flow_from_directory(
-    '/%s/val/' % main_vid_dir,
-    img_mode="seq",
-    read_formats={'png'},
-    target_size=(int(224), int(224)),
-    resize_size = (int(340), int(256)),
-    num_frames=11,
-    batch_size=10,
-    shuffle=False,
-    class_mode='binary')
-
-def izip_input(gen1, gen2):
-    while 1:
-        #pdb.set_trace()
-        x1, y1 = gen1.next()
-        x2 = gen2.next()[0]
-        if not x1.shape[0] == x2.shape[0]:
-            pdb.set_trace()
-        yield [x1, x2], y1
-
-train_generator = izip_input(dgdx_vid, dgdx_edf)
-validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
-base_model_vid = Model(vid_model.input, vid_model.get_layer("fc1").output)
+train_generator =  dgdx_edf
+validation_generator =  dgdx_val_edf
 base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
 
-frame_a = Input(shape=(3,3,224,224))
 ecog_series = Input(shape=(3,1,len(channels),200))
 
+x = base_model_ecog(ecog_series)
 
-tower1 = base_model_vid(frame_a)
-tower2 = base_model_ecog(ecog_series)
-x = merge([tower1, tower2], mode='concat', concat_axis=-1)
-
-x = Dropout(0.5)(x)
-x = TimeDistributed(Dense(1024, W_regularizer=l2(0.01), name='merge1'))(x)
-x = BatchNormalization()(x)
-x = Activation('relu')(x)
 x = Dropout(0.5)(x)
 x = TimeDistributed(Dense(256, W_regularizer=l2(0.01), name='merge2'))(x)
 x = BatchNormalization()(x)
@@ -137,13 +94,11 @@ x = Dense(1, name='predictions')(x)
 #x = BatchNormalization()(x)
 predictions = Activation('sigmoid')(x)
 
-for layer in base_model_vid.layers:
-    layer.trainable = True
 for layer in base_model_ecog.layers:
     layer.trainable = True
 
 
-model = Model(input=[frame_a, ecog_series], output=predictions)
+model = Model(input=[ecog_series], output=predictions)
 #model = Model(input=[base_model_vid.input, base_model_ecog.input], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
@@ -154,10 +109,10 @@ model.compile(optimizer=sgd,
 
 history_callback = model.fit_generator(
     train_generator,
-    samples_per_epoch=len(dgdx_vid.filenames),
+    samples_per_epoch=len(dgdx_edf.filenames),
     nb_epoch=40,
     validation_data=validation_generator,
-    nb_val_samples=len(dgdx_val_vid.filenames))
+    nb_val_samples=len(dgdx_val_edf.filenames))
 
-model.save("/home/wangnxr/models/ecog_vid_model_lstm_a0f_3st.h5")
-pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_vid_history_lstm_a0f_3st", "wb"))
+model.save("/home/wangnxr/models/ecog_model_lstm_a0f_3st.h5")
+pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_history_lstm_a0f_3st", "wb"))

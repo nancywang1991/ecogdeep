@@ -115,7 +115,7 @@ validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
 
 base_model_vid = Model(vid_model.input, vid_model.get_layer("fc1").output)
 base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
-
+pdb.set_trace()
 
 frame_a = Input(shape=(3,3,224,224))
 ecog_series = Input(shape=(3,1,len(channels),200))

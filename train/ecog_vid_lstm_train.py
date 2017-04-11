@@ -157,10 +157,10 @@ model.compile(optimizer=sgd,
 
 history_callback = model.fit_generator(
     train_generator,
-    samples_per_epoch=len(train_generator.filenames),
+    samples_per_epoch=len(dgdx_vid.filenames),
     nb_epoch=10,
     validation_data=validation_generator,
-    nb_val_samples=len(validation_generator.filenames))
+    nb_val_samples=len(dgdx_val_vid.filenames))
 
 model.save("/home/wangnxr/models/ecog_vid_model_alexnet_3towers_dense1_a0f.h5")
 pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_vid_history_alexnet_3towers_dense1_a0f", "wb"))

@@ -33,10 +33,10 @@ def vid_model(weights=None):
     # # x = BatchNormalization(axis=1)(x)
     # x = Activation('relu')(x)
     # Block 4
-    x = TimeDistributed(Convolution2D(128, 3, 3, border_mode='same'), name='block5_conv1')(input_tensor)
+    x = TimeDistributed(Convolution2D(64, 3, 3, border_mode='same'), name='block5_conv1')(input_tensor)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = TimeDistributed(MaxPooling2D((3, 3), strides=(2, 2)), name='block5_pool')(x)
+    x = TimeDistributed(MaxPooling2D((3, 3)), name='block5_pool')(x)
 
     x = TimeDistributed(Flatten(),name='flatten')(x)
     x = Dropout(0.5)(x)

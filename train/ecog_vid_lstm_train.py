@@ -82,18 +82,19 @@ ecog_model = ecog_1d_model(channels=len(channels))
 dgdx_vid = train_datagen_vid.flow_from_directory(
     '/%s/train/' % main_vid_dir,
     read_formats={'png'},
-    target_size=(int(340), int(256)),
+    target_size=(int(224), int(224)),
+    resize_size = (int(340), int(256)),
     num_frames=11,
     batch_size=24,
     class_mode='binary',
     shuffle=False,
-    pre_shuffle_ind=1
-)
+    pre_shuffle_ind=1)
 
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
     '/%s/val/' % main_vid_dir,
     read_formats={'png'},
-    target_size=(int(340), int(256)),
+    target_size=(int(224), int(224)),
+    resize_size = (int(340), int(256)),
     num_frames=11,
     batch_size=10,
     shuffle=False,

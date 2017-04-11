@@ -28,6 +28,7 @@ dgdx = train_datagen.flow_from_directory(
         '/home/wangnxr/dataset/vid_offset_0/train/',
         read_formats={'png'},
         target_size=(int(300), int(224)),
+
         batch_size=32,
         class_mode='binary')
 

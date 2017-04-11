@@ -1,11 +1,10 @@
 import keras
 from keras.preprocessing.ecog import EcogDataGenerator
 from keras.preprocessing.image2 import ImageDataGenerator, center_crop
-from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge
+from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge, TimeDistributed
 from keras.layers.normalization import BatchNormalization
 from keras.layers.recurrent import LSTM
 from keras.models import Model
-from keras.layers import TimeDistributedDense
 from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 from keras.regularizers import l2
 from itertools import izip
@@ -115,7 +114,6 @@ validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
 
 base_model_vid = Model(vid_model.input, vid_model.get_layer("fc1").output)
 base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
-pdb.set_trace()
 
 frame_a = Input(shape=(3,3,224,224))
 ecog_series = Input(shape=(3,1,len(channels),200))
@@ -126,11 +124,11 @@ tower2 = base_model_ecog(ecog_series)
 x = merge([tower1, tower2], mode='concat', concat_axis=-1)
 
 x = Dropout(0.5)(x)
-x = TimeDistributedDense(1024, W_regularizer=l2(0.01), name='merge1')(x)
+x = TimeDistributed(Dense(1024, W_regularizer=l2(0.01), name='merge1'))(x)
 x = BatchNormalization()(x)
 x = Activation('relu')(x)
 x = Dropout(0.5)(x)
-x = TimeDistributedDense(256, W_regularizer=l2(0.01), name='merge2')(x)
+x = TimeDistributed(Dense(256, W_regularizer=l2(0.01), name='merge2'))(x)
 x = BatchNormalization()(x)
 x = Activation('relu')(x)
 x = Dropout(0.5)(x)

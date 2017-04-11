@@ -38,7 +38,7 @@ def vid_model(weights=None):
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((3, 3), strides=(2, 2), name='block5_pool'))(x)
 
-    x = TimeDistributed(Flatten(name='flatten'), input_shape=(9, 3))(x)
+    x = TimeDistributed(Flatten(name='flatten'))(x)
     #x = Dropout(0.5)(x)
     #x = Dense(1024, W_regularizer=l2(0.01), name='fc1')(x)
     #x = BatchNormalization()(x)

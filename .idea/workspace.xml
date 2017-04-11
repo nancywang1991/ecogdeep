@@ -80,7 +80,7 @@
         <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="693">
-              <caret line="21" column="39" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+              <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -91,8 +91,8 @@
       <file leaf-file-name="vid_model_seq.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/vid_model_seq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+            <state relative-caret-position="243">
+              <caret line="42" column="75" selection-start-line="42" selection-start-column="75" selection-end-line="42" selection-end-column="75" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -698,13 +698,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00070" summary="new ecog test 3d&#10;">
-      <created>1485417550924</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1485417550924</updated>
-    </task>
     <task id="LOCAL-00071" summary="new ecog test 3d&#10;">
       <created>1485475789511</created>
       <option name="number" value="00071" />
@@ -1041,7 +1034,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491901070022</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="smth">
+      <created>1491901201718</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1491901201718</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1439,8 +1439,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/vid_model_seq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        <state relative-caret-position="243">
+          <caret line="42" column="75" selection-start-line="42" selection-start-column="75" selection-end-line="42" selection-end-column="75" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -1450,7 +1450,7 @@
     <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="693">
-          <caret line="21" column="39" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+          <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

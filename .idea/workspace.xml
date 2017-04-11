@@ -24,8 +24,8 @@
       <file leaf-file-name="ecog_vid_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="851">
-              <caret line="93" column="24" selection-start-line="74" selection-start-column="0" selection-end-line="93" selection-end-column="24" />
+            <state relative-caret-position="1558">
+              <caret line="80" column="18" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="18" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -46,11 +46,9 @@
       <file leaf-file-name="ecog_vid_lstm_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="574">
-              <caret line="119" column="34" selection-start-line="119" selection-start-column="34" selection-end-line="119" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="73">
+              <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -185,8 +183,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="998" />
-    <option name="y" value="386" />
+    <option name="x" value="1344" />
+    <option name="y" value="227" />
     <option name="width" value="3249" />
     <option name="height" value="2058" />
   </component>
@@ -707,13 +705,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00062" summary="new ecog test 3d&#10;">
-      <created>1485306540923</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1485306540923</updated>
-    </task>
     <task id="LOCAL-00063" summary="new ecog test 3d&#10;">
       <created>1485306842341</created>
       <option name="number" value="00063" />
@@ -1050,11 +1041,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491899798823</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="smth">
+      <created>1491899837778</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1491899837778</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="998" y="386" width="3249" height="2058" extended-state="0" />
+    <frame x="1344" y="227" width="3249" height="2058" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2576935" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1410,16 +1408,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_vid_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="851">
-          <caret line="93" column="24" selection-start-line="74" selection-start-column="0" selection-end-line="93" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train/vid_train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
@@ -1456,13 +1444,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
+    <entry file="file://$PROJECT_DIR$/train/ecog_vid_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="119" column="34" selection-start-line="119" selection-start-column="34" selection-end-line="119" selection-end-column="34" />
+        <state relative-caret-position="1558">
+          <caret line="80" column="18" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="18" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>

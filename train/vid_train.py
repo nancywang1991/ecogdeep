@@ -11,6 +11,7 @@ from itertools import izip
 from convnetskeras.convnets import convnet
 from ecogdeep.train.ecog_1d_model import ecog_1d_model
 from ecogdeep.train.vid_alexnet_2towers_model import video_2tower_model
+from keras.callbacks import ModelCheckpoint
 
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
@@ -81,16 +82,17 @@ model = Model(input=[frame_a, frame_b], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
+model_savepath = "/home/wangnxr/models/vid_history_alexnet_3towers_dense1_a0f_pred"
 model.compile(optimizer=sgd,
               loss='binary_crossentropy',
               metrics=['accuracy'])
-
+checkpoint = ModelCheckpoint("%s_chkpt.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
 history_callback = model.fit_generator(
     train_generator,
     samples_per_epoch=len(dgdx_vid.filenames),
     nb_epoch=40,
     validation_data=validation_generator,
-    nb_val_samples=len(dgdx_val_vid.filenames))
+    nb_val_samples=len(dgdx_val_vid.filenames), callbacks=[checkpoint])
 
-model.save("/home/wangnxr/models/vid_model_alexnet_3towers_dense1_a0f.h5")
-pickle.dump(history_callback.history, open("/home/wangnxr/models/vid_history_alexnet_3towers_dense1_a0f", "wb"))
+model.save("%s.h5" % model_savepath)
+pickle.dump(history_callback.history, open("/home/wangnxr/models/vid_history_alexnet_3towers_dense1_a0f_pred", "wb"))

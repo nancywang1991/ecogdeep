@@ -1,150 +1,102 @@
 import keras
 from keras.preprocessing.ecog import EcogDataGenerator
-from keras.layers import Flatten, Dense, Input, Dropout, Activation
+from keras.preprocessing.image2 import ImageDataGenerator, center_crop
+from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras.layers import Convolution2D, MaxPooling2D
 from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 from keras.regularizers import l2
+from itertools import izip
+from keras.callbacks import ModelCheckpoint
+from ecogdeep.train.ecog_1d_model import ecog_1d_model
+from ecogdeep.train.vid_alexnet_2towers_model import video_2tower_model
 
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
 import pdb
 import pickle
+import glob
 
-## Data generation
-train_datagen = EcogDataGenerator(
-        time_shift_range=200,
-        gaussian_noise_range=0.001,
-        center=False
+main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
+main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
+#pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
+## Data generation ECoG
+train_datagen_edf = EcogDataGenerator(
+    start_time=3300,
+    time_shift_range=200,
+    gaussian_noise_range=0.001,
+    center=False
 )
 
-test_datagen = EcogDataGenerator(
-        center=True
+test_datagen_edf = EcogDataGenerator(
+    start_time=3300,
+    center=True
 )
+channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
+dgdx_edf = train_datagen_edf.flow_from_directory(
+    #'/mnt/cb46fd46_5_no_offset/train/',
+    '%s/train/' % main_ecog_dir,
+    batch_size=24,
+    target_size=(1,len(channels),1000),
+    final_size=(1,len(channels),1000),
+    class_mode='binary',
+    shuffle=False,
+    channels = channels,
+    pre_shuffle_ind=1)
 
-dgdx = train_datagen.flow_from_directory(
-        #'/mnt/cb46fd46_5_no_offset/train/',
-        '/home/nancy/Documents/ecog_dataset/d6532718/train/',
-        batch_size=25,
-        target_size=(1,64,1000),
-        class_mode='binary')
-dgdx_val = test_datagen.flow_from_directory(
-        #'/mnt/cb46fd46_5_no_offset/test/',
-        '/home/nancy/Documents/ecog_dataset/d6532718/test/',
-        batch_size=24,
-        shuffle=False,
-        target_size=(1,64,1000),
-        class_mode='binary')
+dgdx_val_edf = test_datagen_edf.flow_from_directory(
+    #'/mnt/cb46fd46_5_no_offset/test/',
+    '%s/val/' % main_ecog_dir,
+    batch_size=10,
+    shuffle=False,
+    target_size=(1,len(channels),1000),
+    final_size=(1,len(channels),1000),
+    channels = channels,
+    class_mode='binary')
 
-train_generator=dgdx
-validation_generator=dgdx_val
+ecog_model = ecog_1d_model()
 
-## Hyperparameter optimization space
+train_generator = dgdx_edf
+validation_generator = dgdx_val_edf
 
-space = {"conv_layer1_units": hp.choice("conv1", range(5,16)),
-         "conv_layer2_units": hp.choice("conv2", range(5,16)),
-         "conv_layer3_units": hp.choice("conv3", range(5,16)),
-         "conv_layer4_units": hp.choice("conv4", range(5,16)),
-         "pool_layer1": hp.choice("pool1", range(1,4)),
-         "pool_layer2": hp.choice("pool2", range(1,4)),
-         "pool_layer3": hp.choice("pool3", range(1,4)),
-         "pool_layer4": hp.choice("pool4", range(1,4)),
-         "dense1_units": hp.choice("fc1",[256, 512, 1024, 2048]),
-         "dense2_units": hp.choice("fc2",[256, 512, 1024, 2048]),
-         "conv_layer1_filters": hp.choice("filters1",[16, 32, 64, 128]),
-         "conv_layer2_filters": hp.choice("filters2",[16, 32, 64, 128]),
-         "conv_layer3_filters": hp.choice("filters3",[16, 32, 64, 128]),
-         "conv_layer4_filters": hp.choice("filters4",[16, 32, 64, 128]),
-         #"batch_size" : hp.uniform('batch_size', 16, 32),
-         #'optimizer': hp.choice('optimizer', ['adadelta', 'adam', 'rmsprop'])
-         }
+base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
 
-def f_nn(params):
-    # Determine proper input shape
-    global itr
-    print "testing iteration %i" % itr
-    print params
-    itr+=1
-    input_tensor=Input(shape=(1,64,1000))
+ecog_series = Input(shape=(1,len(channels),1000))
 
-    # Block 1
-    x = MaxPooling2D((1,5),  name='pre_pool')(input_tensor)
-    x = Convolution2D(params['conv_layer1_filters'], 1, params['conv_layer1_units'], border_mode='same', name='block1_conv1')(x)
-    x = BatchNormalization(axis=1)(x)
-    x = Activation('relu')(x)
-    x = MaxPooling2D((1,params['pool_layer1']),  name='block1_pool')(x)
+x = base_model_ecog(ecog_series)
+x = Dropout(0.5)(x)
+x = Dense(1024, W_regularizer=l2(0.01), name='merge1')(x)
+x = BatchNormalization()(x)
+x = Activation('relu')(x)
+x = Dropout(0.5)(x)
+x = Dense(256, W_regularizer=l2(0.01), name='merge2')(x)
+x = BatchNormalization()(x)
+x = Activation('relu')(x)
+x = Dropout(0.5)(x)
+x = Dense(1, name='predictions')(x)
+#x = BatchNormalization()(x)
+predictions = Activation('sigmoid')(x)
 
-    # Block 2
-    x = Convolution2D(params['conv_layer2_filters'], 1, params['conv_layer2_units'],  border_mode='same', name='block2_conv1')(x)
-    x = BatchNormalization(axis=1)(x)
-    x = Activation('relu')(x)
-    x = MaxPooling2D((1,params['pool_layer1']),  name='block2_pool')(x)
-
-    # Block 3
-    x = Convolution2D(params['conv_layer3_filters'], 1, params['conv_layer3_units'], border_mode='same', name='block3_conv1')(x)
-    x = BatchNormalization(axis=1)(x)
-    x = Activation('relu')(x)
-    x = MaxPooling2D((1,params['pool_layer1']),  name='block3_pool')(x)
-
-    # Block 4
-    x = Convolution2D(params['conv_layer4_filters'], 1, params['conv_layer4_units'], border_mode='same', name='block4_conv1')(x)
-    x = BatchNormalization(axis=1)(x)
-    x = Activation('relu')(x)
-    x = MaxPooling2D((1,params['pool_layer1']), name='block4_pool')(x)
+for layer in base_model_ecog.layers:
+    layer.trainable = True
 
 
-    x = Flatten(name='flatten')(x)
-    x = Dropout(0.5)(x)
-    x = Dense(params['dense1_units'], W_regularizer=l2(0.01),  name='fc1')(x)
-    x = BatchNormalization()(x)
-    x = Activation('relu')(x)
-    x = Dropout(0.5)(x)
-    x = Dense(params['dense2_units'], W_regularizer=l2(0.01), name='fc2')(x)
-    x = BatchNormalization()(x)
-    x = Activation('relu')(x)
-    x = Dropout(0.5)(x)
-    x = Dense(1, name='predictions')(x)
-    x = BatchNormalization()(x)
-    predictions = Activation('sigmoid')(x)
+model = Model(input=[ecog_series], output=predictions)
 
-    #for layer in base_model.layers[:10]:
-    #    layer.trainable = False
+sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-    model = Model(input=input_tensor, output=predictions)
-    #pdb.set_trace()
-    sgd = keras.optimizers.SGD(lr=0.01)
+model_savepath = "/home/wangnxr/models/ecog_history_alexnet_3towers_dense1_a0f_pred"
+model.compile(optimizer=sgd,
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
+checkpoint = ModelCheckpoint("%s_chkpt.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+history_callback = model.fit_generator(
+    train_generator,
+    samples_per_epoch=len(dgdx_edf.filenames),
+    nb_epoch=40,
+    validation_data=validation_generator,
+    nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint])
 
-    model.compile(optimizer=sgd,
-                  loss='binary_crossentropy',
-                  metrics=['accuracy'])
-
-    #history = keras.callbacks.ModelCheckpoint("weights.{epoch:02d}-{val_loss:.2f}.hdf5", save_best_only=True)
-    history_callback = model.fit_generator(
-            train_generator,
-            samples_per_epoch=31800,
-            nb_epoch=50,
-            validation_data=validation_generator,
-            nb_val_samples=1400)#, callbacks=[history])
-    #pdb.set_trace()
-    #loss_history = history_callback.history["loss"]
-    #numpy_loss_history = np.array(loss_history)
-    #writefile = open("loss_history.txt", "wb")
-    with open("loss_history.txt", 'w') as f:
-        for key, value in history_callback.history.items():
-            f.write('%s:%s\n' % (key, value))
-
-    model.save("ecog_1d_%i.h5" % itr)
-    pickle.dump(params, open("ecog_1d_params.p", "wb"))
-    pickle.dump(history_callback.history,open("ecog_1d_history.p", "wb"))
-
-    loss = history_callback.history["val_loss"][-1]
-
-    return {'loss': loss,'status': STATUS_OK}
-
-itr = 0
-trials = Trials()
-best = fmin(f_nn, space, algo=tpe.suggest, max_evals=50, trials=trials)
-print 'best: '
-print best
-
+model.save("%s.h5" % model_savepath)
+pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_history_alexnet_3towers_dense1_a0f_pred", "wb"))

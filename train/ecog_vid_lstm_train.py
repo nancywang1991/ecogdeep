@@ -32,6 +32,7 @@ train_datagen_edf = EcogDataGenerator(
 )
 
 test_datagen_edf = EcogDataGenerator(
+    center=False,
     seq_len=200,
     seq_start=4000,
     seq_num=3,
@@ -111,7 +112,6 @@ def izip_input(gen1, gen2):
 
 train_generator = izip_input(dgdx_vid, dgdx_edf)
 validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
-
 base_model_vid = Model(vid_model.input, vid_model.get_layer("fc1").output)
 base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
 
@@ -155,9 +155,9 @@ model.compile(optimizer=sgd,
 history_callback = model.fit_generator(
     train_generator,
     samples_per_epoch=len(dgdx_vid.filenames),
-    nb_epoch=10,
+    nb_epoch=40,
     validation_data=validation_generator,
     nb_val_samples=len(dgdx_val_vid.filenames))
 
-model.save("/home/wangnxr/models/ecog_vid_model_alexnet_3towers_dense1_a0f.h5")
-pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_vid_history_alexnet_3towers_dense1_a0f", "wb"))
+model.save("/home/wangnxr/models/ecog_vid_model_lstm_a0f_3st.h5")
+pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_vid_history_lstm_a0f_3st", "wb"))

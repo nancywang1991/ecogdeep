@@ -46,8 +46,8 @@
       <file leaf-file-name="ecog_vid_lstm_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="39" column="1" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
+            <state relative-caret-position="836">
+              <caret line="56" column="18" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -707,13 +707,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00058" summary="new ecog test 3d&#10;">
-      <created>1485288293874</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1485288293875</updated>
-    </task>
     <task id="LOCAL-00059" summary="new ecog test 3d&#10;">
       <created>1485297199904</created>
       <option name="number" value="00059" />
@@ -1050,7 +1043,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491896588376</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="smth">
+      <created>1491897189534</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1491897189534</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1458,8 +1458,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="39" column="1" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
+        <state relative-caret-position="836">
+          <caret line="56" column="18" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

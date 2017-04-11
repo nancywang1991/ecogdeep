@@ -106,10 +106,9 @@ def izip_input(gen1, gen2):
         #pdb.set_trace()
         x1, y1 = gen1.next()
         x2 = gen2.next()[0]
-        if not x1[0].shape[0] == x2.shape[0]:
+        if not x1.shape[0] == x2.shape[0]:
             pdb.set_trace()
-        x1.append(x2)
-        yield x1, y1
+        yield [x1, x2], y1
 
 train_generator = izip_input(dgdx_vid, dgdx_edf)
 validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)

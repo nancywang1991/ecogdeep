@@ -117,8 +117,8 @@ base_model_vid = Model(vid_model.input, vid_model.get_layer("flatten").output)
 base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("flatten").output)
 
 
-frame_a = Input(shape=(3,9,227,227))
-ecog_series = Input(shape=(1,64,1000))
+frame_a = Input(shape=(9,3,227,227))
+ecog_series = Input(shape=(9,1,len(channels),200))
 
 
 tower1 = base_model_vid(frame_a)

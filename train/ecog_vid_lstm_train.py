@@ -163,4 +163,4 @@ history_callback = model.fit_generator(
     nb_val_samples=len(dgdx_val_vid.filenames), callbacks=[checkpoint])
 
 model.save("%s.h5" % model_savepath)
-pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_vid_history_lstm_a0f_3st_pred", "wb"))
+pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_vid_history_lstm_a0f_3st_pred.txt", "wb"))

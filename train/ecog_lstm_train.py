@@ -112,7 +112,7 @@ checkpoint = ModelCheckpoint("%s_chkpt.h5" % model_savepath, monitor='val_acc', 
 history_callback = model.fit_generator(
     train_generator,
     samples_per_epoch=len(dgdx_edf.filenames),
-    nb_epoch=40,
+    nb_epoch=80,
     validation_data=validation_generator,
     nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint])
 

@@ -68,9 +68,9 @@ model_file = "/home/wangnxr/models/ecog_vid_model_lstm_a0f_3st_pred.h5"
 model = load_model(model_file)
 
 #pdb.set_trace()
-files = validation_generator.filenames
+files = dgdx_val_edf.filenames
 results = model.predict_generator(validation_generator, len(files))
-true = validation_generator.classes
+true = dgdx_val_edf.classes
 true_0 = 0
 true_1 = 0
 

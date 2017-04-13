@@ -22,7 +22,7 @@ test_datagen_edf = EcogDataGenerator(
 
 dgdx_val_edf = test_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/test/',
-    '%s/val/' % main_ecog_dir,
+    '%s/test/' % main_ecog_dir,
     batch_size=10,
     shuffle=False,
     target_size=(1,len(channels),1000),

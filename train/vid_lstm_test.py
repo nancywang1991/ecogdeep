@@ -16,10 +16,11 @@ test_datagen = ImageDataGenerator(
     keep_frames=range(6,9))
 
 dgdx_val = test_datagen.flow_from_directory(
-    '/%s/val/' % main_vid_dir,
+    '/%s/test/' % main_vid_dir,
     img_mode="seq",
     read_formats={'png'},
-    target_size=(int(224), int(224)),
+    target_size=(int(224), int(224)),    
+    resize_size = (int(340), int(256)),
     num_frames=11,
     batch_size=10,
     shuffle=False,

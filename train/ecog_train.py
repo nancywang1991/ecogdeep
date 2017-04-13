@@ -86,7 +86,7 @@ model = Model(input=[ecog_series], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-model_savepath = "/home/wangnxr/models/ecog_history_alexnet_3towers_dense1_a0f_pred"
+model_savepath = "/home/wangnxr/models/ecog_model_alexnet_3towers_dense1_a0f_pred"
 model.compile(optimizer=sgd,
               loss='binary_crossentropy',
               metrics=['accuracy'])

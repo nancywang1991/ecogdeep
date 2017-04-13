@@ -1,14 +1,7 @@
 import keras
 from keras.applications.vgg16 import VGG16
-from keras.preprocessing.image import ImageDataGenerator, center_crop
-from keras.layers import Flatten, Dense, Input, Dropout, Activation
-from keras.layers.normalization import BatchNormalization
-from keras.models import Model, load_model
-import numpy as np
-import pdb
-import keras
-from keras.applications.vgg16 import VGG16
 from keras.preprocessing.image2 import ImageDataGenerator
+from keras.preprocessing.ecog import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model, load_model
@@ -16,13 +9,36 @@ import numpy as np
 import pdb
 
 
+main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
 main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
+#pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
+## Data generation ECoG
+channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
 
-test_datagen = ImageDataGenerator(
+test_datagen_edf = EcogDataGenerator(
+    start_time=3300,
+    center=True
+)
+
+dgdx_val_edf = test_datagen_edf.flow_from_directory(
+    #'/mnt/cb46fd46_5_no_offset/test/',
+    '%s/val/' % main_ecog_dir,
+    batch_size=10,
+    shuffle=False,
+    target_size=(1,len(channels),1000),
+    final_size=(1,len(channels),1000),
+    channels = channels,
+    class_mode='binary')
+
+# Video data generators
+
+test_datagen_vid = ImageDataGenerator(
     rescale=1./255,
     center_crop=(224, 224))
 
-dgdx_val = test_datagen.flow_from_directory(
+
+
+dgdx_val_vid = test_datagen_vid.flow_from_directory(
     '/%s/val/' % main_vid_dir,
     read_formats={'png'},
     target_size=(int(224), int(224)),
@@ -31,17 +47,26 @@ dgdx_val = test_datagen.flow_from_directory(
     shuffle=False,
     class_mode='binary')
 
-validation_generator=dgdx_val
+def izip_input(gen1, gen2):
+    while 1:
+        #pdb.set_trace()
+        x1, y1 = gen1.next()
+        x2 = gen2.next()[0]
+        if not x1.shape[0] == x2.shape[0]:
+            pdb.set_trace()
+        yield [x1, x2], y1
+
+validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
 
 #for layer in base_model.layers[:10]:
 #    layer.trainable = False
-model_file = "/home/wangnxr/models/vid_history_alexnet_3towers_dense1_a0f_pred.h5"
+model_file = "/home/wangnxr/models/ecog_vid_history_alexnet_3towers_dense1_a0f_pred.h5"
 model = load_model(model_file)
 
 #pdb.set_trace()
-files = validation_generator.filenames
+files = dgdx_val_edf.filenames
 results = model.predict_generator(validation_generator, len(files))
-true = validation_generator.classes
+true = dgdx_val_edf.classes
 true_0 = 0
 true_1 = 0
 

@@ -23,7 +23,7 @@ test_datagen = ImageDataGenerator(
     center_crop=(224, 224))
 
 dgdx_val = test_datagen.flow_from_directory(
-    '/%s/val/' % main_vid_dir,
+    '/%s/test/' % main_vid_dir,
     read_formats={'png'},
     target_size=(int(224), int(224)),
     num_frames=11,

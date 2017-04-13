@@ -39,7 +39,7 @@ test_datagen_vid = ImageDataGenerator(
 
 
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
-    '/%s/val/' % main_vid_dir,
+    '/%s/test/' % main_vid_dir,
     read_formats={'png'},
     target_size=(int(224), int(224)),
     num_frames=11,

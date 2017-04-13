@@ -30,7 +30,7 @@ dgdx_val = test_datagen.flow_from_directory(
     batch_size=10,
     shuffle=False,
     class_mode='binary')
-
+pdb.set_trace()
 validation_generator=dgdx_val
 
 #for layer in base_model.layers[:10]:

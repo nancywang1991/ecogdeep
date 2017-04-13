@@ -54,7 +54,7 @@ accuracy_0 = true_0/float((len(np.where(true==0)[0])))
 #=======
 #pdb.set_trace()
 
-with open("/home/result/%s.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
+with open("/home/wangnxr/results/%s.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
         writer.write("recall:%f\n" % recall)
         writer.write("precision:%f\n" % precision)
         writer.write("accuracy_1:%f\n" % accuracy_1)

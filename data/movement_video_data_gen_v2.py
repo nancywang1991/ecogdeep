@@ -29,7 +29,7 @@ def main(npy_file, vid_dir, save_dir):
         vid_file = my_video_capture("/".join([vid_dir, "_".join(vid.split("_")[:2]),vid]) + ".avi", 30)
         for f in frames:
             imgs = []
-            if f>(6*10+1)
+            if f>(6*10+1):
                 for f2 in range(f-6*10+1, f+7+1, 6):
                     vid_file.forward_to(f2)
                     imgs.append(vid_file.read())

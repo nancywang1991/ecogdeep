@@ -64,7 +64,7 @@ validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
 
 #for layer in base_model.layers[:10]:
 #    layer.trainable = False
-model_file = "/home/wangnxr/models/ecog_vid_model_lstm_a0f_3st_pred.h5"
+model_file = "/home/wangnxr/models/ecog_vid_model_lstm_a0f_3st_pred_chkpt.h5"
 model = load_model(model_file)
 
 #pdb.set_trace()

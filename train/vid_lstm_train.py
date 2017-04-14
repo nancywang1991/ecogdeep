@@ -52,7 +52,7 @@ dgdx_vid = train_datagen_vid.flow_from_directory(
     pre_shuffle_ind=1)
 
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
-    '/%s/test/' % main_vid_dir,
+    '/%s/val/' % main_vid_dir,
     img_mode="seq",
     read_formats={'png'},
     target_size=(int(224), int(224)),

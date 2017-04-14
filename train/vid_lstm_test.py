@@ -16,11 +16,11 @@ test_datagen = ImageDataGenerator(
     keep_frames=range(6,9))
 
 dgdx_val = test_datagen.flow_from_directory(
-    '/%s/test/' % main_vid_dir,
+    '/%s/val/' % main_vid_dir,
     img_mode="seq",
     read_formats={'png'},
     target_size=(int(224), int(224)),    
-    resize_size = (int(340), int(256)),
+    #resize_size = (int(340), int(256)),
     num_frames=11,
     batch_size=10,
     shuffle=False,
@@ -30,7 +30,7 @@ validation_generator=dgdx_val
 
 #for layer in base_model.layers[:10]:
 #    layer.trainable = False
-model_file = "/home/wangnxr/models/vid_model_lstm_a0f_3st_pred.h5"
+model_file = "/home/wangnxr/models/vid_model_lstm_a0f_3st_pred_chkpt.h5"
 model = load_model(model_file)
 
 #pdb.set_trace()

@@ -25,7 +25,7 @@ test_datagen_edf = EcogDataGenerator(
 
 dgdx_val_edf = test_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/test/',
-    '%s/test/' % main_ecog_dir,
+    '%s/val/' % main_ecog_dir,
     batch_size=10,
     shuffle=False,
     final_size=(1,len(channels),200),
@@ -38,7 +38,7 @@ validation_generator =  dgdx_val_edf
 
 #for layer in base_model.layers[:10]:
 #    layer.trainable = False
-model_file = "/home/wangnxr/models/ecog_model_lstm_a0f_3st_pred.h5"
+model_file = "/home/wangnxr/models/ecog_model_lstm_a0f_3st_pred_chkpt.h5"
 model = load_model(model_file)
 
 #pdb.set_trace()

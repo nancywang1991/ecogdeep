@@ -32,7 +32,7 @@ def main(npy_file, vid_dir, save_dir):
             if f>(6*10+1):
                 for f2 in range(f-6*10+1, f+7+1, 6):
                     vid_file.forward_to(f2)
-                    imgs.append(vid_file.read())
+                    imgs.append(cv2.resize(vid_file.read(), (340,256)))
                     save_imgs(imgs, range(f - 6 * 10, f +6, 6),os.path.join(save_dir, vid))
 
 if __name__ == "__main__":

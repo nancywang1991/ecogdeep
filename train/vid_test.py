@@ -30,12 +30,12 @@ dgdx_val = test_datagen.flow_from_directory(
     batch_size=10,
     shuffle=False,
     class_mode='binary')
-pdb.set_trace()
+#pdb.set_trace()
 validation_generator=dgdx_val
 
 #for layer in base_model.layers[:10]:
 #    layer.trainable = False
-model_file = "/home/wangnxr/models/vid_history_alexnet_3towers_dense1_a0f_pred.h5"
+model_file = "/home/wangnxr/models/vid_history_alexnet_3towers_dense1_a0f_pred_chkpt.h5"
 model = load_model(model_file)
 
 #pdb.set_trace()

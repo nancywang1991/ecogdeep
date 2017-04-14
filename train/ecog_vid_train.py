@@ -47,7 +47,7 @@ dgdx_edf = train_datagen_edf.flow_from_directory(
 
 dgdx_val_edf = test_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/test/',
-    '%s/val/' % main_ecog_dir,
+    '%s/test/' % main_ecog_dir,
     batch_size=10,
     shuffle=False,
     target_size=(1,len(channels),1000),
@@ -81,7 +81,7 @@ dgdx_vid = train_datagen_vid.flow_from_directory(
     pre_shuffle_ind=1)
 
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
-    '/%s/val/' % main_vid_dir,
+    '/%s/test/' % main_vid_dir,
     read_formats={'png'},
     target_size=(int(224), int(224)),
     num_frames=11,
@@ -136,7 +136,7 @@ model = Model(input=[frame_a, frame_b, ecog_series], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-model_savepath = "/home/wangnxr/models/ecog_vid_model_alexnet_3towers_dense1_a0f_pred"
+model_savepath = "/home/wangnxr/models/ecog_vid_model_alexnet_3towers_dense1_a0f_pred_no_diff"
 model.compile(optimizer=sgd,
               loss='binary_crossentropy',
               metrics=['accuracy'])
@@ -149,4 +149,4 @@ history_callback = model.fit_generator(
     nb_val_samples=len(dgdx_val_vid.filenames), callbacks=[checkpoint])
 
 model.save("%s.h5" % model_savepath)
-pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_vid_history_alexnet_3towers_dense1_a0f_pred", "wb"))
+pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_vid_history_alexnet_3towers_dense1_a0f_pred_no_diff", "wb"))

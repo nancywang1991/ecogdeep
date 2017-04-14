@@ -36,7 +36,7 @@ def main(npy_file, vid_dir, save_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-v', '--npy_file', required=True, help="ecog file names")
+    parser.add_argument('-n', '--npy_file', required=True, help="ecog file names")
     parser.add_argument('-v', '--vid_dir', required=True, help="video directory")
     parser.add_argument('-s', '--save_dir', required=True, help="Save directory")
     args = parser.parse_args()

@@ -103,8 +103,8 @@
       <file leaf-file-name="movement_video_data_gen_v2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen_v2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
-              <caret line="34" column="92" selection-start-line="34" selection-start-column="92" selection-end-line="34" selection-end-column="92" />
+            <state relative-caret-position="957">
+              <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -714,13 +714,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00097" summary="smth">
-      <created>1491895531241</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1491895531241</updated>
-    </task>
     <task id="LOCAL-00098" summary="smth">
       <created>1491895793445</created>
       <option name="number" value="00098" />
@@ -1057,7 +1050,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492130624000</updated>
     </task>
-    <option name="localTasksCounter" value="146" />
+    <task id="LOCAL-00146" summary="smth">
+      <created>1492132336702</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1492132336702</updated>
+    </task>
+    <option name="localTasksCounter" value="147" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1489,8 +1489,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen_v2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="34" column="92" selection-start-line="34" selection-start-column="92" selection-end-line="34" selection-end-column="92" />
+        <state relative-caret-position="957">
+          <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
           <folding />
         </state>
       </provider>

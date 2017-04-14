@@ -34,9 +34,10 @@ def main(npy_file, vid_dir, save_dir):
         vid_dict[vid] = keep
     for vid, frames in vid_dict.iteritems():
         vid_file = my_video_capture("/".join([vid_dir, "_".join(vid.split("_")[:2]),vid]) + ".avi", 30)
+        total_frames = vid_file.get_total_frames()
         for f in frames:
             imgs = []
-            if f>(6*10+1) and f < vid_file.frame_num-8:
+            if f>(6*10+1) and f < total_frames-8:
                 for f2 in range(f-6*10+1, f+7+1, 6):
                     vid_file.forward_to(f2)
                     imgs.append(cv2.resize(vid_file.read(), (340,256)))

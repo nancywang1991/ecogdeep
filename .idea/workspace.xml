@@ -103,8 +103,8 @@
       <file leaf-file-name="movement_video_data_gen_v2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen_v2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="36" column="25" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
+            <state relative-caret-position="532">
+              <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -716,13 +716,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00105" summary="smth">
-      <created>1491896543339</created>
-      <option name="number" value="00105" />
-      <option name="presentableId" value="LOCAL-00105" />
-      <option name="project" value="LOCAL" />
-      <updated>1491896543339</updated>
-    </task>
     <task id="LOCAL-00106" summary="smth">
       <created>1491896588376</created>
       <option name="number" value="00106" />
@@ -1059,7 +1052,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492134080038</updated>
     </task>
-    <option name="localTasksCounter" value="154" />
+    <task id="LOCAL-00154" summary="smth">
+      <created>1492134295680</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1492134295680</updated>
+    </task>
+    <option name="localTasksCounter" value="155" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1491,8 +1491,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen_v2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="36" column="25" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
+        <state relative-caret-position="532">
+          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

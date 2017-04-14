@@ -26,6 +26,13 @@ def main(npy_file, vid_dir, save_dir):
             vid_dict[vid_name] = []
         vid_dict[vid_name].append(frame)
     for vid, frames in vid_dict.iteritems():
+        sorted_f = sorted(np.array(frames))
+        keep = []
+        for f in range(1,len(sorted_f)):
+            if sorted_f[f]-sorted_f[f-1] > 5:
+                keep.append(sorted_f[f])
+        vid_dict[vid] = keep
+    for vid, frames in vid_dict.iteritems():
         vid_file = my_video_capture("/".join([vid_dir, "_".join(vid.split("_")[:2]),vid]) + ".avi", 30)
         for f in frames:
             imgs = []

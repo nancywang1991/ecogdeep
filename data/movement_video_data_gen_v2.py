@@ -26,7 +26,7 @@ def main(npy_file, vid_dir, save_dir):
             vid_dict[vid_name] = []
         vid_dict[vid_name].append(frame)
     for vid, frames in vid_dict.iteritems():
-        vid_file = my_video_capture("/".join([vid_dir, "_".join(vid.split("_")[:2]),vid]), 30)
+        vid_file = my_video_capture("/".join([vid_dir, "_".join(vid.split("_")[:2]),vid]) + ".avi", 30)
         for f in frames:
             imgs = []
             for f2 in range(f-6*10+1, f+7+1, 6):

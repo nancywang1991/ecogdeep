@@ -32,6 +32,7 @@ def main(npy_file, vid_dir, save_dir):
             if sorted_f[f]-sorted_f[f-1] > 5:
                 keep.append(sorted_f[f])
         vid_dict[vid] = keep
+
     for vid, frames in vid_dict.iteritems():
         vid_file = my_video_capture("/".join([vid_dir, "_".join(vid.split("_")[:2]),vid]) + ".avi", 30)
         total_frames = vid_file.get_total_frames()

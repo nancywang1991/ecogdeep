@@ -1,0 +1,360 @@
+Epoch: 0
+0.84
+Batch 0 of 400
+0.68
+Batch 50 of 400
+0.68
+Batch 100 of 400
+0.72
+Batch 150 of 400
+0.48
+Batch 200 of 400
+0.72
+Batch 250 of 400
+0.36
+Batch 300 of 400
+0.48
+Batch 350 of 400
+Val_acc = 0.513929
+Epoch: 1
+0.68
+Batch 0 of 400
+0.68
+Batch 50 of 400
+0.72
+Batch 100 of 400
+0.8
+Batch 150 of 400
+0.68
+Batch 200 of 400
+0.56
+Batch 250 of 400
+0.92
+Batch 300 of 400
+0.6
+Batch 350 of 400
+Val_acc = 0.514196
+Epoch: 2
+0.6
+Batch 0 of 400
+0.64
+Batch 50 of 400
+0.6
+Batch 100 of 400
+0.6
+Batch 150 of 400
+0.4
+Batch 200 of 400
+0.48
+Batch 250 of 400
+0.28
+Batch 300 of 400
+0.64
+Batch 350 of 400
+Val_acc = 0.511071
+Epoch: 3
+0.6
+Batch 0 of 400
+0.72
+Batch 50 of 400
+0.48
+Batch 100 of 400
+0.6
+Batch 150 of 400
+0.56
+Batch 200 of 400
+0.56
+Batch 250 of 400
+0.68
+Batch 300 of 400
+0.68
+Batch 350 of 400
+Val_acc = 0.505982
+Epoch: 4
+0.44
+Batch 0 of 400
+0.56
+Batch 50 of 400
+0.56
+Batch 100 of 400
+0.44
+Batch 150 of 400
+0.64
+Batch 200 of 400
+0.56
+Batch 250 of 400
+0.84
+Batch 300 of 400
+0.56
+Batch 350 of 400
+Val_acc = 0.492500
+Epoch: 5
+0.52
+Batch 0 of 400
+0.6
+Batch 50 of 400
+0.6
+Batch 100 of 400
+0.64
+Batch 150 of 400
+0.6
+Batch 200 of 400
+0.6
+Batch 250 of 400
+0.64
+Batch 300 of 400
+0.6
+Batch 350 of 400
+Val_acc = 0.524643
+Epoch: 6
+0.48
+Batch 0 of 400
+0.76
+Batch 50 of 400
+0.72
+Batch 100 of 400
+0.6
+Batch 150 of 400
+0.6
+Batch 200 of 400
+0.56
+Batch 250 of 400
+0.6
+Batch 300 of 400
+0.64
+Batch 350 of 400
+Val_acc = 0.507232
+Epoch: 7
+0.64
+Batch 0 of 400
+0.28
+Batch 50 of 400
+0.52
+Batch 100 of 400
+0.92
+Batch 150 of 400
+0.4
+Batch 200 of 400
+0.68
+Batch 250 of 400
+0.76
+Batch 300 of 400
+0.68
+Batch 350 of 400
+Val_acc = 0.518839
+Epoch: 8
+0.68
+Batch 0 of 400
+0.6
+Batch 50 of 400
+0.48
+Batch 100 of 400
+0.48
+Batch 150 of 400
+0.64
+Batch 200 of 400
+0.64
+Batch 250 of 400
+0.64
+Batch 300 of 400
+0.48
+Batch 350 of 400
+Val_acc = 0.528661
+Epoch: 9
+0.48
+Batch 0 of 400
+0.48
+Batch 50 of 400
+0.56
+Batch 100 of 400
+0.48
+Batch 150 of 400
+0.6
+Batch 200 of 400
+0.68
+Batch 250 of 400
+0.8
+Batch 300 of 400
+0.8
+Batch 350 of 400
+Val_acc = 0.498304
+Epoch: 10
+0.6
+Batch 0 of 400
+0.56
+Batch 50 of 400
+0.8
+Batch 100 of 400
+0.6
+Batch 150 of 400
+0.56
+Batch 200 of 400
+0.56
+Batch 250 of 400
+0.4
+Batch 300 of 400
+0.68
+Batch 350 of 400
+Val_acc = 0.517589
+Epoch: 11
+0.56
+Batch 0 of 400
+0.72
+Batch 50 of 400
+0.72
+Batch 100 of 400
+0.44
+Batch 150 of 400
+0.44
+Batch 200 of 400
+0.52
+Batch 250 of 400
+0.8
+Batch 300 of 400
+0.52
+Batch 350 of 400
+Val_acc = 0.494286
+Epoch: 12
+0.68
+Batch 0 of 400
+0.52
+Batch 50 of 400
+0.6
+Batch 100 of 400
+0.64
+Batch 150 of 400
+0.56
+Batch 200 of 400
+0.76
+Batch 250 of 400
+0.6
+Batch 300 of 400
+0.48
+Batch 350 of 400
+Val_acc = 0.489821
+Epoch: 13
+0.44
+Batch 0 of 400
+0.84
+Batch 50 of 400
+0.68
+Batch 100 of 400
+0.56
+Batch 150 of 400
+0.76
+Batch 200 of 400
+0.68
+Batch 250 of 400
+0.64
+Batch 300 of 400
+0.6
+Batch 350 of 400
+Val_acc = 0.491607
+Epoch: 14
+0.64
+Batch 0 of 400
+0.68
+Batch 50 of 400
+0.76
+Batch 100 of 400
+0.68
+Batch 150 of 400
+0.68
+Batch 200 of 400
+0.52
+Batch 250 of 400
+0.6
+Batch 300 of 400
+0.6
+Batch 350 of 400
+Val_acc = 0.502054
+Epoch: 15
+0.72
+Batch 0 of 400
+0.64
+Batch 50 of 400
+0.76
+Batch 100 of 400
+0.64
+Batch 150 of 400
+0.52
+Batch 200 of 400
+0.64
+Batch 250 of 400
+0.56
+Batch 300 of 400
+0.56
+Batch 350 of 400
+Val_acc = 0.476696
+Epoch: 16
+0.72
+Batch 0 of 400
+0.6
+Batch 50 of 400
+0.6
+Batch 100 of 400
+0.72
+Batch 150 of 400
+0.68
+Batch 200 of 400
+0.6
+Batch 250 of 400
+0.44
+Batch 300 of 400
+0.52
+Batch 350 of 400
+Val_acc = 0.503393
+Epoch: 17
+0.64
+Batch 0 of 400
+0.8
+Batch 50 of 400
+0.52
+Batch 100 of 400
+0.68
+Batch 150 of 400
+0.64
+Batch 200 of 400
+0.88
+Batch 250 of 400
+0.52
+Batch 300 of 400
+0.76
+Batch 350 of 400
+Val_acc = 0.502679
+Epoch: 18
+0.92
+Batch 0 of 400
+0.56
+Batch 50 of 400
+0.48
+Batch 100 of 400
+0.56
+Batch 150 of 400
+0.32
+Batch 200 of 400
+0.48
+Batch 250 of 400
+0.56
+Batch 300 of 400
+0.64
+Batch 350 of 400
+Val_acc = 0.534821
+Epoch: 19
+0.6
+Batch 0 of 400
+0.68
+Batch 50 of 400
+0.44
+Batch 100 of 400
+0.56
+Batch 150 of 400
+0.6
+Batch 200 of 400
+0.56
+Batch 250 of 400
+0.52
+Batch 300 of 400
+0.68
+Batch 350 of 400
+Val_acc = 0.537500

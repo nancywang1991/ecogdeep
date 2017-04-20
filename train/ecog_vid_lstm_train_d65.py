@@ -18,13 +18,13 @@ import pdb
 import pickle
 import glob
 
-main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day8/'
-main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day8/'
+main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_d65_day9/'
+main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_d65_day9/'
 #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
 ## Data generation ECoG
-channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
+channels = np.arange(82)
 train_datagen_edf = EcogDataGenerator(
-    gaussian_noise_range=0.01,
+    gaussian_noise_range=0.001,
     center=False,
     seq_len=200,
     seq_start=3500,
@@ -68,12 +68,13 @@ train_datagen_vid = ImageDataGenerator(
     #horizontal_flip=True,
     random_black=True,
     random_crop=(224,224),
-    keep_frames=range(5,10))
+    keep_frames=range(6,11))
 
 test_datagen_vid = ImageDataGenerator(
     rescale=1./255,
     center_crop=(224, 224),
-    keep_frames=range(5,10))
+    keep_frames=range(6,11),
+    random_black=False)
 
 #vid_model = video_2tower_model(weights="/home/wangnxr/vid_model_alexnet_2towers_dense1.h5")
 #ecog_model = ecog_1d_model(weights="/home/wangnxr/model_ecog_1d_offset_15_1_3_1_3_v2.h5")
@@ -151,7 +152,7 @@ model = Model(input=[frame_a, ecog_series], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-model_savepath = "/home/wangnxr/models/ecog_vid_model_lstm_a0f_5st_pred"
+model_savepath = "/home/wangnxr/models/ecog_vid_model_lstm_d65_5st_pred"
 model.compile(optimizer=sgd,
               loss='categorical_crossentropy',
               metrics=['accuracy'])
@@ -164,4 +165,4 @@ history_callback = model.fit_generator(
     nb_val_samples=len(dgdx_val_vid.filenames), callbacks=[checkpoint])
 
 model.save("%s.h5" % model_savepath)
-pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_vid_history_lstm_a0f_5st_pred.txt", "wb"))
+pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_vid_history_lstm_d65_5st_pred.txt", "wb"))

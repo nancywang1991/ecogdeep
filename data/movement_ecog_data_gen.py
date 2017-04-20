@@ -58,8 +58,8 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
         # Clip is too early
         return
     edf_clip = edf[:,int((start_sec-5)*1000):int((end_sec+1)*1000)]
-    left_arm_mvmt = np.sum(mv_file[:,(2,4,6)], axis=1)
-    right_arm_mvmt = np.sum(mv_file[:,(1,3,5)], axis=1)
+    left_arm_mvmt = mv_file[:,2]
+    right_arm_mvmt = mv_file[:,1]
     head_mvmt = mv_file[:,0]
     train_dir = os.path.join(save_dir, "train")
 
@@ -77,20 +77,20 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
 
     cur_dir = train_dir
 
-    for f in range(0,len(mv_file), 5):
+    for f in range(0,len(mv_file), 2):
         flag = 0
-        offset_f = int(f+(30*5)-offset-15)
-        edf_part = edf_clip[:,(offset_f * (1000 / 30.0) - 4000):(offset_f * (1000 / 30.0) + 1000)]
+        offset_f = int((f-offset-15)*1000/30.0)
+        edf_part = edf_clip[:,(offset_f  - 4000):(offset_f  + 1000)]
         if edf_part.shape[1] == 5000:
-            if np.mean(left_arm_mvmt[f:f+5])>2:
+            if np.mean(left_arm_mvmt[f:f+5])>1 and np.all(left_arm_mvmt[f-10:f] >= 0) and np.mean(left_arm_mvmt[f-10:f]) < 0.5:
             	flag = 1
             	save_filename = os.path.join(cur_dir, "l_arm_1", "%s_%i" % (vid_name, f ))
                 write_edf_part(edf_part, save_filename)
-            if np.mean(right_arm_mvmt[f:f+5])>2:
+            if np.mean(right_arm_mvmt[f:f+5])>1 and np.all(right_arm_mvmt[f-10:f] >= 0) and np.mean(right_arm_mvmt[f-10:f]) < 0.5:
             	flag = 1
             	save_filename = os.path.join(cur_dir, "r_arm_1", "%s_%i" % (vid_name, f ))
                 write_edf_part(edf_part, save_filename)
-            if np.mean(head_mvmt[f:f+5])>1:
+            if np.mean(head_mvmt[f:f+5])>1 and np.all(head_mvmt[f-10:f] >= 0) and np.mean(head_mvmt[f-10:f]) < 0.5:
             	flag = 1
             	save_filename = os.path.join(cur_dir, "head_1", "%s_%i" % (vid_name, f ))
                 write_edf_part(edf_part, save_filename)
@@ -98,18 +98,18 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
         #    save_filename = os.path.join(cur_dir, "mv_1", "%s_%i" % (vid_name, f ))
         #    if edf_part.shape[1]==1200:
         #        write_edf_part(edf_part, save_filename)
-            if (f / 5) % 6 == 0:
-            	if np.all(left_arm_mvmt[f:f+5] >= 0) and np.mean(left_arm_mvmt[f:f + 5]) < 1:
+            if (f ) % 10 == 0:
+            	if np.all(left_arm_mvmt[f-30:f+30] >= 0) and np.mean(left_arm_mvmt[f-30:f + 30]) < 0.5:
                 #save_filename = os.path.join(cur_dir, "l_arm_0", "%s_%i" % (vid_name, f ))
                 #if edf_part.shape[1]==1200:
                 #    write_edf_part(edf_part, save_filename)
                     flag+=1
-            	if np.all(right_arm_mvmt[f:f + 5] >= 0) and np.mean(right_arm_mvmt[f:f + 5]) < 1:
+            	if np.all(right_arm_mvmt[f-30:f + 30] >= 0) and np.mean(right_arm_mvmt[f-30:f + 30]) < 0.5:
                 #save_filename = os.path.join(cur_dir, "r_arm_0", "%s_%i" % (vid_name, f ))
                 #if edf_part.shape[1]==1200:
                 #    write_edf_part(edf_part, save_filename)
                     flag+=1
-            	if np.all(head_mvmt[f:f + 5] >= 0) and np.mean(head_mvmt[f:f + 5]) < 0.5:
+            	if np.all(head_mvmt[f-30:f + 30] >= 0) and np.mean(head_mvmt[f-30:f + 30]) < 0.5:
                 #save_filename = os.path.join(cur_dir, "head_0", "%s_%i" % (vid_name, f))
                 #if edf_part.shape[1]==1200:
                 #    write_edf_part(edf_part, save_filename)
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     sbj_id, day, vid_num, _ = os.path.split(files[0])[-1].split(".")[0].split("_")
     ecog_name = os.path.join(args.edf_dir, "%s_%s.edf" %( sbj_id, day))
     edf = mne.io.read_raw_edf(ecog_name)
-    n_channels = edf.ch_names.index('EOGL')-1
+    n_channels = edf.ch_names.index('EOGL')-2
     #pdb.set_trace()
     edf_data = np.zeros(shape=(n_channels, len(edf)))
     if args.norm_factors_file is None:

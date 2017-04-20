@@ -160,7 +160,7 @@ for s, sbj in enumerate(sbj_ids):
 
         sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-        model_savepath = "/home/wangnxr/models/ecog_vid_model_lstm_%s_5st_t_%i" (sbj, time)
+        model_savepath = "/home/wangnxr/models/ecog_vid_model_lstm_%s_5st_t_%i" % (sbj, time)
         model.compile(optimizer=sgd,
                       loss='categorical_crossentropy',
                       metrics=['accuracy'])

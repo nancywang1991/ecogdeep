@@ -14,7 +14,7 @@ frames = [ range(3,8), range(5,10), range(7,12)]
 channels_list = [np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)]), np.arange(111), np.arange(82)]
 
 for s, sbj in enumerate(sbj_ids):
-    main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%/' % (sbj, days[s])
+    main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     for t, time in enumerate(start_times):
         mode = 'categorical'
         test_datagen = ImageDataGenerator(

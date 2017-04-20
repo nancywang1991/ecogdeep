@@ -27,7 +27,7 @@ channels_list = [np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)]
 
 for s, sbj in enumerate(sbj_ids):
     main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
-    main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%/' % (sbj, days[s])
+    main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     for t, time in enumerate(start_times):
         #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
         ## Data generation ECoG

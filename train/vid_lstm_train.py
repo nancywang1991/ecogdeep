@@ -25,7 +25,7 @@ channels_list = [np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)]
                  np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]), np.arange(82)]
 
 for s, sbj in enumerate(sbj_ids):
-    main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%/' % (sbj, days[s])
+    main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     for t, time in enumerate(start_times):
 
         # Video data generators

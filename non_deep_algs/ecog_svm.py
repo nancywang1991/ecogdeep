@@ -78,10 +78,10 @@ for s, sbj in enumerate(sbj_ids):
             for b in xrange(samples_per_epoch_test/validation_generator.batch_size):
                 test_data = validation_generator.next()
                 #pdb.set_trace()
-            if len(test_data[0])<validation_generator.batch_size:
-                    validation_generator.reset()
-                    test_data = validation_generator.next()
-            mean_test_score.append(model.score(np.reshape(test_data[0], (validation_generator.batch_size, test_data[0].shape[2]*data[0].shape[3])), test_data[1]))
+                if len(test_data[0])<validation_generator.batch_size:
+                        validation_generator.reset()
+                        test_data = validation_generator.next()
+                mean_test_score.append(model.score(np.reshape(test_data[0], (validation_generator.batch_size, test_data[0].shape[2]*data[0].shape[3])), test_data[1]))
             print("Val_acc = %f" % np.mean(np.array(mean_test_score)), file=logfile)
             if np.mean(np.array(mean_test_score)) > best_score:
                 pickle.dump(model, open("/home/wangnxr/models/svm_ecog_%s_t_%i.p" % (sbj, time), "wb"))

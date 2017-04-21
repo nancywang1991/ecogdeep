@@ -24,5 +24,5 @@ for r in xrange(2,length):
         else:
             new_file.write("%s:%s" % (result1[r].split(":")[0], class2))
             combined_results.append(int(class2))
-new_file.write("accuracy_0:%f" % len(np.where(combined_results[:length/2]==0)[0])/float(length))
-new_file.write("accuracy_1:%f" % len(np.where(combined_results[length/2:]==1)[0])/float(length))
+new_file.write("accuracy_0:%f" % (len(np.where(combined_results[:length/2]==0)[0])/float(length)))
+new_file.write("accuracy_1:%f" % (len(np.where(combined_results[length/2:]==1)[0])/float(length)))

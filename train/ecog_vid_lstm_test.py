@@ -72,9 +72,11 @@ for s, sbj in enumerate(sbj_ids):
 
         #for layer in base_model.layers[:10]:
         #    layer.trainable = False
-        model_file = "/home/wangnxr/models/ecog_vid_model_lstm_%s_5st_t_%i_chkpt.h5" % (sbj,time)
-        model = load_model(model_file)
-
+        try:
+            model_file = "/home/wangnxr/models/ecog_vid_model_lstm_%s_5st_t_%i_chkpt.h5" % (sbj,time)
+            model = load_model(model_file)
+        except:
+            continue
         #pdb.set_trace()
         files = dgdx_val_edf.filenames
         results = model.predict_generator(validation_generator, len(files))

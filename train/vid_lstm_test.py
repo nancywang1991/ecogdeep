@@ -36,8 +36,11 @@ for s, sbj in enumerate(sbj_ids):
         validation_generator=dgdx_val
         #for layer in base_model.layers[:10]:
         #    layer.trainable = False
-        model_file = "/home/wangnxr/models/vid_model_lstm_%s_5st_t_%i_chkpt.h5" % (sbj, time)
-        model = load_model(model_file)
+        try:
+            model_file = "/home/wangnxr/models/vid_model_lstm_%s_5st_t_%i_chkpt.h5" % (sbj, time)
+            model = load_model(model_file)
+        except:
+            continue
 
         #pdb.set_trace()
         files = validation_generator.filenames

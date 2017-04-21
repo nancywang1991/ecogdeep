@@ -37,7 +37,10 @@ for s, sbj in enumerate(sbj_ids):
                 validation_generator=dgdx_val
                 samples_per_epoch_test=validation_generator.nb_sample
                 mean_test_score=[]
-                model = pickle.load(open("/home/wangnxr/models/svm_ecog_%s_t_%i.p" % (sbj, time)))
+                try:
+                    model = pickle.load(open("/home/wangnxr/models/svm_ecog_%s_t_%i.p" % (sbj, time)))
+                except:
+                    continue
                 for b in xrange(samples_per_epoch_test/validation_generator.batch_size):
                         test_data = validation_generator.next()
                         if len(test_data[0])<validation_generator.batch_size:

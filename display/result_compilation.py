@@ -9,7 +9,7 @@ result1 = open(file1).readlines()
 result2 = open(file2).readlines()
 combined_results = []
 length = len(result1)
-for r in len(result1):
+for r in xrange(length):
     class1 = result1[r].split(":")[1].split("->")[0]
     class2 = result2[r].split(":")[1].split("->")[0]
     if class1==class2:

@@ -56,9 +56,11 @@
       <file leaf-file-name="result_compilation.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/display/result_compilation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="891">
-              <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-              <folding />
+            <state relative-caret-position="528">
+              <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -191,8 +193,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1210" />
-    <option name="y" value="397" />
+    <option name="x" value="482" />
+    <option name="y" value="337" />
     <option name="width" value="2698" />
     <option name="height" value="1550" />
   </component>
@@ -740,13 +742,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00118" summary="smth">
-      <created>1491901070022</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1491901070022</updated>
-    </task>
     <task id="LOCAL-00119" summary="smth">
       <created>1491901201718</created>
       <option name="number" value="00119" />
@@ -1083,11 +1078,18 @@
       <option name="project" value="LOCAL" />
       <updated>1492735493779</updated>
     </task>
-    <option name="localTasksCounter" value="167" />
+    <task id="LOCAL-00167" summary="smth&#10;">
+      <created>1492735604125</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1492735604125</updated>
+    </task>
+    <option name="localTasksCounter" value="168" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1210" y="397" width="2698" height="1550" extended-state="0" />
+    <frame x="482" y="337" width="2698" height="1550" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37434357" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1532,9 +1534,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/display/result_compilation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="891">
-          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-          <folding />
+        <state relative-caret-position="528">
+          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

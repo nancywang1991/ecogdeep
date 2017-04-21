@@ -1,4 +1,5 @@
 import numpy as np
+import pdb
 
 file1 = "/home/wangnxr/results/vid_model_lstm_a0f_5st_pred_chkpt.txt"
 file2 = "/home/wangnxr/results/ecog_model_lstm_a0f_5st_pred_chkpt.txt"
@@ -13,7 +14,7 @@ for r in xrange(2,length):
     class1 = result1[r].split(":")[1].split("->")[0]
     class2 = result2[r].split(":")[1].split("->")[0]
     if class1==class2:
-        new_file.write("%s:%s" % (result1[r].split(":")[0], class1))
+        new_file.write("%s:%s\n" % (result1[r].split(":")[0], class1))
         combined_results.append(int(class1))
     else:
         score1 = result1[r].split(":")[1].split("->")[1]

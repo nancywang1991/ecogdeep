@@ -56,8 +56,8 @@
       <file leaf-file-name="result_compilation.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/display/result_compilation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+            <state relative-caret-position="891">
+              <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -740,13 +740,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00117" summary="smth">
-      <created>1491900876102</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1491900876102</updated>
-    </task>
     <task id="LOCAL-00118" summary="smth">
       <created>1491901070022</created>
       <option name="number" value="00118" />
@@ -1083,7 +1076,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492735427013</updated>
     </task>
-    <option name="localTasksCounter" value="166" />
+    <task id="LOCAL-00166" summary="smth&#10;">
+      <created>1492735493779</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1492735493779</updated>
+    </task>
+    <option name="localTasksCounter" value="167" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1134,7 +1134,8 @@
     <MESSAGE value="combine ecog and vid" />
     <MESSAGE value="increased speed of mne loading" />
     <MESSAGE value="smth" />
-    <option name="LAST_COMMIT_MESSAGE" value="smth" />
+    <MESSAGE value="smth&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="smth&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1531,8 +1532,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/display/result_compilation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+        <state relative-caret-position="891">
+          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
           <folding />
         </state>
       </provider>

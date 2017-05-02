@@ -7,23 +7,29 @@ from keras.models import Model, load_model
 import numpy as np
 import pdb
 
-sbj_ids = ['a0f', 'e5b', 'd65']
-days = [8,9,9]
-start_times = [3200, 3600, 4000]
+sbj_ids = ['a0f', 'e5b','d65','cb4','c95']
+sbj_ids = ['c95']
+days = [11,9, 9, 10, 7]
+days = [7]
+start_times = [2800, 3400, 4000]
 frames = [ range(3,8), range(5,10), range(7,12)]
-channels_list = [np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)]), np.arange(111), np.arange(82)]
 
 for s, sbj in enumerate(sbj_ids):
     main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     for t, time in enumerate(start_times):
-        mode = 'categorical'
+        try:
+            model_file = "/home/wangnxr/models/vid_model_lstm_%s_5st_t_%i_chkpt.h5" % (sbj, time)
+            model = load_model(model_file)
+        except:
+            continue
+	mode = 'categorical'
         test_datagen = ImageDataGenerator(
             rescale=1./255,
             center_crop=(224, 224),
             keep_frames=frames[t])
 
         dgdx_val = test_datagen.flow_from_directory(
-            '/%s/test/' % main_vid_dir,
+            '/%s/valv2/' % main_vid_dir,
             img_mode="seq",
             read_formats={'png'},
             target_size=(int(224), int(224)),
@@ -36,11 +42,6 @@ for s, sbj in enumerate(sbj_ids):
         validation_generator=dgdx_val
         #for layer in base_model.layers[:10]:
         #    layer.trainable = False
-        try:
-            model_file = "/home/wangnxr/models/vid_model_lstm_%s_5st_t_%i_chkpt.h5" % (sbj, time)
-            model = load_model(model_file)
-        except:
-            continue
 
         #pdb.set_trace()
         files = validation_generator.filenames
@@ -71,7 +72,7 @@ for s, sbj in enumerate(sbj_ids):
         accuracies = [true_nums[c]/float(len(np.where(true==c)[0])) for c in xrange(len(true_nums))]
 
 
-        with open("/home/wangnxr/results/%s.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
+        with open("/home/wangnxr/results/%s_v2.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
             if mode=="binary":
                 writer.write("recall:%f\n" % recall)
                 writer.write("precision:%f\n" % precision)

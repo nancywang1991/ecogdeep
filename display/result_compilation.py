@@ -1,10 +1,12 @@
 import numpy as np
 import pdb
+time = "2800"
+sbj_id = "d65"
 
-file1 = "/home/wangnxr/results/vid_model_lstm_a0f_5st_pred_chkpt.txt"
-file2 = "/home/wangnxr/results/ecog_model_lstm_a0f_5st_pred_chkpt.txt"
+file1 = "/home/wangnxr/results/vid_model_lstm_%s_5st_t_%s_chkpt.txt" % (sbj_id, time)
+file2 = "/home/wangnxr/results/ecog_model_lstm_%s_5st_t_%s_chkpt.txt" % (sbj_id, time)
 
-new_file = open("/home/wangnxr/results/ecog_vid_avg_model_lstm_a0f_5st_pred_chkpt.txt", "wb")
+new_file = open("/home/wangnxr/results/ecog_vid_avg_model_lstm_%s_5st_t_%s_chkpt.txt" % (sbj_id, time), "wb")
 
 result1 = open(file1).readlines()
 result2 = open(file2).readlines()

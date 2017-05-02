@@ -10,7 +10,7 @@ from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 from keras.regularizers import l2
 from itertools import izip
 from ecogdeep.train.ecog_1d_model_seq import ecog_1d_model
-from ecogdeep.train.vid_model_seq import vid_model
+import ecogdeep.train.vid_model_seq as vid_model_seq
 
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
@@ -19,12 +19,17 @@ import pickle
 import glob
 
 sbj_ids = ['a0f', 'e5b', 'd65']
-days = [8,9,9]
-start_times = [3200, 3600, 4000]
-frames = [ range(3,8), range(5,10), range(7,12)]
-channels_list = [np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)]),
-                 np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]), np.arange(82)]
-
+sbj_ids = ['c95']
+days = [11,9,9]
+days = [7]
+start_times = [2800, 3400,4000]
+#start_times = [3200, 3600, 4000]
+frames = [ range(1,6), range(4,9), range(7,12)]
+#frames = [ range(3,8), range(5,10), range(7,12)]
+channels_list = [#np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)]),
+                 #np.arange(80), 
+		 np.arange(86)]
+#channels_list = [np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]), np.arange(82)]
 for s, sbj in enumerate(sbj_ids):
     main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
@@ -86,7 +91,7 @@ for s, sbj in enumerate(sbj_ids):
 
         #vid_model = video_2tower_model(weights="/home/wangnxr/vid_model_alexnet_2towers_dense1.h5")
         #ecog_model = ecog_1d_model(weights="/home/wangnxr/model_ecog_1d_offset_15_1_3_1_3_v2.h5")
-        vid_model = vid_model()
+        vid_model = vid_model_seq.vid_model()
         ecog_model = ecog_1d_model(channels=len(channels))
 
         dgdx_vid = train_datagen_vid.flow_from_directory(

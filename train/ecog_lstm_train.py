@@ -8,7 +8,7 @@ from keras.models import Model
 from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 from keras.regularizers import l2
 from itertools import izip
-from keras.callbacks import ModelCheckpoint
+from keras.callbacks import ModelCheckpoint, EarlyStopping
 from ecogdeep.train.ecog_1d_model_seq import ecog_1d_model
 from ecogdeep.train.vid_model_seq import vid_model
 
@@ -19,10 +19,14 @@ import pickle
 import glob
 
 sbj_ids = ['a0f', 'e5b', 'd65']
-days = [8,9,9]
-start_times = [3200, 3600, 4000]
-channels_list = [np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)]),
-                 np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]), np.arange(82)]
+sbj_ids = ['c95']
+days = [7]
+start_times = [2800, 3400, 4000]
+channels_list = [#np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)]),
+                 #np.arange(82),
+                 #np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]), 
+		#np.arange(80),
+                np.arange(86)]
 #e5b to remove, 80, 85, 104, 108, 109
 for s, sbj in enumerate(sbj_ids):
     main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
@@ -60,7 +64,7 @@ for s, sbj in enumerate(sbj_ids):
 
         dgdx_val_edf = test_datagen_edf.flow_from_directory(
             #'/mnt/cb46fd46_5_no_offset/test/',
-            '%s/val/' % main_ecog_dir,
+            '%s/valv3/' % main_ecog_dir,
             batch_size=10,
             shuffle=False,
             final_size=(1,len(channels),200),
@@ -80,11 +84,11 @@ for s, sbj in enumerate(sbj_ids):
         x = base_model_ecog(ecog_series)
 
         x = Dropout(0.5)(x)
-        x = TimeDistributed(Dense(256, W_regularizer=l2(0.01), name='merge2'))(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
+        x = TimeDistributed(Dense(32, W_regularizer=l2(0.01), name='merge2'))(x)
+        #x = BatchNormalization()(x)
+        #x = Activation('relu')(x)
         x = Dropout(0.5)(x)
-        x = LSTM(20, dropout_W=0.2, dropout_U=0.2, name='lstm')(x)
+        x = LSTM(5, dropout_W=0.2, dropout_U=0.2, name='lstm')(x)
         #x = Dense(1, name='predictions')(x)
         #x = BatchNormalization()(x)
         #predictions = Activation('sigmoid')(x)
@@ -99,17 +103,18 @@ for s, sbj in enumerate(sbj_ids):
 
         sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-        model_savepath = "/home/wangnxr/models/ecog_model_lstm_%s_5st_t_%i" % (sbj,time)
+        model_savepath = "/home/wangnxr/models/ecog_model_lstm_%s_5st_t_%i_small6" % (sbj,time)
         model.compile(optimizer=sgd,
                       loss='categorical_crossentropy',
                       metrics=['accuracy'])
-        checkpoint = ModelCheckpoint("%s_chkpt.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
-        history_callback = model.fit_generator(
+        early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=2, verbose=0, mode='auto')
+        checkpoint = ModelCheckpoint("%s_weights_{epoch:02d}.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+	history_callback = model.fit_generator(
             train_generator,
             samples_per_epoch=len(dgdx_edf.filenames),
-            nb_epoch=60,
+            nb_epoch=200,
             validation_data=validation_generator,
-            nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint])
+            nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint, early_stop])
 
         model.save("%s.h5" % model_savepath)
         pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_history_lstm_%s_5st_t_%i.p" % (sbj,time), "wb"))

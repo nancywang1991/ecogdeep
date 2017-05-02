@@ -3,8 +3,8 @@ import shutil
 import pdb
 import os
 
-dest_dir = "/home/wangnxr/dataset/ecog_vid_combined_d65_day9/"
-ecog_files = glob.glob("/home/wangnxr/dataset/ecog_offset_0_d65/*/*/*")
+dest_dir = "/home/wangnxr/dataset/ecog_vid_combined_a0f_day11/"
+ecog_files = glob.glob("/home/wangnxr/dataset/ecog_offset_0_a0f/*/*/*")
 #pdb.set_trace()
 for ecog_file in ecog_files:
         #pdb.set_trace()
@@ -18,7 +18,7 @@ for ecog_file in ecog_files:
 	if not os.path.exists(sub_subfolder):
             os.makedirs(sub_subfolder)
 
-        vid_file = glob.glob("/home/wangnxr/dataset/vid_offset_0_d65/%s_*_%s.png" % (vid, frame))
+        vid_file = glob.glob("/home/wangnxr/dataset/vid_offset_0/%s_*_%s.png" % (vid, frame))
         if len(vid_file)>0:
                 shutil.copy(vid_file[0], "%s/%s.png" % (dest_dir, "/".join(ecog_file.split(".")[0].split("/")[-3:])))
                 shutil.copy(ecog_file, "%s/%s" % (dest_dir, "/".join(ecog_file.split("/")[-3:])))

@@ -10,14 +10,15 @@ from keras.models import Model, load_model
 import numpy as np
 import pdb
 
-main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
+main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_c95_day7/'
 #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
 ## Data generation ECoG
-channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
+channels = np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)])
+channels = np.arange(86)
 
 
 test_datagen_edf = EcogDataGenerator(
-    start_time=3300,
+    start_time=3400,
     center=True
 )
 
@@ -38,7 +39,7 @@ validation_generator =  dgdx_val_edf
 
 #for layer in base_model.layers[:10]:
 #    layer.trainable = False
-model_file = "/home/wangnxr/models/ecog_history_alexnet_3towers_dense1_a0f_pred_chkpt.h5"
+model_file = "/home/wangnxr/models/ecog_model_alexnet_3towers_dense1_c95_3400_chkpt.h5"
 model = load_model(model_file)
 
 #pdb.set_trace()

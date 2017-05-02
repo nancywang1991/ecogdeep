@@ -8,14 +8,25 @@ from keras.models import Model, load_model
 import numpy as np
 import pdb
 
-sbj_ids = ['a0f', 'e5b', 'd65']
-days = [8, 9, 9]
-start_times = [3200, 3600, 4000]
-channels_list = [np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)]), np.arange(111), np.arange(82)]
 
+sbj_ids = ['a0f', 'e5b', 'd65',  'cb4', 'c95']
+sbj_ids = ['c95']
+days = [10,9,9, 10, 7]
+days = [7]
+start_times = [2800, 3400,4000]
+frames = [ range(1,6), range(4,9), range(7,12)]
+channels_list = [#np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)]),
+                 #np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]),
+                 #np.arange(82), np.arange(80), 
+		np.arange(86)]
 for s, sbj in enumerate(sbj_ids):
     main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     for t, time in enumerate(start_times):
+ 	try:
+            model_file = "/home/wangnxr/models/ecog_model_lstm_%s_5st_t_%i_small6_chkpt.h5" % (sbj, time)
+            model = load_model(model_file)
+        except:
+            continue
         # pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
         ## Data generation ECoG
         channels = channels_list[s]
@@ -44,11 +55,6 @@ for s, sbj in enumerate(sbj_ids):
 
         #for layer in base_model.layers[:10]:
         #    layer.trainable = False
-        try:
-            model_file = "/home/wangnxr/models/ecog_model_lstm_%s_5st_t_%i_chkpt.h5" % (sbj, time)
-            model = load_model(model_file)
-        except:
-            continue
         #pdb.set_trace()
         files = dgdx_val_edf.filenames
         results = model.predict_generator(validation_generator, len(files))
@@ -77,7 +83,7 @@ for s, sbj in enumerate(sbj_ids):
                         true_nums[true[r]] += 1
                 accuracies = [true_nums[c]/float(len(np.where(true==c)[0])) for c in xrange(len(true_nums))]
 
-        with open("/home/wangnxr/results/%s.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
+        with open("/home/wangnxr/results/%s_v2.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
                 if mode=="binary":
                         writer.write("recall:%f\n" % recall)
                         writer.write("precision:%f\n" % precision)
@@ -90,6 +96,6 @@ for s, sbj in enumerate(sbj_ids):
                         for c, acc in enumerate(accuracies):
                                 writer.write("accuracy_%i:%f\n" % (c, acc))
                         for f, file in enumerate(files):
-                                writer.write("%s:%i->%f\n" % (file, np.argmax(results[f]), np.max(results[f])))
+                                writer.write("%s:%i->%f, %f\n" % (file, np.argmax(results[f]), np.max(results[f]), np.min(results[f])))
 
 

@@ -18,22 +18,23 @@ import pdb
 import pickle
 import glob
 
-main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
-main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
+main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_c95_day7/'
+main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_c95_day7/'
 #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
 ## Data generation ECoG
 train_datagen_edf = EcogDataGenerator(
-    start_time=3300,
+    start_time=3400,
     time_shift_range=200,
     gaussian_noise_range=0.001,
     center=False
 )
 
 test_datagen_edf = EcogDataGenerator(
-    start_time=3300,
+    start_time=3400,
     center=True
 )
-channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
+channels = np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)])
+channels = np.arange(86)
 dgdx_edf = train_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/train/',
     '%s/train/' % main_ecog_dir,
@@ -47,7 +48,7 @@ dgdx_edf = train_datagen_edf.flow_from_directory(
 
 dgdx_val_edf = test_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/test/',
-    '%s/val/' % main_ecog_dir,
+    '%s/valv3/' % main_ecog_dir,
     batch_size=10,
     shuffle=False,
     target_size=(1,len(channels),1000),
@@ -66,14 +67,14 @@ ecog_series = Input(shape=(1,len(channels),1000))
 
 x = base_model_ecog(ecog_series)
 x = Dropout(0.5)(x)
-x = Dense(1024, W_regularizer=l2(0.01), name='merge1')(x)
-x = BatchNormalization()(x)
+x = Dense(32, W_regularizer=l2(0.01), name='merge1')(x)
+#x = BatchNormalization()(x)
 x = Activation('relu')(x)
 x = Dropout(0.5)(x)
-x = Dense(256, W_regularizer=l2(0.01), name='merge2')(x)
-x = BatchNormalization()(x)
-x = Activation('relu')(x)
-x = Dropout(0.5)(x)
+#x = Dense(256, W_regularizer=l2(0.01), name='merge2')(x)
+#x = BatchNormalization()(x)
+#x = Activation('relu')(x)
+#x = Dropout(0.5)(x)
 x = Dense(1, name='predictions')(x)
 #x = BatchNormalization()(x)
 predictions = Activation('sigmoid')(x)
@@ -86,7 +87,7 @@ model = Model(input=[ecog_series], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-model_savepath = "/home/wangnxr/models/ecog_model_alexnet_3towers_dense1_a0f_pred"
+model_savepath = "/home/wangnxr/models/ecog_model_alexnet_3towers_dense1_c95_3400"
 model.compile(optimizer=sgd,
               loss='binary_crossentropy',
               metrics=['accuracy'])
@@ -94,9 +95,9 @@ checkpoint = ModelCheckpoint("%s_chkpt.h5" % model_savepath, monitor='val_acc', 
 history_callback = model.fit_generator(
     train_generator,
     samples_per_epoch=len(dgdx_edf.filenames),
-    nb_epoch=40,
+    nb_epoch=100,
     validation_data=validation_generator,
     nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint])
 
 model.save("%s.h5" % model_savepath)
-pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_history_alexnet_3towers_dense1_a0f_pred", "wb"))
+pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_history_alexnet_3towers_dense1_c95_3400", "wb"))

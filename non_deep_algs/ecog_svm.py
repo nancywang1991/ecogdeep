@@ -5,11 +5,17 @@ from sklearn.linear_model import SGDClassifier
 import numpy as np
 import pdb
 import pickle
-sbj_ids = ['a0f', 'e5b', 'd65']
-days = [8,9,9]
-start_times = [3200, 3600, 4000]
-channels_list = [np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)]),
-                 np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]), np.arange(82)]
+sbj_ids = ['a0f', 'e5b', 'd65', "cb4", "c95"]
+sbj_ids=['c95']
+days = [10,9,9,10,7]
+days=[7]
+start_times = [2800, 3400, 4000]
+channels_list = [#np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)]),
+                 #np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]), 
+		 #np.arange(82),
+		 #np.arange(80),
+                 np.arange(86)]
+#channels_list = [np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)])]                 
 for s, sbj in enumerate(sbj_ids):
     main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     for t, time in enumerate(start_times):
@@ -17,7 +23,7 @@ for s, sbj in enumerate(sbj_ids):
         ## Data generation
         train_datagen = EcogDataGenerator(
                 start_time=time,
-                time_shift_range=200,
+                #time_shift_range=200,
                 gaussian_noise_range=0.001,
                 center=False,
                 #f_lo=60,
@@ -30,7 +36,7 @@ for s, sbj in enumerate(sbj_ids):
                 #f_lo=60,
                 #f_hi=90,
                 fft=True,
-                center=True
+                center=False
         )
 
         dgdx = train_datagen.flow_from_directory(
@@ -43,7 +49,7 @@ for s, sbj in enumerate(sbj_ids):
                 class_mode='binary')
         dgdx_val = test_datagen.flow_from_directory(
                 #'/mnt/cb46fd46_5_no_offset/test/',
-                '%s/val/' % main_ecog_dir,
+                '%s/valv3/' % main_ecog_dir,
                 batch_size=10,
                 shuffle=False,
                 target_size=(1,len(channels),1000),

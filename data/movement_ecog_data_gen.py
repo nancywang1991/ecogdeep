@@ -80,7 +80,8 @@ def main(mv_file, edf, save_dir, vid_start_end, start_time, offset):
     for f in range(0,len(mv_file), 2):
         flag = 0
         offset_f = int((f-offset-15)*1000/30.0)
-        edf_part = edf_clip[:,(offset_f  - 4000):(offset_f  + 1000)]
+        # Add 5 seconds because edf clip is offset by 5 seconds in the other direction
+        edf_part = edf_clip[:,(offset_f  - 4000+5000):(offset_f  + 1000+5000)]
         if edf_part.shape[1] == 5000:
             if np.mean(left_arm_mvmt[f:f+5])>1 and np.all(left_arm_mvmt[f-10:f] >= 0) and np.mean(left_arm_mvmt[f-10:f]) < 0.5:
             	flag = 1

@@ -10,9 +10,9 @@ import numpy as np
 import pdb
 import pickle
 
-def ecog_1d_model(weights=None):
+def ecog_1d_model(channels=None, weights=None):
 
-    input_tensor = Input(shape=(1, 86, 1000))
+    input_tensor = Input(shape=(1, channels, 1000))
     # Block 1
     x = AveragePooling2D((1, 5), name='pre_pool')(input_tensor)
     x = Convolution2D(4, 1, 3, border_mode='same', name='block1_conv1')(x)

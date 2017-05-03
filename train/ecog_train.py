@@ -20,7 +20,7 @@ import pickle
 import glob
 
 
-sbj_to_do = ["a0f"]
+sbj_to_do = ["c95"]
 
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
@@ -40,7 +40,8 @@ for s, sbj in enumerate(sbj_ids):
 
             test_datagen_edf = EcogDataGenerator(
                 start_time=time,
-                center=True
+                center=True,
+                time_shift_range=200
             )
 
             dgdx_edf = train_datagen_edf.flow_from_directory(
@@ -56,6 +57,7 @@ for s, sbj in enumerate(sbj_ids):
 
             dgdx_val_edf = test_datagen_edf.flow_from_directory(
                 # '/mnt/cb46fd46_5_no_offset/test/',
+
                 '%s/val/' % main_ecog_dir,
                 batch_size=10,
                 shuffle=False,
@@ -70,7 +72,7 @@ for s, sbj in enumerate(sbj_ids):
             validation_generator =  dgdx_val_edf
             base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
 
-            ecog_series = Input(shape=(5,1,len(channels),1000))
+            ecog_series = Input(shape=(1,len(channels),1000))
 
             x = base_model_ecog(ecog_series)
 

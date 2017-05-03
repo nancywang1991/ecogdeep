@@ -20,7 +20,7 @@ import pickle
 import glob
 
 
-sbj_to_do = ["a0f"]
+sbj_to_do = ["c95"]
 
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
@@ -42,6 +42,7 @@ for s, sbj in enumerate(sbj_ids):
             )
 
             test_datagen_edf = EcogDataGenerator(
+                time_shift_range=200,
                 center=True,
                 seq_len=200,
                 start_time=time,

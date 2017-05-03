@@ -8,7 +8,7 @@ import pickle
 from ecogdeep.train.sbj_parameters import *
 sbj_ids = ['a0f', 'e5b', 'd65', "cb4", "c95"]
 
-sbj_to_do = ["a0f"]
+sbj_to_do = ["c95"]
 
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
@@ -28,7 +28,8 @@ for s, sbj in enumerate(sbj_ids):
 
             test_datagen_edf = EcogDataGenerator(
                 start_time=time,
-                center=True
+                center=True,
+                time_shift_range = 200
             )
 
             dgdx_edf = train_datagen_edf.flow_from_directory(

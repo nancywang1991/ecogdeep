@@ -77,11 +77,10 @@ for s, sbj in enumerate(sbj_ids):
             x = base_model_ecog(ecog_series)
 
             x = Dropout(0.5)(x)
-            x = TimeDistributed(Dense(32, W_regularizer=l2(0.01), name='merge2'))(x)
+            x = Dense(32, W_regularizer=l2(0.01), name='merge2')(x)
             #x = BatchNormalization()(x)
             x = Activation('relu')(x)
             x = Dropout(0.5)(x)
-            x = LSTM(5, dropout_W=0.2, dropout_U=0.2, name='lstm')(x)
             x = Dense(1, name='predictions')(x)
             #x = BatchNormalization()(x)
             predictions = Activation('sigmoid')(x)

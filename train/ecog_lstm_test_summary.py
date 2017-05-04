@@ -40,7 +40,7 @@ with open("/home/wangnxr/results/ecog_lstm_summary_results.txt", "wb") as summar
                 )
 
                 dgdx_val_edf = test_datagen_edf.flow_from_directory(
-                    '%s/test/' % main_ecog_dir,
+                    main_ecog_dir,
                     batch_size=10,
                     shuffle=False,
                     target_size=(1, len(channels), 1000),

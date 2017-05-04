@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train/ecog_lstm_test_summary.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train/ecog_test_summary.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/non_deep_algs/ecog_svm.py" afterPath="$PROJECT_DIR$/non_deep_algs/ecog_svm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/non_deep_algs/ecog_svm_test.py" afterPath="$PROJECT_DIR$/non_deep_algs/ecog_svm_test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_lstm_test_summary.py" afterPath="$PROJECT_DIR$/train/ecog_lstm_test_summary.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_test_summary.py" afterPath="$PROJECT_DIR$/train/ecog_test_summary.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ecog_svm_test.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ecog_svm_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1350">
-              <caret line="60" column="52" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
+            <state relative-caret-position="528">
+              <caret line="17" column="57" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -39,8 +38,8 @@
       <file leaf-file-name="ecog_test_summary.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_test_summary.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="22" column="108" selection-start-line="22" selection-start-column="108" selection-end-line="22" selection-end-column="108" />
+            <state relative-caret-position="627">
+              <caret line="20" column="102" selection-start-line="20" selection-start-column="102" selection-end-line="20" selection-end-column="102" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -51,33 +50,9 @@
       <file leaf-file-name="ecog_lstm_test_summary.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test_summary.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="25" column="108" selection-start-line="25" selection-start-column="108" selection-end-line="25" selection-end-column="108" />
+            <state relative-caret-position="330">
+              <caret line="22" column="78" selection-start-line="22" selection-start-column="78" selection-end-line="22" selection-end-column="78" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ecog_lstm_train.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train/ecog_lstm_train.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="70" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ecog_lstm_test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="786">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="49" selection-end-column="28" />
-              <folding>
-                <marker date="1493765588170" expanded="true" signature="4013:4027" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -94,11 +69,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ecog_svm.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ecog_svm.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="19" />
+            <state relative-caret-position="462">
+              <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -198,10 +173,10 @@
         <option value="$PROJECT_DIR$/train/ecog_1d_model.py" />
         <option value="$PROJECT_DIR$/train/ecog_lstm_train.py" />
         <option value="$PROJECT_DIR$/train/ecog_train.py" />
+        <option value="$PROJECT_DIR$/non_deep_algs/ecog_svm.py" />
+        <option value="$PROJECT_DIR$/train/ecog_test_summary.py" />
         <option value="$PROJECT_DIR$/non_deep_algs/ecog_svm_test.py" />
         <option value="$PROJECT_DIR$/train/ecog_lstm_test_summary.py" />
-        <option value="$PROJECT_DIR$/train/ecog_test_summary.py" />
-        <option value="$PROJECT_DIR$/non_deep_algs/ecog_svm.py" />
       </list>
     </option>
   </component>
@@ -737,13 +712,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00129" summary="smth">
-      <created>1491934171341</created>
-      <option name="number" value="00129" />
-      <option name="presentableId" value="LOCAL-00129" />
-      <option name="project" value="LOCAL" />
-      <updated>1491934171341</updated>
-    </task>
     <task id="LOCAL-00130" summary="smth">
       <created>1491934878122</created>
       <option name="number" value="00130" />
@@ -1080,7 +1048,14 @@
       <option name="project" value="LOCAL" />
       <updated>1493837801701</updated>
     </task>
-    <option name="localTasksCounter" value="178" />
+    <task id="LOCAL-00178" summary="smth&#10;">
+      <created>1493941339054</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1493941339054</updated>
+    </task>
+    <option name="localTasksCounter" value="179" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1455,30 +1430,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="786">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="49" selection-end-column="28" />
-          <folding>
-            <marker date="1493765588170" expanded="true" signature="4013:4027" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="656">
           <caret line="43" column="16" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="60" column="52" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -1493,11 +1448,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test_summary.py">
+    <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="25" column="108" selection-start-line="25" selection-start-column="108" selection-end-line="25" selection-end-column="108" />
-          <folding />
+        <state relative-caret-position="462">
+          <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="693">
+          <caret line="29" column="103" selection-start-line="29" selection-start-column="103" selection-end-line="29" selection-end-column="103" />
+          <folding>
+            <marker date="1493765588170" expanded="true" signature="4013:4027" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1511,22 +1478,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test_summary.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="78" selection-start-line="22" selection-start-column="78" selection-end-line="22" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_test_summary.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="22" column="108" selection-start-line="22" selection-start-column="108" selection-end-line="22" selection-end-column="108" />
+        <state relative-caret-position="627">
+          <caret line="20" column="102" selection-start-line="20" selection-start-column="102" selection-end-line="20" selection-end-column="102" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm.py">
+    <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="19" />
+        <state relative-caret-position="528">
+          <caret line="17" column="57" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>

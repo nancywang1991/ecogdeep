@@ -17,7 +17,8 @@ with open("/home/wangnxr/results/ecog_conv_summary_results.txt", "wb") as summar
         for time in start_times:
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             for itr in xrange(3):
-                model_files = glob.glob('/home/wangnxr/models/ecog_model_%s_itr_%i_t_%i_*.h5' % (sbj, itr, time))
+                model_files = glob.glob(
+                    '/home/wangnxr/models/ecog_model_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
                 last_model_ind = np.argmax([int(file.split("_")[-1].split(".")[0]) for file in model_files])

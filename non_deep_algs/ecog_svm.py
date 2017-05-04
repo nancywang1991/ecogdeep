@@ -23,13 +23,15 @@ for s, sbj in enumerate(sbj_ids):
                 start_time=time,
                 time_shift_range=200,
                 gaussian_noise_range=0.001,
-                center=False
+                center=False,
+                fft = True
             )
 
             test_datagen_edf = EcogDataGenerator(
                 start_time=time,
                 center=True,
-                time_shift_range = 200
+                time_shift_range = 200,
+                fft=True
             )
 
             dgdx_edf = train_datagen_edf.flow_from_directory(
@@ -37,7 +39,7 @@ for s, sbj in enumerate(sbj_ids):
                 '%s/train/' % main_ecog_dir,
                 batch_size=24,
                 target_size=(1, len(channels), 1000),
-                final_size=(1, len(channels), 1000),
+                final_size=(1, len(channels), 2),
                 class_mode='binary',
                 shuffle=False,
                 channels=channels,
@@ -49,7 +51,7 @@ for s, sbj in enumerate(sbj_ids):
                 batch_size=10,
                 shuffle=False,
                 target_size=(1, len(channels), 1000),
-                final_size=(1, len(channels), 1000),
+                final_size=(1, len(channels), 2),
                 channels=channels,
                 class_mode='binary')
 

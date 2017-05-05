@@ -83,7 +83,7 @@ for s, sbj in enumerate(sbj_ids):
         #test_data = np.vstack([val for val in validation_generator])
         best_score = 0
 
-        model.fit(np.reshape(x, (samples_per_epoch, x[0].shape[2]*x[0].shape[3])), y, classes=(0,1))
+        model.fit(np.reshape(x, (samples_per_epoch, x.shape[2]*x.shape[3])), y, classes=(0,1))
         print("training acc: %f" % model.score(np.reshape(x, (samples_per_epoch, x.shape[2]*x.shape[3])),y), file=logfile)
         print("validation acc: %f" % model.score(np.reshape(val_x, (samples_per_epoch, val_x.shape[2] * val_x.shape[3])), val_y),
             file=logfile)

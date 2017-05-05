@@ -70,8 +70,8 @@
       <file leaf-file-name="ecog_svm.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1147">
-              <caret line="101" column="50" selection-start-line="101" selection-start-column="50" selection-end-line="101" selection-end-column="50" />
+            <state relative-caret-position="784">
+              <caret line="90" column="48" selection-start-line="90" selection-start-column="48" selection-end-line="90" selection-end-column="48" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -690,13 +690,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00151" summary="smth">
-      <created>1492133162423</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1492133162423</updated>
-    </task>
     <task id="LOCAL-00152" summary="smth">
       <created>1492133371783</created>
       <option name="number" value="00152" />
@@ -1033,7 +1026,14 @@
       <option name="project" value="LOCAL" />
       <updated>1493962221395</updated>
     </task>
-    <option name="localTasksCounter" value="200" />
+    <task id="LOCAL-00200" summary="svm partial to whole">
+      <created>1493963320539</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1493963320539</updated>
+    </task>
+    <option name="localTasksCounter" value="201" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1477,8 +1477,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1147">
-          <caret line="101" column="50" selection-start-line="101" selection-start-column="50" selection-end-line="101" selection-end-column="50" />
+        <state relative-caret-position="784">
+          <caret line="90" column="48" selection-start-line="90" selection-start-column="48" selection-end-line="90" selection-end-column="48" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

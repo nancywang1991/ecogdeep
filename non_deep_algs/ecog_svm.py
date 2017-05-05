@@ -86,9 +86,9 @@ for s, sbj in enumerate(sbj_ids):
         val_y = np.hstack(val_y)
         logfile = open("/home/wangnxr/history/ecog_model_svm_%s_t_%i.txt" % (sbj, time), "wb")
         best_val = 0
-        for c in range(0.1,0.9,0.1):
+        for c in range(1,9,1):
             print("C=%f" % c, file=logfile)
-            model = LinearSVC(verbose=1,C=0.5,max_iter=10000)
+            model = LinearSVC(verbose=1,C=c/10.0,max_iter=10000)
             #test_data = np.vstack([val for val in validation_generator])
             best_score = 0
 

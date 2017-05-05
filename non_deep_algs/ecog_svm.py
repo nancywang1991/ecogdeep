@@ -59,7 +59,7 @@ for s, sbj in enumerate(sbj_ids):
             validation_generator=dgdx_val_edf
             samples_per_epoch=train_generator.nb_sample
             samples_per_epoch_test=validation_generator.nb_sample
-            nb_epoch=60
+            nb_epoch=5
 
             model = SGDClassifier(verbose=0,n_jobs=8)
             logfile = open("/home/wangnxr/history/ecog_model_svm_%s_itr_%i_t_%i.txt" % (sbj, itr, time), "wb")

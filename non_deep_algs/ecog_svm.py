@@ -85,7 +85,7 @@ for s, sbj in enumerate(sbj_ids):
 
         model.fit(np.reshape(x, (samples_per_epoch, x.shape[2]*x.shape[3])), y)
         print("training acc: %f" % model.score(np.reshape(x, (samples_per_epoch, x.shape[2]*x.shape[3])),y), file=logfile)
-        print("validation acc: %f" % model.score(np.reshape(val_x, (samples_per_epoch, val_x.shape[2] * val_x.shape[3])), val_y),
+        print("validation acc: %f" % model.score(np.reshape(val_x, (samples_per_epoch_test, val_x.shape[2] * val_x.shape[3])), val_y),
             file=logfile)
         pickle.dump(model, open("/home/wangnxr/models/ecog_model_svm_%s_t_%i.p" % (sbj, time), "wb"))
 

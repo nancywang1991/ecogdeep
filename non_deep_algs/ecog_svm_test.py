@@ -15,14 +15,12 @@ with open("/home/wangnxr/results/ecog_svm_summary_results.txt", "wb") as summary
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             for itr in xrange(3):
                 model_files = glob.glob(
-                    '/home/wangnxr/models/ecog_model_svm_%s_itr_%i_t_%i_ep_*.p' % (sbj, itr, time))
+                    '/home/wangnxr/models/ecog_model_svm_%s_itr_%i_t_%i.p' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
-                last_model_ind = np.argmax([int(file.split("_")[-1].split(".")[0]) for file in model_files])
-                #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
                 ## Data generation ECoG
                 channels = channels_list[s]
-                model_file = model_files[last_model_ind]
+                model_file = model_files[0]
 
                 test_datagen = EcogDataGenerator(
                         start_time=time,

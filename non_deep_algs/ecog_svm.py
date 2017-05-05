@@ -59,38 +59,37 @@ for s, sbj in enumerate(sbj_ids):
             validation_generator=dgdx_val_edf
             samples_per_epoch=train_generator.nb_sample
             samples_per_epoch_test=validation_generator.nb_sample
-            nb_epoch=5
+            x = []
+            y = []
+            for b in xrange(samples_per_epoch / train_generator.batch_size):
+                temp_data = train_generator.next()
+                x.append(temp_data[0])
+                y.append(temp_data[1])
+            x = np.vstack(x)
+            y = np.hstack(y)
+            print(x.shape)
+            print(y.shape)
+
+            val_x = []
+            val_y = []
+            for b in xrange(samples_per_epoch / validation_generator.batch_size):
+                temp_data = train_generator.next()
+                val_x.append(temp_data[0])
+                val_y.append(temp_data[1])
+            val_x = np.vstack(val_x)
+            val_y = np.hstack(val_y)
 
             model = SGDClassifier(verbose=0,n_jobs=8)
             logfile = open("/home/wangnxr/history/ecog_model_svm_%s_itr_%i_t_%i.txt" % (sbj, itr, time), "wb")
             #test_data = np.vstack([val for val in validation_generator])
             best_score = 0
-            for e in xrange(nb_epoch):
-                print("Epoch: %i" % e, file=logfile)
-                mean_test_score = []
-                for b in xrange(samples_per_epoch/train_generator.batch_size):
-                    data = train_generator.next()
 
-                    if len(data[0])<train_generator.batch_size:
-                        train_generator.reset()
-                        data = train_generator.next()
-                    model.partial_fit(np.reshape(data[0], (train_generator.batch_size, data[0].shape[2]*data[0].shape[3])), data[1], classes=(0,1))
-                    if b%50==0:
-                            print(model.score(np.reshape(data[0], (train_generator.batch_size, data[0].shape[2]*data[0].shape[3])),data[1]), file=logfile)
-                            print("Batch %i of %i" % (b, samples_per_epoch/train_generator.batch_size), file=logfile)
-                            logfile.flush()
-                for b in xrange(samples_per_epoch_test/validation_generator.batch_size):
-                    test_data = validation_generator.next()
-                    #pdb.set_trace()
-                    if len(test_data[0])<validation_generator.batch_size:
-                            validation_generator.reset()
-                            test_data = validation_generator.next()
-                    mean_test_score.append(model.score(np.reshape(test_data[0], (validation_generator.batch_size, test_data[0].shape[2]*data[0].shape[3])), test_data[1]))
-                print("Val_acc = %f" % np.mean(np.array(mean_test_score)), file=logfile)
-                if np.mean(np.array(mean_test_score)) > best_score:
-                    pickle.dump(model, open("/home/wangnxr/models/ecog_model_svm_%s_itr_%i_t_%i_ep_%i.p" % (sbj, itr, time, e), "wb"))
-                    best_score = np.mean(np.array(mean_test_score))
-                    print("Model saved", file=logfile)
+            model.fit(np.reshape(x, (samples_per_epoch, x[0].shape[2]*x[0].shape[3])), y, classes=(0,1))
+            print("training acc: %f" % model.score(np.reshape(x, (samples_per_epoch, x[0].shape[2]*x[0].shape[3])),y), file=logfile)
+            print("validation acc: %f" % model.score(np.reshape(val_x, (samples_per_epoch, val_x[0].shape[2] * val_x[0].shape[3])), val_y),
+                file=logfile)
+            pickle.dump(model, open("/home/wangnxr/models/ecog_model_svm_%s_itr_%i_t_%i.p" % (sbj, itr, time), "wb"))
+
 
 
 

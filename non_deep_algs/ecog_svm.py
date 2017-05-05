@@ -1,7 +1,7 @@
 from __future__ import print_function
 import keras
 from keras.preprocessing.ecog import EcogDataGenerator
-from sklearn.linear_model import SGDClassifier
+from sklearn.svm import LinearSVC
 import numpy as np
 import pdb
 import pickle
@@ -78,7 +78,7 @@ for s, sbj in enumerate(sbj_ids):
         val_x = np.vstack(val_x)
         val_y = np.hstack(val_y)
 
-        model = SGDClassifier(verbose=0,n_jobs=8)
+        model = LinearSVC(verbose=0,n_jobs=8)
         logfile = open("/home/wangnxr/history/ecog_model_svm_%s_t_%i.txt" % (sbj, time), "wb")
         #test_data = np.vstack([val for val in validation_generator])
         best_score = 0

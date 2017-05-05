@@ -72,7 +72,7 @@ for s, sbj in enumerate(sbj_ids):
         val_x = []
         val_y = []
         for b in xrange(samples_per_epoch_test / validation_generator.batch_size+1):
-            temp_data = train_generator.next()
+            temp_data = validation_generator.next()
             val_x.append(temp_data[0])
             val_y.append(temp_data[1])
         val_x = np.vstack(val_x)

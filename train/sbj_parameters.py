@@ -9,3 +9,4 @@ channels_list = [np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)]
                  np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]),
 		         np.arange(80),
                  np.arange(86)]
+frames = [ range(3,8), range(5,10), range(7,12)]

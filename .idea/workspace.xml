@@ -25,8 +25,8 @@
       <file leaf-file-name="ecog_svm_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="586">
-              <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+            <state relative-caret-position="331">
+              <caret line="16" column="72" selection-start-line="16" selection-start-column="72" selection-end-line="16" selection-end-column="72" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -71,8 +71,8 @@
       <file leaf-file-name="ecog_svm.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1350">
-              <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+            <state relative-caret-position="1200">
+              <caret line="81" column="82" selection-start-line="81" selection-start-column="82" selection-end-line="81" selection-end-column="82" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -711,13 +711,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00134" summary="smth">
-      <created>1491952942653</created>
-      <option name="number" value="00134" />
-      <option name="presentableId" value="LOCAL-00134" />
-      <option name="project" value="LOCAL" />
-      <updated>1491952942653</updated>
-    </task>
     <task id="LOCAL-00135" summary="smth">
       <created>1492041226814</created>
       <option name="number" value="00135" />
@@ -1054,7 +1047,14 @@
       <option name="project" value="LOCAL" />
       <updated>1493945553185</updated>
     </task>
-    <option name="localTasksCounter" value="183" />
+    <task id="LOCAL-00183" summary="svm partial to whole">
+      <created>1493954404604</created>
+      <option name="number" value="00183" />
+      <option name="presentableId" value="LOCAL-00183" />
+      <option name="project" value="LOCAL" />
+      <updated>1493954404604</updated>
+    </task>
+    <option name="localTasksCounter" value="184" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1106,7 +1106,8 @@
     <MESSAGE value="increased speed of mne loading" />
     <MESSAGE value="smth" />
     <MESSAGE value="smth&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="smth&#10;" />
+    <MESSAGE value="svm partial to whole" />
+    <option name="LAST_COMMIT_MESSAGE" value="svm partial to whole" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1487,8 +1488,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+        <state relative-caret-position="1200">
+          <caret line="81" column="82" selection-start-line="81" selection-start-column="82" selection-end-line="81" selection-end-column="82" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -1497,8 +1498,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
-          <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+        <state relative-caret-position="331">
+          <caret line="16" column="72" selection-start-line="16" selection-start-column="72" selection-end-line="16" selection-end-column="72" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

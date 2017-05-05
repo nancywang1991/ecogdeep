@@ -76,7 +76,7 @@ for s, sbj in enumerate(sbj_ids):
             x = Dense(1, name='predictions')(x)
             #x = BatchNormalization()(x)
             #predictions = Dense(2, activation='softmax', name='predictions')(x)
-            predictions = Activation('')(x)
+            predictions = Activation('sigmoid')(x)
 
             for layer in base_model_vid.layers:
                 layer.trainable = True

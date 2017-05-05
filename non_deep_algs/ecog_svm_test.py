@@ -42,19 +42,23 @@ with open("/home/wangnxr/results/ecog_svm_summary_results.txt", "wb") as summary
             validation_generator =  dgdx_val_edf
             samples_per_epoch_test = validation_generator.nb_sample
             model = pickle.load(open(model_file))
+
+            for b in xrange(samples_per_epoch_test / validation_generator.batch_size + 1):
+                temp_data = validation_generator.next()
+                val_x.append(temp_data[0])
+                val_y.append(temp_data[1])
+            val_x = np.vstack(val_x)
+            val_y = np.hstack(val_y)
+
             mean_test_score_0 = []
             mean_test_score_1 = []
-            for b in xrange(samples_per_epoch_test/validation_generator.batch_size):
-                    test_data = validation_generator.next()
-                    if len(test_data[0])<validation_generator.batch_size:
-                            validation_generator.reset()
-                            test_data = validation_generator.next()
-                    result = model.predict(np.reshape(test_data[0], (validation_generator.batch_size, test_data[0].shape[2]*test_data[0].shape[3])))
-                    for d, data in enumerate(test_data[1]):
-                            if data == 0:
-                                    mean_test_score_0.append(result[d])
-                            else:
-                                    mean_test_score_1.append(result[d])
+
+            result = model.predict(np.reshape(val_x, (samples_per_epoch_test, val_x.shape[2] * val_x.shape[3])))
+            for d, data in enumerate(val_y):
+                if data == 0:
+                    mean_test_score_0.append(result[d])
+                else:
+                    mean_test_score_1.append(result[d])
             summary_writer.write("%s\n" % model_file.split("/")[-1])
             summary_writer.write("accuracy_0: %f\n" % (len(np.where(np.array(mean_test_score_0)==0)[0])/float(len(mean_test_score_0))))
             summary_writer.write("accuracy_1: %f\n" % (len(np.where(np.array(mean_test_score_1) == 1)[0]) / float(len(mean_test_score_1))))

@@ -58,9 +58,13 @@ for s, sbj in enumerate(sbj_ids):
         validation_generator=dgdx_val_edf
         samples_per_epoch=train_generator.nb_sample
         samples_per_epoch_test=validation_generator.nb_sample
+        batches = samples_per_epoch / train_generator.batch_size
+        if samples_per_epoch%train_generator.batch_size>0:
+            batches +=1
+
         x = []
         y = []
-        for b in xrange(samples_per_epoch / train_generator.batch_size +1):
+        for b in xrange(batches):
             temp_data = train_generator.next()
             x.append(temp_data[0])
             y.append(temp_data[1])
@@ -71,7 +75,10 @@ for s, sbj in enumerate(sbj_ids):
 
         val_x = []
         val_y = []
-        for b in xrange(samples_per_epoch_test / validation_generator.batch_size+1):
+        batches_val = samples_per_epoch_test / validation_generator.batch_size
+        if samples_per_epoch_test%validation_generator.batch_size>0:
+            batches_val +=1
+        for b in xrange(batches_val):
             temp_data = validation_generator.next()
             val_x.append(temp_data[0])
             val_y.append(temp_data[1])

@@ -60,7 +60,7 @@ for s, sbj in enumerate(sbj_ids):
         samples_per_epoch_test=validation_generator.nb_sample
         x = []
         y = []
-        for b in xrange(samples_per_epoch / train_generator.batch_size):
+        for b in xrange(samples_per_epoch / train_generator.batch_size +1):
             temp_data = train_generator.next()
             x.append(temp_data[0])
             y.append(temp_data[1])

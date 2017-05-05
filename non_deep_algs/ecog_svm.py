@@ -84,17 +84,24 @@ for s, sbj in enumerate(sbj_ids):
             val_y.append(temp_data[1])
         val_x = np.vstack(val_x)
         val_y = np.hstack(val_y)
-
-        model = LinearSVC(verbose=1,C=0.5,max_iter=2000)
         logfile = open("/home/wangnxr/history/ecog_model_svm_%s_t_%i.txt" % (sbj, time), "wb")
-        #test_data = np.vstack([val for val in validation_generator])
-        best_score = 0
+        best_val = 0
+        for c in range(0.1,0.9,0.1):
+            print("C=%f" % c, file=logfile)
+            model = LinearSVC(verbose=1,C=0.5,max_iter=10000)
+            #test_data = np.vstack([val for val in validation_generator])
+            best_score = 0
 
-        model.fit(np.reshape(x, (samples_per_epoch, x.shape[2]*x.shape[3])), y)
-        print("training acc: %f" % model.score(np.reshape(x, (samples_per_epoch, x.shape[2]*x.shape[3])),y), file=logfile)
-        print("validation acc: %f" % model.score(np.reshape(val_x, (samples_per_epoch_test, val_x.shape[2] * val_x.shape[3])), val_y),
-            file=logfile)
-        pickle.dump(model, open("/home/wangnxr/models/ecog_model_svm_%s_t_%i.p" % (sbj, time), "wb"))
+            model.fit(np.reshape(x, (samples_per_epoch, x.shape[2]*x.shape[3])), y)
+            print("training acc: %f" % model.score(np.reshape(x, (samples_per_epoch, x.shape[2]*x.shape[3])),y), file=logfile)
+            val_score = model.score(np.reshape(val_x, (samples_per_epoch_test, val_x.shape[2] * val_x.shape[3])), val_y)
+            if val_score > best_val:
+                pickle.dump(model, open("/home/wangnxr/models/ecog_model_svm_%s_t_%i.p" % (sbj, time), "wb"))
+                print("model saved", file=logfile)
+                best_val = val_score
+            print("validation acc: %f" % val_score,
+                file=logfile)
+
 
 
 

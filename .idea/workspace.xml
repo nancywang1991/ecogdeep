@@ -70,8 +70,8 @@
       <file leaf-file-name="ecog_svm.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="583">
-              <caret line="80" column="25" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="25" />
+            <state relative-caret-position="1023">
+              <caret line="80" column="35" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -179,8 +179,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="602" />
-    <option name="y" value="229" />
+    <option name="x" value="7" />
+    <option name="y" value="244" />
     <option name="width" value="3216" />
     <option name="height" value="1655" />
   </component>
@@ -710,13 +710,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00145" summary="smth">
-      <created>1492130624000</created>
-      <option name="number" value="00145" />
-      <option name="presentableId" value="LOCAL-00145" />
-      <option name="project" value="LOCAL" />
-      <updated>1492130624000</updated>
-    </task>
     <task id="LOCAL-00146" summary="smth">
       <created>1492132336702</created>
       <option name="number" value="00146" />
@@ -1053,11 +1046,18 @@
       <option name="project" value="LOCAL" />
       <updated>1493958914864</updated>
     </task>
-    <option name="localTasksCounter" value="194" />
+    <task id="LOCAL-00194" summary="svm partial to whole">
+      <created>1493959487243</created>
+      <option name="number" value="00194" />
+      <option name="presentableId" value="LOCAL-00194" />
+      <option name="project" value="LOCAL" />
+      <updated>1493959487243</updated>
+    </task>
+    <option name="localTasksCounter" value="195" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="602" y="229" width="3216" height="1655" extended-state="0" />
+    <frame x="7" y="244" width="3216" height="1655" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31092966" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1497,8 +1497,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="80" column="25" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="25" />
+        <state relative-caret-position="1023">
+          <caret line="80" column="35" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

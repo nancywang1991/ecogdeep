@@ -58,9 +58,9 @@ with open("/home/wangnxr/results/ecog_svm_summary_results.txt", "wb") as summary
                                         mean_test_score_0.append(result[d])
                                 else:
                                         mean_test_score_1.append(result[d])
-                summary_writer.write("%s" % model_file.split("/")[-1])
-                summary_writer.write("accuracy_0: %f" % (len(np.where(np.array(mean_test_score_0)==0)[0])/float(len(mean_test_score_0))))
-                summary_writer.write("accuracy_1: %f" % (len(np.where(np.array(mean_test_score_1) == 1)[0]) / float(len(mean_test_score_1))))
+                summary_writer.write("%s\n" % model_file.split("/")[-1])
+                summary_writer.write("accuracy_0: %f\n" % (len(np.where(np.array(mean_test_score_0)==0)[0])/float(len(mean_test_score_0))))
+                summary_writer.write("accuracy_1: %f\n" % (len(np.where(np.array(mean_test_score_1) == 1)[0]) / float(len(mean_test_score_1))))
 
 
 

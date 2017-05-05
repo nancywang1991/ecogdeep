@@ -43,6 +43,8 @@ with open("/home/wangnxr/results/ecog_svm_summary_results.txt", "wb") as summary
             samples_per_epoch_test = validation_generator.nb_sample
             model = pickle.load(open(model_file))
 
+            val_x = []
+            val_y = []
             for b in xrange(samples_per_epoch_test / validation_generator.batch_size + 1):
                 temp_data = validation_generator.next()
                 val_x.append(temp_data[0])

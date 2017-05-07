@@ -22,7 +22,7 @@ for s, sbj in enumerate(sbj_ids):
             model = load_model(model_file)
         except:
             continue
-	mode = 'categorical'
+	    mode = 'categorical'
         test_datagen = ImageDataGenerator(
             rescale=1./255,
             center_crop=(224, 224),

@@ -21,8 +21,7 @@ def izip_input(gen1, gen2):
         x2 = gen2.next()[0]
         if not x1.shape[0] == x2.shape[0]:
             pdb.set_trace()
-        x1.append(x2)
-        yield x1, y1
+        yield [x1, x2], y1
 
 with open("/home/wangnxr/results/ecog_vid_lstm_summary_results.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):

@@ -32,7 +32,7 @@ with open("/home/wangnxr/results/vid_lstm_summary_results.txt", "wb") as summary
                     keep_frames=frames[t])
 
                 dgdx_val = test_datagen.flow_from_directory(
-                    '/%s/test/' % main_vid_dir,
+                    main_vid_dir,
                     img_mode="seq",
                     read_formats={'png'},
                     target_size=(int(224), int(224)),

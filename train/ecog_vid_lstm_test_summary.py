@@ -43,16 +43,15 @@ with open("/home/wangnxr/results/ecog_vid_lstm_summary_results.txt", "wb") as su
                     center_crop=(224, 224),
                     keep_frames=frames[t])
 
-                dgdx_val = test_datagen.flow_from_directory(
+                dgdx_val_vid = test_datagen.flow_from_directory(
                     main_vid_dir,
                     img_mode="seq",
                     read_formats={'png'},
                     target_size=(int(224), int(224)),
-                    # resize_size = (int(340), int(256)),
                     num_frames=12,
                     batch_size=10,
                     shuffle=False,
-                    class_mode="binary")
+                    class_mode='binary')
 
                 test_datagen_edf = EcogDataGenerator(
                     time_shift_range=200,

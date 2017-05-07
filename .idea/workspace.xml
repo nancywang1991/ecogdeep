@@ -68,9 +68,21 @@
       <file leaf-file-name="ecog_vid_lstm_test_summary.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_test_summary.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="499">
-              <caret line="33" column="107" selection-start-line="33" selection-start-column="107" selection-end-line="33" selection-end-column="107" />
+            <state relative-caret-position="737">
+              <caret line="46" column="20" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ecog_vid_lstm_train.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="843">
+              <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="106" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -104,18 +116,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1031">
               <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="59" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ecog_vid_lstm_train.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="50" selection-end-column="13" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -208,8 +208,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="184" />
-    <option name="y" value="314" />
+    <option name="x" value="268" />
+    <option name="y" value="270" />
     <option name="width" value="3198" />
     <option name="height" value="1585" />
   </component>
@@ -615,13 +615,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00163" summary="smth">
-      <created>1492735384718</created>
-      <option name="number" value="00163" />
-      <option name="presentableId" value="LOCAL-00163" />
-      <option name="project" value="LOCAL" />
-      <updated>1492735384718</updated>
-    </task>
     <task id="LOCAL-00164" summary="smth">
       <created>1492735399495</created>
       <option name="number" value="00164" />
@@ -958,11 +951,18 @@
       <option name="project" value="LOCAL" />
       <updated>1494124168477</updated>
     </task>
-    <option name="localTasksCounter" value="212" />
+    <task id="LOCAL-00212" summary="svm partial to whole">
+      <created>1494124221633</created>
+      <option name="number" value="00212" />
+      <option name="presentableId" value="LOCAL-00212" />
+      <option name="project" value="LOCAL" />
+      <updated>1494124221633</updated>
+    </task>
+    <option name="localTasksCounter" value="213" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="184" y="314" width="3198" height="1585" extended-state="0" />
+    <frame x="268" y="270" width="3198" height="1585" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3126974" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1376,16 +1376,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="50" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train/vid_lstm_test_summary.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="726">
@@ -1404,10 +1394,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="843">
+          <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="106" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_test_summary.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="33" column="107" selection-start-line="33" selection-start-column="107" selection-end-line="33" selection-end-column="107" />
+        <state relative-caret-position="737">
+          <caret line="46" column="20" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
           <folding />
         </state>
       </provider>

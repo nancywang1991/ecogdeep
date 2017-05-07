@@ -43,7 +43,7 @@ with open("/home/wangnxr/results/ecog_vid_lstm_summary_results.txt", "wb") as su
                     center_crop=(224, 224),
                     keep_frames=frames[t])
 
-                dgdx_val_vid = test_datagen.flow_from_directory(
+                dgdx_val = test_datagen.flow_from_directory(
                     main_vid_dir,
                     img_mode="seq",
                     read_formats={'png'},

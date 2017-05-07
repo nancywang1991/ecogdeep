@@ -4,6 +4,7 @@
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_vid_test_summary.py" afterPath="$PROJECT_DIR$/train/ecog_vid_test_summary.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/vid_lstm_test_summary.py" afterPath="$PROJECT_DIR$/train/vid_lstm_test_summary.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -43,21 +44,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vid_lstm_test_summary.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="vid_lstm_test_summary.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/vid_lstm_test_summary.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
+            <state relative-caret-position="264">
+              <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ecog_vid_test_summary.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ecog_vid_test_summary.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_test_summary.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1089">
-              <caret line="33" column="47" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
+              <caret line="33" column="62" selection-start-line="33" selection-start-column="62" selection-end-line="33" selection-end-column="62" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -202,8 +203,8 @@
         <option value="$PROJECT_DIR$/train/vid_test_summary.py" />
         <option value="$PROJECT_DIR$/train/ecog_test_summary.py" />
         <option value="$PROJECT_DIR$/train/ecog_vid_lstm_test_summary.py" />
-        <option value="$PROJECT_DIR$/train/vid_lstm_test_summary.py" />
         <option value="$PROJECT_DIR$/train/ecog_vid_test_summary.py" />
+        <option value="$PROJECT_DIR$/train/vid_lstm_test_summary.py" />
       </list>
     </option>
   </component>
@@ -615,13 +616,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00157" summary="smth">
-      <created>1492727394078</created>
-      <option name="number" value="00157" />
-      <option name="presentableId" value="LOCAL-00157" />
-      <option name="project" value="LOCAL" />
-      <updated>1492727394078</updated>
-    </task>
     <task id="LOCAL-00158" summary="smth">
       <created>1492727502701</created>
       <option name="number" value="00158" />
@@ -958,7 +952,14 @@
       <option name="project" value="LOCAL" />
       <updated>1494123734395</updated>
     </task>
-    <option name="localTasksCounter" value="206" />
+    <task id="LOCAL-00206" summary="svm partial to whole">
+      <created>1494123817185</created>
+      <option name="number" value="00206" />
+      <option name="presentableId" value="LOCAL-00206" />
+      <option name="project" value="LOCAL" />
+      <updated>1494123817185</updated>
+    </task>
+    <option name="localTasksCounter" value="207" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1394,21 +1395,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/vid_lstm_test_summary.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_vid_test_summary.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1089">
-          <caret line="33" column="47" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
+          <caret line="33" column="62" selection-start-line="33" selection-start-column="62" selection-end-line="33" selection-end-column="62" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/vid_lstm_test_summary.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -47,12 +47,12 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     
                 validation_generator = dgdx_val_edf
                 model = load_model(model_file)
-		new_model = Model(model.input, model.layers[-7].output)
+                new_model = Model(model.input, model.layers[-7].output)
                 #pdb.set_trace()
                 files = dgdx_val_edf.filenames
                 results = new_model.predict_generator(validation_generator, len(files))
                 pdb.set_trace()
-		true = dgdx_val_edf.classes
+                true = dgdx_val_edf.classes
                 true_0 = 0
                 true_1 = 0
 

@@ -18,12 +18,9 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
         for time in start_times:
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             new_dir = "/".join(main_ecog_dir.split("/")[:-1]) + "/ecog_embedding/"
-            if not os.path.exists(new_dir):
-                os.makedirs(new_dir)
-                os.makedirs(new_dir + files[0].split("/")[0])
-                os.makedirs(new_dir + files[-1].split("/")[0])
+
             for itr in xrange(3):
-                model_files = glob.glob('/home/wangnxr/models/ecog_model_lstm20_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))
+                model_files = glob.glob('/home/wangnxr/models/best/ecog_model_lstm20_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
                 last_model_ind = np.argmax([int(file.split("_")[-1].split(".")[0]) for file in model_files])
@@ -56,6 +53,10 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
                 new_model = Model(model.input, model.layers[-7].output)
                 #pdb.set_trace()
                 files = dgdx_val_edf.filenames
+                if not os.path.exists(new_dir):
+                    os.makedirs(new_dir)
+                    os.makedirs(new_dir + files[0].split("/")[0])
+                    os.makedirs(new_dir + files[-1].split("/")[0])
                 results = new_model.predict_generator(validation_generator, len(files))
                 for r, result in enumerate(results):
                     np.save(new_dir + files[r], result)

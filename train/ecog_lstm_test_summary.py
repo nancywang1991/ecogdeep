@@ -12,15 +12,12 @@ import pdb
 from sbj_parameters import *
 import glob
 
-
-
-
-with open("/home/wangnxr/results/ecog_lstm_summary_results.txt", "wb") as summary_writer:
+with open("/home/wangnxr/results/ecog_lstm20_summary_results.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
         for time in start_times:
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             for itr in xrange(3):
-                model_files = glob.glob('/home/wangnxr/models/ecog_model_lstm_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))
+                model_files = glob.glob('/home/wangnxr/models/ecog_model_lstm20_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
                 last_model_ind = np.argmax([int(file.split("_")[-1].split(".")[0]) for file in model_files])

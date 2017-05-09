@@ -14,14 +14,15 @@ import ecogdeep.train.vid_model_seq as vid_model_seq
 from sbj_parameters import *
 import pickle
 
-sbj_to_do = ["c95"]
+sbj_to_do = ["cb4", "e5b"]
 
-for s, sbj in enumerate(sbj_ids):
-    if sbj in sbj_to_do:
-        main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
-    else:
-        continue
-    for itr in range(3):
+for itr in xrange(3):
+    for s, sbj in enumerate(sbj_ids):
+        if sbj in sbj_to_do:
+            main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
+        else:
+            continue
+
         for t, time in enumerate(start_times):
             # Video data generators
             train_datagen_vid = ImageDataGenerator(

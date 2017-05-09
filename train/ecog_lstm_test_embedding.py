@@ -1,6 +1,6 @@
 import keras
 from keras.applications.vgg16 import VGG16
-from keras.preprocessing.image2 import ImageDataGenerator
+from keras.preprocessing.ecog import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
@@ -12,41 +12,47 @@ import pdb
 from sbj_parameters import *
 import glob
 
-with open("/home/wangnxr/results/vid_lstm_summary_results.txt", "wb") as summary_writer:
+with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
-        for t, time in enumerate(start_times):
-            main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
+        for time in start_times:
+            main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             for itr in xrange(3):
-                model_files = glob.glob(
-                    '/home/wangnxr/models/vid_model_lstm_%s_itr_%i_t_%i_*chkpt.h5' % (sbj, itr, time))
+                model_files = glob.glob('/home/wangnxr/models/ecog_model_lstm20_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
+                last_model_ind = np.argmax([int(file.split("_")[-1].split(".")[0]) for file in model_files])
+                #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
                 ## Data generation ECoG
                 channels = channels_list[s]
-                model_file = model_files[0]
+                model_file = model_files[last_model_ind]
 
-                test_datagen = ImageDataGenerator(
-                    random_black=False,
-                    rescale=1. / 255,
-                    center_crop=(224, 224),
-                    keep_frames=frames[t])
 
-                dgdx_val = test_datagen.flow_from_directory(
-                    main_vid_dir,
-                    img_mode="seq",
-                    read_formats={'png'},
-                    target_size=(int(224), int(224)),
-                    num_frames=12,
+                test_datagen_edf = EcogDataGenerator(
+                    time_shift_range=200,
+                    center=True,
+                    seq_len=200,
+                    start_time=time,
+                    seq_num=5,
+                    seq_st=200
+                )
+
+                dgdx_val_edf = test_datagen_edf.flow_from_directory(
+                    main_ecog_dir,
                     batch_size=10,
                     shuffle=False,
+                    target_size=(1, len(channels), 1000),
+                    final_size=(1, len(channels), 200),
+                    channels=channels,
                     class_mode='binary')
-                validation_generator =  dgdx_val
+    
+                validation_generator = dgdx_val_edf
                 model = load_model(model_file)
-
+		new_model = Model(model.input, model.layers[-7].output)
                 #pdb.set_trace()
-                files = dgdx_val.filenames
-                results = model.predict_generator(validation_generator, len(files))
-                true = dgdx_val.classes
+                files = dgdx_val_edf.filenames
+                results = new_model.predict_generator(validation_generator, len(files))
+                pdb.set_trace()
+		true = dgdx_val_edf.classes
                 true_0 = 0
                 true_1 = 0
 

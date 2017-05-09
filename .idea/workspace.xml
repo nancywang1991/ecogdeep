@@ -91,8 +91,8 @@
       <file leaf-file-name="ecog_lstm_test_embedding.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test_embedding.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="605">
-              <caret line="49" column="62" selection-start-line="49" selection-start-column="62" selection-end-line="49" selection-end-column="62" />
+            <state relative-caret-position="412">
+              <caret line="23" column="46" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -211,8 +211,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="327" />
-    <option name="y" value="491" />
+    <option name="x" value="113" />
+    <option name="y" value="145" />
     <option name="width" value="3163" />
     <option name="height" value="1583" />
   </component>
@@ -736,13 +736,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00170" summary="smth&#10;">
-      <created>1492736390194</created>
-      <option name="number" value="00170" />
-      <option name="presentableId" value="LOCAL-00170" />
-      <option name="project" value="LOCAL" />
-      <updated>1492736390194</updated>
-    </task>
     <task id="LOCAL-00171" summary="smth&#10;">
       <created>1492736768123</created>
       <option name="number" value="00171" />
@@ -1079,11 +1072,18 @@
       <option name="project" value="LOCAL" />
       <updated>1494353876539</updated>
     </task>
-    <option name="localTasksCounter" value="219" />
+    <task id="LOCAL-00219" summary="result tab">
+      <created>1494368141334</created>
+      <option name="number" value="00219" />
+      <option name="presentableId" value="LOCAL-00219" />
+      <option name="project" value="LOCAL" />
+      <updated>1494368141334</updated>
+    </task>
+    <option name="localTasksCounter" value="220" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="327" y="491" width="3163" height="1583" extended-state="0" />
+    <frame x="113" y="145" width="3163" height="1583" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3161929" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1539,8 +1539,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test_embedding.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="49" column="62" selection-start-line="49" selection-start-column="62" selection-end-line="49" selection-end-column="62" />
+        <state relative-caret-position="412">
+          <caret line="23" column="46" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

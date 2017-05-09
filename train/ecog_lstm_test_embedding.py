@@ -11,11 +11,17 @@ import numpy as np
 import pdb
 from sbj_parameters import *
 import glob
+import os
 
 with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
         for time in start_times:
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
+            new_dir = "/".join(main_ecog_dir.split("/")[:-1]) + "/ecog_embedding/"
+            if not os.path.exists(new_dir):
+                os.makedirs(new_dir)
+                os.makedirs(new_dir + files[0].split("/")[0])
+                os.makedirs(new_dir + files[-1].split("/")[0])
             for itr in xrange(3):
                 model_files = glob.glob('/home/wangnxr/models/ecog_model_lstm20_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))
                 if len(model_files)==0:
@@ -51,31 +57,6 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
                 #pdb.set_trace()
                 files = dgdx_val_edf.filenames
                 results = new_model.predict_generator(validation_generator, len(files))
-                pdb.set_trace()
-                true = dgdx_val_edf.classes
-                true_0 = 0
-                true_1 = 0
-
                 for r, result in enumerate(results):
-                    if true[r]== 0 and result<0.5:
-                        true_0+=1
-                    if true[r]== 1 and result>=0.5:
-                        true_1+=1
+                    np.save(new_dir + files[r], result)
 
-                recall = true_1/float(len(np.where(true==1)[0]))
-                precision = true_1/float((true_1 + (len(np.where(true==0)[0])-true_0)))
-                accuracy_1 = true_1/float(sum(true))
-                accuracy_0 = true_0/float((len(np.where(true==0)[0])))
-
-                summary_writer.write(model_file.split("/")[-1].split(".")[0] + "\n")
-                summary_writer.write("accuracy_1:%f\n" % accuracy_1)
-                summary_writer.write("accuracy_0:%f\n" % accuracy_0)
-
-                with open("/home/wangnxr/results/%s.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
-                        writer.write("recall:%f\n" % recall)
-                        writer.write("precision:%f\n" % precision)
-                        writer.write("accuracy_1:%f\n" % accuracy_1)
-                        writer.write("accuracy_0:%f\n" % accuracy_0)
-
-                        for f, file in enumerate(files):
-                                writer.write("%s:%f\n" % (file, results[f][0]))

@@ -17,7 +17,7 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
         for time in start_times:
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
-            new_dir = "/".join(main_ecog_dir.split("/")[:-1]) + "/ecog_embedding/"
+            new_dir = "/".join(main_ecog_dir.split("/")[:-2]) + "/ecog_embedding/"
 
             for itr in xrange(3):
                 model_files = glob.glob('/home/wangnxr/models/best/ecog_model_lstm20_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))

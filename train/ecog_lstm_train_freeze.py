@@ -1,10 +1,10 @@
 import keras
 from keras.preprocessing.ecog import EcogDataGenerator
 from keras.preprocessing.image2 import ImageDataGenerator, center_crop
-from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge, TimeDistributed
+from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge, TimeDistributed, Lambda
 from keras.layers.normalization import BatchNormalization
 from keras.layers.recurrent import LSTM
-from keras.models import Model
+from keras.models import Model, load_model
 from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 from keras.regularizers import l2
 from itertools import izip
@@ -30,7 +30,8 @@ for itr in xrange(3):
             continue
 
         for t, time in enumerate(start_times):
-
+            model_files = glob.glob(
+                '/home/wangnxr/models/ecog_model_lstm20_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))
             ## Data generation ECoG
             channels = channels_list[s]
             train_datagen_edf = EcogDataGenerator(
@@ -72,35 +73,38 @@ for itr in xrange(3):
                 channels = channels,
                 class_mode='binary')
 
+            if len(model_files) == 0:
+                continue
+            last_model_ind = np.argmax([int(file.split("_")[-1].split(".")[0]) for file in model_files])
+            # pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
+            ## Data generation ECoG
+            channels = channels_list[s]
+            model_file = model_files[last_model_ind]
+            model = load_model(model_file)
+
+            ecog_series = Input(shape=(5, 1, len(channels), 200))
+
+            base_model_ecog = Model(model.input, model.get_layer("merge2").output)
 
             ecog_model = ecog_1d_model(channels=len(channels))
             train_generator =  dgdx_edf
             validation_generator =  dgdx_val_edf
-            base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
-
-            ecog_series = Input(shape=(5,1,len(channels),200))
-
             x = base_model_ecog(ecog_series)
-
-            x = Dropout(0.5)(x)
-            x = TimeDistributed(Dense(32, W_regularizer=l2(0.01), name='merge2'))(x)
-            #x = BatchNormalization()(x)
             x = Activation('relu')(x)
             x = Dropout(0.5)(x)
-            x = LSTM(20, dropout_W=0.2, dropout_U=0.2, name='lstm')(x)
+            x = Lambda(function=lambda x: keras.mean(x, axis=1),
+                   output_shape=lambda shape: (shape[0],) + shape[2:])
             x = Dense(1, name='predictions')(x)
             #x = BatchNormalization()(x)
             predictions = Activation('sigmoid')(x)
 
             for layer in base_model_ecog.layers:
-                layer.trainable = True
-
-
+                layer.trainable = False
             model = Model(input=[ecog_series], output=predictions)
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "/home/wangnxr/models/ecog_model_lstm20_%s_itr_%i_t_%i_" % (sbj,itr,time)
+            model_savepath = "/home/wangnxr/models/ecog_model_lstm20_%s_itr_%i_t_%i_frozen_" % (sbj,itr,time)
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',
                           metrics=['accuracy'])
@@ -109,7 +113,7 @@ for itr in xrange(3):
             history_callback = model.fit_generator(
                 train_generator,
                 samples_per_epoch=len(dgdx_edf.filenames),
-                nb_epoch=400,
+                nb_epoch=40,
                 validation_data=validation_generator,
                 nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint, early_stop])
 

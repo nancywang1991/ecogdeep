@@ -60,5 +60,5 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
                     os.makedirs(new_dir + files[-1].split("/")[0])
                 results = new_model.predict_generator(validation_generator, len(files))
                 for r, result in enumerate(results):
-                    np.save(new_dir + files[r], result)
+                    np.save(new_dir + str(time) + "_" + files[r], result)
 

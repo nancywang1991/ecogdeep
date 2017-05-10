@@ -1,4 +1,5 @@
 import keras
+from keras.preprocessing.image2 import ImageDataGenerator, center_crop
 from keras.applications.vgg16 import VGG16
 from keras.preprocessing.ecog import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
@@ -6,6 +7,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras.layers import Convolution2D, MaxPooling2D
 from keras.models import Model, load_model
+import ecogdeep.train.vid_model_seq as vid_model_seq
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
 import pdb
@@ -15,12 +17,12 @@ import os
 
 with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
-        for time in start_times:
-            main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/train/' % (sbj, days[s])
-            new_dir = "/".join(main_ecog_dir.split("/")[:-2]) + "/ecog_vid_embedding_merge/"
+        for t, time in enumerate(start_times):
+            main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/train/' % (sbj, days[s])
+            new_dir = "/".join(main_vid_dir.split("/")[:-2]) + "/ecog_vid_embedding_merge_vid/"
 
             for itr in xrange(3):
-                model_files = glob.glob('/home/wangnxr/models/best/ecog_vid_model_lstm_%s_itr_%i_t_%i_*.h5' % (sbj, itr, time))
+                model_files = glob.glob('/home/wangnxr/models/best/vid_model_lstm_%s_itr_%i_t_%i_*.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
                 last_model_ind = np.argmax([int(file.split("_")[-1].split(".")[0]) for file in model_files])
@@ -29,30 +31,29 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
                 channels = channels_list[s]
                 model_file = model_files[last_model_ind]
 
+                test_datagen_vid = ImageDataGenerator(
+                    random_black=False,
+                    rescale=1. / 255,
+                    center_crop=(224, 224),
+                    keep_frames=frames[t])
 
-                test_datagen_edf = EcogDataGenerator(
-                    time_shift_range=200,
-                    center=True,
-                    seq_len=200,
-                    start_time=time,
-                    seq_num=5,
-                    seq_st=200
-                )
+                vid_model = vid_model_seq.vid_model()
 
-                dgdx_val_edf = test_datagen_edf.flow_from_directory(
-                    main_ecog_dir,
+                dgdx_val_vid = test_datagen_vid.flow_from_directory(
+                    main_vid_dir,
+                    img_mode="seq",
+                    read_formats={'png'},
+                    target_size=(int(224), int(224)),
+                    num_frames=12,
                     batch_size=10,
                     shuffle=False,
-                    target_size=(1, len(channels), 1000),
-                    final_size=(1, len(channels), 200),
-                    channels=channels,
                     class_mode='binary')
     
-                validation_generator = dgdx_val_edf
+                validation_generator = dgdx_val_vid
                 model = load_model(model_file)
-                new_model = Model(model.layers[3].input, model.layers[3].layers[-2].output)
+                new_model = Model(model.layers[1].input, model.layers[1].layers[-2].output)
                 #pdb.set_trace()
-                files = dgdx_val_edf.filenames
+                files = dgdx_val_vid.filenames
                 if not os.path.exists(new_dir):
                     os.makedirs(new_dir)
                     os.makedirs(new_dir + files[0].split("/")[0])

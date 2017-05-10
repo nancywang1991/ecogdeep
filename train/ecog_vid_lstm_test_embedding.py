@@ -23,7 +23,7 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
                 model_files = glob.glob('/home/wangnxr/models/best/ecog_vid_model_lstm_%s_itr_%i_t_%i_*.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
-                last_model_ind = np.argmax([int(file.split("_")[-1].split(".")[0]) for file in model_files])
+                last_model_ind = 0
                 #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
                 ## Data generation ECoG
                 channels = channels_list[s]

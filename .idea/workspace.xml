@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/display/tsne_display.py" afterPath="$PROJECT_DIR$/display/tsne_display.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_lstm_test_embedding.py" afterPath="$PROJECT_DIR$/train/ecog_lstm_test_embedding.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding.py" afterPath="$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding_vid.py" afterPath="$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding_vid.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/vid_lstm_test_embedding.py" afterPath="$PROJECT_DIR$/train/vid_lstm_test_embedding.py" />
@@ -25,7 +23,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ecog_lstm_test_embedding.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ecog_lstm_test_embedding.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test_embedding.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1482">
@@ -40,8 +38,8 @@
       <file leaf-file-name="ecog_vid_lstm_test_embedding.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1636">
-              <caret line="61" column="73" selection-start-line="61" selection-start-column="73" selection-end-line="61" selection-end-column="73" />
+            <state relative-caret-position="448">
+              <caret line="25" column="34" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -52,8 +50,8 @@
       <file leaf-file-name="ecog_vid_lstm_test_embedding_vid.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding_vid.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1482">
-              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="73" />
+            <state relative-caret-position="327">
+              <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -73,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vid_lstm_test_embedding.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="vid_lstm_test_embedding.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/vid_lstm_test_embedding.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1551">
-              <caret line="62" column="73" selection-start-line="62" selection-start-column="73" selection-end-line="62" selection-end-column="73" />
+            <state relative-caret-position="396">
+              <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -183,11 +181,11 @@
         <option value="$PROJECT_DIR$/train/ecog_lstm_train.py" />
         <option value="$PROJECT_DIR$/display/result_tabulation.py" />
         <option value="$PROJECT_DIR$/train/sbj_parameters.py" />
+        <option value="$PROJECT_DIR$/display/tsne_display.py" />
+        <option value="$PROJECT_DIR$/train/ecog_lstm_test_embedding.py" />
+        <option value="$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding.py" />
         <option value="$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding_vid.py" />
         <option value="$PROJECT_DIR$/train/vid_lstm_test_embedding.py" />
-        <option value="$PROJECT_DIR$/display/tsne_display.py" />
-        <option value="$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding.py" />
-        <option value="$PROJECT_DIR$/train/ecog_lstm_test_embedding.py" />
       </list>
     </option>
   </component>
@@ -709,13 +707,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00177" summary="smth&#10;">
-      <created>1493837801701</created>
-      <option name="number" value="00177" />
-      <option name="presentableId" value="LOCAL-00177" />
-      <option name="project" value="LOCAL" />
-      <updated>1493837801701</updated>
-    </task>
     <task id="LOCAL-00178" summary="smth&#10;">
       <created>1493941339054</created>
       <option name="number" value="00178" />
@@ -1052,7 +1043,14 @@
       <option name="project" value="LOCAL" />
       <updated>1494396464136</updated>
     </task>
-    <option name="localTasksCounter" value="226" />
+    <task id="LOCAL-00226" summary="tsne display">
+      <created>1494398371063</created>
+      <option name="number" value="00226" />
+      <option name="presentableId" value="LOCAL-00226" />
+      <option name="project" value="LOCAL" />
+      <updated>1494398371063</updated>
+    </task>
+    <option name="localTasksCounter" value="227" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1473,14 +1471,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/vid_lstm_test_embedding.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1551">
-          <caret line="62" column="73" selection-start-line="62" selection-start-column="73" selection-end-line="62" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_video_data_gen.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1284">
@@ -1499,10 +1489,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding_vid.py">
+    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test_embedding.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1482">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="73" />
+          <caret line="61" column="73" selection-start-line="61" selection-start-column="73" selection-end-line="61" selection-end-column="73" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -1511,21 +1501,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1636">
-          <caret line="61" column="73" selection-start-line="61" selection-start-column="73" selection-end-line="61" selection-end-column="73" />
+        <state relative-caret-position="448">
+          <caret line="25" column="34" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test_embedding.py">
+    <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding_vid.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1482">
-          <caret line="61" column="73" selection-start-line="61" selection-start-column="73" selection-end-line="61" selection-end-column="73" />
+        <state relative-caret-position="327">
+          <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/vid_lstm_test_embedding.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>

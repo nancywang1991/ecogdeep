@@ -16,7 +16,7 @@ import os
 with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
         for time in start_times:
-            main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
+            main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/train/' % (sbj, days[s])
             new_dir = "/".join(main_ecog_dir.split("/")[:-2]) + "/ecog_embedding/"
 
             for itr in xrange(3):
@@ -59,5 +59,4 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
                     os.makedirs(new_dir + files[-1].split("/")[0])
                 results = new_model.predict_generator(validation_generator, len(files))
                 for r, result in enumerate(results):
-                    np.save(new_dir + str(time) + "_" + files[r], result)
-
+		    np.save(new_dir + files[r].split(".")[0] + "_" + str(time) + ".npy", result)

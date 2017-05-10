@@ -50,7 +50,8 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     
                 validation_generator = dgdx_val_edf
                 model = load_model(model_file)
-                new_model = Model(model.layers[3].input, model.layers[3].layers[-2].output)
+		
+                new_model = Model(model.layers[3].layers[0].input, model.layers[3].layers[-2].output)
                 #pdb.set_trace()
                 files = dgdx_val_edf.filenames
                 if not os.path.exists(new_dir):
@@ -59,5 +60,4 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
                     os.makedirs(new_dir + files[-1].split("/")[0])
                 results = new_model.predict_generator(validation_generator, len(files))
                 for r, result in enumerate(results):
-                    np.save(new_dir + str(time) + "_" + files[r], result)
-
+		    np.save(new_dir + files[r].split(".")[0] + "_" + str(time) + ".npy", result)

@@ -19,7 +19,7 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
         for t, time in enumerate(start_times):
             main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/train/' % (sbj, days[s])
-            new_dir = "/".join(main_vid_dir.split("/")[:-2]) + "/ecog_vid_embedding_merge_vid/"
+            new_dir = "/".join(main_vid_dir.split("/")[:-2]) + "/vid_embedding/"
 
             for itr in xrange(3):
                 model_files = glob.glob('/home/wangnxr/models/best/vid_model_lstm_%s_itr_%i_t_%i_*.h5' % (sbj, itr, time))
@@ -51,7 +51,7 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     
                 validation_generator = dgdx_val_vid
                 model = load_model(model_file)
-                new_model = Model(model.layers[1].input, model.layers[1].layers[-2].output)
+                new_model = Model(model.input, model.layers[-7].output)
                 #pdb.set_trace()
                 files = dgdx_val_vid.filenames
                 if not os.path.exists(new_dir):
@@ -60,5 +60,5 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
                     os.makedirs(new_dir + files[-1].split("/")[0])
                 results = new_model.predict_generator(validation_generator, len(files))
                 for r, result in enumerate(results):
-                    np.save(new_dir + str(time) + "_" + files[r], result)
+                    np.save(new_dir + files[r].split(".")[0] + "_" + str(time) + ".npy", result)
 

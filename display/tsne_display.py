@@ -12,7 +12,7 @@ import cv2
 from PIL import Image, ImageOps
 
 
-def load_img_seq(path, target_mode=None, color=None, resize_size=None, num_frames=12, keep_frames=None):
+def load_img_seq(path, target_mode=None, resize_size=None, num_frames=12, keep_frames=None):
     #print(path)
     img_orig = Image.open(path)
     width, height = img_orig.size

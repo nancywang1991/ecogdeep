@@ -68,8 +68,8 @@
       <file leaf-file-name="result_tabulation.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/display/result_tabulation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1079">
-              <caret line="99" column="9" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="9" />
+            <state relative-caret-position="1304">
+              <caret line="103" column="58" selection-start-line="103" selection-start-column="58" selection-end-line="103" selection-end-column="58" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -709,13 +709,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00186" summary="svm partial to whole">
-      <created>1493955163672</created>
-      <option name="number" value="00186" />
-      <option name="presentableId" value="LOCAL-00186" />
-      <option name="project" value="LOCAL" />
-      <updated>1493955163672</updated>
-    </task>
     <task id="LOCAL-00187" summary="svm partial to whole">
       <created>1493955473230</created>
       <option name="number" value="00187" />
@@ -1052,7 +1045,14 @@
       <option name="project" value="LOCAL" />
       <updated>1494567077118</updated>
     </task>
-    <option name="localTasksCounter" value="235" />
+    <task id="LOCAL-00235" summary="tsne display">
+      <created>1494619314465</created>
+      <option name="number" value="00235" />
+      <option name="presentableId" value="LOCAL-00235" />
+      <option name="project" value="LOCAL" />
+      <updated>1494619314465</updated>
+    </task>
+    <option name="localTasksCounter" value="236" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1480,8 +1480,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/display/result_tabulation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1079">
-          <caret line="99" column="9" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="9" />
+        <state relative-caret-position="1304">
+          <caret line="103" column="58" selection-start-line="103" selection-start-column="58" selection-end-line="103" selection-end-column="58" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

@@ -101,6 +101,7 @@ with open(result_table, 'wb') as csvfile:
         axes[t].set_xticks(ind + width / 2)
         axes[t].set_xticklabels(("S1", "S2", "S3", "S4", "S5"))
         axes[t].legend([rects_list[i, t][0] for i in xrange(5)], ("svm", "ecog", "vid", "simp_avg", "ecog+vid"))
+    fig.savefig("/home/wangnxr/results/tabulated_graph.png")
 
 
 with open(result_table_valbest, 'wb') as csvfile:

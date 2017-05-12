@@ -19,10 +19,17 @@ def process_result(lines):
         sbjlines = sum(sbjlines, [])
         if len(sbjlines) > 0:
             for time in start_times:
-                timelines = [sbjlines[ind:ind+3] for ind in detect_ind(str(time), sbjlines)]
-                if len(timelines) > 1:
+                timelines = [sbjlines[ind:ind+3] for ind in detect_ind("t_" + str(time), sbjlines)]
+		if len(timelines) > 1:
                     timelines = timelines[np.argmax([float(timeline[1])+float(timeline[2]) for timeline in timelines])]
+		elif len(timelines)==0:
+		    timelines = [-1,-1,-1]
+		else:
+		    timelines = timelines[0]
                 result_dict[sbj][time] = timelines
+	else:
+	    for time in start_times:
+		result_dict[sbj][time]=[-1,-1,-1]
     return result_dict
 
 def process_result_valbest(lines):
@@ -33,10 +40,12 @@ def process_result_valbest(lines):
         sbjlines = sum(sbjlines, [])
         if len(sbjlines) > 0:
             for time in start_times:
-                timelines = [sbjlines[ind:ind+3] for ind in detect_ind(str(time), sbjlines)]
+                timelines = [sbjlines[ind:ind+3] for ind in detect_ind("t_" + str(time), sbjlines)]
                 if len(timelines) > 1:
                     timelines = timelines[np.argmax([max(pickle.load("_".append(timeline[0].split("_")[:8])+ "_")["val_acc"])
                                            for timeline in timelines])]
+		else:
+                    timelines = timelines[0]
                 result_dict[sbj][time] = timelines
     return result_dict
 
@@ -53,14 +62,14 @@ result_table = "/home/wangnxr/results/summary_table.csv"
 result_table_valbest = "/home/wangnxr/results/summary_table_valbest.csv"
 
 with open(result_table, 'wb') as csvfile:
-    writer = csv.writer(csvfile, delimiter=' ',
+    writer = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
     writer.writerow(sbj_ids)
     writer.writerow(["start time"] + start_times*5)
 
-    for result_file in [ecog_file, vid_file, ecog_vid_file, svm_file, ecog_conv_file, ecog_avg_file]:
-        writer.writerow(result_file)
-        result_dict = process_result([line.split(":")[-1] for line in open(result_file).readlines()])
+    for result_file in [ecog_file, vid_file, ecog_vid_file, svm_file, ecog_avg_file]:
+        writer.writerow([result_file])
+        result_dict = process_result([line.split(":")[-1][:-1] for line in open(result_file).readlines()])
         accuracy_0 = []
         accuracy_1 = []
         average = []
@@ -79,8 +88,8 @@ with open(result_table_valbest, 'wb') as csvfile:
     writer.writerow(sbj_ids)
     writer.writerow(["start time"] + start_times*5)
 
-    for result_file in [ecog_file, vid_file, ecog_vid_file, svm_file, ecog_conv_file, ecov_avg_file]:
-        writer.writerow(result_file)
+    for result_file in [ecog_file, vid_file, ecog_vid_file, svm_file, ecog_avg_file]:
+        writer.writerow([result_file])
         result_dict = process_result_valbest(open(result_file).readlines())
         accuracy_0 = []
         accuracy_1 = []

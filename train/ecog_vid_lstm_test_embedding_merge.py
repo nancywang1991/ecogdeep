@@ -1,17 +1,18 @@
 import keras
 from keras.applications.vgg16 import VGG16
-from keras.preprocessing.image2 import ImageDataGenerator
 from keras.preprocessing.ecog import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras.layers import Convolution2D, MaxPooling2D
+from keras.preprocessing.image2 import ImageDataGenerator
 from keras.models import Model, load_model
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
 import pdb
 from sbj_parameters import *
 import glob
+import os
 
 
 def izip_input(gen1, gen2):
@@ -23,21 +24,22 @@ def izip_input(gen1, gen2):
             pdb.set_trace()
         yield [x1, x2], y1
 
-with open("/home/wangnxr/results/ecog_vid_lstm_summary_results.txt", "wb") as summary_writer:
+with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
-	#if not sbj == "cb4":
-	#    continue
         for t, time in enumerate(start_times):
-            main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
-            main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
+            main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/train/' % (sbj, days[s])
+            main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/train/' % (sbj, days[s])
+            new_dir = "/".join(main_ecog_dir.split("/")[:-2]) + "/ecog_vid_embedding_merge_merged/"
+
             for itr in xrange(3):
-                model_files = glob.glob(
-                    '/home/wangnxr/models/ecog_vid_model_lstm_%s_itr_%i_t_%i_*chkpt.h5' % (sbj, itr, time))
+                model_files = glob.glob('/home/wangnxr/models/best/ecog_vid_model_lstm_%s_itr_%i_t_%i_*.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
+                last_model_ind = 0
+                #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
                 ## Data generation ECoG
                 channels = channels_list[s]
-                model_file = model_files[0]
+                model_file = model_files[last_model_ind]
 
                 test_datagen = ImageDataGenerator(
                     rescale=1. / 255,
@@ -74,34 +76,13 @@ with open("/home/wangnxr/results/ecog_vid_lstm_summary_results.txt", "wb") as su
 
                 validation_generator = izip_input(dgdx_val, dgdx_val_edf)
                 model = load_model(model_file)
-
+                new_model = Model(model.input, model.layers[-7].output)
                 #pdb.set_trace()
-                files = dgdx_val.filenames
-                results = model.predict_generator(validation_generator, len(files))
-                true = dgdx_val.classes
-                true_0 = 0
-                true_1 = 0
-
+                files = dgdx_val_edf.filenames
+                if not os.path.exists(new_dir):
+                    os.makedirs(new_dir)
+                    os.makedirs(new_dir + files[0].split("/")[0])
+                    os.makedirs(new_dir + files[-1].split("/")[0])
+                results = new_model.predict_generator(validation_generator, len(files))
                 for r, result in enumerate(results):
-                    if true[r]== 0 and result<0.5:
-                        true_0+=1
-                    if true[r]== 1 and result>=0.5:
-                        true_1+=1
-
-                recall = true_1/float(len(np.where(true==1)[0]))
-                precision = true_1/float((true_1 + (len(np.where(true==0)[0])-true_0)))
-                accuracy_1 = true_1/float(sum(true))
-                accuracy_0 = true_0/float((len(np.where(true==0)[0])))
-
-                summary_writer.write(model_file.split("/")[-1].split(".")[0] + "\n")
-                summary_writer.write("accuracy_1:%f\n" % accuracy_1)
-                summary_writer.write("accuracy_0:%f\n" % accuracy_0)
-
-                with open("/home/wangnxr/results/%s.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
-                        writer.write("recall:%f\n" % recall)
-                        writer.write("precision:%f\n" % precision)
-                        writer.write("accuracy_1:%f\n" % accuracy_1)
-                        writer.write("accuracy_0:%f\n" % accuracy_0)
-
-                        for f, file in enumerate(files):
-                                writer.write("%s:%f\n" % (file, results[f][0]))
+                    np.save(new_dir + files[r].split(".")[0] + "_" + str(time) + ".npy", result)

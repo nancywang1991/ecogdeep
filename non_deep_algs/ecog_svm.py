@@ -21,8 +21,7 @@ for s, sbj in enumerate(sbj_ids):
         train_datagen_edf = EcogDataGenerator(
             start_time=time,
             time_shift_range=200,
-            gaussian_noise_range=0.001,
-            center=False,
+            center=True,
             fft = True
         )
 
@@ -86,9 +85,9 @@ for s, sbj in enumerate(sbj_ids):
         val_y = np.hstack(val_y)
         logfile = open("/home/wangnxr/history/ecog_model_svm_%s_t_%i.txt" % (sbj, time), "wb")
         best_val = 0
-        for c in range(1,9,1):
+        for c in range(1,11,1):
             print("C=%f" % c, file=logfile)
-            model = LinearSVC(verbose=1,C=c/10.0,max_iter=10000)
+            model = LinearSVC(verbose=1,C=c/10.0,max_iter=100000)
             #test_data = np.vstack([val for val in validation_generator])
             best_score = 0
 

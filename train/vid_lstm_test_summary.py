@@ -40,7 +40,6 @@ with open("/home/wangnxr/results/vid_lstm_summary_results.txt", "wb") as summary
                     batch_size=10,
                     shuffle=False,
                     class_mode='binary')
-
                 validation_generator =  dgdx_val
                 model = load_model(model_file)
 

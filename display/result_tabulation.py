@@ -46,6 +46,7 @@ vid_file = "/home/wangnxr/results/vid_lstm_summary_results.txt"
 ecog_vid_file = "/home/wangnxr/results/ecog_vid_lstm_summary_results.txt"
 svm_file = "/home/wangnxr/results/ecog_svm_summary_results.txt"
 ecog_conv_file = "/home/wangnxr/results/ecog_conv_summary_results.txt"
+ecov_avg_file = "/home/wangnxr/results/ecog_vid_avg_summary_results.txt"
 
 result_table = "/home/wangnxr/results/summary_table.csv"
 result_table_valbest = "/home/wangnxr/results/summary_table_valbest.csv"
@@ -56,7 +57,7 @@ with open(result_table, 'wb') as csvfile:
     writer.writerow(sbj_ids)
     writer.writerow(["start time"] + start_times*5)
 
-    for result_file in [ecog_file, vid_file, ecog_vid_file, svm_file, ecog_conv_file]:
+    for result_file in [ecog_file, vid_file, ecog_vid_file, svm_file, ecog_conv_file, ecov_avg_file]:
         writer.writerow(result_file)
         result_dict = process_result(open(result_file).readlines())
         accuracy_0 = []
@@ -76,7 +77,7 @@ with open(result_table_valbest, 'wb') as csvfile:
     writer.writerow(sbj_ids)
     writer.writerow(["start time"] + start_times*5)
 
-    for result_file in [ecog_file, vid_file, ecog_vid_file, svm_file, ecog_conv_file]:
+    for result_file in [ecog_file, vid_file, ecog_vid_file, svm_file, ecog_conv_file, ecov_avg_file]:
         writer.writerow(result_file)
         result_dict = process_result_valbest(open(result_file).readlines())
         accuracy_0 = []

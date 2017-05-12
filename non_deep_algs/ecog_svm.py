@@ -8,7 +8,7 @@ import pickle
 from ecogdeep.train.sbj_parameters import *
 sbj_ids = ['a0f', 'e5b', 'd65', "cb4", "c95"]
 
-sbj_to_do = ["c95"]
+sbj_to_do = ["d65"]
 
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:

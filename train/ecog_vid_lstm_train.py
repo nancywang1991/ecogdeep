@@ -19,8 +19,7 @@ import pickle
 import glob
 
 
-sbj_to_do = ["c95"]
-
+sbj_to_do = ["cb4"]
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
         main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])

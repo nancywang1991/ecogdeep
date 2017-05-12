@@ -16,8 +16,8 @@ channels_list = [np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)]
                  np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]),
                  np.arange(82), np.arange(80), np.arange(86)]
 
-sbj_ids = ['c95']
-days = [7]
+#sbj_ids = ['c95', 'd65']
+#days = [7]
 #start_times = [2800, 3400, 4000]
 #frames = [ range(1,6), range(4,9), range(7,12)]
 channels_list = [#np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)]), 

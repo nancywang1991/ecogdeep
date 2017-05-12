@@ -25,6 +25,8 @@ def izip_input(gen1, gen2):
 
 with open("/home/wangnxr/results/ecog_vid_lstm_summary_results.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
+	#if not sbj == "cb4":
+	#    continue
         for t, time in enumerate(start_times):
             main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])

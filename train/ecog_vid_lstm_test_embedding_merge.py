@@ -26,7 +26,7 @@ def izip_input(gen1, gen2):
 
 with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
-        for r, time in enumerate(start_times):
+        for t, time in enumerate(start_times):
             main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/train/' % (sbj, days[s])
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/train/' % (sbj, days[s])
             new_dir = "/".join(main_ecog_dir.split("/")[:-2]) + "/ecog_vid_embedding_merge_merged/"
@@ -76,8 +76,7 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
 
                 validation_generator = izip_input(dgdx_val, dgdx_val_edf)
                 model = load_model(model_file)
-		
-                new_model = Model(model.input, model.get_layer("merge2").output)
+                new_model = Model(model.input, model.layers[-7].output)
                 #pdb.set_trace()
                 files = dgdx_val_edf.filenames
                 if not os.path.exists(new_dir):

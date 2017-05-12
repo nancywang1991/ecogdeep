@@ -12,7 +12,7 @@ import cv2
 from PIL import Image, ImageOps
 
 
-def load_img_seq(path, target_mode=None, resize_size=None, num_frames=12, keep_frames=None):
+def load_img_seq(path, target_mode=None, resize_size=None, color=None,num_frames=12, keep_frames=None):
     #print(path)
     img_orig = Image.open(path)
     width, height = img_orig.size
@@ -45,7 +45,7 @@ def imscatter(x, y, image, ax=None, zoom=1, frameon=False, color=None):
     return artists
 
 def main(data_source):
-    for time in start_times[1:]:
+    for time in start_times[:1]:
 	plt.figure(figsize=(150,150))
         files = sorted(glob.glob(data_source + "/*/*_%i.npy" % time))
         image_files = ["/".join(file.split("/")[:-3]) + "/train/" + file.split("/")[-2] + "/" + "_".join(file.split("/")[-1].split("_")[:-1]) + ".png" for file in files]

@@ -1,4 +1,5 @@
 import keras
+import keras.backend as K
 from keras.preprocessing.ecog import EcogDataGenerator
 from keras.preprocessing.image2 import ImageDataGenerator, center_crop
 from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge, TimeDistributed, Lambda
@@ -84,7 +85,7 @@ for itr in xrange(3):
 
             ecog_series = Input(shape=(5, 1, len(channels), 200))
 
-            base_model_ecog = Model(model.input, model.get_layer("merge2").output)
+            base_model_ecog = Model(model.input, model.layers[-7].output)
 
             ecog_model = ecog_1d_model(channels=len(channels))
             train_generator =  dgdx_edf
@@ -92,8 +93,8 @@ for itr in xrange(3):
             x = base_model_ecog(ecog_series)
             x = Activation('relu')(x)
             x = Dropout(0.5)(x)
-            x = Lambda(function=lambda x: keras.mean(x, axis=1),
-                   output_shape=lambda shape: (shape[0],) + shape[2:])
+            x = Lambda(function=lambda x: K.mean(x, axis=1),
+                   output_shape=lambda shape: (shape[0],) + shape[2:])(x)
             x = Dense(1, name='predictions')(x)
             #x = BatchNormalization()(x)
             predictions = Activation('sigmoid')(x)

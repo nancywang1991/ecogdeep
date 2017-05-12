@@ -14,14 +14,14 @@ import glob
 
 with open("/home/wangnxr/results/ecog_lstm_summary_results_ablate.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
-        if not sbj == "c95":
-            continue
+        #if not sbj == "c95":
+        #    continue
         for time in start_times:
-            if not time == 3900:
-                continue
+        #    if not time == 3900:
+        #        continue
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             for itr in xrange(3):
-                model_files = glob.glob('/home/wangnxr/models/ecog_model_lstm20_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))
+                model_files = glob.glob('/home/wangnxr/models/best/ecog_model_lstm20_%s_itr_%i_t_%i__weights_*.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
                 last_model_ind = np.argmax([int(file.split("_")[-1].split(".")[0]) for file in model_files])
@@ -29,8 +29,9 @@ with open("/home/wangnxr/results/ecog_lstm_summary_results_ablate.txt", "wb") as
                 ## Data generation ECoG
                 channels = channels_list[s]
                 model_file = model_files[last_model_ind]
-                for ablate_channel in channels:
-
+                summary_writer.write(model_file.split("/")[-1].split(".")[0] + "\n")
+		for ablate_channel in channels:
+                    summary_writer.flush()
                     test_datagen_edf = EcogDataGenerator(
                         time_shift_range=200,
                         center=True,
@@ -71,15 +72,6 @@ with open("/home/wangnxr/results/ecog_lstm_summary_results_ablate.txt", "wb") as
                     accuracy_1 = true_1/float(sum(true))
                     accuracy_0 = true_0/float((len(np.where(true==0)[0])))
 
-                    summary_writer.write(model_file.split("/")[-1].split(".")[0] + "\n")
-                    summary_writer.write("accuracy_1:%f\n" % accuracy_1)
-                    summary_writer.write("accuracy_0:%f\n" % accuracy_0)
+                    summary_writer.write("ablating:%i -> accuracy_1:%f | accuracy_0:%f | average:%f \n" %
+                                         (ablate_channel, accuracy_1, accuracy_0, np.mean([accuracy_1, accuracy_0])))
 
-                    with open("/home/wangnxr/results/%s.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
-                            writer.write("recall:%f\n" % recall)
-                            writer.write("precision:%f\n" % precision)
-                            writer.write("accuracy_1:%f\n" % accuracy_1)
-                            writer.write("accuracy_0:%f\n" % accuracy_0)
-
-                            for f, file in enumerate(files):
-                                    writer.write("%s:%f\n" % (file, results[f][0]))

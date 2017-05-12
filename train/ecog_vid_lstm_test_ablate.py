@@ -23,14 +23,18 @@ def izip_input(gen1, gen2):
             pdb.set_trace()
         yield [x1, x2], y1
 
-with open("/home/wangnxr/results/ecog_vid_lstm_summary_results.txt", "wb") as summary_writer:
+with open("/home/wangnxr/results/ecog_vid_lstm_summary_results_ablate.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
+	#if not sbj == "c95":
+#		continue
         for t, time in enumerate(start_times):
+#	    if not time == 3900:
+#		continue
             main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
-            for itr in xrange(3):
+            for itr in xrange(1):
                 model_files = glob.glob(
-                    '/home/wangnxr/models/ecog_vid_model_lstm_%s_itr_%i_t_%i_*chkpt.h5' % (sbj, itr, time))
+                    '/home/wangnxr/models/best/ecog_vid_model_lstm_%s_itr_*_t_%i_*chkpt.h5' % (sbj, time))
                 if len(model_files)==0:
                     continue
                 ## Data generation ECoG
@@ -38,6 +42,7 @@ with open("/home/wangnxr/results/ecog_vid_lstm_summary_results.txt", "wb") as su
                 model_file = model_files[0]
                 summary_writer.write(model_file.split("/")[-1].split(".")[0] + "\n")
                 for ablate_channel in channels:
+		    summary_writer.flush()
                     test_datagen = ImageDataGenerator(
                         rescale=1. / 255,
                         center_crop=(224, 224),
@@ -69,7 +74,8 @@ with open("/home/wangnxr/results/ecog_vid_lstm_summary_results.txt", "wb") as su
                         target_size=(1, len(channels), 1000),
                         final_size=(1, len(channels), 200),
                         channels=channels,
-                        ablate = [ablate_channel],
+                        #ablate = list(channels[np.where((channels>ablate_channel))[0]]) + list(channels[np.where((channels<ablate_channel))[0]]),
+			ablate=[ablate_channel],
                         class_mode='binary')
 
                     validation_generator = izip_input(dgdx_val, dgdx_val_edf)

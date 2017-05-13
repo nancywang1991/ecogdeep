@@ -21,7 +21,7 @@ def load_img_seq(path, target_mode=None, resize_size=None, color=None,num_frames
     if resize_size:
         img = img.resize((resize_size[1], resize_size[0]))
     if color:
-        img = ImageOps.expand(img,border=5,fill=color)
+        img = ImageOps.expand(img,border=5,fill=[int(c*256) for c in color])
 
     return img
 

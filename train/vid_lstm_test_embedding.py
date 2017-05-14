@@ -21,8 +21,8 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
             main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/train/' % (sbj, days[s])
             new_dir = "/".join(main_vid_dir.split("/")[:-2]) + "/vid_embedding/"
 
-            for itr in xrange(3):
-                model_files = glob.glob('/home/wangnxr/models/best/vid_model_lstm_%s_itr_%i_t_%i_*.h5' % (sbj, itr, time))
+            for itr in xrange(1):
+                model_files = glob.glob('/home/wangnxr/models/best/vid_model_lstm_%s_itr_*_t_%i_*.h5' % (sbj, time))
                 if len(model_files)==0:
                     continue
                 last_model_ind = 0

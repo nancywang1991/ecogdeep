@@ -12,7 +12,7 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import cv2
 from PIL import Image, ImageOps
 
-
+#days = [5,6,7,8,11]
 def load_img_seq(path, target_mode=None, resize_size=None, color=None,num_frames=12, keep_frames=None):
     #print(path)
     img_orig = Image.open(path)
@@ -21,7 +21,8 @@ def load_img_seq(path, target_mode=None, resize_size=None, color=None,num_frames
     if resize_size:
         img = img.resize((resize_size[1], resize_size[0]))
     if color:
-        img = ImageOps.expand(img,border=5,fill=tuple([int(c*256) for c in color]))
+        #img = ImageOps.expand(img,border=2,fill=tuple([int(c*256) for c in color]))
+	img = ImageOps.expand(img,border=2,fill=color)
 
     return img
 
@@ -36,11 +37,11 @@ def imscatter(x, y, image, ax=None, zoom=1, frameon=False, color=None, days=None
 
     x, y = np.atleast_1d(x, y)
     artists = []
-    cmap = matplotlib.cm.get_cmap('Spectral')
+    cmap = matplotlib.cm.get_cmap('nipy_spectral')
     for x0, y0, im0 in zip(x, y, image):
         if days:
-            color = cmap(((int(im0.split("/")[-1].split("_")[1])-days[0])*700+int(im0.split("/")[-1].split("_")[2]))/((days[1]-days[0])*700.0))
-        im = load_img_seq(im0, resize_size=(60,60), color=color)
+            color = cmap((days.index(int(im0.split("/")[-1].split("_")[1]))*700+int(im0.split("/")[-1].split("_")[2]))/((len(days))*700.0))
+        im = load_img_seq(im0, resize_size=(1,1), color=color)
         im = OffsetImage(im, zoom=2)
         ab = AnnotationBbox(im, (x0, y0), xycoords='data', frameon=frameon)
         artists.append(ax.add_artist(ab))
@@ -49,9 +50,10 @@ def imscatter(x, y, image, ax=None, zoom=1, frameon=False, color=None, days=None
     return artists
 
 def main(data_source):
-    for time in start_times[:1]:
-        plt.figure(figsize=(150,150))
-        files = sorted(glob.glob(data_source + "/*/*_%i.npy" % time))
+    for time in start_times[1:]:
+        plt.figure(figsize=(20,20))
+        files = (glob.glob(data_source + "/*/*_%i.npy" % time))
+	np.random.shuffle(files)
         image_files = ["/".join(file.split("/")[:-3]) + "/train/" + file.split("/")[-2] + "/" + "_".join(file.split("/")[-1].split("_")[:-1]) + ".png" for file in files]
 
         X = np.array([np.ndarray.flatten(np.load(file)) for file in files])
@@ -60,9 +62,9 @@ def main(data_source):
         transforms = model.fit_transform(X)
         #plt.scatter(transforms[np.where(y==0)[0], 0], transforms[np.where(y==0)[0],1], c = "b", s = 0.5, label="Move")
         #plt.scatter(transforms[np.where(y==1)[0], 0], transforms[np.where(y==1)[0],1], c = 'r', s = 0.5, label="No move")
-        days = (int(files[0].split("/")[-1].split("_")[1]), int(files[-1].split("/")[-1].split("_")[1]))
-        imscatter(transforms[np.where(y==0)[0],0], transforms[np.where(y==0)[0],1], np.array(image_files)[np.where(y==0)[0]], days=days, color="blue")
-        imscatter(transforms[np.where(y==1)[0],0], transforms[np.where(y==1)[0],1], np.array(image_files)[np.where(y==1)[0]], days=days, color="red")
+        #days = (int(files[0].split("/")[-1].split("_")[1]), int(files[-1].split("/")[-1].split("_")[1]))
+        imscatter(transforms[np.where(y==0)[0],0], transforms[np.where(y==0)[0],1], np.array(image_files)[np.where(y==0)[0]], color="blue")
+        imscatter(transforms[np.where(y==1)[0],0], transforms[np.where(y==1)[0],1], np.array(image_files)[np.where(y==1)[0]], color="red")
         #plt.scatter(transforms[np.where(y==0)[0], 0], transforms[np.where(y==0)[0],1], c = "b", s = 50, label="Move")
         #plt.scatter(transforms[np.where(y==1)[0], 0], transforms[np.where(y==1)[0],1], c = 'r', s = 50, label="No move")
 

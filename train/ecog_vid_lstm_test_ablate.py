@@ -28,7 +28,7 @@ with open("/home/wangnxr/results/ecog_vid_lstm_summary_results_ablate.txt", "wb"
 	if not sbj == "c95":
 		continue
         for t, time in enumerate(start_times):
-	    if not time == 3900 or time==3300:
+	    if not time==3300:
 		continue
             main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])

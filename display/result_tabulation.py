@@ -7,7 +7,26 @@ import matplotlib
 matplotlib.use("agg")
 import matplotlib.pyplot as plt
 
+"""Result tabulation of neural network results from textfiles into excel spreadsheets and figures.
+
+This file contains scripts and functions to collate individual textfile results from various experiments
+into one spreadsheet.
+
+Example:
+        $ python result_tabulation.py
+
+Make sure to set correct filepaths for ecog_file, vid_file ... etc.
+"""
+
 def detect_ind(phrase, lines):
+    """Detect the indexes of lines in lines where phrase appears.
+
+    Args:
+        phrase (str): the string to search for in lines.
+        lines (list of str): the list of strings that may contain phrase.
+    Returns:
+        inds (list of int): the list of indexes where phrase appears. Empty if none.
+    """
     inds = []
     for l, line in enumerate(lines):
         if phrase in line:
@@ -15,27 +34,47 @@ def detect_ind(phrase, lines):
     return inds
 
 def process_result(lines):
+    """Collate the results of the best test run from each subject and experiment.
+
+    Args:
+        lines (list of str): the list of strings that contain results.
+    Returns:
+        result_dict (sbj:time:accuracy): Accuracy scores. -1 if None.
+    """
     result_dict = {}
     for sbj in sbj_ids:
         result_dict[sbj] = {}
+        # assuming there are 3 lines for each subject summary accuracy
         sbjlines = [lines[ind:ind+3] for ind in detect_ind(sbj, lines)]
         sbjlines = sum(sbjlines, [])
         if len(sbjlines) > 0:
+            #subject exists
             for time in start_times:
                 timelines = [sbjlines[ind:ind+3] for ind in detect_ind("t_" + str(time), sbjlines)]
                 if len(timelines) > 1:
+                    # Must choose between multiple iterations by best test accuracy
                     timelines = timelines[np.argmax([float(timeline[1])+float(timeline[2]) for timeline in timelines])]
                 elif len(timelines)==0:
+                    # This time does not exist
                     timelines = [-1,-1,-1]
                 else:
+                    # Only one iteration
                     timelines = timelines[0]
                 result_dict[sbj][time] = timelines
         else:
+            #subject not present, must add filler -1s
             for time in start_times:
                 result_dict[sbj][time]=[-1,-1,-1]
     return result_dict
 
 def process_result_valbest(lines):
+    """Collate the results of the best val run from each subject and experiment.
+
+    Args:
+        lines (list of str): the list of strings that contain results.
+    Returns:
+        result_dict (sbj:time:accuracy): Accuracy scores. -1 if None.
+    """
     result_dict = {}
     for sbj in sbj_ids:
         result_dict[sbj] = {}
@@ -45,6 +84,7 @@ def process_result_valbest(lines):
             for time in start_times:
                 timelines = [sbjlines[ind:ind+3] for ind in detect_ind("t_" + str(time), sbjlines)]
                 if len(timelines) > 1:
+                    # Must choose between multiple iterations by best validation accuracy
                     timelines = timelines[np.argmax([max(pickle.load("_".append(timeline[0].split("_")[:8])+ "_")["val_acc"])
                                                      for timeline in timelines])]
                 elif len(timelines)==0:
@@ -57,6 +97,7 @@ def process_result_valbest(lines):
                 result_dict[sbj][time]=[-1,-1,-1]
     return result_dict
 
+# Result summary files
 ecog_file = "/home/wangnxr/results/ecog_lstm20_summary_results.txt"
 vid_file = "/home/wangnxr/results/vid_lstm_summary_results.txt"
 ecog_vid_file = "/home/wangnxr/results/ecog_vid_lstm_summary_results.txt"
@@ -64,18 +105,23 @@ svm_file = "/home/wangnxr/results/ecog_svm_summary_results.txt"
 ecog_conv_file = "/home/wangnxr/results/ecog_conv_summary_results.txt"
 ecog_avg_file = "/home/wangnxr/results/ecog_vid_avg_summary_results.txt"
 
+# Save Files
 result_table = "/home/wangnxr/results/summary_table.csv"
 result_table_valbest = "/home/wangnxr/results/summary_table_valbest.csv"
 
+#Test based table set up
 with open(result_table, 'wb') as csvfile:
+    #Setting up table
     writer = csv.writer(csvfile, delimiter=',',
                         quotechar='|', quoting=csv.QUOTE_MINIMAL)
     writer.writerow(sbj_ids)
     writer.writerow(["start time"] + start_times*5)
 
+    #Setting up graph
     fig, axes = plt.subplots(3)
     ind = np.arange(4)
     width = 0.1
+    #graph colorwheel
     colors = 'mgbyc'
     rects_list = []
     for r, result_file in enumerate([svm_file, vid_file, ecog_file, ecog_avg_file, ecog_vid_file]):
@@ -117,6 +163,7 @@ with open(result_table, 'wb') as csvfile:
     #    fig.tight_layout()
     fig.savefig("/home/wangnxr/results/tabulated_graph.png", bbox_extra_artists=(lgd,), bbox_inches='tight')
 
+#Validation based table set up
 with open(result_table_valbest, 'wb') as csvfile:
     writer = csv.writer(csvfile, delimiter=',',
                         quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -170,24 +217,4 @@ with open(result_table_valbest, 'wb') as csvfile:
     #    fig.tight_layout()
     fig.savefig("/home/wangnxr/results/tabulated_graph_valbest.png", bbox_extra_artists=(lgd,), bbox_inches='tight')
 
-
-with open(result_table_valbest, 'wb') as csvfile:
-    writer = csv.writer(csvfile, delimiter=' ',
-                        quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    writer.writerow(sbj_ids)
-    writer.writerow(["start time"] + start_times*5)
-
-    for result_file in [ecog_file, vid_file, ecog_vid_file, svm_file, ecog_avg_file]:
-        writer.writerow([result_file])
-        result_dict = process_result_valbest(open(result_file).readlines())
-        accuracy_0 = []
-        accuracy_1 = []
-        average = []
-        for sbj in sbj_ids:
-            accuracy_1.append([result_dict[sbj][time][1] for time in start_times])
-            accuracy_0.append([result_dict[sbj][time][2] for time in start_times])
-            average.append([np.mean([float(result_dict[sbj][time][1]),float(result_dict[sbj][time][2])]) for time in start_times])
-        writer.writerow(["Rest"] + sum(accuracy_0, []))
-        writer.writerow(["Movement"] + sum(accuracy_1, []))
-        writer.writerow(["Average"] + sum(average, []))
 

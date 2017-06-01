@@ -6,6 +6,13 @@ import numpy as np
 import pdb
 import pickle
 from ecogdeep.train.sbj_parameters import *
+"""ECoG SVM training.
+
+
+Example:
+        $ python ecog_svm.py
+
+"""
 sbj_ids = ['a0f', 'e5b', 'd65', "cb4", "c95"]
 
 sbj_to_do = ["d65"]
@@ -63,6 +70,7 @@ for s, sbj in enumerate(sbj_ids):
 
         x = []
         y = []
+        #Collate training data
         for b in xrange(batches):
             temp_data = train_generator.next()
             x.append(temp_data[0])
@@ -77,6 +85,7 @@ for s, sbj in enumerate(sbj_ids):
         batches_val = samples_per_epoch_test / validation_generator.batch_size
         if samples_per_epoch_test%validation_generator.batch_size>0:
             batches_val +=1
+        #Collate testing data
         for b in xrange(batches_val):
             temp_data = validation_generator.next()
             val_x.append(temp_data[0])
@@ -94,6 +103,8 @@ for s, sbj in enumerate(sbj_ids):
             model.fit(np.reshape(x, (samples_per_epoch, x.shape[2]*x.shape[3])), y)
             print("training acc: %f" % model.score(np.reshape(x, (samples_per_epoch, x.shape[2]*x.shape[3])),y), file=logfile)
             val_score = model.score(np.reshape(val_x, (samples_per_epoch_test, val_x.shape[2] * val_x.shape[3])), val_y)
+
+            # Save best model from different C values
             if val_score > best_val:
                 pickle.dump(model, open("/home/wangnxr/models/ecog_model_svm_%s_t_%i.p" % (sbj, time), "wb"))
                 print("model saved", file=logfile)

@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from pyESig2.vid.my_video_capture import my_video_capture
 import cv2
 
-"""Video data generation based on seleting frames from the ecog data.
+"""Video data generation based on selecting frames from the ecog data.
 
 
 Example:

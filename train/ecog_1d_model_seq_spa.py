@@ -8,7 +8,9 @@ from keras.layers import Convolution2D, MaxPooling2D, AveragePooling2D, TimeDist
 import numpy as np
 import pdb
 import pickle
+"""ECoG 1 dimensional (time) sequence model with spatial convolution and pooling. This has not been tested yet!!!
 
+"""
 def ecog_1d_model(weights=None, channels=None):
 
     input_tensor = Input(shape=( 5, 1, channels, 200))

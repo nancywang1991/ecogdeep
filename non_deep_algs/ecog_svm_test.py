@@ -7,8 +7,14 @@ import pickle
 import pdb
 from ecogdeep.train.sbj_parameters import *
 import glob
+"""ECoG SVM testing.
 
 
+Example:
+        $ python ecog_svm_test.py
+
+"""
+# Save file
 with open("/home/wangnxr/results/ecog_svm_summary_results.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
         for time in start_times:

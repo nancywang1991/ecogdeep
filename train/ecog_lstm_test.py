@@ -7,7 +7,9 @@ from keras.layers.normalization import BatchNormalization
 from keras.models import Model, load_model
 import numpy as np
 import pdb
+"""Accuracy of test set using ECoG LSTM model.
 
+"""
 
 sbj_ids = ['a0f', 'e5b', 'd65',  'cb4', 'c95']
 sbj_ids = ['c95']
@@ -40,7 +42,6 @@ for s, sbj in enumerate(sbj_ids):
             seq_st=200
         )
 
-
         dgdx_val_edf = test_datagen_edf.flow_from_directory(
             '%s/test/' % main_ecog_dir,
             batch_size=10,
@@ -48,8 +49,6 @@ for s, sbj in enumerate(sbj_ids):
             final_size=(1,len(channels),200),
             channels = channels,
             class_mode=mode)
-
-
 
         validation_generator =  dgdx_val_edf
 

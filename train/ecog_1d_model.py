@@ -9,7 +9,9 @@ from keras.layers import Convolution2D, MaxPooling2D, AveragePooling2D
 import numpy as np
 import pdb
 import pickle
+"""ECoG 1 dimensional (time) model with 1 second input.
 
+"""
 def ecog_1d_model(channels=None, weights=None):
 
     input_tensor = Input(shape=(1, channels, 1000))

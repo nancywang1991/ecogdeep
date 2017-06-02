@@ -7,7 +7,7 @@
     <content url="file://$MODULE_DIR$/../keras">
       <sourceFolder url="file://$MODULE_DIR$/../keras" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 2.7.9 (C:\Python27\python.exe) (10)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 2.7.12 (C:\Python27\python.exe) (3)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">

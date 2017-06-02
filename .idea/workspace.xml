@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/movement_ecog_data_reg_gen.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/ecogdeep.iml" afterPath="$PROJECT_DIR$/.idea/ecogdeep.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/display/ablation_map.py" afterPath="$PROJECT_DIR$/display/ablation_map.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/movement_ecog_data_reg_gen.py" afterPath="$PROJECT_DIR$/data/movement_ecog_data_reg_gen.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,8 +34,8 @@
       <file leaf-file-name="movement_ecog_data_reg_gen.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_reg_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1074">
-              <caret line="45" column="30" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
+            <state relative-caret-position="282">
+              <caret line="21" column="117" selection-start-line="21" selection-start-column="117" selection-end-line="21" selection-end-column="117" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -94,10 +91,10 @@
       <file leaf-file-name="result_tabulation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/display/result_tabulation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2425">
-              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+            <state relative-caret-position="-2293">
+              <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
               <folding>
-                <marker date="1496361605054" expanded="false" signature="0:116" ph="import ..." />
+                <marker date="1496438064279" expanded="false" signature="0:116" ph="import ..." />
               </folding>
             </state>
           </provider>
@@ -129,10 +126,8 @@
         <entry file="file://$PROJECT_DIR$/display/tsne_display.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1668">
-              <caret line="116" column="26" selection-start-line="116" selection-start-column="26" selection-end-line="116" selection-end-column="26" />
-              <folding>
-                <marker date="1496361605069" expanded="false" signature="0:82" ph="import ..." />
-              </folding>
+              <caret line="117" column="26" selection-start-line="117" selection-start-column="26" selection-end-line="117" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -214,8 +209,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="105" />
-    <option name="y" value="300" />
+    <option name="x" value="993" />
+    <option name="y" value="155" />
     <option name="width" value="3058" />
     <option name="height" value="1550" />
   </component>
@@ -441,26 +436,17 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/ecogdeep.iml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/misc.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/ecog_vid_data_combine.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/movement_ecog_data_fft_gen.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/movement_ecog_data_gen.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/movement_ecog_data_normalization.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/movement_video_data_gen.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/movement_video_data_gen_v2.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/display/ablation_map.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/display/result_compilation.py</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/display/result_tabulation.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/display/training_res.py</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/display/tsne_display.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/non_deep_algs/ecog_svm.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/non_deep_algs/ecog_svm_test.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_1d_model.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_1d_model_seq.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_1d_model_seq_spa.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_lstm_test.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/display/visualize_weights_ecog.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_lstm_test_ablate.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_lstm_test_embedding.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_lstm_test_summary.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_vid_lstm_test_ablate.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_vid_lstm_test_embedding_merge.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_vid_lstm_test_summary.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/vid_lstm_test_embedding.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/vid_lstm_test_summary.py</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -468,7 +454,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/util.py</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -769,13 +754,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
-    </task>
-    <task id="LOCAL-00193" summary="svm partial to whole">
-      <created>1493958914864</created>
-      <option name="number" value="00193" />
-      <option name="presentableId" value="LOCAL-00193" />
-      <option name="project" value="LOCAL" />
-      <updated>1493958914864</updated>
     </task>
     <task id="LOCAL-00194" summary="svm partial to whole">
       <created>1493959487243</created>
@@ -1113,11 +1091,18 @@
       <option name="project" value="LOCAL" />
       <updated>1494723025015</updated>
     </task>
-    <option name="localTasksCounter" value="242" />
+    <task id="LOCAL-00242" summary="regression">
+      <created>1496437696433</created>
+      <option name="number" value="00242" />
+      <option name="presentableId" value="LOCAL-00242" />
+      <option name="project" value="LOCAL" />
+      <updated>1496437696433</updated>
+    </task>
+    <option name="localTasksCounter" value="243" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="105" y="300" width="3058" height="1550" extended-state="0" />
+    <frame x="993" y="155" width="3058" height="1550" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2676801" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1169,7 +1154,8 @@
     <MESSAGE value="svm partial to whole" />
     <MESSAGE value="result tab" />
     <MESSAGE value="tsne display" />
-    <option name="LAST_COMMIT_MESSAGE" value="tsne display" />
+    <MESSAGE value="regression" />
+    <option name="LAST_COMMIT_MESSAGE" value="regression" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1501,10 +1487,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/display/result_tabulation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2425">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        <state relative-caret-position="-2293">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding>
-            <marker date="1496361605054" expanded="false" signature="0:116" ph="import ..." />
+            <marker date="1496438064279" expanded="false" signature="0:116" ph="import ..." />
           </folding>
         </state>
       </provider>
@@ -1522,10 +1508,8 @@
     <entry file="file://$PROJECT_DIR$/display/tsne_display.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1668">
-          <caret line="116" column="26" selection-start-line="116" selection-start-column="26" selection-end-line="116" selection-end-column="26" />
-          <folding>
-            <marker date="1496361605069" expanded="false" signature="0:82" ph="import ..." />
-          </folding>
+          <caret line="117" column="26" selection-start-line="117" selection-start-column="26" selection-end-line="117" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1555,8 +1539,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_reg_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1074">
-          <caret line="45" column="30" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
+        <state relative-caret-position="282">
+          <caret line="21" column="117" selection-start-line="21" selection-start-column="117" selection-end-line="21" selection-end-column="117" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

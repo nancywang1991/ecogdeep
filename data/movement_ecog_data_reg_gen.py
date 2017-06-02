@@ -9,6 +9,7 @@ movement_dir = "/home/wangnxr/mvmt/"
 save_dir = "/home/wangnxr/dataset_reg/" + main_class_dir.split("/")[-1]
 print save_dir
 if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
     os.makedirs(save_dir + "/train")
     os.makedirs(save_dir + "/train/X")
     os.makedirs(save_dir + "/train/Y")

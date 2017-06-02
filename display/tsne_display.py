@@ -13,8 +13,26 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import cv2
 from PIL import Image, ImageOps
 
+"""Display TSNE embedding results with its corresponding video frame.
+
+
+Example:
+		$ python tsne_display.py -d embedding transformed data
+
+"""
+
 #days = [5,6,7,8,11]
-def load_img_seq(path, target_mode=None, resize_size=None, color=None,num_frames=12, keep_frames=None):
+def load_img_seq(path, resize_size=None, color=None,num_frames=12):
+    """Load image from path
+
+    Args:
+        path (str): image path
+        resize_size (x,y): if not None, image size to resize to
+        color (r,g,b,a): if not None, border color
+        num_frames (int): Number of frames horizontally concatenated in img from path
+    Returns:
+        img(PIL image): processed image
+    """
     #print(path)
     img_orig = Image.open(path)
     width, height = img_orig.size
@@ -22,12 +40,24 @@ def load_img_seq(path, target_mode=None, resize_size=None, color=None,num_frames
     if resize_size:
         img = img.resize((resize_size[1], resize_size[0]))
     if color:
-        #img = ImageOps.expand(img,border=2,fill=tuple([int(c*256) for c in color]))
-	img = ImageOps.expand(img,border=2,fill=color)
+        img = ImageOps.expand(img,border=2,fill=color)
 
     return img
 
-def imscatter(x, y, image, ax=None, zoom=1, frameon=False, color=None, days=None):
+def imscatter(x, y, image, ax=None, color=None, days=None):
+    """Scatter image at x, y on scatter graph
+
+    Args:
+        x (int): x location of data point
+        y (int): y location of data point
+        image: PIL image to be displayed
+        ax: scatterplot handle
+        color (r,g,b,a): if not None, border color
+        days (list of int): if not None, select color based on time of datapoint and days contains
+                            the days present in dataset
+    Returns:
+        artists (list of axis artists)
+    """
     if ax is None:
         ax = plt.gca()
     try:
@@ -41,6 +71,7 @@ def imscatter(x, y, image, ax=None, zoom=1, frameon=False, color=None, days=None
     cmap = matplotlib.cm.get_cmap('nipy_spectral')
     for x0, y0, im0 in zip(x, y, image):
         if days:
+	    # Assumes around 700 videos per day
             color = cmap((days.index(int(im0.split("/")[-1].split("_")[1]))*700+int(im0.split("/")[-1].split("_")[2]))/((len(days))*700.0))
 	if os.path.exists(im0):
         	im = load_img_seq(im0, resize_size=(1,1), color=color)
@@ -52,10 +83,17 @@ def imscatter(x, y, image, ax=None, zoom=1, frameon=False, color=None, days=None
     return artists
 
 def main(data_source):
+    """Main function to use TSNE to project data from data_source into 2 dimensions and plot its image scattergraph
+
+    Args:
+        data_source(str): directory containing both categories
+    Returns:
+        None
+    """
     for time in start_times[1:]:
         plt.figure(figsize=(20,20))
         files = (glob.glob(data_source + "/*/*_%i.npy" % time))
-	np.random.shuffle(files)
+        np.random.shuffle(files)
         image_files = ["/".join(file.split("/")[:-3]) + "/train/" + file.split("/")[-2] + "/" + "_".join(file.split("/")[-1].split("_")[:-1]) + ".png" for file in files]
 
         X = np.array([np.ndarray.flatten(np.load(file)) for file in files])

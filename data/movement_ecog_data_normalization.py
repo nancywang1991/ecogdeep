@@ -8,10 +8,27 @@ import os
 import mne.io
 import pdb
 
+"""ECoG data normalization of a single patient from a single day. Calculate the mean, std and frequency range powers
+
+
+Example:
+        $ python movement_ecog_data_normalization.py
+                -e edf directory
+                -s save directory for final ecog sections
+"""
+
 def fft_crop(data, freqs):
+    """Sum the power of frequency bands in freqs
+
+    Args:
+        data (array[channels, time]): ECoG data
+        freqs (list of 2 value lists): frequency ranges
+    Returns:
+        [array of power sums]
+    """
     fft_data = (np.abs(np.fft.fft(data))**2)
     return np.array([np.sum(fft_data[freq[0]:freq[1]]) for freq in freqs])
-        
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -28,16 +45,16 @@ if __name__ == "__main__":
         window_mean = []
         window_std = []
         window_fft = []
-    	for c in xrange(n_channels):
-        	print "Working on channel %i" % c
-            	temp_data, _ = edf[c+1, :]
-                window_mean.append(np.array([np.mean((temp_data[0,t:t+1000])) for t in range(0,temp_data.shape[1], 1000)])) 
-                window_std.append(np.array([np.std((temp_data[0,t:t+1000])) for t in range(0,temp_data.shape[1], 1000)]))
-                window_fft.append(np.array([fft_crop(temp_data[0,t:t+1000], [[2,5],[30,40],[59,61],[110,120],[190,200]]) for t in range(0,temp_data.shape[1], 1000)]))
-            	norm_factors[c, 0] = np.mean(temp_data)
-            	norm_factors[c, 1] = np.std(temp_data)
-                 
-    	pickle.dump(norm_factors, open("%s/%s_norm_factors_%s.p" % (args.save_dir, sbj_id, file.split("_")[-1].split(".")[0]), "wb"))
+        for c in xrange(n_channels):
+            print "Working on channel %i" % c
+            temp_data, _ = edf[c+1, :]
+            window_mean.append(np.array([np.mean((temp_data[0,t:t+1000])) for t in range(0,temp_data.shape[1], 1000)]))
+            window_std.append(np.array([np.std((temp_data[0,t:t+1000])) for t in range(0,temp_data.shape[1], 1000)]))
+            window_fft.append(np.array([fft_crop(temp_data[0,t:t+1000], [[2,5],[30,40],[59,61],[110,120],[190,200]]) for t in range(0,temp_data.shape[1], 1000)]))
+            norm_factors[c, 0] = np.mean(temp_data)
+            norm_factors[c, 1] = np.std(temp_data)
+
+        pickle.dump(norm_factors, open("%s/%s_norm_factors_%s.p" % (args.save_dir, sbj_id, file.split("_")[-1].split(".")[0]), "wb"))
         pickle.dump(np.vstack(window_mean), open("%s/%s_means_%s.p" % (args.save_dir, sbj_id, file.split("_")[-1].split(".")[0]), "wb"))
         pickle.dump(np.vstack(window_std), open("%s/%s_stds_%s.p" % (args.save_dir, sbj_id, file.split("_")[-1].split(".")[0]), "wb"))
-	pickle.dump(np.array(window_fft), open("%s/%s_ffts_%s.p" % (args.save_dir, sbj_id, file.split("_")[-1].split(".")[0]), "wb"))
+        pickle.dump(np.array(window_fft), open("%s/%s_ffts_%s.p" % (args.save_dir, sbj_id, file.split("_")[-1].split(".")[0]), "wb"))

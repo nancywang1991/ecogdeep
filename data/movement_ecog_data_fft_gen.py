@@ -9,6 +9,11 @@ import matplotlib.pyplot as plt
 import mne.io
 import gc
 
+"""FFT ECoG data generation from movement data. DEPRECATED.
+
+FFT is now calculated at the time that the data is pulled for training and testing.
+
+"""
 def scoring(truth, predicted):
     plt.plot(np.array(range(len(truth)))/30.0, truth*5, label="truth")
     plt.plot(np.array(range(len(truth)))/30.0, predicted*2, label="predicted")

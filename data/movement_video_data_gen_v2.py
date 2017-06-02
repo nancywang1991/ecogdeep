@@ -9,14 +9,38 @@ import matplotlib.pyplot as plt
 from pyESig2.vid.my_video_capture import my_video_capture
 import cv2
 
+"""Video data generation based on selecting frames from the ecog data.
 
-def save_imgs(imgs, offsets, main_name): 
+
+Example:
+        $ python movement_video_data_gen_v2.py -n ecog file names -v video directory -s save directory
+
+
+"""
+
+def save_imgs(imgs, offsets, main_name):
+    """Save concatenated frames.
+
+    Args:
+        imgs (list of PIL images): consecutive frames.
+        offsets (list of int): the list of frame numbers.
+    Returns:
+        None
+    """
     img = np.concatenate(imgs, axis=1)
     a,b,c,d=offsets[-4],offsets[-3],offsets[-2],offsets[-1]
     cv2.imwrite(os.path.join("%s_%i_%i_%i_%i.png" % (main_name,a,b,c,d)), img)
 
 def main(npy_file, vid_dir, save_dir):
+    """Main function.
 
+    Args:
+        npy_file (str): File containing list of files to extract from video based on ECoG results
+        vid_dir (str): Video directory to extract videos from
+        save_dir (str): Directory to save video data into.
+    Returns:
+        None
+    """
     npy_files = open(npy_file).readlines()
     vid_dict = {}
     for file in npy_files:
@@ -32,7 +56,6 @@ def main(npy_file, vid_dir, save_dir):
             if sorted_f[f]-sorted_f[f-1] > 5:
                 keep.append(sorted_f[f])
         vid_dict[vid] = keep
-
     for vid, frames in vid_dict.iteritems():
         vid_file = my_video_capture("/".join([vid_dir, "_".join(vid.split("_")[:2]),vid]) + ".avi", 30)
         total_frames = vid_file.get_total_frames()

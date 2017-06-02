@@ -9,6 +9,9 @@ import matplotlib.pyplot as plt
 from pyESig2.vid.my_video_capture import my_video_capture
 import cv2
 
+"""Video data generation based on selecting frames from the movement data. DEPRECATED. See movement_video_data_gen_v2.py
+
+"""
 def scoring(truth, predicted):
     plt.plot(np.array(range(len(truth)))/30.0, truth*5, label="truth")
     plt.plot(np.array(range(len(truth)))/30.0, predicted*2, label="predicted")

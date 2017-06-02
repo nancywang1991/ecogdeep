@@ -101,14 +101,14 @@ for itr in xrange(3):
         model_savepath = "/home/wangnxr/models/ecog_model_lstm_reg_%s_itr_%i" % (sbj,itr)
         model.compile(optimizer=sgd,
                       loss='mean_squared_error')
-        early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
-        checkpoint = ModelCheckpoint("%s_weights_{epoch:02d}.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='min')
+        #early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
+        checkpoint = ModelCheckpoint("%s_weights_{epoch:02d}.h5" % model_savepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
         history_callback = model.fit_generator(
             train_generator,
             samples_per_epoch=len(dgdx_edf.filenames),
             nb_epoch=400,
             validation_data=validation_generator,
-            nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint, early_stop])
+            nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint])
 
         model.save("%s.h5" % model_savepath)
         pickle.dump(history_callback.history, open("/home/wangnxr/history/%s.p" % model_savepath.split("/")[-1].split(".")[0], "wb"))

@@ -44,6 +44,6 @@ for file in glob.glob(main_class_dir + "test/*_arm_1/*.npy"):
     else:
         print "Error: Not working with %s yet" % file.split("/")[-2]
         break
-    np.save("%s/test/Y/filename.npy" % save_dir, movement_array)
+    np.save("%s/test/Y/%s.npy" % (save_dir, filename), movement_array)
     shutil.copy(file, "%s/test/X/" % save_dir)
 

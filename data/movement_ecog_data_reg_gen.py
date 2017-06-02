@@ -6,7 +6,7 @@ import shutil
 
 main_class_dir = "/home/wangnxr/dataset/ecog_vid_combined_a0f_day11/"
 movement_dir = "/home/wangnxr/mvmt/"
-save_dir = "/home/wangnxr/dataset_reg/" + main_class_dir.split("/")[-1]
+save_dir = "/home/wangnxr/dataset_reg/" + main_class_dir.split("/")[-2]
 
 if not os.path.exists(save_dir):
     os.makedirs(save_dir + "/train")

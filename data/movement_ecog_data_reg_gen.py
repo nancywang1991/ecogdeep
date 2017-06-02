@@ -7,7 +7,7 @@ import pdb
 
 main_class_dir = "/home/wangnxr/dataset/ecog_vid_combined_a0f_day11/"
 movement_dir = "/home/wangnxr/mvmt/"
-save_dir = "/home/wangnxr/dataset_reg/" + main_class_dir.split("/")[-1]
+save_dir = "/home/wangnxr/dataset_reg/" + main_class_dir.split("/")[-2]
 pdb.set_trace()
 print save_dir
 if not os.path.exists(save_dir):

@@ -55,6 +55,7 @@ for file in glob.glob(main_class_dir + "val/*_arm_1/*.npy"):
     sbj_id, day, vid, _, frame = filename.split("_")
     start = int(frame) + 15 - 30 * 5
     if start < 0:
+        pdb.set_trace()
         movement_file_prev = pickle.load(
             open("%s/%s_%s/%s_%s_%04i_movement.p" % (movement_dir, sbj_id, day, sbj_id, day, int(vid)-1)))
     movement_file = pickle.load(open("%s/%s_%s/%s_%s_%s_movement.p" % (movement_dir, sbj_id, day, sbj_id, day, vid)))

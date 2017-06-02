@@ -23,18 +23,20 @@ def deprocess_image(x):
     x = np.clip(x, 0, 255).astype('uint8')
     return x
 
-sbj_to_do = ["c95"]
+sbj_to_do = ["a0f"]
 for s, sbj in enumerate(sbj_ids):
     if sbj not in sbj_to_do:
 	continue
     for t, time in enumerate(start_times):
+	if not time == 3900:
+	    continue
         for itr in xrange(1):
-            model_files = glob.glob('/home/wangnxr/models/vid_model_lstm_%s_itr_0_t_%i_*.h5' % (sbj, time))
+            model_files = glob.glob('/home/wangnxr/models/valbest/ecog_model_lstm20_%s_itr_*_t_%i_*.h5' % (sbj, time))
             if len(model_files) == 0:
                 continue
             model = load_model(model_files[-1])
             layer_dict = dict([(layer.name, layer) for layer in model.layers[1].layers])
-            layer_name = "block4_conv1"
+            layer_name = "block3_conv1"
             input_img = [model.layers[1].layers[0].input]
             step=0.5
             for filter_index in xrange(10):
@@ -66,4 +68,4 @@ for s, sbj in enumerate(sbj_ids):
                 img0 = np.hstack(input_img_data[0][0])
                 img0 = deprocess_image(img0)
 
-                imsave('/home/wangnxr/results/weights/vid_lstm_%s_%i_%s_filter_%d_img1.png' % (sbj, time, layer_name, filter_index), img0[:,:,:])
+                imsave('/home/wangnxr/results/weights/ecog_lstm_%s_%i_%s_filter_%d_img1.png' % (sbj, time, layer_name, filter_index), img0[:len(img0)/5,:,0])

@@ -22,7 +22,7 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
             new_dir = "/".join(main_vid_dir.split("/")[:-2]) + "/vid_embedding/"
 
             for itr in xrange(1):
-                model_files = glob.glob('/home/wangnxr/models/best/vid_model_lstm_%s_itr_*_t_%i_*.h5' % (sbj, time))
+                model_files = glob.glob('/home/wangnxr/models/valbest/vid_model_lstm_%s_itr_*_t_%i_*.h5' % (sbj, time))
                 if len(model_files)==0:
                     continue
                 last_model_ind = 0

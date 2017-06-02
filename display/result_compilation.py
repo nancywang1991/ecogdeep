@@ -8,8 +8,8 @@ with open("/home/wangnxr/results/ecog_vid_avg_summary_results.txt", "wb") as sum
     for s, sbj in enumerate(sbj_ids):
         for time in start_times:
 	    
-            model1 = glob.glob('/home/wangnxr/models/best/vid_model_lstm_%s_itr_*_t_%i_*' % (sbj, time))
-            model2 = glob.glob('/home/wangnxr/models/best/ecog_model_lstm20_%s_itr_*_t_%i_*' % (sbj, time))
+            model1 = glob.glob('/home/wangnxr/models/valbest/vid_model_lstm_%s_itr_*_t_%i_*' % (sbj, time))
+            model2 = glob.glob('/home/wangnxr/models/valbest/ecog_model_lstm20_%s_itr_*_t_%i_*' % (sbj, time))
             new_file = open("/home/wangnxr/results/ecog_vid_avg_model_lstm_%s_t_%s.txt" % (sbj, time), "wb")
             if len(model1) == 0 or len(model2)==0:
                 continue

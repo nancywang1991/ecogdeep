@@ -26,7 +26,7 @@ def izip_input(gen1, gen2):
 
 with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
-	if sbj == "a0f":
+	if not sbj == "cb4":
 		continue
         for t, time in enumerate(start_times):
             main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/train/' % (sbj, days[s])
@@ -34,7 +34,7 @@ with open("/home/wangnxr/results/ignore.txt", "wb") as summary_writer:
             new_dir = "/".join(main_ecog_dir.split("/")[:-2]) + "/ecog_vid_embedding_merge_merged/"
 
             for itr in xrange(1):
-                model_files = glob.glob('/home/wangnxr/models/best/ecog_vid_model_lstm_%s_itr_%i_t_%i_*.h5' % (sbj, itr, time))
+                model_files = glob.glob('/home/wangnxr/models/valbest/ecog_vid_model_lstm_%s_itr_*_t_%i_*.h5' % (sbj, time))
                 if len(model_files)==0:
                     continue
                 last_model_ind = 0

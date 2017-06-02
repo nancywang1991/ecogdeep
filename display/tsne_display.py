@@ -1,3 +1,4 @@
+import os
 from sklearn.manifold import TSNE
 import numpy as np
 import glob
@@ -41,10 +42,11 @@ def imscatter(x, y, image, ax=None, zoom=1, frameon=False, color=None, days=None
     for x0, y0, im0 in zip(x, y, image):
         if days:
             color = cmap((days.index(int(im0.split("/")[-1].split("_")[1]))*700+int(im0.split("/")[-1].split("_")[2]))/((len(days))*700.0))
-        im = load_img_seq(im0, resize_size=(1,1), color=color)
-        im = OffsetImage(im, zoom=2)
-        ab = AnnotationBbox(im, (x0, y0), xycoords='data', frameon=frameon)
-        artists.append(ax.add_artist(ab))
+	if os.path.exists(im0):
+        	im = load_img_seq(im0, resize_size=(1,1), color=color)
+        	im = OffsetImage(im, zoom=2)
+        	ab = AnnotationBbox(im, (x0, y0), xycoords='data', frameon=frameon)
+        	artists.append(ax.add_artist(ab))
     ax.update_datalim(np.column_stack([x, y]))
     ax.autoscale()
     return artists

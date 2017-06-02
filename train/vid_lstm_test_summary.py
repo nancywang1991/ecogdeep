@@ -12,13 +12,13 @@ import pdb
 from sbj_parameters import *
 import glob
 
-with open("/home/wangnxr/results/vid_lstm_summary_results.txt", "wb") as summary_writer:
+with open("/home/wangnxr/results/vid_lstm_summary_results_temp.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
         for t, time in enumerate(start_times):
             main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             for itr in xrange(3):
                 model_files = glob.glob(
-                    '/home/wangnxr/models/vid_model_lstm_%s_itr_%i_t_%i_*chkpt.h5' % (sbj, itr, time))
+                    '/home/wangnxr/models/valbest/vid_model_lstm_%s_itr_%i_t_%i_*chkpt.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
                 ## Data generation ECoG

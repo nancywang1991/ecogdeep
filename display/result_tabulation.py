@@ -24,8 +24,9 @@ def process_result(lines):
             for time in start_times:
                 timelines = [sbjlines[ind:ind+3] for ind in detect_ind("t_" + str(time), sbjlines)]
                 if len(timelines) > 1:
-                    timelines = timelines[np.argmax([float(timeline[1])+float(timeline[2]) for timeline in timelines])]
-                elif len(timelines)==0:
+                    timelines = [timelines[np.argsort([float(timeline[1])+float(timeline[2]) for timeline in timelines])[-1]], timelines[np.argsort([float(timeline[1])+float(timeline[2]) for timeline in timelines])[-1]]]
+                    timelines = [timelines[0][0], np.mean([float(timeline[1]) for timeline in timelines]), np.mean([float(timeline[2]) for timeline in timelines])]
+		elif len(timelines)==0:
                     timelines = [-1,-1,-1]
                 else:
                     timelines = timelines[0]
@@ -45,9 +46,14 @@ def process_result_valbest(lines):
             for time in start_times:
                 timelines = [sbjlines[ind:ind+3] for ind in detect_ind("t_" + str(time), sbjlines)]
                 if len(timelines) > 1:
-                    timelines = timelines[np.argmax([max(pickle.load("_".append(timeline[0].split("_")[:8])+ "_")["val_acc"])
+		    try:
+			#pdb.set_trace()
+                    	timelines = timelines[np.argmax([max(pickle.load(open("/home/wangnxr/history/" + timeline[0].split("__")[0]+ "_.p"))["val_acc"])
                                                      for timeline in timelines])]
-                elif len(timelines)==0:
+		    except:
+			timelines = timelines[np.argmax([float(timeline[1])+float(timeline[2]) for timeline in timelines])]
+                    print timelines[0] 
+		elif len(timelines)==0:
                     timelines = [-1,-1,-1]
                 else:
                     timelines = timelines[0]
@@ -57,9 +63,9 @@ def process_result_valbest(lines):
                 result_dict[sbj][time]=[-1,-1,-1]
     return result_dict
 
-ecog_file = "/home/wangnxr/results/ecog_lstm20_summary_results.txt"
-vid_file = "/home/wangnxr/results/vid_lstm_summary_results.txt"
-ecog_vid_file = "/home/wangnxr/results/ecog_vid_lstm_summary_results.txt"
+ecog_file = "/home/wangnxr/results/ecog_lstm20_summary_results_temp.txt"
+vid_file = "/home/wangnxr/results/vid_lstm_summary_results_temp.txt"
+ecog_vid_file = "/home/wangnxr/results/ecog_vid_lstm_summary_results_temp.txt"
 svm_file = "/home/wangnxr/results/ecog_svm_summary_results.txt"
 ecog_conv_file = "/home/wangnxr/results/ecog_conv_summary_results.txt"
 ecog_avg_file = "/home/wangnxr/results/ecog_vid_avg_summary_results.txt"
@@ -78,7 +84,7 @@ with open(result_table, 'wb') as csvfile:
     width = 0.1
     colors = 'mgbyc'
     rects_list = []
-    for r, result_file in enumerate([svm_file, vid_file, ecog_file, ecog_avg_file, ecog_vid_file]):
+    for r, result_file in enumerate([vid_file, ecog_file, ecog_avg_file, ecog_vid_file]):
         writer.writerow([result_file])
         result_dict = process_result([line.split(":")[-1][:-1] for line in open(result_file).readlines()])
         accuracy_0 = []
@@ -106,14 +112,14 @@ with open(result_table, 'wb') as csvfile:
 
     axes[1].set_ylabel("Average Scores")
     #axes[t].set_title("Scores for far back prediction")
-    [axes[i].set_xticks(ind + 5*width / 2) for i in xrange(3)]
+    [axes[i].set_xticks(ind + 4*width / 2) for i in xrange(3)]
     plt.setp( axes[1].get_xticklabels(), visible=False)
     plt.setp( axes[0].get_xticklabels(), visible=False)
     axes[-1].set_xticklabels(("S1", "S2", "S3", "S4", "S5"))
     axes[2].text(3,90,"Pred_back", zorder=3)
     axes[1].text(3,90,"Pred", zorder=3)
     axes[0].text(3,90,"Decode", zorder=3)
-    lgd = axes[0].legend([rects_list[i, t][0] for i in xrange(5)], ("svm", "vid", "ecog", "simp_avg", "ecog+vid"), bbox_to_anchor=(1, 0))
+    lgd = axes[0].legend([rects_list[i, t][0] for i in xrange(4)], ("vid", "ecog", "simp_avg", "ecog+vid"), bbox_to_anchor=(1, 0))
     #    fig.tight_layout()
     fig.savefig("/home/wangnxr/results/tabulated_graph.png", bbox_extra_artists=(lgd,), bbox_inches='tight')
 
@@ -130,6 +136,7 @@ with open(result_table_valbest, 'wb') as csvfile:
     rects_list = []
     for r, result_file in enumerate([svm_file, vid_file, ecog_file, ecog_avg_file, ecog_vid_file]):
         writer.writerow([result_file])
+	
         result_dict = process_result_valbest([line.split(":")[-1][:-1] for line in open(result_file).readlines()])
         accuracy_0 = []
         accuracy_1 = []
@@ -162,32 +169,13 @@ with open(result_table_valbest, 'wb') as csvfile:
     plt.setp(axes[1].get_xticklabels(), visible=False)
     plt.setp(axes[0].get_xticklabels(), visible=False)
     axes[-1].set_xticklabels(("S1", "S2", "S3", "S4", "S5"))
-    axes[2].text(3, 90, "Pred_back", zorder=3)
-    axes[1].text(3, 90, "Pred", zorder=3)
-    axes[0].text(3, 90, "Decode", zorder=3)
-    lgd = axes[0].legend([rects_list[i, t][0] for i in xrange(5)], ("svm", "vid", "ecog", "simp_avg", "ecog+vid"),
+    axes[2].text(3.1, 92, "Pred_back", zorder=3)
+    axes[1].text(3.1, 92, "Pred", zorder=3)
+    axes[0].text(3.1, 92, "Decode", zorder=3)
+    lgd = axes[0].legend([rects_list[i, t][0] for i in xrange(5)], ("vid", "ecog", "simp_avg", "ecog+vid"),
                          bbox_to_anchor=(1, 0))
     #    fig.tight_layout()
     fig.savefig("/home/wangnxr/results/tabulated_graph_valbest.png", bbox_extra_artists=(lgd,), bbox_inches='tight')
 
 
-with open(result_table_valbest, 'wb') as csvfile:
-    writer = csv.writer(csvfile, delimiter=' ',
-                        quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    writer.writerow(sbj_ids)
-    writer.writerow(["start time"] + start_times*5)
-
-    for result_file in [ecog_file, vid_file, ecog_vid_file, svm_file, ecog_avg_file]:
-        writer.writerow([result_file])
-        result_dict = process_result_valbest(open(result_file).readlines())
-        accuracy_0 = []
-        accuracy_1 = []
-        average = []
-        for sbj in sbj_ids:
-            accuracy_1.append([result_dict[sbj][time][1] for time in start_times])
-            accuracy_0.append([result_dict[sbj][time][2] for time in start_times])
-            average.append([np.mean([float(result_dict[sbj][time][1]),float(result_dict[sbj][time][2])]) for time in start_times])
-        writer.writerow(["Rest"] + sum(accuracy_0, []))
-        writer.writerow(["Movement"] + sum(accuracy_1, []))
-        writer.writerow(["Average"] + sum(average, []))
 

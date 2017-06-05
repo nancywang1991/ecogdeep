@@ -174,7 +174,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="223" />
-    <option name="y" value="105" />
+    <option name="y" value="109" />
     <option name="width" value="3058" />
     <option name="height" value="1946" />
   </component>
@@ -719,13 +719,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00215" summary="svm partial to whole">
-      <created>1494124681396</created>
-      <option name="number" value="00215" />
-      <option name="presentableId" value="LOCAL-00215" />
-      <option name="project" value="LOCAL" />
-      <updated>1494124681396</updated>
-    </task>
     <task id="LOCAL-00216" summary="svm partial to whole">
       <created>1494124745547</created>
       <option name="number" value="00216" />
@@ -1062,11 +1055,18 @@
       <option name="project" value="LOCAL" />
       <updated>1496689897511</updated>
     </task>
-    <option name="localTasksCounter" value="264" />
+    <task id="LOCAL-00264" summary="regression">
+      <created>1496689921314</created>
+      <option name="number" value="00264" />
+      <option name="presentableId" value="LOCAL-00264" />
+      <option name="project" value="LOCAL" />
+      <updated>1496689921314</updated>
+    </task>
+    <option name="localTasksCounter" value="265" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="223" y="105" width="3058" height="1946" extended-state="0" />
+    <frame x="223" y="109" width="3058" height="1946" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2676801" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

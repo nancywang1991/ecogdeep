@@ -9,7 +9,7 @@ from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 from keras.regularizers import l2
 from itertools import izip
 from keras.callbacks import ModelCheckpoint, EarlyStopping
-from ecogdeep.train.ecog_1d_model_seq import ecog_1d_model
+from ecogdeep.train.ecog_1d_model_seq_reg import ecog_1d_model
 from ecogdeep.train.vid_model_seq import vid_model
 from sbj_parameters import *
 
@@ -69,8 +69,7 @@ for itr in xrange(3):
             shuffle=False,
             target_size=(1, len(channels), 1000),
             final_size=(1,len(channels),200),
-            channels = channels,
-            class_mode='binary')
+            channels = channels)
 
 
         ecog_model = ecog_1d_model(channels=len(channels))
@@ -82,11 +81,11 @@ for itr in xrange(3):
 
         x = base_model_ecog(ecog_series)
 
-        x = Dropout(0.5)(x)
-        x = TimeDistributed(Dense(32, W_regularizer=l2(0.01), name='merge2'))(x)
+        x = Dropout(0.1)(x)
+        x = TimeDistributed(Dense(64, W_regularizer=l2(0.01), name='merge2'))(x)
         #x = BatchNormalization()(x)
         x = Activation('relu')(x)
-        x = Dropout(0.5)(x)
+        x = Dropout(0.1)(x)
         x = LSTM(20, dropout_W=0.2, dropout_U=0.2, name='lstm')(x)
         predictions = Dense(1, name='predictions')(x)
 

@@ -11,14 +11,13 @@ import pdb
 
 sbj_ids = ['a0f']
 days = [11]
-days = [7]
 start_times = [2800, 3400,4000]
 channels_list = [np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)])]
 for s, sbj in enumerate(sbj_ids):
     main_ecog_dir = '/home/wangnxr/dataset_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     for t, time in enumerate(start_times):
         try:
-            model_file =  "/home/wangnxr/models/ecog_model_lstm_reg_%s_itr_%i.h5" % (sbj,0)
+            model_file =  "/home/wangnxr/models/ecog_model_lstm_reg_%s_itr_%i_weights_267.h5" % (sbj,0)
             model = load_model(model_file)
         except:
             continue
@@ -37,7 +36,7 @@ for s, sbj in enumerate(sbj_ids):
         )
 
         dgdx_val_edf = test_datagen_edf.flow_from_directory(
-            '%s/val/' % main_ecog_dir,
+            '%s/train/' % main_ecog_dir,
             batch_size=10,
             shuffle=False,
             target_size=(1, len(channels), 1000),

@@ -9,7 +9,7 @@ from pyESig2.movement.joint_movement_norm import *
 main_class_dir = "/home/wangnxr/dataset/ecog_vid_combined_a0f_day11/"
 joint_dir = "/home/wangnxr/pose/"
 crop_loc = "/home/wangnxr/pose/crop_coords/"
-save_dir = "/home/wangnxr/dataset_reg/" + main_class_dir.split("/")[-2]
+save_dir = "/home/wangnxr/dataset_xy_reg/" + main_class_dir.split("/")[-2]
 print save_dir
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
@@ -56,12 +56,13 @@ for type in types:
         poses_normalized = my_savgol_filter(poses_normalized_filtered, 21, 3, axis=0)
         if file.split("/")[-2] == "r_arm_1":
             if start<0:
-                movement_array = np.hstack([poses_normalized_prev[start:,1], poses_normalized[:(start+5*30),1]])
+		
+                movement_array = np.vstack([poses_normalized_prev[start:,1], poses_normalized[:(start+5*30),1]])
             else:
                 movement_array = poses_normalized[start:(start+5*30), 1]
         elif file.split("/")[-2] == "l_arm_1":
             if start<0:
-                movement_array = np.hstack([poses_normalized_prev[start:,2], poses_normalized[:(start+5*30),2]])
+                movement_array = np.vstack([poses_normalized_prev[start:,2], poses_normalized[:(start+5*30),2]])
             else:
                 movement_array = poses_normalized[start:(start+5*30), 2]
         else:

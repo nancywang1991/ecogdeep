@@ -22,14 +22,14 @@ import glob
 
 sbj_to_do = ["a0f"]
 
-for itr in xrange(3):
+for itr in xrange(1):
     for s, sbj in enumerate(sbj_ids):
         if sbj in sbj_to_do:
             main_ecog_dir = '/home/wangnxr/dataset_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
         else:
             continue
 
-        times = [3900,3850,3800,3750,3700,3650,3600,3550,3500,3450,3400]
+        times = [3900,3700,3500]
 
         ## Data generation ECoG
         channels = channels_list[s]
@@ -76,18 +76,18 @@ for itr in xrange(3):
         train_generator =  dgdx_edf
         validation_generator =  dgdx_val_edf
         base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
-
         ecog_series = Input(shape=(5,1,len(channels),200))
 
         x = base_model_ecog(ecog_series)
-
-        x = Dropout(0.1)(x)
-        x = TimeDistributed(Dense(64, W_regularizer=l2(0.01), name='merge2'))(x)
+	x = Activation('relu')(x)
+        x = Dropout(0.2)(x)
+        x = TimeDistributed(Dense(128, name='merge2'))(x)
         #x = BatchNormalization()(x)
         x = Activation('relu')(x)
-        x = Dropout(0.1)(x)
-        x = LSTM(20, dropout_W=0.2, dropout_U=0.2, name='lstm')(x)
-        predictions = Dense(1, name='predictions')(x)
+        x = Dropout(0.2)(x)
+        x = LSTM(200, name='lstm', dropout_W=0.2, dropout_U=0.2, init='normal')(x)
+        x = Dense(1, name='predictions', init='normal')(x)
+	predictions = Activation('sigmoid')(x)
 
         for layer in base_model_ecog.layers:
             layer.trainable = True
@@ -99,13 +99,14 @@ for itr in xrange(3):
 
         model_savepath = "/home/wangnxr/models/ecog_model_lstm_reg_%s_itr_%i" % (sbj,itr)
         model.compile(optimizer=sgd,
-                      loss='mean_squared_error')
+                      loss='binary_crossentropy',
+			metrics=['accuracy'])
         #early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
         checkpoint = ModelCheckpoint("%s_weights_{epoch:02d}.h5" % model_savepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
         history_callback = model.fit_generator(
             train_generator,
             samples_per_epoch=len(dgdx_edf.filenames),
-            nb_epoch=400,
+            nb_epoch=1000,
             validation_data=validation_generator,
             nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint])
 

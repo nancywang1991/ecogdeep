@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/movement_xy_ecog_data_reg_gen.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train/ecog_lstm_train_reg_xy.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,8 +34,20 @@
       <file leaf-file-name="ecog_lstm_train_reg.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_lstm_train_reg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
-              <caret line="88" column="21" selection-start-line="88" selection-start-column="21" selection-end-line="88" selection-end-column="50" />
+            <state relative-caret-position="547">
+              <caret line="89" column="21" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ecog_lstm_train_reg_xy.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/train/ecog_lstm_train_reg_xy.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2079">
+              <caret line="63" column="13" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -67,7 +79,7 @@
         <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test_reg.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="953">
-              <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+              <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -87,24 +99,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="movement_xy_ecog_data_reg_gen.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="movement_xy_ecog_data_reg_gen.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/movement_xy_ecog_data_reg_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1226">
-              <caret line="48" column="117" selection-start-line="48" selection-start-column="117" selection-end-line="48" selection-end-column="117" />
+            <state relative-caret-position="561">
+              <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ecog_vid_lstm_train.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4752">
-              <caret line="162" column="32" selection-start-line="162" selection-start-column="32" selection-end-line="162" selection-end-column="32" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -151,7 +153,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/data/movement_video_data_gen.py" />
         <option value="$PROJECT_DIR$/train/ecog_1d_model_seq.py" />
         <option value="$PROJECT_DIR$/train/vid_model_seq.py" />
         <option value="$PROJECT_DIR$/train/vid_model.py" />
@@ -202,12 +203,13 @@
         <option value="$PROJECT_DIR$/train/ecog_1d_model_seq_reg.py" />
         <option value="$PROJECT_DIR$/train/ecog_lstm_train_reg.py" />
         <option value="$PROJECT_DIR$/data/movement_xy_ecog_data_reg_gen.py" />
+        <option value="$PROJECT_DIR$/train/ecog_lstm_train_reg_xy.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="257" />
-    <option name="y" value="53" />
+    <option name="x" value="522" />
+    <option name="y" value="135" />
     <option name="width" value="3058" />
     <option name="height" value="1946" />
   </component>
@@ -415,9 +417,122 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Nancy\PycharmProjects\ecogdeep\data" />
       <recent name="C:\Users\Nancy\PycharmProjects\ecogdeep\train" />
+      <recent name="C:\Users\Nancy\PycharmProjects\ecogdeep\data" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/movement_xy_ecog_data_reg_gen.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_1d_model_seq_reg.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_lstm_test_reg.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_lstm_train_reg.py</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunManager" selected="Python.ablation_map">
     <configuration default="false" name="vid_train" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -631,13 +746,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
-    </task>
-    <task id="LOCAL-00218" summary="result tab">
-      <created>1494353876539</created>
-      <option name="number" value="00218" />
-      <option name="presentableId" value="LOCAL-00218" />
-      <option name="project" value="LOCAL" />
-      <updated>1494353876539</updated>
     </task>
     <task id="LOCAL-00219" summary="result tab">
       <created>1494368141334</created>
@@ -975,11 +1083,18 @@
       <option name="project" value="LOCAL" />
       <updated>1496693746269</updated>
     </task>
-    <option name="localTasksCounter" value="267" />
+    <task id="LOCAL-00267" summary="regression">
+      <created>1497312433920</created>
+      <option name="number" value="00267" />
+      <option name="presentableId" value="LOCAL-00267" />
+      <option name="project" value="LOCAL" />
+      <updated>1497312433920</updated>
+    </task>
+    <option name="localTasksCounter" value="268" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="257" y="53" width="3058" height="1946" extended-state="0" />
+    <frame x="522" y="135" width="3058" height="1946" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2676801" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1039,13 +1154,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_fft_gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="174" column="0" selection-start-line="174" selection-start-column="0" selection-end-line="174" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq_spa.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="628">
@@ -1370,17 +1478,7 @@
     <entry file="file://$PROJECT_DIR$/train/ecog_lstm_test_reg.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="953">
-          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_train_reg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="88" column="21" selection-start-line="88" selection-start-column="21" selection-end-line="88" selection-end-column="50" />
+          <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -1407,10 +1505,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_xy_ecog_data_reg_gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1226">
-          <caret line="48" column="117" selection-start-line="48" selection-start-column="117" selection-end-line="48" selection-end-column="117" />
+        <state relative-caret-position="561">
+          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_train_reg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="89" column="21" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_train_reg_xy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2079">
+          <caret line="63" column="13" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>

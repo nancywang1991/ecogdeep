@@ -25,7 +25,7 @@ sbj_to_do = ["a0f"]
 for itr in xrange(1):
     for s, sbj in enumerate(sbj_ids):
         if sbj in sbj_to_do:
-            main_ecog_dir = '/home/wangnxr/dataset_reg_xy/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
+            main_ecog_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
         else:
             continue
 
@@ -86,7 +86,7 @@ for itr in xrange(1):
         x = Activation('relu')(x)
         x = Dropout(0.2)(x)
         x = LSTM(200, name='lstm', dropout_W=0.2, dropout_U=0.2, init='normal')(x)
-        predictions = Dense(225, name='predictions', init='normal')(x)
+        predictions = Dense(900, name='predictions', init='normal')(x)
 
         for layer in base_model_ecog.layers:
             layer.trainable = True
@@ -98,8 +98,7 @@ for itr in xrange(1):
 
         model_savepath = "/home/wangnxr/models/ecog_model_lstm_reg_%s_itr_%i" % (sbj,itr)
         model.compile(optimizer=sgd,
-                      loss='mean_squared_error',
-                      metrics=['loss'])
+                      loss='mean_squared_error')
         #early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
         checkpoint = ModelCheckpoint("%s_weights_{epoch:02d}.h5" % model_savepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
         history_callback = model.fit_generator(

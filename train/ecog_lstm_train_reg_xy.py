@@ -86,8 +86,7 @@ for itr in xrange(1):
         x = Activation('relu')(x)
         x = Dropout(0.2)(x)
         x = LSTM(200, name='lstm', dropout_W=0.2, dropout_U=0.2, init='normal')(x)
-        x = Dense(1, name='predictions', init='normal')(x)
-        predictions = Activation('sigmoid')(x)
+        predictions = Dense(225, name='predictions', init='normal')(x)
 
         for layer in base_model_ecog.layers:
             layer.trainable = True
@@ -99,8 +98,8 @@ for itr in xrange(1):
 
         model_savepath = "/home/wangnxr/models/ecog_model_lstm_reg_%s_itr_%i" % (sbj,itr)
         model.compile(optimizer=sgd,
-                      loss='binary_crossentropy',
-                      metrics=['accuracy'])
+                      loss='mean_squared_error',
+                      metrics=['loss'])
         #early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
         checkpoint = ModelCheckpoint("%s_weights_{epoch:02d}.h5" % model_savepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
         history_callback = model.fit_generator(

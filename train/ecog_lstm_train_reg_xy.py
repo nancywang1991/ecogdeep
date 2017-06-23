@@ -9,7 +9,7 @@ from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 from keras.regularizers import l2
 from itertools import izip
 from keras.callbacks import ModelCheckpoint, EarlyStopping
-from ecogdeep.train.ecog_1d_model_seq_reg import ecog_1d_model
+from ecogdeep.train.ecog_1d_model_reg import ecog_1d_model
 from ecogdeep.train.vid_model_seq import vid_model
 from sbj_parameters import *
 
@@ -37,19 +37,13 @@ for itr in xrange(1):
             time_shift_range=200,
             gaussian_noise_range=0.001,
             center=False,
-            seq_len=200,
             start_time=times,
-            seq_num = 5,
-            seq_st = 200
         )
 
         test_datagen_edf = EcogDataGenerator(
             time_shift_range=200,
             center=True,
-            seq_len=200,
             start_time=times[0],
-            seq_num=5,
-            seq_st=200
         )
 
         dgdx_edf = train_datagen_edf.flow_from_directory(
@@ -60,7 +54,7 @@ for itr in xrange(1):
             channels = channels,
             pre_shuffle_ind=1,
             target_size=(1, len(channels), 1000),
-            final_size=(1,len(channels),200),
+            final_size=(1,len(channels),1000),
             )
 
         dgdx_val_edf = test_datagen_edf.flow_from_directory(
@@ -68,7 +62,7 @@ for itr in xrange(1):
             batch_size=10,
             shuffle=False,
             target_size=(1, len(channels), 1000),
-            final_size=(1,len(channels),200),
+            final_size=(1,len(channels),1000),
             channels = channels)
 
 
@@ -76,16 +70,16 @@ for itr in xrange(1):
         train_generator =  dgdx_edf
         validation_generator =  dgdx_val_edf
         base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
-        ecog_series = Input(shape=(5,1,len(channels),200))
+        ecog_series = Input(shape=(1,len(channels),1000))
 
         x = base_model_ecog(ecog_series)
         x = Activation('relu')(x)
-        x = Dropout(0.2)(x)
-        x = TimeDistributed(Dense(128, name='merge2'))(x)
+        #x = Dropout(0.05)(x)
+        x = Dense(2048, name='merge2')(x)
         #x = BatchNormalization()(x)
         x = Activation('relu')(x)
-        x = Dropout(0.2)(x)
-        x = LSTM(200, name='lstm', dropout_W=0.2, dropout_U=0.2, init='normal')(x)
+        #x = Dropout(0.2)(x)
+        #x = LSTM(300, name='lstm', dropout_W=0.05, dropout_U=0.05, init='normal')(x)
         predictions = Dense(900, name='predictions', init='normal')(x)
 
         for layer in base_model_ecog.layers:
@@ -96,15 +90,16 @@ for itr in xrange(1):
 
         sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-        model_savepath = "/home/wangnxr/models/ecog_model_lstm_reg_%s_itr_%i" % (sbj,itr)
+        model_savepath = "/home/wangnxr/models/ecog_model_lstm_reg_xy_%s_itr_%i" % (sbj,itr)
         model.compile(optimizer=sgd,
                       loss='mean_squared_error')
         #early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
-        checkpoint = ModelCheckpoint("%s_weights_{epoch:02d}.h5" % model_savepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
+        #checkpoint = ModelCheckpoint("%s_weights_{epoch:02d}.h5" % model_savepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
+	checkpoint = ModelCheckpoint("%s_weights_temp.h5" % model_savepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
         history_callback = model.fit_generator(
             train_generator,
             samples_per_epoch=len(dgdx_edf.filenames),
-            nb_epoch=1000,
+            nb_epoch=10000,
             validation_data=validation_generator,
             nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint])
 

@@ -13,8 +13,7 @@ import pdb
 import pickle
 import glob
 
-main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
-main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_a0f_day6/'
+main_vid_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_a0f_day11/'
 
 times = [3900,3700,3500]
 
@@ -30,7 +29,7 @@ train_datagen_vid = ImageDataGenerator(
 test_datagen_vid = ImageDataGenerator(
     rescale=1./255,
     start_time=times[0],
-    center_crop=(224, 224)),
+    center_crop=(224, 224))
 
 
 vid_model = vid_model()
@@ -39,17 +38,18 @@ dgdx_vid = train_datagen_vid.flow_from_directory(
     '/%s/train/' % main_vid_dir,
     read_formats={'png'},
     target_size=(int(224), int(224)),
-    num_frames=11,
+    num_frames=12,
     batch_size=24,
     class_mode='binary',
     shuffle=False,
     pre_shuffle_ind=1)
 
+
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
     '/%s/test/' % main_vid_dir,
     read_formats={'png'},
     target_size=(int(224), int(224)),
-    num_frames=11,
+    num_frames=12,
     batch_size=10,
     shuffle=False,
     class_mode='binary')

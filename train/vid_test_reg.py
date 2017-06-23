@@ -53,9 +53,9 @@ for s, sbj in enumerate(sbj_ids):
         #results = model.predict_generator(validation_generator, len(files))
         test = validation_generator.next()
         for i in xrange(10):
-            plt.imshow(np.reshape(model.predict(test[0])[i], (30,30)))
+            plt.imshow(model.predict(test[0])[i][0])
             plt.savefig("/home/wangnxr/test_%i.png" % i)
-            plt.imshow(np.reshape(test[1][i], (30,30)))
+            plt.imshow(test[1][i][0])
             plt.savefig("/home/wangnxr/orig_%i.png" % i)
         pdb.set_trace()
 

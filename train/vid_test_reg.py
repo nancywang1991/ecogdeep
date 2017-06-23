@@ -21,7 +21,7 @@ for s, sbj in enumerate(sbj_ids):
     main_vid_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     for t, time in enumerate(start_times):
         try:
-            model_file =  "/home/wangnxr/models/ecog_model_lstm_reg_xy_%s_itr_%i_weights_temp.h5" % (sbj,0)
+            model_file =  "/home/wangnxr/models/vid_model_reg_chkpt.h5"
             model = load_model(model_file)
         except:
             continue

@@ -1,5 +1,4 @@
 import keras
-from keras.preprocessing.ecog import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge
 from keras.preprocessing.image_reg import ImageDataGenerator, center_crop
 from keras.models import Model

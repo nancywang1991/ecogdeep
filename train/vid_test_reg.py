@@ -1,5 +1,5 @@
 import keras
-from keras.preprocessing.ecog_reg_xy import EcogDataGenerator
+from keras.preprocessing.image_reg import ImageDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model, load_model
@@ -18,7 +18,7 @@ days = [11]
 start_times = [2800,3400,4000]
 channels_list = [np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)])]
 for s, sbj in enumerate(sbj_ids):
-    main_ecog_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
+    main_vid_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     for t, time in enumerate(start_times):
         try:
             model_file =  "/home/wangnxr/models/ecog_model_lstm_reg_xy_%s_itr_%i_weights_temp.h5" % (sbj,0)
@@ -30,30 +30,26 @@ for s, sbj in enumerate(sbj_ids):
         channels = channels_list[s]
         times = [3900,3850,3800,3750,3700,3650,3600,3550,3500,3450,3400]
 
-        test_datagen_edf = EcogDataGenerator(
-            time_shift_range=200,
-            center=True,
-            #seq_len=200,
+        test_datagen_vid = ImageDataGenerator(
+            rescale=1. / 255,
             start_time=times[0],
-            #seq_num=5,
-            #seq_st=200
-        )
+            center_crop=(224, 224))
 
-        dgdx_val_edf = test_datagen_edf.flow_from_directory(
-            '%s/train/' % main_ecog_dir,
+        dgdx_val_vid = test_datagen_vid.flow_from_directory(
+            '/%s/test/' % main_vid_dir,
+            read_formats={'png'},
+            target_size=(int(224), int(224)),
+            num_frames=12,
             batch_size=10,
             shuffle=False,
-            target_size=(1, len(channels), 1000),
-            final_size=(1,len(channels),1000),
-            channels = channels,
             class_mode='binary')
 
-        validation_generator =  dgdx_val_edf
+        validation_generator =  dgdx_val_vid
 
         #for layer in base_model.layers[:10]:
         #    layer.trainable = False
         #pdb.set_trace()
-        files = dgdx_val_edf.filenames
+        files = dgdx_val_vid.filenames
         #results = model.predict_generator(validation_generator, len(files))
         test = validation_generator.next()
         for i in xrange(10):

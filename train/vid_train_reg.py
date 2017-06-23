@@ -23,7 +23,7 @@ train_datagen_vid = ImageDataGenerator(
     #zoom_range=0.2,
     #horizontal_flip=True,
     start_time=times,
-    random_crop=(224,224))
+    center_crop=(224,224))
 
 test_datagen_vid = ImageDataGenerator(
     rescale=1./255,

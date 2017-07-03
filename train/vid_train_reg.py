@@ -45,7 +45,7 @@ dgdx_vid = train_datagen_vid.flow_from_directory(
 
 
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
-    '/%s/test/' % main_vid_dir,
+    '/%s/val/' % main_vid_dir,
     read_formats={'png'},
     target_size=(int(224), int(224)),
     num_frames=12,
@@ -69,17 +69,17 @@ model = Model(input=[frame_a], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-model_savepath = "/home/wangnxr/models/vid_model_reg"
+model_savepath = "/home/wangnxr/models/vid_model2_reg"
 model.compile(optimizer=sgd,
               loss='mean_squared_error')
 checkpoint = ModelCheckpoint("%s_chkpt.h5" % model_savepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
 history_callback = model.fit_generator(
     train_generator,
     samples_per_epoch=len(dgdx_vid.filenames),
-    nb_epoch=400,
+    nb_epoch=1000,
     validation_data=validation_generator,
     nb_val_samples=len(dgdx_val_vid.filenames), callbacks=[checkpoint])
 
 model.save("%s.h5" % model_savepath)
-pickle.dump(history_callback.history, open("/home/wangnxr/models/vid_history_reg.txt", "wb"))
+pickle.dump(history_callback.history, open("/home/wangnxr/models/vid_history2_reg.txt", "wb"))
 

@@ -69,7 +69,7 @@ for s, sbj in enumerate(sbj_ids):
                 # pdb.set_trace()
                 x1, y1 = gen1.next()
                 x2 = gen2.next()[0]
-                if not x1[0].shape[0] == x2.shape[0]:
+                if not x1.shape[0] == x2.shape[0]:
                     pdb.set_trace()
                 x1.append(x2)
                 yield x1, y1

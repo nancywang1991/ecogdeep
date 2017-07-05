@@ -88,8 +88,8 @@
       <file leaf-file-name="ecog_vid_train_reg.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_train_reg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="470">
-              <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+            <state relative-caret-position="536">
+              <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="103" selection-end-column="20" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -112,8 +112,8 @@
       <file leaf-file-name="ecog_vid_test_reg.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_test_reg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
-              <caret line="71" column="25" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="25" />
+            <state relative-caret-position="1188">
+              <caret line="75" column="28" selection-start-line="75" selection-start-column="28" selection-end-line="75" selection-end-column="28" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -435,8 +435,7 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/vid_test_reg.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/vid_train_reg.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_vid_train_reg.py</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -744,13 +743,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
-    </task>
-    <task id="LOCAL-00231" summary="tsne display">
-      <created>1494463995925</created>
-      <option name="number" value="00231" />
-      <option name="presentableId" value="LOCAL-00231" />
-      <option name="project" value="LOCAL" />
-      <updated>1494463995925</updated>
     </task>
     <task id="LOCAL-00232" summary="tsne display">
       <created>1494482990788</created>
@@ -1088,7 +1080,14 @@
       <option name="project" value="LOCAL" />
       <updated>1499284766182</updated>
     </task>
-    <option name="localTasksCounter" value="280" />
+    <task id="LOCAL-00280" summary="regression">
+      <created>1499284903282</created>
+      <option name="number" value="00280" />
+      <option name="presentableId" value="LOCAL-00280" />
+      <option name="project" value="LOCAL" />
+      <updated>1499284903282</updated>
+    </task>
+    <option name="localTasksCounter" value="281" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1531,8 +1530,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_vid_train_reg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+        <state relative-caret-position="536">
+          <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="103" selection-end-column="20" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -1541,8 +1540,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_vid_test_reg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="71" column="25" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="25" />
+        <state relative-caret-position="1188">
+          <caret line="75" column="28" selection-start-line="75" selection-start-column="28" selection-end-line="75" selection-end-column="28" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

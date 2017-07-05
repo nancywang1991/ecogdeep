@@ -64,6 +64,7 @@ for s, sbj in enumerate(sbj_ids):
             shuffle=False,
             class_mode='binary')
 
+
         def izip_input(gen1, gen2):
             while 1:
                 # pdb.set_trace()
@@ -71,7 +72,7 @@ for s, sbj in enumerate(sbj_ids):
                 x2 = gen2.next()[0]
                 if not x1.shape[0] == x2.shape[0]:
                     pdb.set_trace()
-                x1.append(x2)
+                x1 = [x1, x2]
                 yield x1, y1
 
         validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)

@@ -2,7 +2,7 @@ import keras
 from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge
 from keras.preprocessing.image_reg import ImageDataGenerator, center_crop
 from keras.models import Model
-from ecogdeep.train.ecog_1d_model import ecog_1d_model
+from ecogdeep.train.ecog_1d_model_reg import ecog_1d_model
 from keras.preprocessing.ecog_reg_xy import EcogDataGenerator
 from ecogdeep.train.vid_model_reg import vid_model
 from keras.callbacks import ModelCheckpoint
@@ -47,7 +47,7 @@ dgdx_vid = train_datagen_vid.flow_from_directory(
 
 
 dgdx_val_vid = test_datagen_vid.flow_from_directory(
-    '/%s/val/' % main_vid_dir,
+    '/%s/test/' % main_vid_dir,
     read_formats={'png'},
     target_size=(int(224), int(224)),
     num_frames=12,
@@ -57,17 +57,19 @@ dgdx_val_vid = test_datagen_vid.flow_from_directory(
 
 ## Data generation ECoG
 channels = np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])
+
 train_datagen_edf = EcogDataGenerator(
-    start_time=3300,
-    time_shift_range=200,
-    gaussian_noise_range=0.001,
-    center=False
-)
+            time_shift_range=200,
+            gaussian_noise_range=0.001,
+            center=False,
+            start_time=times,
+        )
 
 test_datagen_edf = EcogDataGenerator(
-    start_time=3300,
-    center=True
-)
+            time_shift_range=200,
+            center=True,
+            start_time=times[0],
+        )
 
 dgdx_edf = train_datagen_edf.flow_from_directory(
     #'/mnt/cb46fd46_5_no_offset/train/',
@@ -96,9 +98,9 @@ def izip_input(gen1, gen2):
         #pdb.set_trace()
         x1, y1 = gen1.next()
         x2 = gen2.next()[0]
-        if not x1[0].shape[0] == x2.shape[0]:
+        if not x1.shape[0] == x2.shape[0]:
             pdb.set_trace()
-        x1.append(x2)
+        x1 = [x1,x2]
         yield x1, y1
 
 

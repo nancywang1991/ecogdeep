@@ -105,7 +105,7 @@ def izip_input(gen1, gen2):
 
 
 ecog_model = ecog_1d_model(channels=len(channels))
-base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
+base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc2").output)
 ecog_series = Input(shape=(1,len(channels),1000))
 
 train_generator = izip_input(dgdx_vid, dgdx_edf)
@@ -123,8 +123,10 @@ for layer in base_model_vid.layers:
 
 tower1 = base_model_vid(frame_a)
 tower2 = base_model_ecog(ecog_series)
-x = merge([tower1, tower2], mode='concat', concat_axis=-1)
-predictions = Dense(3136, name='predictions', init='normal')(x)
+#tower2 = Dense(3136, init='normal')(tower2)
+predictions = merge([tower1, tower2], mode='sum', concat_axis=-1)
+#x = tower1
+#predictions = Dense(3136, name='predictions', init='normal')(x)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 

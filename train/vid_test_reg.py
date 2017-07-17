@@ -58,8 +58,9 @@ for s, sbj in enumerate(sbj_ids):
         #results = model.predict_generator(validation_generator, len(files))
         for b in xrange(1):
             test = validation_generator.next()
+            prediction = model.predict(test[0])
             for i in xrange(10):
-                plt.imshow(np.reshape(model.predict(test[0])[i], (56,56)))
+                plt.imshow(np.reshape(prediction[i], (56,56)))
                 plt.savefig("/home/wangnxr/test_%i_%i.png" % (b,i))
                 plt.imshow(np.reshape(test[1][i], (56,56)))
                 plt.savefig("/home/wangnxr/orig_%i_%i.png" % (b,i))

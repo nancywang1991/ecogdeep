@@ -110,8 +110,8 @@
       <file leaf-file-name="ecog_vid_test_reg.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_test_reg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1551">
-              <caret line="98" column="41" selection-start-line="98" selection-start-column="41" selection-end-line="98" selection-end-column="41" />
+            <state relative-caret-position="924">
+              <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -742,13 +742,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00233" summary="tsne display">
-      <created>1494543425023</created>
-      <option name="number" value="00233" />
-      <option name="presentableId" value="LOCAL-00233" />
-      <option name="project" value="LOCAL" />
-      <updated>1494543425023</updated>
-    </task>
     <task id="LOCAL-00234" summary="tsne display">
       <created>1494567077118</created>
       <option name="number" value="00234" />
@@ -1085,7 +1078,14 @@
       <option name="project" value="LOCAL" />
       <updated>1499284994851</updated>
     </task>
-    <option name="localTasksCounter" value="282" />
+    <task id="LOCAL-00282" summary="regression">
+      <created>1500334580362</created>
+      <option name="number" value="00282" />
+      <option name="presentableId" value="LOCAL-00282" />
+      <option name="project" value="LOCAL" />
+      <updated>1500334580363</updated>
+    </task>
+    <option name="localTasksCounter" value="283" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1516,8 +1516,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_vid_test_reg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1551">
-          <caret line="98" column="41" selection-start-line="98" selection-start-column="41" selection-end-line="98" selection-end-column="41" />
+        <state relative-caret-position="924">
+          <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
           <folding />
         </state>
       </provider>

@@ -77,7 +77,7 @@ for s, sbj in enumerate(sbj_ids):
                 yield x1, y1
 
         def extract_max(heatmap):
-            max_point = np.max(heatmap)
+            max_point = np.argmax(heatmap)
             return (max_point%56, max_point/56)
 
         validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)

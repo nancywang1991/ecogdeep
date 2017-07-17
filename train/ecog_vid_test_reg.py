@@ -96,8 +96,7 @@ for s, sbj in enumerate(sbj_ids):
             plt.savefig("/home/wangnxr/ecogvid2_orig_%i.png" % i)
             plt.imshow(cv2.resize(np.ndarray.transpose(test[0][0][i], (1,2,0)), (56,56)))
             plt.savefig("/home/wangnxr/ecogvid2_input_%i.png" % (i))
-            print extract_max(test[1][i])
-            print extract_max(prediction[i])
+            print np.array(extract_max(test[1][i])) - np.array(extract_max(prediction[i]))
 
         pdb.set_trace()
 

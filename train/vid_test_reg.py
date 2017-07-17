@@ -47,20 +47,24 @@ for s, sbj in enumerate(sbj_ids):
 
         validation_generator =  dgdx_val_vid
 
+        def extract_max(heatmap):
+            max_point = np.argmax(heatmap)
+            return (max_point%56, max_point/56)
+
         #for layer in base_model.layers[:10]:
         #    layer.trainable = False
         #pdb.set_trace()
         files = dgdx_val_vid.filenames
         #results = model.predict_generator(validation_generator, len(files))
-	for b in xrange(1):
-	    test = validation_generator.next()
+        for b in xrange(1):
+            test = validation_generator.next()
             for i in xrange(10):
-		plt.imshow(np.reshape(model.predict(test[0])[i], (56,56)))
-            	plt.savefig("/home/wangnxr/test_%i_%i.png" % (b,i))
-           	plt.imshow(np.reshape(test[1][i], (56,56)))
-            	plt.savefig("/home/wangnxr/orig_%i_%i.png" % (b,i))
-
-		plt.imshow(cv2.resize(np.ndarray.transpose(test[0][i], (1,2,0)), (56,56)))
-		plt.savefig("/home/wangnxr/input_%i_%i.png" % (b,i))
+                plt.imshow(np.reshape(model.predict(test[0])[i], (56,56)))
+                plt.savefig("/home/wangnxr/test_%i_%i.png" % (b,i))
+                plt.imshow(np.reshape(test[1][i], (56,56)))
+                plt.savefig("/home/wangnxr/orig_%i_%i.png" % (b,i))
+                plt.imshow(cv2.resize(np.ndarray.transpose(test[0][i], (1,2,0)), (56,56)))
+                plt.savefig("/home/wangnxr/input_%i_%i.png" % (b,i))
+                print np.array(extract_max(test[1][i])) - np.array(extract_max(prediction[i]))
         pdb.set_trace()
 

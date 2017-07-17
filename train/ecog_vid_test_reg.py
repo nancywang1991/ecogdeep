@@ -76,8 +76,12 @@ for s, sbj in enumerate(sbj_ids):
                 x1 = [x1, x2]
                 yield x1, y1
 
+        def extract_max(heatmap):
+            max_point = np.max(heatmap)
+            return (max_point%56, max_point/56)
+
         validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
-	#validation_generator = dgdx_val_vid
+        #validation_generator = dgdx_val_vid
         #for layer in base_model.layers[:10]:
         #    layer.trainable = False
         #pdb.set_trace()
@@ -85,12 +89,15 @@ for s, sbj in enumerate(sbj_ids):
         #results = model.predict_generator(validation_generator, len(files))
         test = validation_generator.next()
         for i in xrange(10):
-            plt.imshow(np.reshape(model.predict(test[0])[i], (56,56)))
+            prediction = model.predict(test[0])
+            plt.imshow(np.reshape(prediction[i], (56,56)))
             plt.savefig("/home/wangnxr/ecogvid2_test_%i.png" % i)
             plt.imshow(np.reshape(test[1][i], (56,56)))
             plt.savefig("/home/wangnxr/ecogvid2_orig_%i.png" % i)
-	    plt.imshow(cv2.resize(np.ndarray.transpose(test[0][0][i], (1,2,0)), (56,56)))
+            plt.imshow(cv2.resize(np.ndarray.transpose(test[0][0][i], (1,2,0)), (56,56)))
             plt.savefig("/home/wangnxr/ecogvid2_input_%i.png" % (i))
+            print extract_max(test[1][i])
+            print extract_max(prediction[i])
 
         pdb.set_trace()
 

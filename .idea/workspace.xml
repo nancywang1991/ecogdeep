@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train/ecog_lstm_only_train.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,8 +23,8 @@
       <file leaf-file-name="ecog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1456">
-              <caret line="160" column="51" selection-start-line="160" selection-start-column="51" selection-end-line="160" selection-end-column="51" />
+            <state relative-caret-position="-73">
+              <caret line="293" column="68" selection-start-line="293" selection-start-column="53" selection-end-line="293" selection-end-column="68" />
               <folding>
                 <element signature="e#169#207#0" expanded="true" />
               </folding>
@@ -33,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ecog3D.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ecog3D.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog3D.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="769">
-              <caret line="73" column="31" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="31" />
+              <caret line="326" column="26" selection-start-line="326" selection-start-column="26" selection-end-line="326" selection-end-column="26" />
               <folding>
                 <element signature="e#169#207#0" expanded="true" />
               </folding>
@@ -99,7 +98,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ecog_lstm_only_train.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ecog_lstm_only_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_lstm_only_train.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2079">
@@ -202,8 +201,8 @@
         <option value="$PROJECT_DIR$/train/ecog_train.py" />
         <option value="$PROJECT_DIR$/train/ecog_3d_model.py" />
         <option value="$PROJECT_DIR$/train/ecog_train_3d.py" />
-        <option value="$PROJECT_DIR$/../keras/keras/preprocessing/ecog3D.py" />
         <option value="$PROJECT_DIR$/train/ecog_lstm_only_train.py" />
+        <option value="$PROJECT_DIR$/../keras/keras/preprocessing/ecog3D.py" />
       </list>
     </option>
   </component>
@@ -749,13 +748,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00243" summary="regression">
-      <created>1496438115710</created>
-      <option name="number" value="00243" />
-      <option name="presentableId" value="LOCAL-00243" />
-      <option name="project" value="LOCAL" />
-      <updated>1496438115710</updated>
-    </task>
     <task id="LOCAL-00244" summary="regression">
       <created>1496438177979</created>
       <option name="number" value="00244" />
@@ -1092,7 +1084,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503084371136</updated>
     </task>
-    <option name="localTasksCounter" value="292" />
+    <task id="LOCAL-00292" summary="lstm only">
+      <created>1503094619099</created>
+      <option name="number" value="00292" />
+      <option name="presentableId" value="LOCAL-00292" />
+      <option name="project" value="LOCAL" />
+      <updated>1503094619099</updated>
+    </task>
+    <option name="localTasksCounter" value="293" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1150,7 +1149,8 @@
     <MESSAGE value="tsne display" />
     <MESSAGE value="regression" />
     <MESSAGE value="3d train" />
-    <option name="LAST_COMMIT_MESSAGE" value="3d train" />
+    <MESSAGE value="lstm only" />
+    <option name="LAST_COMMIT_MESSAGE" value="lstm only" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1476,32 +1476,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1456">
-          <caret line="160" column="51" selection-start-line="160" selection-start-column="51" selection-end-line="160" selection-end-column="51" />
-          <folding>
-            <element signature="e#169#207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_train_3d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="893">
           <caret line="74" column="45" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog3D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="769">
-          <caret line="73" column="31" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="31" />
-          <folding>
-            <element signature="e#169#207#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1520,14 +1500,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1254">
           <caret line="48" column="5" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1023">
-          <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="53" />
           <folding />
         </state>
       </provider>
@@ -1555,6 +1527,34 @@
         <state relative-caret-position="2079">
           <caret line="82" column="71" selection-start-line="82" selection-start-column="71" selection-end-line="82" selection-end-column="71" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1023">
+          <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-73">
+          <caret line="293" column="68" selection-start-line="293" selection-start-column="53" selection-end-line="293" selection-end-column="68" />
+          <folding>
+            <element signature="e#169#207#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog3D.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="769">
+          <caret line="326" column="26" selection-start-line="326" selection-start-column="26" selection-end-line="326" selection-end-column="26" />
+          <folding>
+            <element signature="e#169#207#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

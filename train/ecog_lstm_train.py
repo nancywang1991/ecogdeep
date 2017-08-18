@@ -20,11 +20,11 @@ import pickle
 import glob
 
 
-sbj_to_do = sbj_ids[2:]
+sbj_to_do = ["a0f", "c95", "cb4", "e5b"]
 
 for itr in xrange(3):
     for s, sbj in enumerate(sbj_ids):
-   	if sbj in sbj_to_do:
+        if sbj in sbj_to_do:
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
         else:
             continue

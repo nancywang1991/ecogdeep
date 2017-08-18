@@ -129,11 +129,11 @@ for s, sbj in enumerate(sbj_ids):
 
             x = Dropout(0.5)(x)
             x = TimeDistributed(Dense(256, W_regularizer=l2(0.01), name='merge1'))(x)
-            x = BatchNormalization()(x)
+            #x = BatchNormalization()(x)
             x = Activation('relu')(x)
             x = Dropout(0.5)(x)
             x = TimeDistributed(Dense(64, W_regularizer=l2(0.01), name='merge2'))(x)
-            x = BatchNormalization()(x)
+            #x = BatchNormalization()(x)
             x = Activation('relu')(x)
             x = Dropout(0.5)(x)
             x = LSTM(20, dropout_W=0.2, dropout_U=0.2, name='lstm')(x)

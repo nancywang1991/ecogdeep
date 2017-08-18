@@ -23,8 +23,8 @@
       <file leaf-file-name="ecog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-73">
-              <caret line="293" column="68" selection-start-line="293" selection-start-column="53" selection-end-line="293" selection-end-column="68" />
+            <state relative-caret-position="538">
+              <caret line="312" column="32" selection-start-line="312" selection-start-column="21" selection-end-line="312" selection-end-column="32" />
               <folding>
                 <element signature="e#169#207#0" expanded="true" />
               </folding>
@@ -35,8 +35,8 @@
       <file leaf-file-name="ecog3D.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog3D.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="769">
-              <caret line="326" column="26" selection-start-line="326" selection-start-column="26" selection-end-line="326" selection-end-column="26" />
+            <state relative-caret-position="604">
+              <caret line="321" column="21" selection-start-line="321" selection-start-column="21" selection-end-line="321" selection-end-column="21" />
               <folding>
                 <element signature="e#169#207#0" expanded="true" />
               </folding>
@@ -748,13 +748,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00244" summary="regression">
-      <created>1496438177979</created>
-      <option name="number" value="00244" />
-      <option name="presentableId" value="LOCAL-00244" />
-      <option name="project" value="LOCAL" />
-      <updated>1496438177979</updated>
-    </task>
     <task id="LOCAL-00245" summary="regression">
       <created>1496438192241</created>
       <option name="number" value="00245" />
@@ -1091,7 +1084,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503094619099</updated>
     </task>
-    <option name="localTasksCounter" value="293" />
+    <task id="LOCAL-00293" summary="lstm only">
+      <created>1503096930011</created>
+      <option name="number" value="00293" />
+      <option name="presentableId" value="LOCAL-00293" />
+      <option name="project" value="LOCAL" />
+      <updated>1503096930011</updated>
+    </task>
+    <option name="localTasksCounter" value="294" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1540,8 +1540,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-73">
-          <caret line="293" column="68" selection-start-line="293" selection-start-column="53" selection-end-line="293" selection-end-column="68" />
+        <state relative-caret-position="538">
+          <caret line="312" column="32" selection-start-line="312" selection-start-column="21" selection-end-line="312" selection-end-column="32" />
           <folding>
             <element signature="e#169#207#0" expanded="true" />
           </folding>
@@ -1550,8 +1550,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog3D.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="769">
-          <caret line="326" column="26" selection-start-line="326" selection-start-column="26" selection-end-line="326" selection-end-column="26" />
+        <state relative-caret-position="604">
+          <caret line="321" column="21" selection-start-line="321" selection-start-column="21" selection-end-line="321" selection-end-column="21" />
           <folding>
             <element signature="e#169#207#0" expanded="true" />
           </folding>

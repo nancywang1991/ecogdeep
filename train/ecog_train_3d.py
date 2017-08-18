@@ -72,7 +72,7 @@ for s, sbj in enumerate(sbj_ids):
             validation_generator =  dgdx_val_edf
             base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
 
-            ecog_series = Input(shape=(1,len(channels),1000))
+            ecog_series = Input(shape=(1,8,8,1000))
 
             x = base_model_ecog(ecog_series)
 

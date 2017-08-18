@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 sbj_ids = ['a0f']
 days = [11]
 start_times = [2800,3400,4000]
+#channels_list = [np.arange(80)]
 channels_list = [np.hstack([np.arange(36), np.arange(37, 68), np.arange(68, 92)])]
 for s, sbj in enumerate(sbj_ids):
     main_ecog_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
@@ -86,17 +87,21 @@ for s, sbj in enumerate(sbj_ids):
         #    layer.trainable = False
         #pdb.set_trace()
         files = dgdx_val_edf.filenames
+	total_dist = 0
         #results = model.predict_generator(validation_generator, len(files))
-        test = validation_generator.next()
-        for i in xrange(10):
-            prediction = model.predict(test[0])
-            plt.imshow(np.reshape(prediction[i], (56,56)))
-            plt.savefig("/home/wangnxr/ecogvid2_test_%i.png" % i)
-            plt.imshow(np.reshape(test[1][i], (56,56)))
-            plt.savefig("/home/wangnxr/ecogvid2_orig_%i.png" % i)
-            plt.imshow(cv2.resize(np.ndarray.transpose(test[0][0][i], (1,2,0)), (56,56)))
-            plt.savefig("/home/wangnxr/ecogvid2_input_%i.png" % (i))
-            print np.array(extract_max(test[1][i])) - np.array(extract_max(prediction[i]))
-
+	for b in xrange(4):
+	    test = validation_generator.next()
+	    prediction = model.predict(test[0])
+            for i in xrange(10):
+                plt.imshow(np.reshape(prediction[i], (56,56)))
+                plt.savefig("/home/wangnxr/ecogvid2_test_%i_%i.png" % (b,i))
+                plt.imshow(np.reshape(test[1][i], (56,56)))
+                plt.savefig("/home/wangnxr/ecogvid2_orig_%i_%i.png" % (b,i))
+                plt.imshow(cv2.resize(np.ndarray.transpose(test[0][0][i], (1,2,0)), (56,56)))
+                plt.savefig("/home/wangnxr/ecogvid2_input_%i_%i.png" % (b,i))
+                dist= np.array(extract_max(test[1][i])) - np.array(extract_max(prediction[i]))
+		print dist
+		total_dist += np.sum(np.abs(dist))
+	print total_dist
         pdb.set_trace()
 

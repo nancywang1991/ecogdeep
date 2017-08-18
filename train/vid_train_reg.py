@@ -5,7 +5,10 @@ from keras.models import Model
 from ecogdeep.train.ecog_1d_model import ecog_1d_model
 from ecogdeep.train.vid_model_reg import vid_model
 from keras.callbacks import ModelCheckpoint
-
+import matplotlib
+matplotlib.use("agg")
+import matplotlib.pyplot as plt
+import cv2
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
 import pdb
@@ -60,7 +63,6 @@ base_model_vid = Model(vid_model.input, vid_model.get_layer("flatten").output)
 
 frame_a = Input(shape=(3,224,224))
 
-
 predictions = base_model_vid(frame_a)
 #x = base_model_vid(frame_a)
 #predictions = Dense(3136, name='predictions', init='normal')(x)
@@ -70,18 +72,17 @@ for layer in base_model_vid.layers:
 model = Model(input=[frame_a], output=predictions)
 
 sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
-
-model_savepath = "/home/wangnxr/models/vid_model4_reg"
+model_savepath = "/home/wangnxr/models/vid_model_cb4_reg"
 model.compile(optimizer=sgd,
               loss='mean_squared_error')
 checkpoint = ModelCheckpoint("%s_chkpt.h5" % model_savepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
 history_callback = model.fit_generator(
     train_generator,
     samples_per_epoch=len(dgdx_vid.filenames),
-    nb_epoch=1000,
+    nb_epoch=50,
     validation_data=validation_generator,
     nb_val_samples=len(dgdx_val_vid.filenames), callbacks=[checkpoint])
 
 model.save("%s.h5" % model_savepath)
-pickle.dump(history_callback.history, open("/home/wangnxr/models/vid_history4_reg.txt", "wb"))
+pickle.dump(history_callback.history, open("/home/wangnxr/models/vid_history_a0f_reg.txt", "wb"))
 

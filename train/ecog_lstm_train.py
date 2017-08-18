@@ -20,7 +20,7 @@ import pickle
 import glob
 
 
-sbj_to_do = ["cb4", "e5b"]
+sbj_to_do = sbj_ids[2:]
 
 for itr in xrange(3):
     for s, sbj in enumerate(sbj_ids):
@@ -100,7 +100,7 @@ for itr in xrange(3):
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "/home/wangnxr/models/ecog_model_lstm20_%s_itr_%i_t_%i_" % (sbj,itr,time)
+            model_savepath = "/home/wangnxr/models/ecog_model_lstm20_%s_itr_%i_t_%i_v2_" % (sbj,itr,time)
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',
                           metrics=['accuracy'])
@@ -109,7 +109,7 @@ for itr in xrange(3):
             history_callback = model.fit_generator(
                 train_generator,
                 samples_per_epoch=len(dgdx_edf.filenames),
-                nb_epoch=400,
+                nb_epoch=200,
                 validation_data=validation_generator,
                 nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint, early_stop])
 

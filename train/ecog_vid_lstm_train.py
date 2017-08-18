@@ -19,7 +19,7 @@ import pickle
 import glob
 
 
-sbj_to_do = ["cb4"]
+sbj_to_do = sbj_ids[2:]
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
         main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
@@ -152,7 +152,7 @@ for s, sbj in enumerate(sbj_ids):
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "/home/wangnxr/models/ecog_vid_model_lstm_%s_itr_%i_t_%i_" % (sbj, itr, time)
+            model_savepath = "/home/wangnxr/models/ecog_vid_model_lstm_%s_itr_%i_t_%i_v2_" % (sbj, itr, time)
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',
                           metrics=['accuracy'])

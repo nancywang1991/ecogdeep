@@ -14,15 +14,15 @@ import cv2
 
 """
 
-sbj_ids = ['a0f']
-days = [11]
+sbj_ids = ['cb4']
+days = [10]
 start_times = [2800,3400,4000]
-channels_list = [np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)])]
+channels_list = np.arange(80)
 for s, sbj in enumerate(sbj_ids):
     main_vid_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     for t, time in enumerate(start_times):
         try:
-            model_file =  "/home/wangnxr/models/vid_model4_reg_chkpt.h5"
+            model_file =  "/home/wangnxr/models/vid_model_cb4_reg_chkpt.h5"
             model = load_model(model_file)
         except:
             continue
@@ -56,7 +56,8 @@ for s, sbj in enumerate(sbj_ids):
         #pdb.set_trace()
         files = dgdx_val_vid.filenames
         #results = model.predict_generator(validation_generator, len(files))
-        for b in xrange(1):
+	total_dist = 0
+        for b in xrange(4):
             test = validation_generator.next()
             prediction = model.predict(test[0])
             for i in xrange(10):
@@ -66,6 +67,9 @@ for s, sbj in enumerate(sbj_ids):
                 plt.savefig("/home/wangnxr/orig_%i_%i.png" % (b,i))
                 plt.imshow(cv2.resize(np.ndarray.transpose(test[0][i], (1,2,0)), (56,56)))
                 plt.savefig("/home/wangnxr/input_%i_%i.png" % (b,i))
-                print np.array(extract_max(test[1][i])) - np.array(extract_max(prediction[i]))
-        pdb.set_trace()
+		dist = np.array(extract_max(test[1][i])) - np.array(extract_max(prediction[i]))
+        	print dist
+		total_dist+=np.sum(np.abs(dist))
+	print total_dist
+	pdb.set_trace()
 

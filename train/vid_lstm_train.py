@@ -72,7 +72,7 @@ for itr in xrange(3,4):
             x = base_model_vid(frame_a)
             x = Dropout(0.5)(x)
             x = TimeDistributed(Dense(256, W_regularizer=l2(0.01), name='merge2'))(x)
-            x = BatchNormalization()(x)
+            #x = BatchNormalization()(x)
             x = Activation('relu')(x)
             x = Dropout(0.5)(x)
             x = LSTM(20, dropout_W=0.2, dropout_U=0.2, name='lstm')(x)

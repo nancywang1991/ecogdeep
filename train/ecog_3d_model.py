@@ -15,7 +15,7 @@ def ecog_3d_model(channels=None, weights=None):
 
     input_tensor = Input(shape=(1, channels, 1000))
     # Block 1
-    x = AveragePooling3D((1, 1, 5), name='pre_pool')(input_tensor)
+    x = AveragePooling3D((1, 1, 1, 5), name='pre_pool')(input_tensor)
     x = Convolution3D(4, 2, 2, 3, border_mode='same', name='block1_conv1')(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)

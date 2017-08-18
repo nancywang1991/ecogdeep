@@ -15,23 +15,23 @@ def ecog_3d_model(channels=None, weights=None):
 
     input_tensor = Input(shape=(1,8,8, 1000))
     # Block 1
-    x = AveragePooling3D((1, 1, 1, 5), name='pre_pool')(input_tensor)
+    x = AveragePooling3D((1, 1, 5), name='pre_pool')(input_tensor)
     x = Convolution3D(4, 2, 2, 3, border_mode='same', name='block1_conv1')(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = MaxPooling3D((1, 2, 2, 3), name='block1_pool')(x)
+    x = MaxPooling3D((2, 2, 3), name='block1_pool')(x)
 
     # Block 2
     x = Convolution3D(8, 2, 2, 3, border_mode='same', name='block2_conv1')(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = MaxPooling3D((1, 1, 1, 3), name='block2_pool')(x)
+    x = MaxPooling3D(( 1, 1, 3), name='block2_pool')(x)
 
     # Block 3
     x = Convolution3D(16, 2,2, 3, border_mode='same', name='block3_conv1')(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
-    x = MaxPooling3D((1, 1, 1, 2), name='block3_pool')(x)
+    x = MaxPooling3D((1, 1, 2), name='block3_pool')(x)
 
     # Block 4
     # x = Convolution2D(32, 1, 3, border_mode='same', name='block4_conv1')(x)

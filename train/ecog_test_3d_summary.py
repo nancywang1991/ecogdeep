@@ -36,7 +36,7 @@ with open("/home/wangnxr/results/ecog_conv_3d_summary_results.txt", "wb") as sum
 
                 dgdx_val_edf = test_datagen_edf.flow_from_directory(
                     #'/mnt/cb46fd46_5_no_offset/test/',
-                    '%s/val/' % main_ecog_dir,
+                    '%s' % main_ecog_dir,
                     batch_size=10,
                     shuffle=False,
                     target_size=(1, 8, 8, 1000),

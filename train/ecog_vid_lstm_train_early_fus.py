@@ -115,7 +115,7 @@ for s, sbj in enumerate(sbj_ids):
                     combined = []
                     for i in xrange(len(x2)):
                         combined.append(np.hstack([x1[i], x2[i]]))
-                    yield combined, y1
+                    yield np.hstack(combined), y1
 
             train_generator = izip_input(dgdx_vid, dgdx_edf)
             validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)

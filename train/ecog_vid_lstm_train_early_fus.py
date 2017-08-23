@@ -108,9 +108,10 @@ for s, sbj in enumerate(sbj_ids):
             def izip_input(gen1, gen2):
                 while 1:
                     #pdb.set_trace()
+                    pdb.set_trace()
                     x1, y1 = gen1.next()
                     x2 = gen2.next()[0]
-                    pdb.set_trace()
+
                     if not x1.shape[0] == x2.shape[0]:
                         pdb.set_trace()
                     combined = []

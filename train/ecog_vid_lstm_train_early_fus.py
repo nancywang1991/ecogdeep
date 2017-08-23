@@ -72,12 +72,12 @@ for s, sbj in enumerate(sbj_ids):
             train_datagen_vid = ImageDataGenerator(
                 rescale=1./255,
                 random_black=True,
-                random_crop=(224,224),
+                #random_crop=(224,224),
                 keep_frames=frames[t])
 
             test_datagen_vid = ImageDataGenerator(
                 rescale=1./255,
-                center_crop=(224, 224),
+                #center_crop=(224, 224),
                 keep_frames=frames[t])
 
             model = ecog_vid_1d_model(channels=len(channels))

@@ -44,8 +44,8 @@
       <file leaf-file-name="ecog_vid_lstm_train_early_fus.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train_early_fus.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="79" column="17" selection-start-line="79" selection-start-column="17" selection-end-line="79" selection-end-column="17" />
+            <state relative-caret-position="858">
+              <caret line="108" column="24" selection-start-line="108" selection-start-column="24" selection-end-line="108" selection-end-column="24" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -665,13 +665,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00251" summary="regression">
-      <created>1496438555043</created>
-      <option name="number" value="00251" />
-      <option name="presentableId" value="LOCAL-00251" />
-      <option name="project" value="LOCAL" />
-      <updated>1496438555043</updated>
-    </task>
     <task id="LOCAL-00252" summary="regression">
       <created>1496438631077</created>
       <option name="number" value="00252" />
@@ -1008,7 +1001,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503507979339</updated>
     </task>
-    <option name="localTasksCounter" value="300" />
+    <task id="LOCAL-00300" summary="lstm only">
+      <created>1503508337300</created>
+      <option name="number" value="00300" />
+      <option name="presentableId" value="LOCAL-00300" />
+      <option name="project" value="LOCAL" />
+      <updated>1503508337300</updated>
+    </task>
+    <option name="localTasksCounter" value="301" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1502,8 +1502,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_vid_lstm_train_early_fus.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="79" column="17" selection-start-line="79" selection-start-column="17" selection-end-line="79" selection-end-column="17" />
+        <state relative-caret-position="858">
+          <caret line="108" column="24" selection-start-line="108" selection-start-column="24" selection-end-line="108" selection-end-column="24" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

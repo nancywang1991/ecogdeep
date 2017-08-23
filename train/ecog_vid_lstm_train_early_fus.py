@@ -107,8 +107,6 @@ for s, sbj in enumerate(sbj_ids):
 
             def izip_input(gen1, gen2):
                 while 1:
-                    #pdb.set_trace()
-                    pdb.set_trace()
                     x1, y1 = gen1.next()
                     x2 = gen2.next()[0]
 
@@ -116,7 +114,7 @@ for s, sbj in enumerate(sbj_ids):
                         pdb.set_trace()
                     combined = []
                     for i in xrange(len(x2)):
-                        combined.append(np.vstack([x1[i], x2[i]]))
+                        combined.append(np.hstack([x1[i], x2[i]]))
                     yield combined, y1
 
             train_generator = izip_input(dgdx_vid, dgdx_edf)

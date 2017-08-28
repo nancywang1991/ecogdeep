@@ -84,15 +84,14 @@ def process_result_valbest(lines):
             for time in start_times:
                 timelines = [sbjlines[ind:ind+3] for ind in detect_ind("t_" + str(time), sbjlines)]
                 if len(timelines) > 1:
-		    try:
-			#pdb.set_trace()
-			timelines = timelines[np.argmax([max(pickle.load(open("/home/wangnxr/history/" + timeline[0].split("__")[0]+ "_.p"))["val_acc"])
+                    try:
+                        timelines = timelines[np.argmax([max(pickle.load(open("/home/wangnxr/history/" + timeline[0].split("__")[0]+ "_.p"))["val_acc"])])]
                     # Must choose between multiple iterations by best validation accuracy
-		    except:
-		        timelines = timelines[np.argmax([float(timeline[1])+float(timeline[2]) for timeline in timelines])]
+                    except:
+                        timelines = timelines[np.argmax([float(timeline[1])+float(timeline[2]) for timeline in timelines])]
                         print timelines[0] 
-		elif len(timelines)==0:
-                    timelines = [-1,-1,-1]
+                elif len(timelines)==0:
+                            timelines = [-1,-1,-1]
                 else:
                     timelines = timelines[0]
                 result_dict[sbj][time] = timelines

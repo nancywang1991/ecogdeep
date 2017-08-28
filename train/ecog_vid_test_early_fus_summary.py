@@ -48,7 +48,7 @@ with open("/home/wangnxr/results/ecog_vid_lstm_early_fus_summary_results.txt", "
                 )
 
                 dgdx_val_edf = test_datagen_edf.flow_from_directory(
-                    '%s/val/' % main_ecog_dir,
+                    '/%s/' % main_ecog_dir,
                     batch_size=10,
                     shuffle=False,
                     target_size=(1, len(channels), 1000),
@@ -64,7 +64,7 @@ with open("/home/wangnxr/results/ecog_vid_lstm_early_fus_summary_results.txt", "
                     keep_frames=frames[t])
 
                 dgdx_val = test_datagen.flow_from_directory(
-                    '/%s/val/' % main_vid_dir,
+                    '/%s/' % main_vid_dir,
                     img_mode="seq",
                     read_formats={'png'},
                     target_size=(len(channels), int(200)),

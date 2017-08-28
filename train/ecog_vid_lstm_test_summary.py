@@ -34,7 +34,7 @@ with open("/home/wangnxr/results/ecog_vid_lstm_summary_results_temp.txt", "wb") 
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             for itr in xrange(3):
                 model_files = glob.glob(
-                    '/home/wangnxr/models/valbest/ecog_vid_model_lstm_%s_itr_%i_t_%i_*chkpt.h5' % (sbj, itr, time))
+                    '/home/wangnxr/models/ecog_vid_model_lstm_%s_itr_%i_t_%i_*v2__chkpt.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
                 ## Data generation ECoG

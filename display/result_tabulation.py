@@ -86,11 +86,11 @@ def process_result_valbest(lines):
                 if len(timelines) > 1:
 		    try:
 			#pdb.set_trace()
-                    	timelines = timelines[np.argmax([max(pickle.load(open("/home/wangnxr/history/" + timeline[0].split("__")[0]+ "_.p"))["val_acc"])
+			timelines = timelines[np.argmax([max(pickle.load(open("/home/wangnxr/history/" + timeline[0].split("__")[0]+ "_.p"))["val_acc"])
                     # Must choose between multiple iterations by best validation accuracy
 		    except:
-			timelines = timelines[np.argmax([float(timeline[1])+float(timeline[2]) for timeline in timelines])]
-                    print timelines[0] 
+		        timelines = timelines[np.argmax([float(timeline[1])+float(timeline[2]) for timeline in timelines])]
+                        print timelines[0] 
 		elif len(timelines)==0:
                     timelines = [-1,-1,-1]
                 else:
@@ -102,16 +102,16 @@ def process_result_valbest(lines):
     return result_dict
 
 # Result summary files
-ecog_file = "/home/wangnxr/results/ecog_lstm20_summary_results.txt"
+ecog_file = "/home/wangnxr/results/ecog_lstm20_summary_results_temp.txt"
 vid_file = "/home/wangnxr/results/vid_lstm_summary_results.txt"
-ecog_vid_file = "/home/wangnxr/results/ecog_vid_lstm_summary_results.txt"
+ecog_vid_file = "/home/wangnxr/results/ecog_vid_lstm_summary_results_temp.txt"
 svm_file = "/home/wangnxr/results/ecog_svm_summary_results.txt"
-ecog_conv_file = "/home/wangnxr/results/ecog_conv_summary_results.txt"
+ecog_conv_file = "/home/wangnxr/results/ecog_conv_summary_results_v2.txt"
 ecog_avg_file = "/home/wangnxr/results/ecog_vid_avg_summary_results.txt"
 
 # Save Files
-result_table = "/home/wangnxr/results/summary_table.csv"
-result_table_valbest = "/home/wangnxr/results/summary_table_valbest.csv"
+result_table = "/home/wangnxr/results/summary_table_v2.csv"
+result_table_valbest = "/home/wangnxr/results/summary_table_valbest_v2.csv"
 
 #Test based table set up
 with open(result_table, 'wb') as csvfile:
@@ -165,7 +165,7 @@ with open(result_table, 'wb') as csvfile:
     axes[0].text(3,90,"Decode", zorder=3)
     lgd = axes[0].legend([rects_list[i, t][0] for i in xrange(4)], ("vid", "ecog", "simp_avg", "ecog+vid"), bbox_to_anchor=(1, 0))
     #    fig.tight_layout()
-    fig.savefig("/home/wangnxr/results/tabulated_graph.png", bbox_extra_artists=(lgd,), bbox_inches='tight')
+    fig.savefig("/home/wangnxr/results/tabulated_graph_v2.png", bbox_extra_artists=(lgd,), bbox_inches='tight')
 
 #Validation based table set up
 with open(result_table_valbest, 'wb') as csvfile:
@@ -220,6 +220,6 @@ with open(result_table_valbest, 'wb') as csvfile:
     lgd = axes[0].legend([rects_list[i, t][0] for i in xrange(5)], ("vid", "ecog", "simp_avg", "ecog+vid"),
                          bbox_to_anchor=(1, 0))
     #    fig.tight_layout()
-    fig.savefig("/home/wangnxr/results/tabulated_graph_valbest.png", bbox_extra_artists=(lgd,), bbox_inches='tight')
+    fig.savefig("/home/wangnxr/results/tabulated_graph_valbest_v2.png", bbox_extra_artists=(lgd,), bbox_inches='tight')
 
 

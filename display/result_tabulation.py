@@ -52,7 +52,7 @@ def process_result(lines):
             for time in start_times:
                 timelines = [sbjlines[ind:ind+3] for ind in detect_ind("t_" + str(time), sbjlines)]
                 if len(timelines) > 1:
-                    timelines = [timelines[np.argsort([float(timeline[1])+float(timeline[2]) for timeline in timelines])[-1]], timelines[np.argsort([float(timeline[1])+float(timeline[2]) for timeline in timelines])[-1]]]
+                    timelines = timelines[np.argsort([float(timeline[1])+float(timeline[2]) for timeline in timelines])[-1]]
                     # Must choose between multiple iterations by best test accuracy
                 elif len(timelines)==0:
                     # This time does not exist
@@ -85,7 +85,7 @@ def process_result_valbest(lines):
                 timelines = [sbjlines[ind:ind+3] for ind in detect_ind("t_" + str(time), sbjlines)]
                 if len(timelines) > 1:
                     try:
-                        timelines = timelines[np.argmax([max(pickle.load(open("/home/wangnxr/history/" + timeline[0].split("__")[0]+ "_.p"))["val_acc"])])]
+			timelines = timelines[np.argmax([max(pickle.load(open("/home/wangnxr/history/" + timeline[0].split("__")[0]+ "_.p"))["val_acc"]) for timeline in timelines])]
                     # Must choose between multiple iterations by best validation accuracy
                     except:
                         timelines = timelines[np.argmax([float(timeline[1])+float(timeline[2]) for timeline in timelines])]
@@ -106,7 +106,10 @@ vid_file = "/home/wangnxr/results/vid_lstm_summary_results.txt"
 ecog_vid_file = "/home/wangnxr/results/ecog_vid_lstm_summary_results_temp.txt"
 svm_file = "/home/wangnxr/results/ecog_svm_summary_results.txt"
 ecog_conv_file = "/home/wangnxr/results/ecog_conv_summary_results_v2.txt"
-ecog_avg_file = "/home/wangnxr/results/ecog_vid_avg_summary_results.txt"
+ecog_avg_file = "/home/wangnxr/results/ecog_vid_avg_summary_results_v2.txt"
+ecog_3dconv_file = "/home/wangnxr/results/ecog_conv_3d_summary_results.txt"
+ecog_lstm_only_file = "/home/wangnxr/results/ecog_lstm_only_summary_results_v2.txt"
+ecog_vid_early_fus_file = "/home/wangnxr/results/ecog_vid_lstm_early_fus_summary_results.txt"
 
 # Save Files
 result_table = "/home/wangnxr/results/summary_table_v2.csv"
@@ -138,8 +141,8 @@ with open(result_table, 'wb') as csvfile:
 
         for sbj in sbj_ids:
             accuracy_1.append([result_dict[sbj][time][1] for time in start_times])
-            accuracy_0.append([result_dict[sbj][time][2] for time in start_times])
-            avg = [np.mean([float(result_dict[sbj][time][1]),float(result_dict[sbj][time][2])]) for time in start_times]
+	    accuracy_0.append([result_dict[sbj][time][2] for time in start_times])
+	    avg = [np.mean([float(result_dict[sbj][time][1]),float(result_dict[sbj][time][2])]) for time in start_times]
             average.append(avg)
         for t in range(len(start_times)):
             axes[2-t].set_yticks(np.arange(0,101,10), minor=True)
@@ -176,9 +179,9 @@ with open(result_table_valbest, 'wb') as csvfile:
     fig, axes = plt.subplots(3)
     ind = np.arange(4)
     width = 0.1
-    colors = 'mgbyc'
+    colors = 'mgbycmgby'
     rects_list = []
-    for r, result_file in enumerate([svm_file, vid_file, ecog_file, ecog_avg_file, ecog_vid_file]):
+    for r, result_file in enumerate([ecog_conv_file, ecog_3dconv_file, ecog_lstm_only_file, ecog_vid_early_fus_file, svm_file, vid_file, ecog_file, ecog_avg_file, ecog_vid_file]):
         writer.writerow([result_file])
 	
         result_dict = process_result_valbest([line.split(":")[-1][:-1] for line in open(result_file).readlines()])

@@ -19,14 +19,14 @@ import pickle
 import glob
 
 
-sbj_to_do = sbj_ids[2:]
+#sbj_to_do = sbj_ids[2:]
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
         main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
         main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     else:
         continue
-    for itr in range(3):
+    for itr in range(1):
         for t, time in enumerate(start_times):
             ## Data generation ECoG
             channels = channels_list[s]
@@ -129,11 +129,11 @@ for s, sbj in enumerate(sbj_ids):
 
             x = Dropout(0.5)(x)
             x = TimeDistributed(Dense(256, W_regularizer=l2(0.01), name='merge1'))(x)
-            #x = BatchNormalization()(x)
+            x = BatchNormalization()(x)
             x = Activation('relu')(x)
             x = Dropout(0.5)(x)
             x = TimeDistributed(Dense(64, W_regularizer=l2(0.01), name='merge2'))(x)
-            #x = BatchNormalization()(x)
+            x = BatchNormalization()(x)
             x = Activation('relu')(x)
             x = Dropout(0.5)(x)
             x = LSTM(20, dropout_W=0.2, dropout_U=0.2, name='lstm')(x)
@@ -152,7 +152,7 @@ for s, sbj in enumerate(sbj_ids):
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "/home/wangnxr/models/ecog_vid_model_lstm_%s_itr_%i_t_%i_v2_" % (sbj, itr, time)
+            model_savepath = "/home/wangnxr/models/ecog_vid_model_lstm_%s_itr_%i_t_%i_vbatch_norm_" % (sbj, itr, time)
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',
                           metrics=['accuracy'])

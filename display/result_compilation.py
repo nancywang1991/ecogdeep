@@ -11,13 +11,13 @@ Example:
 
 """
 
-with open("/home/wangnxr/results/ecog_vid_avg_summary_results.txt", "wb") as summary_file:
+with open("/home/wangnxr/results/ecog_vid_avg_summary_results_v2.txt", "wb") as summary_file:
     for s, sbj in enumerate(sbj_ids):
         for time in start_times:
             #Paths to best models
-            model1 = glob.glob('/home/wangnxr/models/best/vid_model_lstm_%s_itr_*_t_%i_*' % (sbj, time))
-            model2 = glob.glob('/home/wangnxr/models/best/ecog_model_lstm20_%s_itr_*_t_%i_*' % (sbj, time))
-            new_file = open("/home/wangnxr/results/ecog_vid_avg_model_lstm_%s_t_%s.txt" % (sbj, time), "wb")
+            model1 = glob.glob('/home/wangnxr/models/valbest/vid_model_lstm_%s_itr_*_t_%i_*' % (sbj, time))
+            model2 = glob.glob('/home/wangnxr/models/valbest/ecog_model_lstm20_%s_itr_*_t_%i_*' % (sbj, time))
+            new_file = open("/home/wangnxr/results/ecog_vid_avg_model_lstm_%s_t_%s_v2.txt" % (sbj, time), "wb")
             #Skip if some model doesn't exist
             if len(model1) == 0 or len(model2)==0:
                 continue

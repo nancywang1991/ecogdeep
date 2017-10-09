@@ -9,10 +9,11 @@ Example:
 
 """
 
-result_file = "C:/Users/Nancy/OneDrive/Documents/Documents/brunton_lab/NIPS2017/ecog_vid_lstm_summary_results_ablate_main.txt"
+result_file = "C:/Users/Nancy/OneDrive/Documents/Documents/brunton_lab/AAAI2018/ablate/ecog_vid_lstm_summary_results_ablate_main.txt"
 # Accuracy without any ablation in the order of the result_file
-acc_orig = [0.64, 0.64,	0.65, 0.87,	0.88, 0.85, 0.69, 0.71,	0.71]
-
+# multimodal
+acc_orig = [0.77, 0.82, 0.87, 0.60, 0.62, 0.62, 0.68, 0.71,	0.80, 0.66, 0.62, 0.63]
+#acc_orig = [0.67, 0.59, 0.66, 0.67, 0.66, 0.65, 0.66, 0.68,	0.83, 0.57, 0.55, 0.57]
 results = open(result_file).readlines()
 file_start_inds = [i for i in xrange(len(results)) if results[i][:4]=="ecog"]
 

@@ -103,7 +103,7 @@ def process_result_valbest(lines):
 # Result summary files
 ecog_file = "/home/wangnxr/results/ecog_lstm20_summary_results_temp.txt"
 vid_file = "/home/wangnxr/results/vid_lstm_summary_results.txt"
-ecog_vid_file = "/home/wangnxr/results/ecog_vid_lstm_summary_results_temp.txt"
+ecog_vid_file = "/home/wangnxr/results/ecog_vid_lstm_summary_results_more_lstm.txt"
 svm_file = "/home/wangnxr/results/ecog_svm_summary_results.txt"
 ecog_conv_file = "/home/wangnxr/results/ecog_conv_summary_results_v2.txt"
 ecog_avg_file = "/home/wangnxr/results/ecog_vid_avg_summary_results_v2.txt"
@@ -112,8 +112,8 @@ ecog_lstm_only_file = "/home/wangnxr/results/ecog_lstm_only_summary_results_v2.t
 ecog_vid_early_fus_file = "/home/wangnxr/results/ecog_vid_lstm_early_fus_summary_results.txt"
 
 # Save Files
-result_table = "/home/wangnxr/results/summary_table_v2.csv"
-result_table_valbest = "/home/wangnxr/results/summary_table_valbest_v2.csv"
+result_table = "/home/wangnxr/results/summary_table_v3.csv"
+result_table_valbest = "/home/wangnxr/results/summary_table_valbest_v3.csv"
 
 #Test based table set up
 with open(result_table, 'wb') as csvfile:

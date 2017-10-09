@@ -15,8 +15,8 @@ def ecog_1d_model(weights=None, channels=None):
 
     input_tensor = Input(shape=( 5, 1, channels, 200))
     # Block 1
-    x = TimeDistributed(MaxPooling2D((1, 5)), name='pre_pool')(input_tensor)
-    x = TimeDistributed(Convolution2D(4, 1, 3, border_mode='same'), name='block1_conv1')(x)
+    #x = TimeDistributed(MaxPooling2D((1, 5)), name='pre_pool')(input_tensor)
+    x = TimeDistributed(Convolution2D(4, 1, 3, border_mode='same'), name='block1_conv1')(input_tensor)
     #x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((1, 3)), name='block1_pool')(x)

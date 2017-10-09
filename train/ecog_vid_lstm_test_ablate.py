@@ -23,13 +23,13 @@ def izip_input(gen1, gen2):
             pdb.set_trace()
         yield [x1, x2], y1
 
-with open("/home/wangnxr/results/ecog_vid_lstm_summary_results_ablate6.txt", "wb") as summary_writer:
+with open("/home/wangnxr/results/ecog_vid_lstm_summary_results_ablate_v2_3.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
-	if not sbj == "cb4":# and not sbj=="d65":
+	if not sbj == "c95":# and not sbj=="d65":
 		continue
         for t, time in enumerate(start_times):
-	    if not time==3300:
-		continue
+#	    if not time==3300:
+#		continue
             main_vid_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             for itr in xrange(1):

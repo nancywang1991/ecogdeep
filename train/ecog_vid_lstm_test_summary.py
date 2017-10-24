@@ -23,7 +23,7 @@ def izip_input(gen1, gen2):
             pdb.set_trace()
         yield [x1, x2], y1
 
-with open("/home/wangnxr/results/ecog_vid_lstm_summary_results_more_lstm.txt", "wb") as summary_writer:
+with open("/home/wangnxr/results/ecog_vid_lstm_summary_results_v3.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
 	#if not sbj == "cb4":
 	    #continue
@@ -34,7 +34,7 @@ with open("/home/wangnxr/results/ecog_vid_lstm_summary_results_more_lstm.txt", "
             main_ecog_dir = '/home/wangnxr/dataset/ecog_vid_combined_%s_day%i/test/' % (sbj, days[s])
             for itr in xrange(3):
                 model_files = glob.glob(
-                    '/home/wangnxr/models/ecog_vid_model_lstm_%s_itr_%i_t_%i_*more_lstm__chkpt.h5' % (sbj, itr, time))
+                    '/home/wangnxr/models/valbest2/ecog_vid_model_lstm_%s_itr_%i_t_%i_v3__chkpt.h5' % (sbj, itr, time))
                 if len(model_files)==0:
                     continue
                 ## Data generation ECoG

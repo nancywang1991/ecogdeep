@@ -2,6 +2,7 @@ import numpy as np
 import glob
 import shutil
 import argparse
+import pdb
 
 def y_loc(file):
     end = int((3500 + 999) * (30 / 1000.0))
@@ -21,20 +22,21 @@ def y_loc(file):
     return ydata_end
 
 def main(main_dir):
-    total_y_cnt = np.array(shape=(56,56))
+    total_y_cnt = np.zeros(shape=(64,64))
     file_y_dict = {}
     for file in glob.glob("%s/Y/*.npy"% main_dir):
         y_data_end = y_loc(file)
         file_y_dict[file] = y_data_end
-        total_y_cnt[y_data_end] += 1
+	#pdb.set_trace()
+        total_y_cnt[int(y_data_end[0]), int(y_data_end[1])] += 1
 
-    max_y_cnt = max(total_y_cnt)
+    max_y_cnt = np.max(total_y_cnt)
     for file, y_data_end in file_y_dict.iteritems():
-        copies = max_y_cnt/total_y_cnt[y_data_end]
+        copies = max_y_cnt/total_y_cnt[int(y_data_end[0]),int(y_data_end[1])]
         filename = file.split("/")[-1].split(".")[0]
-        for c in xrange(copies):
+        for c in xrange(min(10,int(copies))):
             shutil.copyfile("%s/X/%s.png" % (main_dir, filename), "%s/X/%s_copy_%i.png" % (main_dir, filename, c))
-            shutil.copyfile("%s/Y/%s.npy" % (main_dir, filename), "%s/X/%s_copy_%i.npy" % (main_dir, filename, c))
+            shutil.copyfile("%s/Y/%s.npy" % (main_dir, filename), "%s/Y/%s_copy_%i.npy" % (main_dir, filename, c))
             shutil.copyfile("%s/X/%s.npy" % (main_dir, filename), "%s/X/%s_copy_%i.npy" % (main_dir, filename, c))
 
 if __name__ == "__main__":

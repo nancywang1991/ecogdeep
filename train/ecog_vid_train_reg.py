@@ -13,15 +13,16 @@ import numpy as np
 import pdb
 import pickle
 import glob
+import time
 
-sbj_to_do = ["a0f", "cb4"]
+sbj_to_do = ["a0f"]
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
         main_vid_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
         main_ecog_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     else:
         continue
-    for itr in range(3):
+    for itr in range(2,3):
         times = [3900,3700,3500]
 
         # Video data generators
@@ -39,7 +40,8 @@ for s, sbj in enumerate(sbj_ids):
             center_crop=(224, 224))
 
 
-        vid_model = vid_model()
+        video_model = vid_model()
+
 
         dgdx_vid = train_datagen_vid.flow_from_directory(
             '/%s/train/' % main_vid_dir,
@@ -117,7 +119,7 @@ for s, sbj in enumerate(sbj_ids):
         train_generator = izip_input(dgdx_vid, dgdx_edf)
         validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
 
-        base_model_vid = Model(vid_model.input, vid_model.get_layer("flatten").output)
+        base_model_vid = Model(video_model.input, video_model.get_layer("flatten").output)
 
         frame_a = Input(shape=(3,224,224))
 
@@ -138,17 +140,17 @@ for s, sbj in enumerate(sbj_ids):
 
         model = Model(input=[frame_a, ecog_series], output=predictions)
 
-        model_savepath = "/home/wangnxr/models/ecog_vid_model_%s_itr_%i_reg" % (sbj, itr)
+        model_savepath = "/home/wangnxr/models/ecog_vid_model_%s_itr_%i_rebal_reg" % (sbj, itr)
         model.compile(optimizer=sgd,
                       loss='mean_squared_error')
-        checkpoint = ModelCheckpoint("%s_chkpt.h5" % model_savepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
+        checkpoint = ModelCheckpoint(model_savepath + "_" + "{epoch:02d}" + "_chkpt.h5", monitor='val_loss', verbose=1, save_best_only=False, mode='min', period=30)
         history_callback = model.fit_generator(
             train_generator,
             samples_per_epoch=len(dgdx_vid.filenames),
-            nb_epoch=50,
+            nb_epoch=200,
             validation_data=validation_generator,
             nb_val_samples=len(dgdx_val_vid.filenames), callbacks=[checkpoint])
 
         model.save("%s.h5" % model_savepath)
-        pickle.dump(history_callback.history, open("/home/wangnxr/models/ecog_vid_history_%s_itr_%i_reg.txt" % (sbj, itr), "wb"))
-
+        pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_vid_history_%s_itr_%i_200ep_reg.txt" % (sbj, itr), "wb"))
+	time.sleep(50)

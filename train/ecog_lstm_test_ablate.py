@@ -14,7 +14,7 @@ import glob
 
 with open("/home/wangnxr/results/ecog_lstm_summary_results_ablate_v2_3.txt", "wb") as summary_writer:
     for s, sbj in enumerate(sbj_ids):
-        if not sbj == "c95":
+        if not sbj == "c95" and not sbj == "d65":
             continue
         for time in start_times:
         #    if not time == 3300:

@@ -24,6 +24,7 @@ def makeGaussian(size, fwhm = 3, center=None):
 
 mvmt = np.zeros(shape=(56,56))
 for file in glob.glob("C:\\Users\\Nancy\\Downloads\\Y\\*.npy"):
+    print file
     ydata = np.load(file)[(end - 15):end]
     ydata_start = ydata[0]
     ydata_end = ydata[-1]

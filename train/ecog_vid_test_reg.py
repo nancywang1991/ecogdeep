@@ -10,19 +10,20 @@ from keras.preprocessing.image_reg import ImageDataGenerator
 import matplotlib
 matplotlib.use("agg")
 import matplotlib.pyplot as plt
+from sbj_parameters import *
 
 """Accuracy of test set using ECoG LSTM model.
 
 """
 
-sbj_ids = ['a0f']
-days = [11]
+sbj_to_do = ["a0f"]
 start_times = [2800,3400,4000]
-#channels_list = [np.arange(80)]
-channels_list = [np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)])]
 for s, sbj in enumerate(sbj_ids):
-    main_ecog_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
-    main_vid_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
+    if sbj in sbj_to_do:
+        main_ecog_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
+        main_vid_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
+    else:
+        continue
     for t, time in enumerate(start_times):
         try:
             model_file =  "/home/wangnxr/models/ecog_vid_model_a0f_itr_0_rebal_reg_89_chkpt.h5"
@@ -87,11 +88,11 @@ for s, sbj in enumerate(sbj_ids):
         #    layer.trainable = False
         #pdb.set_trace()
         files = dgdx_val_edf.filenames
-	total_dist = 0
+        total_dist = 0
         #results = model.predict_generator(validation_generator, len(files))
-	for b in xrange(4):
-	    test = validation_generator.next()
-	    prediction = model.predict(test[0])
+        for b in xrange(4):
+            test = validation_generator.next()
+            prediction = model.predict(test[0])
             for i in xrange(10):
                 plt.imshow(np.reshape(prediction[i], (56,56)))
                 plt.savefig("/home/wangnxr/results_tmp/ecogvid2_test_%i_%i.png" % (b,i))
@@ -100,8 +101,8 @@ for s, sbj in enumerate(sbj_ids):
                 plt.imshow(cv2.resize(np.ndarray.transpose(test[0][0][i], (1,2,0)), (56,56)))
                 plt.savefig("/home/wangnxr/results_tmp/ecogvid2_input_%i_%i.png" % (b,i))
                 dist= np.array(extract_max(test[1][i])) - np.array(extract_max(prediction[i]))
-		print dist
-		total_dist += np.sum(np.abs(dist))
-	print total_dist
+                print dist
+                total_dist += np.sum(np.abs(dist))
+        print total_dist
         pdb.set_trace()
 

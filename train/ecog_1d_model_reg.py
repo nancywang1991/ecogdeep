@@ -42,7 +42,7 @@ def ecog_1d_model(channels=None, weights=None):
 
     x = Flatten(name='flatten')(x)
     #x = Dropout(0.5)(x)
-    x = Dense(1024, W_regularizer=l2(0.01), name='fc1')(x)
+    x = Dense(64, W_regularizer=l2(0.01), name='fc1')(x)
     #x = BatchNormalization()(x)
     x = Activation('relu')(x)
     x = Dense(3136, W_regularizer=l2(0.01), name='fc2')(x)

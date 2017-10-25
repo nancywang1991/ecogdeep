@@ -62,7 +62,7 @@ for s, sbj in enumerate(sbj_ids):
             class_mode='binary')
 
         ecog_model = ecog_1d_model(channels=len(channels))
-        base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
+        base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("predictions").output)
         ecog_series = Input(shape=(1,len(channels),1000))
 
         train_generator = dgdx_edf
@@ -74,7 +74,7 @@ for s, sbj in enumerate(sbj_ids):
 
         model = Model(input=ecog_series, output=predictions)
 
-        model_savepath = "/home/wangnxr/models/ecog_model_%s_itr_%i_reg_v2_" % (sbj, itr)
+        model_savepath = "/home/wangnxr/models/ecog_model_%s_itr_%i_reg_v3_" % (sbj, itr)
         model.compile(optimizer=sgd,
                       loss='mean_squared_error')
         checkpoint = ModelCheckpoint(model_savepath + "_" + "{epoch:02d}" + "_chkpt.h5", monitor='val_loss', verbose=1, save_best_only=False, mode='min', period=30)

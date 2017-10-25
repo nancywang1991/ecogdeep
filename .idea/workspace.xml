@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_1d_model_reg.py" afterPath="$PROJECT_DIR$/train/ecog_1d_model_reg.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_train_reg.py" afterPath="$PROJECT_DIR$/train/ecog_train_reg.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -79,8 +77,8 @@
       <file leaf-file-name="ecog_train_reg.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_train_reg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="574">
-              <caret line="67" column="34" selection-start-line="67" selection-start-column="34" selection-end-line="67" selection-end-column="34" />
+            <state relative-caret-position="1002">
+              <caret line="82" column="42" selection-start-line="82" selection-start-column="41" selection-end-line="82" selection-end-column="42" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -714,13 +712,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00267" summary="regression">
-      <created>1497312433920</created>
-      <option name="number" value="00267" />
-      <option name="presentableId" value="LOCAL-00267" />
-      <option name="project" value="LOCAL" />
-      <updated>1497312433920</updated>
-    </task>
     <task id="LOCAL-00268" summary="regression">
       <created>1497314716590</created>
       <option name="number" value="00268" />
@@ -1057,7 +1048,14 @@
       <option name="project" value="LOCAL" />
       <updated>1508959627078</updated>
     </task>
-    <option name="localTasksCounter" value="316" />
+    <task id="LOCAL-00316" summary="separate ecog and video training regression">
+      <created>1508966097931</created>
+      <option name="number" value="00316" />
+      <option name="presentableId" value="LOCAL-00316" />
+      <option name="project" value="LOCAL" />
+      <updated>1508966097931</updated>
+    </task>
+    <option name="localTasksCounter" value="317" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1530,8 +1528,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_train_reg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="67" column="34" selection-start-line="67" selection-start-column="34" selection-end-line="67" selection-end-column="34" />
+        <state relative-caret-position="1002">
+          <caret line="82" column="42" selection-start-line="82" selection-start-column="41" selection-end-line="82" selection-end-column="42" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

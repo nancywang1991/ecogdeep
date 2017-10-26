@@ -73,6 +73,7 @@ for s, sbj in enumerate(sbj_ids):
 
         model = Model(input=ecog_series, output=predictions)
 
+<<<<<<< HEAD
         model_savepath = "/home/wangnxr/models/ecog_model_%s_itr_%i_reg_v4_" % (sbj, itr)
         model.compile(optimizer="rmsprop",
                       loss='mean_squared_error')

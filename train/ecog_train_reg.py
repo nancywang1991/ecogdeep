@@ -76,7 +76,7 @@ for s, sbj in enumerate(sbj_ids):
 
         model_savepath = "/home/wangnxr/models/ecog_model_%s_itr_%i_reg_v3_" % (sbj, itr)
         model.compile(optimizer=sgd,
-                      loss='mean_squared_error')
+                      loss='mean_squared_error_circular')
         checkpoint = ModelCheckpoint(model_savepath + "_" + "{epoch:02d}" + "_chkpt.h5", monitor='val_loss', verbose=1, save_best_only=False, mode='min', period=30)
         history_callback = model.fit_generator(
             train_generator,

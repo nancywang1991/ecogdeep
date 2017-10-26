@@ -16,8 +16,8 @@ from sbj_parameters import *
 
 """
 
-sbj_to_do = ["a0f"]
-start_times = [2800,3400,4000]
+sbj_to_do = ["cb4"]
+start_times = [2800]
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
         main_ecog_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
@@ -25,7 +25,7 @@ for s, sbj in enumerate(sbj_ids):
         continue
     for t, time in enumerate(start_times):
         try:
-            model_file =  "/home/wangnxr/models/ecog_model_a0f_itr_0_reg_89_chkpt.h5"
+            model_file =  "/home/wangnxr/models/ecog_model_cb4_itr_0_reg_v4__09_chkpt.h5"
             model = load_model(model_file)
         except:
             continue
@@ -64,18 +64,19 @@ for s, sbj in enumerate(sbj_ids):
         files = dgdx_val_edf.filenames
         total_dist = 0
         #results = model.predict_generator(validation_generator, len(files))
-        for b in xrange(4):
+        for b in xrange(10):
             test = validation_generator.next()
             prediction = model.predict(test[0])
-            for i in xrange(10):
-                plt.imshow(np.reshape(prediction[i], (56,56)))
-                plt.savefig("/home/wangnxr/results_tmp/ecog_test_%i_%i.png" % (b,i))
-                plt.imshow(np.reshape(test[1][i], (56,56)))
-                plt.savefig("/home/wangnxr/results_tmp/ecog_orig_%i_%i.png" % (b,i))
+            #for i in xrange(10):
+                #plt.imshow(np.reshape(prediction[i], (56,56)))
+                #plt.savefig("/home/wangnxr/results_tmp/ecog_test_%i_%i.png" % (b,i))
+                #plt.imshow(np.reshape(test[1][i], (56,56)))
+                #plt.savefig("/home/wangnxr/results_tmp/ecog_orig_%i_%i.png" % (b,i))
                 #plt.imshow(cv2.resize(np.ndarray.transpose(test[0][0][i], (1,2,0)), (56,56)))
                 #plt.savefig("/home/wangnxr/results_tmp/ecog_input_%i_%i.png" % (b,i))
-                dist= np.array(extract_max(test[1][i])) - np.array(extract_max(prediction[i]))
-                print dist
-                total_dist += np.sum(np.abs(dist))
+                #dist= np.array(extract_max(test[1][i])) - np.array(extract_max(prediction[i]))
+            dist = prediction-test[1]
+            print np.mean(np.abs(dist))
+            total_dist += np.sum(np.abs(dist))
         print total_dist
 

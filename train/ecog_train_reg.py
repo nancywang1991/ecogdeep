@@ -15,14 +15,14 @@ import pickle
 import glob
 import time
 
-sbj_to_do = ["a0f", "cb4"]
+sbj_to_do = ["cb4"]
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
         main_ecog_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     else:
         continue
-    for itr in range(3):
-        times = [3900,3700,3500]
+    for itr in range(1):
+        times = [3900]
 
         ## Data generation ECoG
         channels = channels_list[sbj_ids.index(sbj)]
@@ -60,7 +60,6 @@ for s, sbj in enumerate(sbj_ids):
             final_size=(1,len(channels),1000),
             channels = channels,
             class_mode='binary')
-
         ecog_model = ecog_1d_model(channels=len(channels))
         base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("predictions").output)
         ecog_series = Input(shape=(1,len(channels),1000))
@@ -74,10 +73,10 @@ for s, sbj in enumerate(sbj_ids):
 
         model = Model(input=ecog_series, output=predictions)
 
-        model_savepath = "/home/wangnxr/models/ecog_model_%s_itr_%i_reg_v3_" % (sbj, itr)
-        model.compile(optimizer=sgd,
+        model_savepath = "/home/wangnxr/models/ecog_model_%s_itr_%i_reg_v4_" % (sbj, itr)
+        model.compile(optimizer="rmsprop",
                       loss='mean_squared_error')
-        checkpoint = ModelCheckpoint(model_savepath + "_" + "{epoch:02d}" + "_chkpt.h5", monitor='val_loss', verbose=1, save_best_only=False, mode='min', period=30)
+        checkpoint = ModelCheckpoint(model_savepath + "_" + "{epoch:02d}" + "_chkpt.h5", monitor='val_loss', verbose=1, save_best_only=False, mode='min', period=1)
         history_callback = model.fit_generator(
             train_generator,
             samples_per_epoch=len(dgdx_edf.filenames),

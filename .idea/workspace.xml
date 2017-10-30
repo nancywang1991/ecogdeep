@@ -4,7 +4,6 @@
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_1d_model_reg.py" afterPath="$PROJECT_DIR$/train/ecog_1d_model_reg.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_train_reg.py" afterPath="$PROJECT_DIR$/train/ecog_train_reg.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,7 +33,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ecog_train_reg.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ecog_train_reg.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_train_reg.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="511">
@@ -86,21 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ecog_1d_model_seq_reg.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq_reg.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1089">
-              <caret line="42" column="33" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ecog_1d_model_reg.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ecog_1d_model_reg.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_reg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="841">
-              <caret line="61" column="36" selection-start-line="61" selection-start-column="36" selection-end-line="61" selection-end-column="36" />
+            <state relative-caret-position="874">
+              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -199,8 +188,8 @@
         <option value="$PROJECT_DIR$/train/ecog_vid_test_reg.py" />
         <option value="$PROJECT_DIR$/train/vid_test_reg.py" />
         <option value="$PROJECT_DIR$/train/ecog_test_reg.py" />
-        <option value="$PROJECT_DIR$/train/ecog_1d_model_reg.py" />
         <option value="$PROJECT_DIR$/train/ecog_train_reg.py" />
+        <option value="$PROJECT_DIR$/train/ecog_1d_model_reg.py" />
       </list>
     </option>
   </component>
@@ -718,13 +707,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00270" summary="regression">
-      <created>1497905188395</created>
-      <option name="number" value="00270" />
-      <option name="presentableId" value="LOCAL-00270" />
-      <option name="project" value="LOCAL" />
-      <updated>1497905188395</updated>
-    </task>
     <task id="LOCAL-00271" summary="regression">
       <created>1497905505390</created>
       <option name="number" value="00271" />
@@ -1061,7 +1043,14 @@
       <option name="project" value="LOCAL" />
       <updated>1508977733946</updated>
     </task>
-    <option name="localTasksCounter" value="319" />
+    <task id="LOCAL-00319" summary="separate ecog and video training regression">
+      <created>1509396406364</created>
+      <option name="number" value="00319" />
+      <option name="presentableId" value="LOCAL-00319" />
+      <option name="project" value="LOCAL" />
+      <updated>1509396406364</updated>
+    </task>
+    <option name="localTasksCounter" value="320" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1514,11 +1503,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model.py">
+    <entry file="file://$PROJECT_DIR$/train/ecog_train_reg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
-          <folding />
+        <state relative-caret-position="511">
+          <caret line="63" column="130" selection-start-line="63" selection-start-column="130" selection-end-line="63" selection-end-column="130" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1530,21 +1521,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_reg.py">
+    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="841">
-          <caret line="61" column="36" selection-start-line="61" selection-start-column="36" selection-end-line="61" selection-end-column="36" />
+        <state relative-caret-position="544">
+          <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_train_reg.py">
+    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_reg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="63" column="130" selection-start-line="63" selection-start-column="130" selection-end-line="63" selection-end-column="130" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="874">
+          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

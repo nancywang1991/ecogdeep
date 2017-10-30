@@ -62,11 +62,11 @@ def ecog_1d_model(channels=None, weights=None):
     x3 = Dense(1, name='predictions3')(x3)
 
     # x = BatchNormalization()(x)
-    predictions = Activation('sigmoid')(x)
+    #predictions = Activation('sigmoid')(x)
 
     # for layer in base_model.layers[:10]:
     #    layer.trainable = False
-    model = Model(input=input_tensor, output=predictions)
+    model = Model(input=input_tensor, output=[x1,x2,x3])
     if weights is not None:
         model.load_weights(weights)
 

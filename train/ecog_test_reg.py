@@ -11,6 +11,7 @@ import matplotlib
 matplotlib.use("agg")
 import matplotlib.pyplot as plt
 from sbj_parameters import *
+from matplotlib.colors import rgb_to_hsv
 
 """Accuracy of test set using ECoG LSTM model.
 
@@ -25,7 +26,7 @@ for s, sbj in enumerate(sbj_ids):
         continue
     for t, time in enumerate(start_times):
         try:
-            model_file =  "/home/wangnxr/models/ecog_model_cb4_itr_0_reg_v4__09_chkpt.h5"
+            model_file =  "/home/wangnxr/models/ecog_model_cb4_itr_0_reg_v5__valbest_chkpt.h5"
             model = load_model(model_file)
         except:
             continue
@@ -44,7 +45,7 @@ for s, sbj in enumerate(sbj_ids):
         )
 
         dgdx_val_edf = test_datagen_edf.flow_from_directory(
-            '%s/test/' % main_ecog_dir,
+            '%s/train/' % main_ecog_dir,
             batch_size=10,
             shuffle=False,
             target_size=(1, len(channels), 1000),
@@ -64,9 +65,14 @@ for s, sbj in enumerate(sbj_ids):
         files = dgdx_val_edf.filenames
         total_dist = 0
         #results = model.predict_generator(validation_generator, len(files))
+        predictions = []
+	tests = []
         for b in xrange(10):
             test = validation_generator.next()
-            prediction = model.predict(test[0])
+            tests.append(rgb_to_hsv(test[1]))
+	    pdb.set_trace()
+            prediction = rgb_to_hsv(model.predict(test[0]))
+            predictions.append(prediction)
             #for i in xrange(10):
                 #plt.imshow(np.reshape(prediction[i], (56,56)))
                 #plt.savefig("/home/wangnxr/results_tmp/ecog_test_%i_%i.png" % (b,i))
@@ -75,8 +81,12 @@ for s, sbj in enumerate(sbj_ids):
                 #plt.imshow(cv2.resize(np.ndarray.transpose(test[0][0][i], (1,2,0)), (56,56)))
                 #plt.savefig("/home/wangnxr/results_tmp/ecog_input_%i_%i.png" % (b,i))
                 #dist= np.array(extract_max(test[1][i])) - np.array(extract_max(prediction[i]))
-            dist = prediction-test[1]
-            print np.mean(np.abs(dist))
-            total_dist += np.sum(np.abs(dist))
-        print total_dist
+            #dist = prediction-test[1]
+            #print np.mean(np.abs(dist))
+            #total_dist += np.sum(np.abs(dist))
+        #print total_dist
+	pdb.set_trace()
+	print "direction corr:" + str(np.corrcoef(np.vstack(predictions)[:,0], np.vstack(tests)[:,0]))
+	print "magnitude corr:" + str(np.corrcoef(np.vstack(predictions)[:,2], np.vstack(tests)[:,2]))
+
 

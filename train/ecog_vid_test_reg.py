@@ -1,4 +1,6 @@
 import keras
+import keras.backend as K
+import theano
 import cv2
 from keras.preprocessing.ecog_reg_xy import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
@@ -92,6 +94,8 @@ for s, sbj in enumerate(sbj_ids):
         #results = model.predict_generator(validation_generator, len(files))
         for b in xrange(4):
             test = validation_generator.next()
+	    get_activations = K.function([model.layers[3].layers[0].input, K.learning_phase()], [model.layers[3].layers[-1].output])
+	    prediction = get_activations([test[0][1],1])[0]
             prediction = model.predict(test[0])
             for i in xrange(10):
                 plt.imshow(np.reshape(prediction[i], (56,56)))

@@ -61,7 +61,7 @@ for s, sbj in enumerate(sbj_ids):
             channels = channels,
             class_mode='binary')
         ecog_model = ecog_1d_model(channels=len(channels))
-        base_model_ecog = Model(ecog_model.input, [ecog_model.get_layer("predictions1").output, ecog_model.get_layer("predictions2").output, ecog_model.get_layer("predictions3").output])
+        base_model_ecog = Model(ecog_model.input, ecog_model.output)
         ecog_series = Input(shape=(1,len(channels),1000))
 
         train_generator = dgdx_edf

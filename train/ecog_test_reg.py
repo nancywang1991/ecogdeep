@@ -17,7 +17,7 @@ from matplotlib.colors import rgb_to_hsv
 
 """
 
-sbj_to_do = ["cb4"]
+sbj_to_do = ["a0f"]
 start_times = [2800]
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
@@ -26,7 +26,7 @@ for s, sbj in enumerate(sbj_ids):
         continue
     for t, time in enumerate(start_times):
         try:
-            model_file =  "/home/wangnxr/models/ecog_model_cb4_itr_0_reg_v5__valbest_chkpt.h5"
+            model_file =  "/home/wangnxr/models/ecog_model_a0f_itr_0_reg_v11__valbest_chkpt.h5"
             model = load_model(model_file)
         except:
             continue
@@ -39,13 +39,13 @@ for s, sbj in enumerate(sbj_ids):
             time_shift_range=200,
             center=True,
             #seq_len=200,
-            start_time=times[0],
+            start_time=3500,
             #seq_num=5,
             #seq_st=200
         )
 
         dgdx_val_edf = test_datagen_edf.flow_from_directory(
-            '%s/train/' % main_ecog_dir,
+            '%s/test/' % main_ecog_dir,
             batch_size=10,
             shuffle=False,
             target_size=(1, len(channels), 1000),
@@ -69,11 +69,9 @@ for s, sbj in enumerate(sbj_ids):
 	tests = []
         for b in xrange(10):
             test = validation_generator.next()
-            tests.append(rgb_to_hsv(test[1]))
-	    pdb.set_trace()
-            prediction = rgb_to_hsv(model.predict(test[0]))
+            tests.append(np.vstack(test[1]).T)
+            prediction = np.hstack(model.predict(test[0]))
             predictions.append(prediction)
-            #for i in xrange(10):
                 #plt.imshow(np.reshape(prediction[i], (56,56)))
                 #plt.savefig("/home/wangnxr/results_tmp/ecog_test_%i_%i.png" % (b,i))
                 #plt.imshow(np.reshape(test[1][i], (56,56)))
@@ -85,8 +83,7 @@ for s, sbj in enumerate(sbj_ids):
             #print np.mean(np.abs(dist))
             #total_dist += np.sum(np.abs(dist))
         #print total_dist
-	pdb.set_trace()
 	print "direction corr:" + str(np.corrcoef(np.vstack(predictions)[:,0], np.vstack(tests)[:,0]))
-	print "magnitude corr:" + str(np.corrcoef(np.vstack(predictions)[:,2], np.vstack(tests)[:,2]))
+	print "magnitude corr:" + str(np.corrcoef(np.vstack(predictions)[:,1], np.vstack(tests)[:,1]))
 
 

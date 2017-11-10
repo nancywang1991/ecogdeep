@@ -22,7 +22,7 @@ for s, sbj in enumerate(sbj_ids):
     else:
         continue
     for itr in range(1):
-        times = [3900]
+        times = [3500]
 
         ## Data generation ECoG
         channels = channels_list[sbj_ids.index(sbj)]
@@ -61,19 +61,19 @@ for s, sbj in enumerate(sbj_ids):
             channels = channels,
             class_mode='binary')
         ecog_model = ecog_1d_model(channels=len(channels))
-        base_model_ecog = Model(ecog_model.input, ecog_model.output)
+        #base_model_ecog = Model(ecog_model.input, ecog_model.output)
         ecog_series = Input(shape=(1,len(channels),1000))
 
         train_generator = dgdx_edf
         validation_generator = dgdx_val_edf
 
-        predictions = base_model_ecog(ecog_series)
+        #predictions = base_model_ecog(ecog_series)
 
         sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-        model = Model(input=ecog_series, output=predictions)
+        model = Model(ecog_model.input, ecog_model.output)
 
-        model_savepath = "/home/wangnxr/models/ecog_model_%s_itr_%i_reg_v5_" % (sbj, itr)
+        model_savepath = "/home/wangnxr/models/ecog_model_%s_itr_%i_reg_v11_" % (sbj, itr)
         model.compile(optimizer="rmsprop",
                       loss='mean_squared_error')
         checkpoint = ModelCheckpoint(model_savepath + "_valbest_chkpt.h5", monitor='val_loss', verbose=1, save_best_only=True, mode='min')
@@ -85,5 +85,5 @@ for s, sbj in enumerate(sbj_ids):
             nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint])
 
         model.save("%s.h5" % model_savepath)
-        pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_model_%s_itr_%i_reg_v5_" % (sbj, itr), "wb"))
+        pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_model_%s_itr_%i_reg_v11_" % (sbj, itr), "wb"))
     time.sleep(50)

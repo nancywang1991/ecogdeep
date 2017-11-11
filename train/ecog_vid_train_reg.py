@@ -7,7 +7,7 @@ from keras.preprocessing.ecog_reg_xy import EcogDataGenerator
 from ecogdeep.train.vid_model_reg import vid_model
 from keras.callbacks import ModelCheckpoint
 from sbj_parameters import *
-from keras.layers import Convolution2D, RepeatVector, UpSampling2D, LocallyConnected2D
+from keras.layers import Convolution2D, RepeatVector, UpSampling2D, LocallyConnected2D, Reshape
 
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
@@ -16,15 +16,15 @@ import pickle
 import glob
 import time
 
-sbj_to_do = ["a0f"]
+sbj_to_do = ["a0f", "cb4"]
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
         main_vid_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
         main_ecog_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     else:
         continue
-    for itr in range(2,3):
-        times = [3900,3700,3500]
+    for itr in range(2):
+        times = [3500]
 
         # Video data generators
         train_datagen_vid = ImageDataGenerator(
@@ -109,12 +109,13 @@ for s, sbj in enumerate(sbj_ids):
                 x2, y2 = gen2.next()
                 if not x1.shape[0] == x2.shape[0]:
                     pdb.set_trace()
-                yield [x1, x2], [y1, y2]
+                yield [x1, x2], [y1, y2[0]]
 
 
-        base_model_ecog = ecog_1d_model(channels=len(channels))
+        ecog_model = ecog_1d_model(channels=len(channels))
+        base_model_ecog1 = Model(ecog_model.input, ecog_model.get_layer('predictions1').output)
+	#base_model_ecog2 = Model(ecog_model.input, ecog_model.get_layer('predictions2').output)
         ecog_series = Input(shape=(1,len(channels),1000))
-
         train_generator = izip_input(dgdx_vid, dgdx_edf)
         validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
 
@@ -122,19 +123,24 @@ for s, sbj in enumerate(sbj_ids):
 
         frame_a = Input(shape=(3,224,224))
 
-        predictions = base_model_vid(frame_a)
-
-        for layer in base_model_vid.layers:
-            layer.trainable = True
+        #for layer in base_model_vid.layers:
+        #    layer.trainable = True
 
         tower1 = base_model_vid(frame_a)
-        tower2 = base_model_ecog(ecog_series)
-        tower2 = RepeatVector(1)(tower2)
-        tower2 = UpSampling2D((tower1.output_shape[0], tower1.output_shape[0]))(tower2)
-        x = merge([tower1, tower2], mode='concat', concat_axis=-1)
-        x = LocallyConnected2D(8, (3, 3), name='block8_lc1')(x)
+        tower2 = base_model_ecog1(ecog_series)
+	predictions2 = base_model_ecog1(ecog_series)
+        #tower2 = RepeatVector(1)(tower2)
+	tower2 = Reshape((1,1,1))(tower2)
+        tower2 = UpSampling2D((56, 56))(tower2)
+        #tower3 = base_model_ecog2(ecog_series)
+        #tower3 = RepeatVector(1)(tower3)
+        #tower3 = Reshape((1,1,1))(tower3)
+	#tower3 = UpSampling2D((56, 56))(tower3)
+        #pdb.set_trace()
+	x = merge([tower1, tower2], mode='concat', concat_axis=1)
+        x = Convolution2D(8, 3, 3, name='block8_lc1', border_mode='same')(x)
         x = Activation('relu')(x)
-        x = LocallyConnected2D(8, (3, 3), name='block9_lc1')(x)
+        x = Convolution2D(8, 3, 3, name='block9_lc1', border_mode='same')(x)
         x = Activation('relu')(x)
         x = Convolution2D(1, 1, 1, border_mode='same', name='block10_conv1')(x)
         # x = BatchNormalization(axis=1)(x)
@@ -145,11 +151,11 @@ for s, sbj in enumerate(sbj_ids):
         #predictions = Dense(3136, name='predictions', init='normal')(x)
 
         sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
+	#pdb.set_trace()
+        model = Model(input=[frame_a, ecog_series], output=[predictions, predictions2])
 
-        model = Model(input=[frame_a, ecog_series], output=[predictions, base_model_ecog.output])
-
-        model_savepath = "/home/wangnxr/models/ecog_vid_model_%s_itr_%i_rebal_reg" % (sbj, itr)
-        model.compile(optimizer=sgd,
+        model_savepath = "/home/wangnxr/models/ecog_vid_model_%s_itr_%i_reg" % (sbj, itr)
+	model.compile(optimizer=sgd,
                       loss='mean_squared_error')
         checkpoint = ModelCheckpoint(model_savepath + "_" + "{epoch:02d}" + "_chkpt.h5", monitor='val_loss', verbose=1, save_best_only=False, mode='min', period=30)
         history_callback = model.fit_generator(

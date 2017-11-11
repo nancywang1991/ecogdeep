@@ -17,7 +17,7 @@ from matplotlib.colors import rgb_to_hsv
 
 """
 
-sbj_to_do = ["a0f"]
+sbj_to_do = ["cb4"]
 start_times = [2800]
 for s, sbj in enumerate(sbj_ids):
     if sbj in sbj_to_do:
@@ -26,7 +26,7 @@ for s, sbj in enumerate(sbj_ids):
         continue
     for t, time in enumerate(start_times):
         try:
-            model_file =  "/home/wangnxr/models/ecog_model_a0f_itr_0_reg_v11__valbest_chkpt.h5"
+            model_file =  "/home/wangnxr/models/ecog_model_cb4_itr_0_reg_v11__valbest_chkpt.h5"
             model = load_model(model_file)
         except:
             continue

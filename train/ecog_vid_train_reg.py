@@ -7,6 +7,7 @@ from keras.preprocessing.ecog_reg_xy import EcogDataGenerator
 from ecogdeep.train.vid_model_reg import vid_model
 from keras.callbacks import ModelCheckpoint
 from sbj_parameters import *
+from keras.layers import Convolution2D, RepeatVector, UpSampling2D, LocallyConnected2D
 
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
@@ -67,17 +68,17 @@ for s, sbj in enumerate(sbj_ids):
         channels = channels_list[sbj_ids.index(sbj)]
 
         train_datagen_edf = EcogDataGenerator(
-                    time_shift_range=200,
-                    gaussian_noise_range=0.001,
-                    center=False,
-                    start_time=times,
-                )
+            time_shift_range=200,
+            gaussian_noise_range=0.001,
+            center=False,
+            start_time=times,
+        )
 
         test_datagen_edf = EcogDataGenerator(
-                    time_shift_range=200,
-                    center=True,
-                    start_time=times[0],
-                )
+            time_shift_range=200,
+            center=True,
+            start_time=times[0],
+        )
 
         dgdx_edf = train_datagen_edf.flow_from_directory(
             #'/mnt/cb46fd46_5_no_offset/train/',
@@ -105,24 +106,21 @@ for s, sbj in enumerate(sbj_ids):
             while 1:
                 #pdb.set_trace()
                 x1, y1 = gen1.next()
-                x2 = gen2.next()[0]
+                x2, y2 = gen2.next()
                 if not x1.shape[0] == x2.shape[0]:
                     pdb.set_trace()
-                x1 = [x1,x2]
-                yield x1, y1
+                yield [x1, x2], [y1, y2]
 
 
-        ecog_model = ecog_1d_model(channels=len(channels))
-        base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc2").output)
+        base_model_ecog = ecog_1d_model(channels=len(channels))
         ecog_series = Input(shape=(1,len(channels),1000))
 
         train_generator = izip_input(dgdx_vid, dgdx_edf)
         validation_generator = izip_input(dgdx_val_vid, dgdx_val_edf)
 
-        base_model_vid = Model(video_model.input, video_model.get_layer("flatten").output)
+        base_model_vid = Model(video_model.input, video_model.get_layer('block8_conv1').output)
 
         frame_a = Input(shape=(3,224,224))
-
 
         predictions = base_model_vid(frame_a)
 
@@ -131,14 +129,24 @@ for s, sbj in enumerate(sbj_ids):
 
         tower1 = base_model_vid(frame_a)
         tower2 = base_model_ecog(ecog_series)
-        #tower2 = Dense(3136, init='normal')(tower2)
-        predictions = merge([tower1, tower2], mode='sum', concat_axis=-1)
+        tower2 = RepeatVector(1)(tower2)
+        tower2 = UpSampling2D((tower1.output_shape[0], tower1.output_shape[0]))(tower2)
+        x = merge([tower1, tower2], mode='concat', concat_axis=-1)
+        x = LocallyConnected2D(8, (3, 3), name='block8_lc1')(x)
+        x = Activation('relu')(x)
+        x = LocallyConnected2D(8, (3, 3), name='block9_lc1')(x)
+        x = Activation('relu')(x)
+        x = Convolution2D(1, 1, 1, border_mode='same', name='block10_conv1')(x)
+        # x = BatchNormalization(axis=1)(x)
+        x = Activation('relu')(x)
+
+        predictions = Flatten(name='flatten')(x)
         #x = tower1
         #predictions = Dense(3136, name='predictions', init='normal')(x)
 
         sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-        model = Model(input=[frame_a, ecog_series], output=predictions)
+        model = Model(input=[frame_a, ecog_series], output=[predictions, base_model_ecog.output])
 
         model_savepath = "/home/wangnxr/models/ecog_vid_model_%s_itr_%i_rebal_reg" % (sbj, itr)
         model.compile(optimizer=sgd,
@@ -153,4 +161,4 @@ for s, sbj in enumerate(sbj_ids):
 
         model.save("%s.h5" % model_savepath)
         pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_vid_history_%s_itr_%i_200ep_reg.txt" % (sbj, itr), "wb"))
-	time.sleep(50)
+        time.sleep(50)

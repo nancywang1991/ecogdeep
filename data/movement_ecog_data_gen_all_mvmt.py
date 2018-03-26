@@ -13,7 +13,7 @@ import gc
 from pyESig2.vid.video_sync.vid_start_end import get_disconnected_times
 import scipy.sparse
 
-"""ECoG data generation of a single patient from a single day based on selecting movement initialization sections from the movement data.
+"""ECoG data generation of a single patient from a single day based on selecting all movement sections from the movement data.
 
 
 Example:

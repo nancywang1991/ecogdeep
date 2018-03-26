@@ -73,7 +73,7 @@ for s, sbj in enumerate(sbj_ids):
 
         model = Model(ecog_model.input, ecog_model.output)
 
-        model_savepath = "/home/wangnxr/models/ecog_model_%s_itr_%i_reg_v11_" % (sbj, itr)
+        model_savepath = "/home/wangnxr/models/ecog_model_%s_itr_%i_reg_" % (sbj, itr)
         model.compile(optimizer="rmsprop",
                       loss='mean_squared_error')
         checkpoint = ModelCheckpoint(model_savepath + "_valbest_chkpt.h5", monitor='val_loss', verbose=1, save_best_only=True, mode='min')
@@ -85,5 +85,6 @@ for s, sbj in enumerate(sbj_ids):
             nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint])
 
         model.save("%s.h5" % model_savepath)
-        pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_model_%s_itr_%i_reg_v11_" % (sbj, itr), "wb"))
+	model.save_weights("%s_weights.h5" % model_savepath)
+        pickle.dump(history_callback.history, open("/home/wangnxr/history/ecog_model_%s_itr_%i_reg_" % (sbj, itr), "wb"))
     time.sleep(50)

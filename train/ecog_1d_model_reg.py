@@ -50,8 +50,8 @@ def ecog_1d_model(channels=None, weights=None):
     x2 = Flatten(name='flattenb')(x2)
     #x2 = Dropout(0.3)(x2)
 
-#    x1 = Dense(128, W_regularizer=l2(0.01), name='fc1a', activation='relu')(x1)
-#    x2 = Dense(128, W_regularizer=l2(0.01), name='fc1b', activation='relu')(x2)
+    x1 = Dense(128, W_regularizer=l2(0.01), name='fc1a', activation='relu')(x1)
+    x2 = Dense(128, W_regularizer=l2(0.01), name='fc1b', activation='relu')(x2)
 #    x1 = Dropout(0.3)(x1)
 #    x2 = Dropout(0.3)(x2)
 

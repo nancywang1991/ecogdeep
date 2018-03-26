@@ -27,11 +27,10 @@ types = ["train", "test", "val"]
 
 def calc_dist(a,b):
     final_dist = []
-    for i, coord in enumerate(b):
-        if np.all(np.array(coord) > -1000) and np.all(np.array(a[i]) > -1000):
-            final_dist.append(np.sqrt((coord[0]-a[i][0])**2 + (coord[1]-a[i][1])**2))
-        else:
-            final_dist.append(-1000)
+    if np.all(np.array(b) > -1000) and np.all(np.array(a) > -1000):
+        final_dist.append(np.sqrt((b[0]-a[0])**2 + (b[1]-a[1])**2))
+    else:
+        final_dist.append(-1000)
     return final_dist
 
 
@@ -67,15 +66,16 @@ for type in types:
         poses_normalized_filtered = filter_confidence(poses_normalized, poses[:, :, 2])
         poses_normalized = my_savgol_filter(poses_normalized_filtered, 21, 3, axis=0)
         if file.split("/")[-2] == "r_arm_1":
-            start_dist = calc_dist(poses_normalized[:(start + 4 * 30 + 15), 1], poses_normalized[:(start + 4 * 30 + 15), 0])
-            end_dist = calc_dist(poses_normalized[:(start + 5 * 30), 1], poses_normalized[:(start + 5 * 30), 0])
+            start_dist = calc_dist(poses_normalized[(start + 4 * 30 + 15), 1], poses_normalized[(start + 4 * 30 + 15), 0])
+            end_dist = calc_dist(poses_normalized[-1, 1], poses_normalized[(-1), 0])
         elif file.split("/")[-2] == "l_arm_1":
-            start_dist = calc_dist(poses_normalized[:(start + 4 * 30 + 15), 2], poses_normalized[:(start + 4 * 30 + 15), 0])
-            end_dist = calc_dist(poses_normalized[:(start + 5 * 30), 2], poses_normalized[:(start + 5 * 30), 0])
+            start_dist = calc_dist(poses_normalized[(start + 4 * 30 + 15), 2], poses_normalized[(start + 4 * 30 + 15), 0])
+            end_dist = calc_dist(poses_normalized[-1, 2], poses_normalized[-1, 0])
         else:
             print "Error: Not working with %s yet" % file.split("/")[-2]
             break
-        if end_dist < start_dist:
-            shutil.copy(file, "%s/%s/toward/" % (save_dir, type))
-        else:
-            shutil.copy(file, "%s/%s/away/" % (save_dir, type))
+	if end_dist > 0 and start_dist > 0:
+	    if end_dist < start_dist:
+            	shutil.copy(file, "%s/%s/toward/" % (save_dir, type))
+            elif end_dist > start_dist:
+            	shutil.copy(file, "%s/%s/away/" % (save_dir, type))

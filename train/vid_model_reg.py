@@ -48,7 +48,7 @@ def vid_model(weights=None):
     # Block 8
     x = Convolution2D(1, 1, 1, border_mode='same', name='block8_conv1')(x)
     # x = BatchNormalization(axis=1)(x)
-    x = Activation('relu')(x)
+    #x = Activation('relu')(x)
 
     x = Flatten(name='flatten')(x)
     x = Dropout(0.5)(x)

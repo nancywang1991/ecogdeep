@@ -21,8 +21,8 @@ for s, sbj in enumerate(sbj_ids):
         main_vid_dir = '/home/wangnxr/dataset_xy_reg/ecog_vid_combined_%s_day%i/' % (sbj, days[s])
     else:
         continue
-    for itr in range(3):
-        times = [3900,3700,3500]
+    for itr in range(1):
+        times = [3500]
 
         # Video data generators
         train_datagen_vid = ImageDataGenerator(
@@ -77,7 +77,6 @@ for s, sbj in enumerate(sbj_ids):
         predictions = base_model_vid(frame_a)
 
         model = Model(input=frame_a, output=predictions)
-
         model_savepath = "/home/wangnxr/models/vid_model_%s_itr_%i_reg" % (sbj, itr)
         model.compile(optimizer=sgd,
                       loss='mean_squared_error')
@@ -90,6 +89,7 @@ for s, sbj in enumerate(sbj_ids):
             nb_val_samples=len(dgdx_val_vid.filenames), callbacks=[checkpoint])
 
         model.save("%s.h5" % model_savepath)
+	model.save_weights("%s_weights.h5" % model_savepath)
         pickle.dump(history_callback.history, open("/home/wangnxr/history/vid_model_%s_itr_%i_reg.txt" % (sbj, itr), "wb"))
     time.sleep(50)
 

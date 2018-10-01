@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import glob
 import pdb
@@ -14,20 +15,25 @@ def find_bin(n, edges):
     if n < edges[0] or n > edges[-1]:
         return np.nan
     else:
-        return np.where(n>edges)[0][0]
+        return np.where(n>edges)[0][-1]
 
 for subject in subjects:
-    mni_file = open("%s/%s_Trodes_MNIcoords.txt" % (dir, subject))
-    electrodes = np.vstack([np.array([float(x) for x in channel.split(",")]) for channel in file])
+    print "Working on subject %s" % subject
+    mni_file = open("%s/%s_Trodes_MNIcoords.txt" % (mni_dir, subject))
+    electrodes = np.vstack([np.array([float(x) for x in channel.split(",")]) for channel in mni_file])
     electrode_mapping = {}
     for c in range(64):
         electrode_mapping[c] = find_bin(electrodes[c, 2],xedges)*10 + find_bin(electrodes[c,1], yedges)
 
-    for file in glob.glob("%s/ecog_vid_combined_%s_day*/*/*/*.npy" % (main_data_dir, subject_id_map[subject], type)):
-        orig = np.load(file)
-        new = np.array(shape=(100, orig.shape[1]))
+    for file in glob.glob("%s/ecog_vid_combined_%s_day*/*/*/*.npy" % (main_data_dir, subject_id_map[subject])):
+        print file
+	orig = np.load(file)
+        new = np.zeros(shape=(100, orig.shape[1]))
         for old_c, new_c in electrode_mapping.iteritems():
-            new[new_c] = orig[old_c]
+	    if not np.isnan(new_c):
+            	new[new_c] = orig[old_c]
         file_parts = file.split("/")
-        pdb.set_trace()
-        np.save(new, "%s/ecog_mni_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:])))
+	try:
+            np.save("%s/ecog_mni_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:])), new)
+	except IOError:
+	    os.makedirs("%s/ecog_mni_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:-1])))

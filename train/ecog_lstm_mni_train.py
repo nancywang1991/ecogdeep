@@ -20,22 +20,18 @@ import pickle
 import glob
 
 
-sbj_to_do = ["a0f", "d65"]
-
-for itr in xrange(1):
-    for s, sbj in enumerate(sbj_ids):
-        if sbj in sbj_to_do:
-            main_ecog_dir = '/data2/users/nancy/dataset/ecog_mni_%s/' % (sbj)
-        else:
-            continue
+sbj_to_do = ["a0f", "d65", "a0f_d65"]
+for itr in range(3):
+    for s, sbj in enumerate(sbj_to_do):
+        main_ecog_dir = '/data2/users/nancy/dataset/ecog_mni_%s/' % (sbj)
 
         for t, time in enumerate(start_times):
 
             ## Data generation ECoG
+            #channels = np.array([6, 12, 13, 14, 16, 17, 20, 21, 22, 24, 25, 27, 30, 31, 33, 34, 36, 37, 43, 45, 47, 48, 50, 51, 54, 55, 56, 58, 59, 61, 63, 65, 66, 67, 68, 69, 71, 72, 73, 75, 76, 77, 78, 82, 84, 85, 86, 91, 92])
             channels = np.arange(100)
             train_datagen_edf = EcogDataGenerator(
                 time_shift_range=200,
-                gaussian_noise_range=0.001,
                 center=False,
                 seq_len=200,
                 start_time=time,
@@ -51,7 +47,7 @@ for itr in xrange(1):
                 seq_num=5,
                 seq_st=200
             )
-
+            
             dgdx_edf = train_datagen_edf.flow_from_directory(
                 '%s/train/' % main_ecog_dir,
                 batch_size=24,
@@ -71,8 +67,6 @@ for itr in xrange(1):
                 final_size=(1,len(channels),200),
                 channels = channels,
                 class_mode='binary')
-
-
             ecog_model = ecog_1d_model(channels=len(channels))
             train_generator =  dgdx_edf
             validation_generator =  dgdx_val_edf
@@ -100,12 +94,13 @@ for itr in xrange(1):
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "/home/wangnxr/models/ecog_model_mni_%s_itr_%i_t_%i" % (sbj,itr,time)
+            model_savepath = "/home/nancy/models/ecog_model_mni_%s_itr_%i_t_%i" % (sbj,itr,time)
+            
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',
                           metrics=['accuracy'])
             early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
-            checkpoint = ModelCheckpoint("%s_weights_{epoch:02d}.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+            checkpoint = ModelCheckpoint("%s_best.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
             history_callback = model.fit_generator(
                 train_generator,
                 samples_per_epoch=len(dgdx_edf.filenames),
@@ -114,4 +109,4 @@ for itr in xrange(1):
                 nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint, early_stop])
 
             model.save("%s.h5" % model_savepath)
-            pickle.dump(history_callback.history, open("/home/wangnxr/history/%s.p" % model_savepath.split("/")[-1].split(".")[0], "wb"))
+            pickle.dump(history_callback.history, open("/home/nancy/history/%s.p" % model_savepath.split("/")[-1].split(".")[0], "wb"))

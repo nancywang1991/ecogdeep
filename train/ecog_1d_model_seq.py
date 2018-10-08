@@ -1,6 +1,6 @@
 import keras
 from keras.regularizers import l2
-from keras.preprocessing.ecog import EcogDataGenerator
+from ecogdeep.data.preprocessing.ecog import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
@@ -16,18 +16,18 @@ def ecog_1d_model(weights=None, channels=None):
     input_tensor = Input(shape=( 5, 1, channels, 200))
     # Block 1
     #x = TimeDistributed(MaxPooling2D((1, 5)), name='pre_pool')(input_tensor)
-    x = TimeDistributed(Convolution2D(4, 1, 3, border_mode='same'), name='block1_conv1')(input_tensor)
+    x = TimeDistributed(Convolution2D(4, (1, 3), padding='same'), name='block1_conv1')(input_tensor)
     #x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((1, 3)), name='block1_pool')(x)
 
     # Block 2
-    x = TimeDistributed(Convolution2D(8, 1, 3, border_mode='same'), name='block2_conv1')(x)
+    x = TimeDistributed(Convolution2D(8, (1, 3), padding='same'), name='block2_conv1')(x)
     #x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((1, 3)), name='block2_pool')(x)
     # Block 3
-    x = TimeDistributed(Convolution2D(16, 1, 3, border_mode='same'), name='block3_conv1')(x)
+    x = TimeDistributed(Convolution2D(16, (1, 3), padding='same'), name='block3_conv1')(x)
     #x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = TimeDistributed(MaxPooling2D((1, 3)), name='block3_pool')(x)
@@ -40,7 +40,7 @@ def ecog_1d_model(weights=None, channels=None):
 
     x = TimeDistributed(Flatten(), name='flatten')(x)
     x = Dropout(0.5)(x)
-    x = TimeDistributed(Dense(64, W_regularizer=l2(0.01)), name='fc1')(x)
+    x = TimeDistributed(Dense(64, kernel_regularizer=l2(0.01)), name='fc1')(x)
     #x = BatchNormalization()(x)
     #x = Activation('relu')(x)
     #x = Dropout(0.5)(x)

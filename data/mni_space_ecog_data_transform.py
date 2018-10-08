@@ -3,11 +3,11 @@ import numpy as np
 import glob
 import pdb
 
-xedges = np.array([-60., -50., -40., -30., -20., -10.,   0.,  10.,  20.,  30.,  40.])
+xedges = np.array([-48., -36., -24., -12., 0.,   12.,  24, 36.,  48.,  60.,  72.])
 yedges = np.array([-40., -32., -24., -16.,  -8.,   0.,   8.,  16.,  24.,  32.,  40.])
 
-subjects = ['69da36', '294e1c']
-subject_id_map = {'69da36':'d65', '294e1c':'a0f'}
+subjects = ['ecb43e', 'c5a5e9']
+subject_id_map = {'69da36':'d65', '294e1c':'a0f', 'c5a5e9':'c95', 'ecb43e':'cb4'}
 mni_dir = '/data2/users/wangnxr/mni_coords/'
 main_data_dir = "/data2/users/wangnxr/dataset/"
 
@@ -24,7 +24,6 @@ for subject in subjects:
     electrode_mapping = {}
     for c in range(64):
         electrode_mapping[c] = find_bin(electrodes[c, 2],xedges)*10 + find_bin(electrodes[c,1], yedges)
-
     for file in glob.glob("%s/ecog_vid_combined_%s_day*/*/*/*.npy" % (main_data_dir, subject_id_map[subject])):
         print file
 	orig = np.load(file)

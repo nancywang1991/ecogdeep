@@ -10,7 +10,6 @@ from keras.regularizers import l2
 from itertools import izip
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 from ecogdeep.train.ecog_1d_model_seq import ecog_1d_model
-from ecogdeep.train.vid_model_seq import vid_model
 from sbj_parameters import *
 
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
@@ -23,7 +22,7 @@ import glob
 sbj_to_do = ["a0f", "d65", "a0f_d65"]
 for itr in range(3):
     for s, sbj in enumerate(sbj_to_do):
-        main_ecog_dir = '/data2/users/nancy/dataset/ecog_mni_%s/' % (sbj)
+        main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_%s/' % (sbj)
 
         for t, time in enumerate(start_times):
 
@@ -77,11 +76,11 @@ for itr in range(3):
             x = base_model_ecog(ecog_series)
 
             x = Dropout(0.5)(x)
-            x = TimeDistributed(Dense(32, W_regularizer=l2(0.01), name='merge2'))(x)
+            x = TimeDistributed(Dense(32, kernel_regularizer=l2(0.01), name='merge2'))(x)
             #x = BatchNormalization()(x)
             x = Activation('relu')(x)
             x = Dropout(0.5)(x)
-            x = LSTM(20, dropout_W=0.2, dropout_U=0.2, name='lstm')(x)
+            x = LSTM(20, dropout=0.2, recurrent_dropout=0.2, name='lstm')(x)
             x = Dense(1, name='predictions')(x)
             #x = BatchNormalization()(x)
             predictions = Activation('sigmoid')(x)
@@ -94,7 +93,7 @@ for itr in range(3):
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "/home/nancy/models/ecog_model_mni_%s_itr_%i_t_%i" % (sbj,itr,time)
+            model_savepath = "/home/wangnxr/models/ecog_model_mni_%s_itr_%i_t_%i" % (sbj,itr,time)
             
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',
@@ -109,4 +108,4 @@ for itr in range(3):
                 nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint, early_stop])
 
             model.save("%s.h5" % model_savepath)
-            pickle.dump(history_callback.history, open("/home/nancy/history/%s.p" % model_savepath.split("/")[-1].split(".")[0], "wb"))
+            pickle.dump(history_callback.history, open("/home/wangnxr/history/%s.p" % model_savepath.split("/")[-1].split(".")[0], "wb"))

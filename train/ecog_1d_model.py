@@ -17,19 +17,19 @@ def ecog_1d_model(channels=None, weights=None):
     input_tensor = Input(shape=(1, channels, 1000))
     # Block 1
     x = AveragePooling2D((1, 5), name='pre_pool')(input_tensor)
-    x = Convolution2D(4, 1, 3, border_mode='same', name='block1_conv1')(x)
+    x = Convolution2D(4, (1, 3), padding='same', name='block1_conv1')(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = MaxPooling2D((1, 3), name='block1_pool')(x)
 
     # Block 2
-    x = Convolution2D(8, 1, 3, border_mode='same', name='block2_conv1')(x)
+    x = Convolution2D(8, (1, 3), padding='same', name='block2_conv1')(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = MaxPooling2D((1, 3), name='block2_pool')(x)
 
     # Block 3
-    x = Convolution2D(16, 1, 3, border_mode='same', name='block3_conv1')(x)
+    x = Convolution2D(16, (1, 3), padding='same', name='block3_conv1')(x)
     # x = BatchNormalization(axis=1)(x)
     x = Activation('relu')(x)
     x = MaxPooling2D((1, 2), name='block3_pool')(x)

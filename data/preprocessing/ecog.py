@@ -139,7 +139,6 @@ class EcogDataGenerator(object):
         self.seq_len = seq_len
         self.seq_num = seq_num
         self.seq_st = seq_st
-
         if dim_ordering not in {'th'}:
             raise ValueError('dim_ordering should be "th" (channel after row and '
                              'column) ', dim_ordering)

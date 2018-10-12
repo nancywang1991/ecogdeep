@@ -96,18 +96,19 @@ class EcogDataGenerator(object):
             self.row_index = 2
 
     def flow_from_directory(self, directory, batch_size=32, shuffle=True, seed=None,
-                            pre_shuffle_ind=None, channels=None, ablate=None):
+                            pre_shuffle_ind=None, channels=None, ablate_range=None):
         return DirectoryIterator(
             directory, self, dim_ordering=self.dim_ordering, batch_size=batch_size, shuffle=shuffle,
-            seed=seed, pre_shuffle_ind=pre_shuffle_ind, channels=channels, ablate=ablate)
+            seed=seed, pre_shuffle_ind=pre_shuffle_ind, channels=channels, ablate_range=ablate_range, seq_len=self.seq_len)
 
-    def random_transform(self, x, seq_len):
-        if self.ablate_range:
-            channels_to_ablate = set(np.where(x > 0)[0])
-            np.random.shuffle(channels_to_ablate)
-            rand_start = np.random.randint(x.shape[1]-seq_len)
-            x[channels_to_ablate[:np.random.randint(*self.ablate_range)], rand_start:rand_start+seq_len] = 0
-        return x
+    def random_transform(self, x, seq_len, ablate_range):
+        channels_to_ablate = list(set(np.where(x > 0)[1]))
+	x_orig = copy.copy(x)
+        np.random.shuffle(channels_to_ablate)
+        rand_start = np.random.randint(x.shape[-1]-seq_len)
+        #x[0,channels_to_ablate[:np.random.randint(*ablate_range)]] = 0
+        x[0,channels_to_ablate[:1]] = 0
+	return x[0, :, rand_start:rand_start+seq_len], x_orig[0, :, rand_start:rand_start+seq_len]
 
 
 class Iterator(object):
@@ -167,7 +168,7 @@ class DirectoryIterator(Iterator):
         self.ecog_data_generator = EcogDataGenerator
         self.dim_ordering = dim_ordering
         self.seq_len = seq_len
-        self.image_shape = (len(channels), seq_len)
+        self.image_shape = (1,len(channels), seq_len)
         self.channels = channels
         self.ablate_range = ablate_range
 
@@ -210,14 +211,12 @@ class DirectoryIterator(Iterator):
         # The transformation of images is not under thread lock so it can be done in parallel
 
         batch_x = np.zeros((current_batch_size,) + self.image_shape)
-        batch_y = np.zeros(shape=(current_batch_size,) + self.image_shape, dtype='float32')
+        batch_y = np.zeros(shape=(current_batch_size,self.image_shape[1]))
         # build batch of image data
         for i, j in enumerate(index_array):
             fname = self.filenames[j]
-            x = load_edf(os.path.join(self.directory, fname), self.ecog_data_generator.start_time, self.seq_len,
-                         self.channels)
-            x_orig = copy.copy(x_orig)
-            x = self.ecog_data_generator.random_transform(x)
-            batch_x[i] = x
-            batch_y[i] = x_orig
+            x = load_edf(os.path.join(self.directory, fname), self.channels)
+            x, x_orig = self.ecog_data_generator.random_transform(x, self.seq_len, self.ablate_range)
+            batch_x[i,0] = x
+            batch_y[i] = x_orig[:,-1]
         return batch_x, batch_y

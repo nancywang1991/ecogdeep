@@ -14,80 +14,90 @@ import numpy as np
 import pdb
 import pickle
 import glob
+import tensorflow as tf
 
-sbj_to_do = ["a0f", "d65", "a0f_d65"]
-for itr in range(1):
-    for s, sbj in enumerate(sbj_to_do):
-        main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_%s/' % (sbj)
+def selected_loss(input):
+    def loss(y_true, y_pred):
+	#pdb.set_trace()
+        inds = K.cast(K.less(input[:,0,:,-1], y_true), 'float32')
+	return K.sum(K.square((y_pred - y_true)*inds), axis=-1)
+    return loss
 
-        ## Data generation ECoG
-        channels = np.arange(100)
-        train_datagen_edf = EcogDataGenerator(
-            seq_len=200
-        )
+def main():
+    sbj_to_do = ["d65"]
+    for itr in range(1):
+        for s, sbj in enumerate(sbj_to_do):
+            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_%s/' % (sbj)
 
-        test_datagen_edf = EcogDataGenerator(
-            seq_len=200
-        )
+            ## Data generation ECoG
+            channels = np.arange(100)
+            train_datagen_edf = EcogDataGenerator(
+                seq_len=1
+            )
 
-        dgdx_edf = train_datagen_edf.flow_from_directory(
+            test_datagen_edf = EcogDataGenerator(
+                seq_len=1
+            )
+
+            dgdx_edf = train_datagen_edf.flow_from_directory(
             '%s/train/' % main_ecog_dir,
             batch_size=24,
             channels=channels,
+	    ablate_range = (1,1),
             pre_shuffle_ind=1
-        )
+            )
 
-        dgdx_val_edf = test_datagen_edf.flow_from_directory(
+            dgdx_val_edf = test_datagen_edf.flow_from_directory(
             '%s/val/' % main_ecog_dir,
             batch_size=10,
+	    ablate_range = (1,1),
             channels=channels)
-        train_generator = dgdx_edf
-        validation_generator = dgdx_val_edf
+            
+            train_generator = dgdx_edf
+            validation_generator = dgdx_val_edf
+	    ecog_series = Input(shape=(1, len(channels), 1))
+            #x = Convolution2D(16, (1, 2), padding='same', name='block1_conv1')(ecog_series)
+            # x = BatchNormalization(axis=1)(x)
+            #x = Activation('tanh')(x)
+            #x = MaxPooling2D((1, 3), name='block1_pool')(x)
 
-        ecog_series = Input(shape=(1, len(channels), 200))
-        x = Convolution2D(4, (1, 3), padding='same', name='block1_conv1')(ecog_series)
-        # x = BatchNormalization(axis=1)(x)
-        x = Activation('tanh')(x)
-        x = MaxPooling2D((1, 3), name='block1_pool')(x)
+            # Block 2
+            #x = Convolution2D(32, (1, 4), padding='same', name='block2_conv1')(x)
+            # x = BatchNormalization(axis=1)(x)
+            #x = Activation('tanh')(x)
+            #x = MaxPooling2D((1, 3), name='block2_pool')(x)
 
-        # Block 2
-        x = Convolution2D(8, (1, 3), padding='same', name='block2_conv1')(x)
-        # x = BatchNormalization(axis=1)(x)
-        x = Activation('tanh')(x)
-        x = MaxPooling2D((1, 3), name='block2_pool')(x)
+            # Block 3
+            #x = Convolution2D(64, (1, 8), padding='same', name='block3_conv1')(x)
+            # x = BatchNormalization(axis=1)(x)
+            #x = Activation('tanh')(x)
+	    x = Flatten(name='flatten')(ecog_series)
+            #x = Dense(128, name='fc1')(x)
+            #x = Activation('tanh')(x)
+	    x = Dense(128, name='fc2')(x)
+	    x = Activation('tanh')(x)
+            x = Dense(len(channels), name='predictions')(x)
+            # x = BatchNormalization()(x)
+            predictions = Activation('sigmoid')(x)
 
-        # Block 3
-        x = Convolution2D(16, (1, 3), padding='same', name='block3_conv1')(x)
-        # x = BatchNormalization(axis=1)(x)
-        x = Activation('tanh')(x)
-        x = Dense(64, name='fc1')(x)
-        x = Activation('tanh')(x)
-        x = Dense(len(channels), name='predictions')(x)
-        # x = BatchNormalization()(x)
-        predictions = Activation('sigmoid')(x)
-
-        def selected_loss(input):
-            def loss(y_true, y_pred):
-                inds = not (y_true==input)
-                return K.mean(K.square(y_pred[inds] - y_true[inds]), axis=-1)
-            return loss
-
-        model = Model(input=[ecog_series], output=predictions)
-        sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
-        model_savepath = "/home/wangnxr/models/ecog_model_impute_%s_itr_%i" % (sbj, itr)
-        model.compile(optimizer=sgd,
-                      loss=[selected_loss(input=ecog_series)],
-                      metrics=['loss'])
-        early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
-        checkpoint = ModelCheckpoint("%s_best.h5" % model_savepath, monitor='val_loss', verbose=1,
+            model = Model(inputs=[ecog_series], outputs=predictions)
+            sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
+            model_savepath = "/home/wangnxr/models/ecog_model_impute_%s_itr_%i" % (sbj, itr)
+            model.compile(optimizer=sgd,
+                      loss=[selected_loss(input=ecog_series)])
+            early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
+            checkpoint = ModelCheckpoint("%s_best.h5" % model_savepath, monitor='val_loss', verbose=1,
                                      save_best_only=True, mode='min')
-        history_callback = model.fit_generator(
+            history_callback = model.fit_generator(
             train_generator,
-            samples_per_epoch=len(dgdx_edf.filenames),
-            nb_epoch=200,
+            steps_per_epoch=len(dgdx_edf.filenames)/24,
+            epochs=200,
             validation_data=validation_generator,
-            nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint, early_stop])
+            validation_steps=len(dgdx_val_edf.filenames)/10, callbacks=[checkpoint])
 
-        model.save("%s.h5" % model_savepath)
-        pickle.dump(history_callback.history,
+            model.save("%s.h5" % model_savepath)
+            pickle.dump(history_callback.history,
                     open("/home/wangnxr/history/%s.p" % model_savepath.split("/")[-1].split(".")[0], "wb"))
+
+if __name__ == "__main__":
+    main()

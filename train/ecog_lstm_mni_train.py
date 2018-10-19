@@ -19,10 +19,10 @@ import pickle
 import glob
 
 
-sbj_to_do = ["a0f", "d65", "a0f_d65"]
-for itr in range(3):
+sbj_to_do = ["a0f", "d65", "cb4", "c95"]
+for itr in range(1):
     for s, sbj in enumerate(sbj_to_do):
-        main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_%s/' % (sbj)
+        main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_deep_impute_%s/' % (sbj)
 
         for t, time in enumerate(start_times):
 
@@ -93,7 +93,7 @@ for itr in range(3):
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "/home/wangnxr/models/ecog_model_mni_%s_itr_%i_t_%i" % (sbj,itr,time)
+            model_savepath = "/home/wangnxr/models/ecog_model_mni_deep_impute_%s_itr_%i_t_%i" % (sbj,itr,time)
             
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',

@@ -1,6 +1,6 @@
 import keras
 from keras.applications.vgg16 import VGG16
-from keras.preprocessing.ecog import EcogDataGenerator
+from ecogdeep.data.preprocessing.ecog import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
@@ -9,24 +9,16 @@ from keras.models import Model, load_model
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
 import numpy as np
 import pdb
-from sbj_parameters import *
 import glob
 
-with open("/home/nancy/results/ecog_mni_summary_results_diff_d65.txt", "wb") as summary_writer:
-    for s, sbj in enumerate(["d65"]):
-        for time in start_times:
-            main_ecog_dir = '/data2/users/nancy/dataset/ecog_mni_%s/test/' % (sbj)
-            for itr in xrange(3):
-                model_files = glob.glob(
-                    '/home/nancy/models/ecog_model_mni_%s_itr_%i_t_%i_weights_*.h5' % ("d65", itr, time))
-                if len(model_files)==0:
-                    continue
-                last_model_ind = np.argmax([int(file.split("_")[-1].split(".")[0]) for file in model_files])
-                #pre_shuffle_index = np.random.permutation(len(glob.glob('%s/train/*/*.npy' % main_ecog_dir)))
+with open("/home/wangnxr/results/ecog_mni_summary_results_deep_impute_cb4.txt", "wb") as summary_writer:
+    for s, sbj in enumerate(["d65", "a0f", "cb4", "c95"]):
+        for time in [2700, 3300, 3900]:
+            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_deep_impute_%s/test/' % (sbj)
+            for itr in xrange(1):
+                model_file = '/home/wangnxr/models/ecog_model_mni_deep_impute_%s_itr_%i_t_%i_best.h5' % ("cb4", itr, time)
                 ## Data generation ECoG
                 channels = np.arange(100)
-                model_file = model_files[last_model_ind]
-
 
                 test_datagen_edf = EcogDataGenerator(
                     center=True,
@@ -52,11 +44,10 @@ with open("/home/nancy/results/ecog_mni_summary_results_diff_d65.txt", "wb") as 
 
                 #pdb.set_trace()
                 files = dgdx_val_edf.filenames
-                results = model.predict_generator(validation_generator, len(files))
+                results = model.predict_generator(validation_generator, len(files)/10)
                 true = dgdx_val_edf.classes
                 true_0 = 0
                 true_1 = 0
-
                 for r, result in enumerate(results):
                     if true[r]== 0 and result<0.5:
                         true_0+=1
@@ -73,11 +64,11 @@ with open("/home/nancy/results/ecog_mni_summary_results_diff_d65.txt", "wb") as 
                 summary_writer.write("accuracy_1:%f\n" % accuracy_1)
                 summary_writer.write("accuracy_0:%f\n" % accuracy_0)
                 summary_writer.write("average:%f\n" % np.mean([accuracy_1, accuracy_0]))
-                with open("/home/nancy/results/%s_mni_diff_sbj.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
+#                with open("/home/wangnxr/results/%s_mni_diff_sbj.txt" % model_file.split("/")[-1].split(".")[0], "wb") as writer:
                  #       writer.write("recall:%f\n" % recall)
                  #       writer.write("precision:%f\n" % precision)
-                        writer.write("accuracy_1:%f\n" % accuracy_1)
-                        writer.write("accuracy_0:%f\n" % accuracy_0)
+#                        writer.write("accuracy_1:%f\n" % accuracy_1)
+#                        writer.write("accuracy_0:%f\n" % accuracy_0)
 
-                        for f, file in enumerate(files):
-                                writer.write("%s:%f\n" % (file, results[f][0]))
+#                        for f, file in enumerate(files):
+#                                writer.write("%s:%f\n" % (file, results[f][0]))

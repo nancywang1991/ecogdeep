@@ -30,6 +30,7 @@ for gridlabid, sbj in subject_id_map.iteritems():
 		mean = np.zeros(64)
 		std = np.zeros(64)
 		for c in range(1,65):
+			print "normalising channel %i" % (c-1)
 			temp_data = data.readSignal(c)
 			mean[c-1] = np.mean(temp_data)
 			std[c-1] = np.std(temp_data)	
@@ -49,6 +50,7 @@ for gridlabid, sbj in subject_id_map.iteritems():
 		mean = np.zeros(64)
 		std = np.zeros(64)
 		for c in range(1,65):
+			print "normalizing channel %i" % (c-1)
 			temp_data = data.readSignal(c)
 			mean[c-1] = np.mean(temp_data)
 			std[c-1] = np.std(temp_data)	

@@ -114,7 +114,8 @@ class EcogDataGenerator(object):
                  samplewise_std_normalization=False,
                  zca_whitening=False,
                  time_shift_range=None,
-                 gaussian_noise_range=None,
+                 spatial_shift=False,
+		 gaussian_noise_range=None,
                  fft = False,
                  f_lo = 0,
                  f_hi = 0,
@@ -131,7 +132,8 @@ class EcogDataGenerator(object):
         self.principal_components = None
         self.gaussian_noise_range = gaussian_noise_range
         self.time_shift_range = time_shift_range
-        self.f_lo=f_lo
+        self.spatial_shift = spatial_shift
+	self.f_lo=f_lo
         self.f_hi=f_hi
         self.samp_rate=samp_rate
         self.fft=fft
@@ -223,7 +225,14 @@ class EcogDataGenerator(object):
             else:
                 shift = self.time_shift_range/2
             x = x[:,:,shift:(shift+target_size[-1])]
-        return x
+        if self.spatial_shift:
+            x_grid = np.reshape(x, (10, 10, x.shape[-1]))
+            x_grid_new = np.zeros(shape=x_grid.shape)
+            xshift = np.random.randint(-1,1)
+            yshift = np.random.randint(-1,1)
+            x_grid_new[max(0,xshift):min(10, 10+xshift), max(0,yshift):min(10, 10+yshift)] = x_grid[max(0,-xshift):min(10, 10-xshift), max(0,-yshift):min(10, 10-yshift)]
+            x = np.reshape(x_grid_new, (1, 100, x.shape[-1]))
+	return x
 
     def freq_transform(self, x, f_lo,f_hi, samp_rate):
         f_hi = int(f_hi*(x.shape[-1]/float(samp_rate)))

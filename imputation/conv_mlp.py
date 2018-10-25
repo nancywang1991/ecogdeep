@@ -25,11 +25,11 @@ def selected_loss(input):
     return loss
 
 def main():
-    sbj_to_do = ["a0f_d65_c95_cb4"]
+    sbj_to_do = ["all_plus"]
     for itr in range(1):
         for s, sbj in enumerate(sbj_to_do):
-            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_%s/' % (sbj)
-
+            main_ecog_dir = '/data2/users/wangnxr/dataset/standardized_clips/' 
+	    main_ecog_dir2 = '/data2/users/wangnxr/dataset/ecog_mni_%s/' % ('a0f_d65_c95_cb4')
             ## Data generation ECoG
             channels = np.arange(100)
             train_datagen_edf = EcogDataGenerator(
@@ -44,12 +44,12 @@ def main():
             '%s/train/' % main_ecog_dir,
             batch_size=24,
             channels=channels,
-	    ablate_range = (5,20),
+            ablate_range = (5,20),
             pre_shuffle_ind=1
             )
 
             dgdx_val_edf = test_datagen_edf.flow_from_directory(
-            '%s/val/' % main_ecog_dir,
+            '%s/val/' % main_ecog_dir2,
             batch_size=10,
 	    ablate_range = (5,20),
             channels=channels)
@@ -94,7 +94,8 @@ def main():
             steps_per_epoch=len(dgdx_edf.filenames)/24,
             epochs=200,
             validation_data=validation_generator,
-            validation_steps=len(dgdx_val_edf.filenames)/10, callbacks=[checkpoint])
+            validation_steps=len(dgdx_val_edf.filenames)/10, callbacks=[checkpoint]
+	    )
 
             model.save("%s.h5" % model_savepath)
             pickle.dump(history_callback.history,

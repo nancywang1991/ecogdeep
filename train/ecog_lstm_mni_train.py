@@ -18,16 +18,27 @@ import pdb
 import pickle
 import glob
 
-
+#PARAMS
 sbj_to_do = ["a0f", "d65", "cb4", "c95"]
+jitter = True
+imputation_type = "deep"
+data_dir = "/data2/users/wangnxr/dataset/"
+model_dir = "/home/wangnxr/models/"
+history_dir = "/home/wangnxr/history/"
+
 for itr in range(1):
     for s, sbj in enumerate(sbj_to_do):
-        main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_deep_impute_%s/' % (sbj)
+	if imputation_type == "zero":
+		main_ecog_dir = '/%s/ecog_mni_deep_impute_%s/' % (data_dir, sbj)
+	if imputation_type == "interp":
+		main_ecog_dir = '/%s/ecog_mni_interp_%s/' % (data_dir, sbj)
+	if imputation_type == "deep":
+        	main_ecog_dir = '/%s/ecog_mni_deep_impute_%s/' % (data_dir, sbj)
 
         for t, time in enumerate(start_times):
-
+	    print sbj
+	    print time
             ## Data generation ECoG
-            #channels = np.array([6, 12, 13, 14, 16, 17, 20, 21, 22, 24, 25, 27, 30, 31, 33, 34, 36, 37, 43, 45, 47, 48, 50, 51, 54, 55, 56, 58, 59, 61, 63, 65, 66, 67, 68, 69, 71, 72, 73, 75, 76, 77, 78, 82, 84, 85, 86, 91, 92])
             channels = np.arange(100)
             train_datagen_edf = EcogDataGenerator(
                 time_shift_range=200,
@@ -35,7 +46,8 @@ for itr in range(1):
                 seq_len=200,
                 start_time=time,
                 seq_num = 5,
-                seq_st = 200
+                seq_st = 200,
+		spatial_shift = jitter
             )
 
             test_datagen_edf = EcogDataGenerator(
@@ -66,7 +78,8 @@ for itr in range(1):
                 final_size=(1,len(channels),200),
                 channels = channels,
                 class_mode='binary')
-            ecog_model = ecog_1d_model(channels=len(channels))
+            
+	    ecog_model = ecog_1d_model(channels=len(channels))
             train_generator =  dgdx_edf
             validation_generator =  dgdx_val_edf
             base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
@@ -89,11 +102,11 @@ for itr in range(1):
                 layer.trainable = True
 
 
-            model = Model(input=[ecog_series], output=predictions)
+            model = Model(inputs=[ecog_series], outputs=predictions)
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "/home/wangnxr/models/ecog_model_mni_deep_impute_%s_itr_%i_t_%i" % (sbj,itr,time)
+            model_savepath = "%s/ecog_model_mni_%s_jitter_%s_%s_itr_%i_t_%i" % (model_dir,imputation_type, jitter, sbj,itr,time)
             
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',
@@ -102,10 +115,12 @@ for itr in range(1):
             checkpoint = ModelCheckpoint("%s_best.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
             history_callback = model.fit_generator(
                 train_generator,
-                samples_per_epoch=len(dgdx_edf.filenames),
-                nb_epoch=200,
+                steps_per_epoch=len(dgdx_edf.filenames)/24,
+                epochs=200,
                 validation_data=validation_generator,
-                nb_val_samples=len(dgdx_val_edf.filenames), callbacks=[checkpoint, early_stop])
+                validation_steps=len(dgdx_val_edf.filenames)/10, 
+		callbacks=[checkpoint, early_stop]
+	    )
 
             model.save("%s.h5" % model_savepath)
-            pickle.dump(history_callback.history, open("/home/wangnxr/history/%s.p" % model_savepath.split("/")[-1].split(".")[0], "wb"))
+            pickle.dump(history_callback.history, open("%s/%s.p" % (history_dir, model_savepath.split("/")[-1].split(".")[0], "wb")))

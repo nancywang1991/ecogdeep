@@ -11,12 +11,12 @@ import numpy as np
 import pdb
 import glob
 
-with open("/home/wangnxr/results/ecog_mni_summary_results_deep_impute_cb4.txt", "wb") as summary_writer:
+with open("/home/wangnxr/results/ecog_mni_summary_results_deep_impute_d65.txt", "wb") as summary_writer:
     for s, sbj in enumerate(["d65", "a0f", "cb4", "c95"]):
         for time in [2700, 3300, 3900]:
             main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_deep_impute_%s/test/' % (sbj)
             for itr in xrange(1):
-                model_file = '/home/wangnxr/models/ecog_model_mni_deep_impute_%s_itr_%i_t_%i_best.h5' % ("cb4", itr, time)
+                model_file = '/home/wangnxr/models/ecog_model_mni_deep_impute_%s_itr_%i_t_%i_best.h5' % ("d65", itr, time)
                 ## Data generation ECoG
                 channels = np.arange(100)
 

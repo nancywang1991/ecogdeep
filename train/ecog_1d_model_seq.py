@@ -54,7 +54,7 @@ def ecog_1d_model(weights=None, channels=None):
 
     # for layer in base_model.layers[:10]:
     #    layer.trainable = False
-    model = Model(input=input_tensor, output=predictions)
+    model = Model(inputs=input_tensor, outputs=predictions)
     if weights is not None:
         model.load_weights(weights)
 

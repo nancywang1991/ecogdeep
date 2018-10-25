@@ -17,7 +17,6 @@ for gridlabid, sbj in subject_id_map.iteritems():
 		continue
 	files = sorted(glob.glob("%s/%s/*.edf" % (data_main, sbj)))
 	mapping = electrode_mapping(open("%s/%s_Trodes_MNIcoords.txt" % (mni_dir, gridlabid)))
-
 	try:
 		os.makedirs("%s/%s/train/" % (save_main, sbj))
 		os.makedirs("%s/%s/test/" % (save_main, sbj))
@@ -34,14 +33,14 @@ for gridlabid, sbj in subject_id_map.iteritems():
 			temp_data = data.readSignal(c)
 			mean[c-1] = np.mean(temp_data)
 			std[c-1] = np.std(temp_data)	
-		for t in range(0,data.file_duration*1000, 30000):
+		for t in range(0,data.file_duration*1000-5000, 120000):
 			if (start_time + datetime.timedelta(t/1000)).hour > 7:
 				chunk = np.zeros(shape=(100, 5000))
 				for c in range(1,65):
 					if not np.isnan(mapping[c-1]):
 						chunk[mapping[c-1]] = (data.readSignal(c, start=t, n=5000)-mean[c-1])/std[c-1]
 				print "Saving time=%i from file %s" % (t, file)
-				np.save("%s/%s/train/%s_%i" % (save_main, sbj, file.split("/")[-1].split(".")[0], t), chunk)
+				np.save("%s/%s/train/%s_t_%i" % (save_main, sbj, file.split("/")[-1].split(".")[0], t/1000), chunk)
 	
 	for file in files[-2:]:
 		data = pyedflib.EdfReader(file)
@@ -54,14 +53,14 @@ for gridlabid, sbj in subject_id_map.iteritems():
 			temp_data = data.readSignal(c)
 			mean[c-1] = np.mean(temp_data)
 			std[c-1] = np.std(temp_data)	
-		for t in range(0,data.file_duration*1000, 30000):
+		for t in range(0,data.file_duration*1000 - 5000, 120000):
 			if (start_time + datetime.timedelta(t/1000)).hour > 7:
 				chunk = np.zeros(shape=(100, 5000))
 				for c in range(1,65):
 					if not np.isnan(mapping[c-1]):
-						chunk[mapping[c-1]] = (datetime.readSignal(c, start=t, n=5000)-mean[c-1])/std[c-1]
+						chunk[mapping[c-1]] = (data.readSignal(c, start=t, n=5000)-mean[c-1])/std[c-1]
 				print "Saving time=%i from file %s" % (t, file)
-				np.save("%s/%s/test/%s_%i" % (save_main, sbj, file.split("/")[-1].split(".")[0], t), chunk)
+				np.save("%s/%s/test/%s_t_%is" % (save_main, sbj, file.split("/")[-1].split(".")[0], t/1000), chunk)
 
 
 		

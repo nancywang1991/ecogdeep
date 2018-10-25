@@ -21,9 +21,9 @@ def electrode_mapping(mni_file, xedges=None, yedges=None):
     return mapping
 
 def main():
-    subjects = ['ecb43e', 'c5a5e9']
+    subjects = ['294e1c', '69da36', 'ecb43e', 'c5a5e9']
     subject_id_map = {'69da36': 'd65', '294e1c': 'a0f', 'c5a5e9': 'c95', 'ecb43e': 'cb4'}
-    mni_dir = '/data2/users/wangnxr/mni_coords/'
+    mni_dir = '/home/wangnxr/Documents/mni_coords/'
     main_data_dir = "/data2/users/wangnxr/dataset/"
     for subject in subjects:
         print "Working on subject %s" % subject

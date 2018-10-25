@@ -105,7 +105,7 @@ class EcogDataGenerator(object):
         channels_to_ablate = list(set(np.where(x > 0)[1]))
 	x_orig = copy.copy(x)
         np.random.shuffle(channels_to_ablate)
-        rand_start = np.random.randint(x.shape[-1]-seq_len)
+        rand_start = np.random.randint(seq_len, x.shape[-1]-seq_len)
         x[0,channels_to_ablate[:np.random.randint(*ablate_range)]] = 0
         #x[0,channels_to_ablate[:1]] = 0
 	return x[0, :, rand_start:rand_start+seq_len], x_orig[0, :, rand_start:rand_start+seq_len]

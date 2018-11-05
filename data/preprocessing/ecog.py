@@ -72,8 +72,9 @@ def load_edf(path, start_time, channels=None, ablate=None):
     signal = np.expand_dims(np.load(path)[:,:],0)
     for c in channels:#xrange(signal.shape[1]):
         try:
-            signal[0,c] = butter_bandpass_filter(signal[:,c],10,200, 1000)
-            signal[0,c] = (signal[0,c] - np.mean(signal[0, c, :3500]))/np.std(signal[0, c, :3500])
+            if np.any(signal[:,c]) > 0:
+                signal[0,c] = butter_bandpass_filter(signal[:,c],10,200, 1000)
+                signal[0,c] = (signal[0,c] - np.mean(signal[0, c, :3500]))/np.std(signal[0, c, :3500])
         except:
             print(path)
             pass
@@ -117,6 +118,7 @@ class EcogDataGenerator(object):
                  spatial_shift=False,
 		 gaussian_noise_range=None,
                  fft = False,
+                 three_d = False,
                  f_lo = 0,
                  f_hi = 0,
                  samp_rate = 1000,
@@ -137,6 +139,7 @@ class EcogDataGenerator(object):
         self.f_hi=f_hi
         self.samp_rate=samp_rate
         self.fft=fft
+        self.three_d = three_d
         self.start_time=start_time
         self.seq_len = seq_len
         self.seq_num = seq_num
@@ -437,6 +440,8 @@ class DirectoryIterator(Iterator):
         # The transformation of images is not under thread lock so it can be done in parallel
         if self.ecog_data_generator.seq_num:
             batch_x = np.zeros(shape=((current_batch_size,self.ecog_data_generator.seq_num) + self.image_shape))
+        if self.ecog_data_generator.three_d:
+            batch_x = np.zeros((current_batch_size,) + (5, 1, 10,10, self.image_shape[-1]))
         else:
             batch_x = np.zeros((current_batch_size,) + self.image_shape)
         grayscale = self.color_mode == 'grayscale'
@@ -448,7 +453,11 @@ class DirectoryIterator(Iterator):
             x = self.ecog_data_generator.standardize(x, self.target_size)
             if self.ecog_data_generator.fft:
                 x = self.ecog_data_generator.freq_transform(x, self.ecog_data_generator.f_lo, self.ecog_data_generator.f_hi, self.ecog_data_generator.samp_rate)
-            batch_x[i] = x
+            if self.ecog_data_generator.three_d:
+                new_x = []
+                for t in range(x.shape[0]):
+                    new_x.append(np.expand_dims(np.reshape(x[0][0], (10, 10, x.shape[-1])), 0))
+            batch_x[i] = np.array(new_x)
         # optionally save augmented images to disk for debugging purposes
         if self.save_to_dir:
             for i in range(current_batch_size):

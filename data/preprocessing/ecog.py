@@ -72,8 +72,9 @@ def load_edf(path, start_time, channels=None, ablate=None):
     signal = np.expand_dims(np.load(path)[:,:],0)
     for c in channels:#xrange(signal.shape[1]):
         try:
-            signal[0,c] = butter_bandpass_filter(signal[:,c],10,200, 1000)
-            signal[0,c] = (signal[0,c] - np.mean(signal[0, c, :3500]))/np.std(signal[0, c, :3500])
+	    if np.any(signal[:,c]) != 0:
+            	signal[0,c] = butter_bandpass_filter(signal[:,c],10,200, 1000)
+            	signal[0,c] = (signal[0,c] - np.mean(signal[0, c, :3500]))/np.std(signal[0, c, :3500])
         except:
             print(path)
             pass

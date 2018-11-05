@@ -7,17 +7,48 @@ from keras.models import Model
 from keras.layers import Convolution2D, MaxPooling2D
 from keras.models import Model, load_model
 #from keras.imagenet_utils import decode_predictions, preprocess_input, _obtain_input_shape
+import matplotlib
+matplotlib.use("agg")
+import matplotlib.pyplot as plt
 import numpy as np
 import pdb
 import glob
+import pickle
 
-with open("/home/wangnxr/results/ecog_mni_summary_results_deep_impute_d65.txt", "wb") as summary_writer:
-    for s, sbj in enumerate(["d65", "a0f", "cb4", "c95"]):
+def my_train_val_save_fig(data, xlabel, ylabel, ylim, title, savename):
+    plt.plot(data[0], label = "train")
+    plt.plot(data[1], label = "val")
+    plt.ylim(ylim)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.legend()
+    plt.savefig(savename)
+    plt.clf()
+    return
+
+
+for model_root in glob.glob('/home/wangnxr/current_models/*_3900_best.h5'):
+    model_root_name =  "_".join(model_root.split("/")[-1].split(".")[0].split("_")[:-2])
+    model_type = model_root_name.split("_")[3]
+    with open("/home/wangnxr/results/%s.txt" % model_root_name, "w") as summary_writer:
         for time in [2700, 3300, 3900]:
-            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_deep_impute_%s/test/' % (sbj)
-            for itr in xrange(1):
-                model_file = '/home/wangnxr/models/ecog_model_mni_deep_impute_%s_itr_%i_t_%i_best.h5' % ("d65", itr, time)
-                ## Data generation ECoG
+	    model_file = "%s_%i_best.h5" % ("_".join(model_root.split("_")[:-2]), time)
+	    model_name = "_".join(model_file.split("/")[-1].split(".")[0].split("_")[:-1])
+	    print model_file
+            # Plot training results
+	    history_file = pickle.load(open('/home/wangnxr/history/%s.p' % model_name, "rb"))
+            my_train_val_save_fig([history_file["acc"], history_file["val_acc"]], "Epochs",  
+			"Accuracy", [0,1], model_name, "/home/wangnxr/results/%s.png" % model_name)  
+	    for s, sbj in enumerate(["d65", "a0f", "cb4", "c95"]):
+	        if model_type == "deep":
+                    main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_deep_impute_%s/test/' % (sbj)
+	        elif model_type == "zero":
+	            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_%s/test/' % (sbj)
+	        elif model_type == "interp":
+	            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_interp_%s/test/' % (sbj)
+		
+		# Data generation ECoG
                 channels = np.arange(100)
 
                 test_datagen_edf = EcogDataGenerator(
@@ -59,8 +90,8 @@ with open("/home/wangnxr/results/ecog_mni_summary_results_deep_impute_d65.txt", 
                 accuracy_1 = true_1/float(sum(true))
                 accuracy_0 = true_0/float((len(np.where(true==0)[0])))
 
-                summary_writer.write("model:" + model_file.split("/")[-1].split(".")[0] + "\n")
-                summary_writer.write("subject: %s time: %i" % (sbj, time))
+                summary_writer.write("model: %s\n" % model_name)
+                summary_writer.write("subject: %s time: %i\n" % (sbj, time))
                 summary_writer.write("accuracy_1:%f\n" % accuracy_1)
                 summary_writer.write("accuracy_0:%f\n" % accuracy_0)
                 summary_writer.write("average:%f\n" % np.mean([accuracy_1, accuracy_0]))

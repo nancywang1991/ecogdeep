@@ -14,11 +14,7 @@ import pdb
 sbj_ids = ['a0f', 'd65']
 start_times = [2700, 3300,3900]
 frames = [ range(1,6), range(4,9), range(7,12)]
-channels_list = [#np.hstack([np.arange(36), np.arange(37, 65), np.arange(66, 92)]),
-                 #np.hstack([np.arange(80), np.arange(81, 85), np.arange(86, 104),np.arange(105, 108), np.arange(110, 111)]),
-                 #np.arange(82), np.arange(80), 
-                 
-		np.arange(100)]
+channels_list = [np.arange(100)]
 for s, sbj in enumerate(sbj_ids):
     main_ecog_dir = '/data2/users/nancy/dataset/ecog_mni_%s/' % (sbj)
     for t, time in enumerate(start_times):

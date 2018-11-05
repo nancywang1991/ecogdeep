@@ -25,11 +25,11 @@ def selected_loss(input):
     return loss
 
 def main():
-    sbj_to_do = ["all_plus"]
+    sbj_to_do = ["all"]
     for itr in range(1):
         for s, sbj in enumerate(sbj_to_do):
-            main_ecog_dir = '/data2/users/wangnxr/dataset/standardized_clips/' 
-	    main_ecog_dir2 = '/data2/users/wangnxr/dataset/ecog_mni_%s/' % ('a0f_d65_c95_cb4')
+            #main_ecog_dir = '/data2/users/wangnxr/dataset/standardized_clips/' 
+	    main_ecog_dir2 = '/data2/users/wangnxr/dataset/ecog_mni_ellip_%s/' % ('a0f_d65_c95_cb4')
             ## Data generation ECoG
             channels = np.arange(100)
             train_datagen_edf = EcogDataGenerator(
@@ -41,7 +41,7 @@ def main():
             )
 
             dgdx_edf = train_datagen_edf.flow_from_directory(
-            '%s/train/' % main_ecog_dir,
+            '%s/train/' % main_ecog_dir2,
             batch_size=24,
             channels=channels,
             ablate_range = (5,20),
@@ -83,7 +83,7 @@ def main():
 
             model = Model(inputs=[ecog_series], outputs=predictions)
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
-            model_savepath = "/home/wangnxr/models/ecog_model_impute_ablate_more_%s_itr_%i" % (sbj, itr)
+            model_savepath = "/home/wangnxr/models/ecog_model_ellip_impute_ablate_more_%s_itr_%i" % (sbj, itr)
             model.compile(optimizer=sgd,
                       loss=[selected_loss(input=ecog_series)])
             early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')

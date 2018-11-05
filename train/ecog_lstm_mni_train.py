@@ -19,19 +19,20 @@ import pickle
 import glob
 
 #PARAMS
-sbj_to_do = ["a0f", "d65", "cb4", "c95"]
+#sbj_to_do = ["a0f", "d65", "cb4", "c95"]
+sbj_to_do = ["a0f", "d65", "cb4", "c95", "a0f_d65"]
 jitter = True
-imputation_type = "deep"
+imputation_type = "interp"
 data_dir = "/data2/users/wangnxr/dataset/"
 model_dir = "/home/wangnxr/models/"
 history_dir = "/home/wangnxr/history/"
 
-for itr in range(1):
+for itr in range(1, 3):
     for s, sbj in enumerate(sbj_to_do):
 	if imputation_type == "zero":
-		main_ecog_dir = '/%s/ecog_mni_deep_impute_%s/' % (data_dir, sbj)
+		main_ecog_dir = '/%s/ecog_mni_%s/' % (data_dir, sbj)
 	if imputation_type == "interp":
-		main_ecog_dir = '/%s/ecog_mni_interp_%s/' % (data_dir, sbj)
+		main_ecog_dir = '/%s/ecog_mni_ellip_interp_%s/' % (data_dir, sbj)
 	if imputation_type == "deep":
         	main_ecog_dir = '/%s/ecog_mni_deep_impute_%s/' % (data_dir, sbj)
 
@@ -106,7 +107,7 @@ for itr in range(1):
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "%s/ecog_model_mni_%s_jitter_%s_%s_itr_%i_t_%i" % (model_dir,imputation_type, jitter, sbj,itr,time)
+            model_savepath = "%s/ecog_model_mni_ellip_%s_jitter_%s_%s_itr_%i_t_%i" % (model_dir,imputation_type, jitter, sbj,itr,time)
             
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',
@@ -123,4 +124,4 @@ for itr in range(1):
 	    )
 
             model.save("%s.h5" % model_savepath)
-            pickle.dump(history_callback.history, open("%s/%s.p" % (history_dir, model_savepath.split("/")[-1].split(".")[0], "wb")))
+            pickle.dump(history_callback.history, open("%s/%s.p" % (history_dir, model_savepath.split("/")[-1].split(".")[0]), "wb"))

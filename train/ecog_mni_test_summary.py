@@ -28,18 +28,19 @@ def my_train_val_save_fig(data, xlabel, ylabel, ylim, title, savename):
     return
 
 
-for model_root in glob.glob('/home/wangnxr/current_models/*_3900_best.h5'):
+for model_root in glob.glob('/home/wangnxr/current_models/*itr_1*_3900_best.h5'):
     model_root_name =  "_".join(model_root.split("/")[-1].split(".")[0].split("_")[:-2])
     model_type = model_root_name.split("_")[3]
+    if model_type == "ellip":
+	model_type = model_root_name.split("_")[4]
     with open("/home/wangnxr/results/%s.txt" % model_root_name, "w") as summary_writer:
         for time in [2700, 3300, 3900]:
 	    model_file = "%s_%i_best.h5" % ("_".join(model_root.split("_")[:-2]), time)
 	    model_name = "_".join(model_file.split("/")[-1].split(".")[0].split("_")[:-1])
 	    print model_file
             # Plot training results
-	    history_file = pickle.load(open('/home/wangnxr/history/%s.p' % model_name, "rb"))
-            my_train_val_save_fig([history_file["acc"], history_file["val_acc"]], "Epochs",  
-			"Accuracy", [0,1], model_name, "/home/wangnxr/results/%s.png" % model_name)  
+	    #history_file = pickle.load(open('/home/wangnxr/history/%s.p' % model_name, "rb"))
+            #my_train_val_save_fig([history_file["acc"], history_file["val_acc"]], "Epochs",  "Accuracy", [0,1], model_name, "/home/wangnxr/results/%s.png" % model_name)  
 	    for s, sbj in enumerate(["d65", "a0f", "cb4", "c95"]):
 	        if model_type == "deep":
                     main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_deep_impute_%s/test/' % (sbj)
@@ -47,7 +48,8 @@ for model_root in glob.glob('/home/wangnxr/current_models/*_3900_best.h5'):
 	            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_%s/test/' % (sbj)
 	        elif model_type == "interp":
 	            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_interp_%s/test/' % (sbj)
-		
+		elif model_root_name.split("_")[3] == "ellip":
+		    main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_ellip_interp_%s/test/' % (sbj)
 		# Data generation ECoG
                 channels = np.arange(100)
 
@@ -77,6 +79,10 @@ for model_root in glob.glob('/home/wangnxr/current_models/*_3900_best.h5'):
                 files = dgdx_val_edf.filenames
                 results = model.predict_generator(validation_generator, len(files)/10)
                 true = dgdx_val_edf.classes
+		if sbj == "c95":
+			true = 1-true
+		if model_root_name.split("_")[-4] == "c95":
+			true = 1-true
                 true_0 = 0
                 true_1 = 0
                 for r, result in enumerate(results):

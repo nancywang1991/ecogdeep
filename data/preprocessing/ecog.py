@@ -440,10 +440,11 @@ class DirectoryIterator(Iterator):
         # The transformation of images is not under thread lock so it can be done in parallel
         if self.ecog_data_generator.seq_num:
             batch_x = np.zeros(shape=((current_batch_size,self.ecog_data_generator.seq_num) + self.image_shape))
-        if self.ecog_data_generator.three_d:
-            batch_x = np.zeros((current_batch_size,) + (5, 1, 10,10, self.image_shape[-1]))
         else:
             batch_x = np.zeros((current_batch_size,) + self.image_shape)
+	if self.ecog_data_generator.three_d:
+            batch_x = np.zeros((current_batch_size,) + (5, 1, 10,10, self.image_shape[-1]))
+
         grayscale = self.color_mode == 'grayscale'
         # build batch of image data
         for i, j in enumerate(index_array):
@@ -457,7 +458,8 @@ class DirectoryIterator(Iterator):
                 new_x = []
                 for t in range(x.shape[0]):
                     new_x.append(np.expand_dims(np.reshape(x[0][0], (10, 10, x.shape[-1])), 0))
-            batch_x[i] = np.array(new_x)
+            	x = np.array(new_x)
+	    batch_x[i] = x
         # optionally save augmented images to disk for debugging purposes
         if self.save_to_dir:
             for i in range(current_batch_size):

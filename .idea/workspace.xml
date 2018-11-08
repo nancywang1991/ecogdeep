@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/preprocessing/ecog_for_imputation.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imputation/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imputation/conv_mlp.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/display/merge_model_comparison.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/mni_space_ecog_data_transform.py" afterPath="$PROJECT_DIR$/data/mni_space_ecog_data_transform.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/display/ablation_map.py" afterPath="$PROJECT_DIR$/display/ablation_map.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,14 +23,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ecog_1d_model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train/ecog_1d_model.py">
+      <file leaf-file-name="conv_mlp.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imputation/conv_mlp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="584">
-              <caret line="39" column="31" selection-start-line="19" selection-start-column="0" selection-end-line="39" selection-end-column="31" />
+            <state relative-caret-position="627">
+              <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
+                <marker date="1541625941431" expanded="true" signature="0:656" ph="import ..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="merge_model_comparison.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/display/merge_model_comparison.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="479">
+              <caret line="40" column="80" selection-start-line="40" selection-start-column="80" selection-end-line="40" selection-end-column="80" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ecog_3d_model.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train/ecog_3d_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding>
+                <marker date="1541625941443" expanded="true" signature="0:274" ph="import ..." />
+                <marker date="1541625941443" expanded="true" signature="1793:1888" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ecog_1d_model_seq.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="825">
+              <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -39,22 +73,10 @@
       <file leaf-file-name="ecog_lstm_mni_train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_lstm_mni_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1376">
-              <caret line="111" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+            <state relative-caret-position="2013">
+              <caret line="79" column="36" selection-start-line="79" selection-start-column="36" selection-end-line="79" selection-end-column="36" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="conv_mlp.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/imputation/conv_mlp.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="20" column="75" selection-start-line="20" selection-start-column="75" selection-end-line="20" selection-end-column="75" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
+                <marker date="1541625941449" expanded="false" signature="0:786" ph="import ..." />
               </folding>
             </state>
           </provider>
@@ -63,9 +85,11 @@
       <file leaf-file-name="ecog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/preprocessing/ecog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1288">
-              <caret line="15" column="14" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-              <folding />
+            <state relative-caret-position="986">
+              <caret line="467" column="48" selection-start-line="467" selection-start-column="48" selection-end-line="467" selection-end-column="48" />
+              <folding>
+                <element signature="e#169#207#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -73,19 +97,26 @@
       <file leaf-file-name="ecog_for_imputation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/preprocessing/ecog_for_imputation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="movement_ecog_data_gen_all_mvmt.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen_all_mvmt.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2663">
-              <caret line="167" column="24" selection-start-line="167" selection-start-column="24" selection-end-line="167" selection-end-column="24" />
-              <folding />
+            <state relative-caret-position="6237">
+              <caret line="205" column="19" selection-start-line="205" selection-start-column="19" selection-end-line="205" selection-end-column="19" />
+              <folding>
+                <element signature="e#169#207#0" expanded="true" />
+                <marker date="1541625941423" expanded="true" signature="609:1420" ph="..." />
+                <marker date="1541625941423" expanded="true" signature="677:820" ph="..." />
+                <marker date="1541625941423" expanded="true" signature="703:810" ph="'...'" />
+                <marker date="1541625941423" expanded="true" signature="1012:1169" ph="..." />
+                <marker date="1541625941423" expanded="true" signature="1242:1363" ph="..." />
+                <marker date="1541625941423" expanded="true" signature="1457:1669" ph="..." />
+                <marker date="1541625941423" expanded="true" signature="1462:1586" ph="&quot;&quot;&quot;Load an edf into numpy format....&quot;&quot;&quot;" />
+                <marker date="1541625941423" expanded="true" signature="1708:1869" ph="..." />
+                <marker date="1541625941423" expanded="true" signature="1721:1868" ph="..." />
+                <marker date="1541625941423" expanded="true" signature="1904:3221" ph="..." />
+                <marker date="1541625941423" expanded="true" signature="1909:2383" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1541625941423" expanded="true" signature="2547:3063" ph="..." />
+                <marker date="1541625941423" expanded="true" signature="2785:2923" ph="..." />
+                <marker date="1541625941423" expanded="true" signature="2815:2908" ph="'...'" />
+                <marker date="1541625941423" expanded="true" signature="2997:3063" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -93,18 +124,8 @@
       <file leaf-file-name="movement_ecog_data_gen.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2320">
-              <caret line="30" column="21" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ecog_lstm_train_reg.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train/ecog_lstm_train_reg.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1891">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="4191">
+              <caret line="130" column="35" selection-start-line="130" selection-start-column="35" selection-end-line="130" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -113,20 +134,20 @@
       <file leaf-file-name="mni_space_ecog_data_transform.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/mni_space_ecog_data_transform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1310">
-              <caret line="48" column="9" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
+            <state relative-caret-position="56">
+              <caret line="41" column="41" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
               <folding>
-                <marker date="1539109825387" expanded="false" signature="0:7" ph="import ..." />
+                <marker date="1541635756756" expanded="false" signature="0:7" ph="import ..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ecog_1d_model_reg.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_reg.py">
+      <file leaf-file-name="ablation_map.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/display/ablation_map.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="6" selection-end-column="70" />
+            <state relative-caret-position="330">
+              <caret line="11" column="59" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -154,7 +175,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/display/tsne_display.py" />
         <option value="$PROJECT_DIR$/train/ecog_vid_lstm_train_reg.py" />
         <option value="$PROJECT_DIR$/data/movement_ecog_data_reg_gen.py" />
         <option value="$PROJECT_DIR$/train/vid_lstm_test_reg.py" />
@@ -181,7 +201,6 @@
         <option value="$PROJECT_DIR$/train/ecog_vid_test_early_fus_summary.py" />
         <option value="$PROJECT_DIR$/non_deep_algs/ecog_svm.py" />
         <option value="$PROJECT_DIR$/display/result_tabulation.py" />
-        <option value="$PROJECT_DIR$/display/ablation_map.py" />
         <option value="$PROJECT_DIR$/data/reg_data_balance.py" />
         <option value="$PROJECT_DIR$/display/visualize_y_reg.py" />
         <option value="$PROJECT_DIR$/train/vid_train_reg.py" />
@@ -197,22 +216,23 @@
         <option value="$PROJECT_DIR$/data/movement_ecog_data_toward_away_gen.py" />
         <option value="$PROJECT_DIR$/data/preprocessing/image2.py" />
         <option value="$PROJECT_DIR$/data/preprocessing/image.py" />
-        <option value="$PROJECT_DIR$/data/preprocessing/ecog.py" />
         <option value="$PROJECT_DIR$/train/ecog_lstm_train.py" />
         <option value="$PROJECT_DIR$/train/ecog_1d_model.py" />
         <option value="$PROJECT_DIR$/train/ecog_lstm_mni_train.py" />
         <option value="$PROJECT_DIR$/train/ecog_test_summary.py" />
-        <option value="$PROJECT_DIR$/data/mni_space_ecog_data_transform.py" />
         <option value="$PROJECT_DIR$/data/preprocessing/ecog_for_imputation.py" />
         <option value="$PROJECT_DIR$/imputation/conv_mlp.py" />
+        <option value="$PROJECT_DIR$/data/preprocessing/ecog.py" />
+        <option value="$PROJECT_DIR$/display/ablation_map.py" />
+        <option value="$PROJECT_DIR$/data/mni_space_ecog_data_transform.py" />
+        <option value="$PROJECT_DIR$/display/merge_model_comparison.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="262" />
-    <option name="y" value="615" />
-    <option name="width" value="3235" />
-    <option name="height" value="1443" />
+    <option name="x" value="93" />
+    <option name="width" value="3155" />
+    <option name="height" value="1583" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -239,7 +259,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -404,7 +424,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -435,10 +455,15 @@
           <option name="myId" value="UPDATED" />
           <PATH vcs="Git" revision="">$PROJECT_DIR$/data/mni_space_ecog_data_transform.py</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/data/preprocessing/ecog.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_1d_model.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/preprocessing/ecog_for_imputation.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/imputation/conv_mlp.py</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_1d_model_seq.py</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_1d_model_seq.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_3d_model.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_3d_model.pyc</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_lstm_mni_train.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_mni_test.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_mni_test_summary.py</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -446,6 +471,19 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/__init__.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/deep_impute_inference.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/ecog_daytime_chunk_maker.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/interp_data.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/mni_space_ecog_data_transform.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/preprocessing/__init__.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/preprocessing/ecog.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/preprocessing/ecog_for_imputation.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/data/preprocessing/image2.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/imputation/__init__.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/imputation/conv_mlp.pyc</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/imputation/conv_mlp_test.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/train/ecog_lstm_mni_train_3d.py</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -534,7 +572,7 @@
       </FILE-GROUP>
     </UpdatedFiles>
   </component>
-  <component name="RunManager" selected="Python.visualize_y_reg">
+  <component name="RunManager" selected="Python.merge_model_comparison">
     <configuration default="false" name="vid_train" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -599,6 +637,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="ecogdeep" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/display/visualize_y_reg.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="merge_model_comparison" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/display" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ecogdeep" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/display/merge_model_comparison.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -737,18 +792,20 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.vid_train" />
       <item index="1" class="java.lang.String" itemvalue="Python.training_res" />
       <item index="2" class="java.lang.String" itemvalue="Python.ablation_map" />
       <item index="3" class="java.lang.String" itemvalue="Python.visualize_y_reg" />
+      <item index="4" class="java.lang.String" itemvalue="Python.merge_model_comparison" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.visualize_y_reg" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.merge_model_comparison" />
         <item index="1" class="java.lang.String" itemvalue="Python.ablation_map" />
-        <item index="2" class="java.lang.String" itemvalue="Python.training_res" />
-        <item index="3" class="java.lang.String" itemvalue="Python.vid_train" />
+        <item index="2" class="java.lang.String" itemvalue="Python.visualize_y_reg" />
+        <item index="3" class="java.lang.String" itemvalue="Python.training_res" />
+        <item index="4" class="java.lang.String" itemvalue="Python.vid_train" />
       </list>
     </recent_temporary>
   </component>
@@ -765,13 +822,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
-    </task>
-    <task id="LOCAL-00279" summary="regression">
-      <created>1499284766182</created>
-      <option name="number" value="00279" />
-      <option name="presentableId" value="LOCAL-00279" />
-      <option name="project" value="LOCAL" />
-      <updated>1499284766182</updated>
     </task>
     <task id="LOCAL-00280" summary="regression">
       <created>1499284903282</created>
@@ -1109,19 +1159,26 @@
       <option name="project" value="LOCAL" />
       <updated>1538939661834</updated>
     </task>
-    <option name="localTasksCounter" value="328" />
+    <task id="LOCAL-00328" summary="imputation code">
+      <created>1539122479298</created>
+      <option name="number" value="00328" />
+      <option name="presentableId" value="LOCAL-00328" />
+      <option name="project" value="LOCAL" />
+      <updated>1539122479298</updated>
+    </task>
+    <option name="localTasksCounter" value="329" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="262" y="615" width="3235" height="1443" extended-state="0" />
+    <frame x="93" y="0" width="3155" height="1583" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31251952" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32052514" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06263499" sideWeight="0.50625" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27698743" sideWeight="0.49375" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27826086" sideWeight="0.49375" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6592873" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30861422" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1168,7 +1225,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added data processing" />
     <MESSAGE value="added ecog training" />
     <MESSAGE value="changed ecog data gen" />
     <MESSAGE value="added randomization to ecog data generation" />
@@ -1193,20 +1249,16 @@
     <MESSAGE value="ecog and video training regression combined" />
     <MESSAGE value="toward away scheme for ecog movement regression&#10;" />
     <MESSAGE value="mni" />
-    <option name="LAST_COMMIT_MESSAGE" value="mni" />
+    <MESSAGE value="imputation code" />
+    <option name="LAST_COMMIT_MESSAGE" value="imputation code" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/display/result_compilation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/non_deep_algs/ecog_svm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1277,13 +1329,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_3d_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq_reg.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1089">
@@ -1295,13 +1340,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1400">
           <caret line="718" column="22" selection-start-line="718" selection-start-column="22" selection-end-line="718" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="24" column="91" selection-start-line="24" selection-start-column="91" selection-end-line="24" selection-end-column="91" />
         </state>
       </provider>
     </entry>
@@ -1330,13 +1368,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3597">
           <caret line="125" column="27" selection-start-line="125" selection-start-column="27" selection-end-line="125" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/display/ablation_map.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="11" column="96" selection-start-line="11" selection-start-column="96" selection-end-line="11" selection-end-column="96" />
         </state>
       </provider>
     </entry>
@@ -1407,7 +1438,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1518">
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="72" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1415,7 +1445,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1914">
           <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1423,9 +1452,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1433,9 +1459,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1443,7 +1466,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1451,7 +1473,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
           <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="49" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1459,9 +1480,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1469,7 +1487,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="627">
           <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1477,7 +1494,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
           <caret line="18" column="10" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1485,7 +1501,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
           <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1493,9 +1508,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1503,71 +1515,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1386">
           <caret line="42" column="54" selection-start-line="42" selection-start-column="54" selection-end-line="42" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_mni_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1376">
-          <caret line="111" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen_all_mvmt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2663">
+        <state relative-caret-position="5412">
           <caret line="167" column="24" selection-start-line="167" selection-start-column="24" selection-end-line="167" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2320">
-          <caret line="30" column="21" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/mni_space_ecog_data_transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1310">
-          <caret line="48" column="9" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
-          <folding>
-            <marker date="1539109825387" expanded="false" signature="0:7" ph="import ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="39" column="31" selection-start-line="19" selection-start-column="0" selection-end-line="39" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train/ecog_lstm_train_reg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1891">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/preprocessing/ecog_for_imputation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1575,24 +1536,125 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="6" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1056">
+          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#12#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/preprocessing/ecog_for_imputation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6237">
+          <caret line="205" column="19" selection-start-line="205" selection-start-column="19" selection-end-line="205" selection-end-column="19" />
+          <folding>
+            <element signature="e#169#207#0" expanded="true" />
+            <marker date="1541625941423" expanded="true" signature="609:1420" ph="..." />
+            <marker date="1541625941423" expanded="true" signature="677:820" ph="..." />
+            <marker date="1541625941423" expanded="true" signature="703:810" ph="'...'" />
+            <marker date="1541625941423" expanded="true" signature="1012:1169" ph="..." />
+            <marker date="1541625941423" expanded="true" signature="1242:1363" ph="..." />
+            <marker date="1541625941423" expanded="true" signature="1457:1669" ph="..." />
+            <marker date="1541625941423" expanded="true" signature="1462:1586" ph="&quot;&quot;&quot;Load an edf into numpy format....&quot;&quot;&quot;" />
+            <marker date="1541625941423" expanded="true" signature="1708:1869" ph="..." />
+            <marker date="1541625941423" expanded="true" signature="1721:1868" ph="..." />
+            <marker date="1541625941423" expanded="true" signature="1904:3221" ph="..." />
+            <marker date="1541625941423" expanded="true" signature="1909:2383" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1541625941423" expanded="true" signature="2547:3063" ph="..." />
+            <marker date="1541625941423" expanded="true" signature="2785:2923" ph="..." />
+            <marker date="1541625941423" expanded="true" signature="2815:2908" ph="'...'" />
+            <marker date="1541625941423" expanded="true" signature="2997:3063" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imputation/conv_mlp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
+          <folding>
+            <marker date="1541625941431" expanded="true" signature="0:656" ph="import ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_3d_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <marker date="1541625941443" expanded="true" signature="0:274" ph="import ..." />
+            <marker date="1541625941443" expanded="true" signature="1793:1888" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_mni_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2013">
+          <caret line="79" column="36" selection-start-line="79" selection-start-column="36" selection-end-line="79" selection-end-column="36" />
+          <folding>
+            <marker date="1541625941449" expanded="false" signature="0:786" ph="import ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="825">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/movement_ecog_data_gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4191">
+          <caret line="130" column="35" selection-start-line="130" selection-start-column="35" selection-end-line="130" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/preprocessing/ecog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1288">
-          <caret line="15" column="14" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+        <state relative-caret-position="986">
+          <caret line="467" column="48" selection-start-line="467" selection-start-column="48" selection-end-line="467" selection-end-column="48" />
+          <folding>
+            <element signature="e#169#207#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/display/ablation_map.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="11" column="59" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imputation/conv_mlp.py">
+    <entry file="file://$PROJECT_DIR$/data/mni_space_ecog_data_transform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="20" column="75" selection-start-line="20" selection-start-column="75" selection-end-line="20" selection-end-column="75" />
+        <state relative-caret-position="56">
+          <caret line="41" column="41" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <marker date="1541635756756" expanded="false" signature="0:7" ph="import ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/display/merge_model_comparison.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="479">
+          <caret line="40" column="80" selection-start-line="40" selection-start-column="80" selection-end-line="40" selection-end-column="80" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>

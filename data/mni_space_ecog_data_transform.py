@@ -19,15 +19,61 @@ def electrode_mapping(electrodes, xedges=None, yedges=None):
     mapping = {}
     for c in range(64):
         new_c = find_bin(electrodes[c, 2], yedges) * len(xedges) + find_bin(electrodes[c, 1], xedges)
-    	if not np.isnan(new_c):
-	    mapping[c] = new_c
+        if not np.isnan(new_c):
+            mapping[c] = new_c
     return mapping
+
+
+def convert_ellipsoidalCoords2MNI(angleVals, center, radii):
+    angleVals = np.deg2rad(angleVals)  # convert angles to radians
+    x = radii[0] * np.sin(angleVals[:, 0]) * np.cos(angleVals[:, 1]) + center[0]
+    y = radii[1] * np.sin(angleVals[:, 0]) * np.sin(angleVals[:, 1]) + center[1]
+    z = radii[2] * np.cos(angleVals[:, 0]) + center[2]
+
+    # Switch values for true locations (originally put z along MNI y-axis for less warping at top of the head)
+    x1 = np.copy(y)
+    y1 = np.copy(z)
+    z1 = np.copy(x)
+
+    outcoords = np.array([x1, y1, z1])
+    return outcoords
+
+def print_virtual_electrodes():
+    # Adapted from Steven Peterson's code
+
+    # 1: Create virtual grid
+
+    # Estimated ellipsoid parameters
+    corticalCenter = np.array([20.8971, 0, -16.4751])  # MNI coordinates (but z,x,y)
+    corticalRadii = np.array([59.7079, 65.6566, 77.2230])  # MNI coordinates (but z,x,y)
+
+    # Create virtual grid points
+    numGridPts = 400  # create 20x20 grid for now
+    N = int(math.sqrt(numGridPts))
+    phiVals = np.zeros((N, N))
+    thetaVals = np.zeros((N, N))
+    for i in range(N):
+        phiVals[i, :] = np.linspace(20, 140, N)  # max/min phi angles
+        thetaVals[:, i] = np.linspace(-120, 120, N)  # max/min theta angles
+
+    # Downsample to appropriate grid size
+    phiVals2 = np.transpose(phiVals[:int(N / 2), :])
+    thetaVals2 = np.transpose(thetaVals[:, 0:int(N / 2)])
+    angleVals = np.transpose(np.array([phiVals2.flatten(), thetaVals2.flatten()]))
+
+    # Convert ellipsoidal to MNI coordinates
+    virtualCoords = convert_ellipsoidalCoords2MNI(angleVals, corticalCenter, corticalRadii)
+
+    # Only keep coordinates with x<0 (single hemisphere)
+    virtualCoords_pos = virtualCoords[:, virtualCoords[0, :] < 0]
+
+    return virtualCoords_pos
 
 def VirtualGrid_ellipsoid_mapping(realCoords):
     # Adapted from Steven Peterson's code
-    
+
     # Project realCoords to x<0:
-    realCoords[:,0] = -np.abs(realCoords[:,0])    
+    realCoords[:,0] = -np.abs(realCoords[:,0])
 
     #1: Create virtual grid
 
@@ -50,20 +96,6 @@ def VirtualGrid_ellipsoid_mapping(realCoords):
     angleVals=np.transpose(np.array([phiVals2.flatten(),thetaVals2.flatten()]))
 
     #Convert ellipsoidal to MNI coordinates
-    def convert_ellipsoidalCoords2MNI(angleVals,center,radii):
-        angleVals=np.deg2rad(angleVals) #convert angles to radians
-        x=radii[0]*np.sin(angleVals[:,0])*np.cos(angleVals[:,1])+center[0]
-        y=radii[1]*np.sin(angleVals[:,0])*np.sin(angleVals[:,1])+center[1]
-        z=radii[2]*np.cos(angleVals[:,0])+center[2]
-
-        #Switch values for true locations (originally put z along MNI y-axis for less warping at top of the head)
-        x1=np.copy(y)
-        y1=np.copy(z)
-        z1=np.copy(x)
-
-        outcoords=np.array([x1,y1,z1])
-        return outcoords
-
     virtualCoords=convert_ellipsoidalCoords2MNI(angleVals,corticalCenter,corticalRadii)
 
     #Only keep coordinates with x<0 (single hemisphere)
@@ -83,13 +115,13 @@ def VirtualGrid_ellipsoid_mapping(realCoords):
     zmin = virtualCoords_pos[2].min()
 
     for i in range(N_real):
-	if (realCoords[i,0] < xmax+1) & (realCoords[i,0] > xmin-1) &\
-	    (realCoords[i,1] < ymax+1) & (realCoords[i,1] > ymin-1) &\
-	    (realCoords[i,2] < zmax+1) & (realCoords[i,2] > zmin-1):
-            distances=np.sqrt(np.square(realCoords[i,0]-virtualCoords_pos[0,:])+np.square(realCoords[i,1]-virtualCoords_pos[1,:])+\
-                          np.square(realCoords[i,2]-virtualCoords_pos[2,:]))
-	
-	    mapping[i]=np.argmin(distances)
+        if (realCoords[i,0] < xmax+1) & (realCoords[i,0] > xmin-1) & \
+                (realCoords[i,1] < ymax+1) & (realCoords[i,1] > ymin-1) & \
+                (realCoords[i,2] < zmax+1) & (realCoords[i,2] > zmin-1):
+            distances=np.sqrt(np.square(realCoords[i,0]-virtualCoords_pos[0,:])+np.square(realCoords[i,1]-virtualCoords_pos[1,:])+ \
+                              np.square(realCoords[i,2]-virtualCoords_pos[2,:]))
+
+            mapping[i]=np.argmin(distances)
     return mapping
 
 

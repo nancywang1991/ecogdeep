@@ -53,8 +53,8 @@ def print_virtual_electrodes():
     phiVals = np.zeros((N, N))
     thetaVals = np.zeros((N, N))
     for i in range(N):
-        phiVals[i, :] = np.linspace(20, 140, N)  # max/min phi angles
-        thetaVals[:, i] = np.linspace(-120, 120, N)  # max/min theta angles
+        phiVals[i, :] = np.linspace(10, 105, N)  # max/min phi angles
+        thetaVals[:, i] = np.linspace(-130, 130, N)  # max/min theta angles
 
     # Downsample to appropriate grid size
     phiVals2 = np.transpose(phiVals[:int(N / 2), :])
@@ -143,9 +143,12 @@ def main():
                     new[new_c] = orig[old_c]
             file_parts = file.split("/")
             try:
-                np.save("%s/ecog_mni_ellip_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:])), new)
+                np.save("%s/ecog_mni_ellipv2_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:])), new)
             except IOError:
-                os.makedirs("%s/ecog_mni_ellip_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:-1])))
+                os.makedirs("%s/ecog_mni_ellipv2_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:-1])))
+                np.save(
+                    "%s/ecog_mni_ellipv2_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:])),
+                    new)
 
 if __name__=='__main__':
     main()

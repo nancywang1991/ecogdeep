@@ -57,9 +57,8 @@ for gridlabid, sbj in subject_id_map.iteritems():
 		for t in range(0,data.file_duration*1000 - 5000, 120000):
 			if (start_time + datetime.timedelta(t/1000)).hour > 7:
 				chunk = np.zeros(shape=(100, 5000))
-				for c in range(1,65):
-					if not np.isnan(mapping[c-1]):
-						chunk[mapping[c-1]] = (data.readSignal(c, start=t, n=5000)-mean[c-1])/std[c-1]
+				for old_c, new_c in mapping.items():
+                                    chunk[new_c] = (data.readSignal(old_c, start=t, n=5000)-mean[old_c-1])/std[old_c-1]
 				print "Saving time=%i from file %s" % (t, file)
 				np.save("%s/%s/test/%s_t_%is" % (save_main, sbj, file.split("/")[-1].split(".")[0], t/1000), chunk)
 

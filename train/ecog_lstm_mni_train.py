@@ -27,12 +27,12 @@ data_dir = "/data2/users/wangnxr/dataset/"
 model_dir = "/home/wangnxr/models/"
 history_dir = "/home/wangnxr/history/"
 
-for itr in range(1, 3):
+for itr in range(1):
     for s, sbj in enumerate(sbj_to_do):
 	if imputation_type == "zero":
 		main_ecog_dir = '/%s/ecog_mni_%s/' % (data_dir, sbj)
 	if imputation_type == "interp":
-		main_ecog_dir = '/%s/ecog_mni_ellip_interp_%s/' % (data_dir, sbj)
+		main_ecog_dir = '/%s/ecog_mni_ellipv2_interp_%s/' % (data_dir, sbj)
 	if imputation_type == "deep":
         	main_ecog_dir = '/%s/ecog_mni_deep_impute_%s/' % (data_dir, sbj)
 
@@ -107,7 +107,7 @@ for itr in range(1, 3):
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "%s/ecog_model_mni_ellip_%s_jitter_%s_%s_itr_%i_t_%i" % (model_dir,imputation_type, jitter, sbj,itr,time)
+            model_savepath = "%s/ecog_model_mni_ellipv2_%s_jitter_%s_%s_itr_%i_t_%i" % (model_dir,imputation_type, jitter, sbj,itr,time)
             
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',

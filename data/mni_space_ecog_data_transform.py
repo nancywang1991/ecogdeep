@@ -139,7 +139,7 @@ def main():
             orig = np.load(file)
             new = np.zeros(shape=(100, orig.shape[1]))
             for old_c, new_c in mapping.iteritems():
-                if old_c < len(orig):
+                if old_c < 64:
                     new[new_c] = orig[old_c]
             file_parts = file.split("/")
             try:

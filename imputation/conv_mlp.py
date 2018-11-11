@@ -29,7 +29,7 @@ def main():
     for itr in range(1):
         for s, sbj in enumerate(sbj_to_do):
             #main_ecog_dir = '/data2/users/wangnxr/dataset/standardized_clips/' 
-	    main_ecog_dir2 = '/data2/users/wangnxr/dataset/ecog_mni_ellip_%s/' % ('a0f_d65_c95_cb4')
+	    main_ecog_dir2 = '/data2/users/wangnxr/dataset/ecog_mni_ellipv2_%s/' % ('a0f_d65_c95_cb4')
             ## Data generation ECoG
             channels = np.arange(100)
             train_datagen_edf = EcogDataGenerator(
@@ -45,7 +45,8 @@ def main():
             batch_size=24,
             channels=channels,
             ablate_range = (5,20),
-            pre_shuffle_ind=1
+            pre_shuffle_ind=1,
+	    spatial_shift=True
             )
 
             dgdx_val_edf = test_datagen_edf.flow_from_directory(
@@ -83,7 +84,7 @@ def main():
 
             model = Model(inputs=[ecog_series], outputs=predictions)
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
-            model_savepath = "/home/wangnxr/models/ecog_model_ellip_impute_ablate_more_%s_itr_%i" % (sbj, itr)
+            model_savepath = "/home/wangnxr/models/ecog_model_ellipv2_impute_jitter_True_%s_itr_%i" % (sbj, itr)
             model.compile(optimizer=sgd,
                       loss=[selected_loss(input=ecog_series)])
             early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
@@ -92,7 +93,7 @@ def main():
             history_callback = model.fit_generator(
             train_generator,
             steps_per_epoch=len(dgdx_edf.filenames)/24,
-            epochs=200,
+            epochs=40,
             validation_data=validation_generator,
             validation_steps=len(dgdx_val_edf.filenames)/10, callbacks=[checkpoint]
 	    )

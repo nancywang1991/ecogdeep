@@ -457,7 +457,7 @@ class DirectoryIterator(Iterator):
             if self.ecog_data_generator.three_d:
                 new_x = []
                 for t in range(x.shape[0]):
-                    new_x.append(np.expand_dims(np.reshape(x[0][0], (10, 10, x.shape[-1])), 0))
+                    new_x.append(np.expand_dims(np.reshape(x[t][0], (10, 10, x.shape[-1])), 0))
             	x = np.array(new_x)
 	    batch_x[i] = x
         # optionally save augmented images to disk for debugging purposes

@@ -81,6 +81,7 @@ class EcogDataGenerator(object):
                  ablate_range=None,
                  dim_ordering='default',
                  start_time=0,
+		 three_d = False,
                  seq_len=None):
         if dim_ordering == 'default':
             dim_ordering = K.image_dim_ordering()
@@ -96,18 +97,25 @@ class EcogDataGenerator(object):
             self.row_index = 2
 
     def flow_from_directory(self, directory, batch_size=32, shuffle=True, seed=None,
-                            pre_shuffle_ind=None, channels=None, ablate_range=None):
+                            pre_shuffle_ind=None, channels=None, ablate_range=None, spatial_shift = False):
         return DirectoryIterator(
             directory, self, dim_ordering=self.dim_ordering, batch_size=batch_size, shuffle=shuffle,
-            seed=seed, pre_shuffle_ind=pre_shuffle_ind, channels=channels, ablate_range=ablate_range, seq_len=self.seq_len)
+            seed=seed, pre_shuffle_ind=pre_shuffle_ind, channels=channels, ablate_range=ablate_range, seq_len=self.seq_len, spatial_shift=spatial_shift)
 
-    def random_transform(self, x, seq_len, ablate_range):
+    def random_transform(self, x, seq_len, ablate_range, spatial_shift):
         channels_to_ablate = list(set(np.where(x > 0)[1]))
 	x_orig = copy.copy(x)
         np.random.shuffle(channels_to_ablate)
         rand_start = np.random.randint(seq_len, x.shape[-1]-seq_len)
         x[0,channels_to_ablate[:np.random.randint(*ablate_range)]] = 0
-        #x[0,channels_to_ablate[:1]] = 0
+	
+	if spatial_shift:
+	    x_grid = np.reshape(x, (10, 10, x.shape[-1]))
+            x_grid_new = np.zeros(shape=x_grid.shape)
+            xshift = np.random.randint(-1,1)
+            yshift = np.random.randint(-1,1)
+            x_grid_new[max(0,xshift):min(10, 10+xshift), max(0,yshift):min(10, 10+yshift)] = x_grid[max(0,-xshift):min(10, 10-xshift), max(0,-yshift):min(10, 10-yshift)]
+            x = np.reshape(x_grid_new, (1, 100, x.shape[-1]))
 	return x[0, :, rand_start:rand_start+seq_len], x_orig[0, :, rand_start:rand_start+seq_len]
 
 
@@ -159,18 +167,21 @@ class Iterator(object):
 
 class DirectoryIterator(Iterator):
     def __init__(self, directory, EcogDataGenerator,
-                 dim_ordering='default',
+                 dim_ordering='default', three_d = False,
                  batch_size=32, shuffle=True, seed=None,
-                 pre_shuffle_ind=None, channels=None, ablate_range=None, seq_len=None):
+                 pre_shuffle_ind=None, channels=None, 
+		 ablate_range=None, seq_len=None, spatial_shift = False):
         if dim_ordering == 'default':
             dim_ordering = K.image_dim_ordering()
         self.directory = directory
         self.ecog_data_generator = EcogDataGenerator
         self.dim_ordering = dim_ordering
         self.seq_len = seq_len
+	self.three_d = three_d
         self.image_shape = (1,len(channels), seq_len)
         self.channels = channels
         self.ablate_range = ablate_range
+	self.spatial_shift = spatial_shift
 
         white_list_formats = {'npy'}
 
@@ -212,11 +223,17 @@ class DirectoryIterator(Iterator):
 
         batch_x = np.zeros((current_batch_size,) + self.image_shape)
         batch_y = np.zeros(shape=(current_batch_size,self.image_shape[1]))
-        # build batch of image data
+        if self.ecog_data_generator.three_d:
+            batch_x = np.zeros((current_batch_size,) + (1, 10,10, self.image_shape[-1]))
+
+	# build batch of image data
         for i, j in enumerate(index_array):
             fname = self.filenames[j]
             x = load_edf(os.path.join(self.directory, fname), self.channels)
-            x, x_orig = self.ecog_data_generator.random_transform(x, self.seq_len, self.ablate_range)
+            x, x_orig = self.ecog_data_generator.random_transform(x, self.seq_len, self.ablate_range, self.spatial_shift)
+	    if self.ecog_data_generator.three_d:
+                x = np.reshape(x, (10,10,x.shape[-1]))
             batch_x[i,0] = x
-            batch_y[i] = x_orig[:,-1]
-        return batch_x, batch_y
+	    batch_y[i] = x_orig[:,-1]
+	    
+	return batch_x, batch_y

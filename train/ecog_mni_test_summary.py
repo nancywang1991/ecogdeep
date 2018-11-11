@@ -28,7 +28,7 @@ def my_train_val_save_fig(data, xlabel, ylabel, ylim, title, savename):
     return
 
 
-for model_root in glob.glob('/home/wangnxr/current_models/*itr_1*_3900_best.h5'):
+for model_root in glob.glob('/home/wangnxr/models/*ellipv2*itr_0*_3900_best.h5'):
     model_root_name =  "_".join(model_root.split("/")[-1].split(".")[0].split("_")[:-2])
     model_type = model_root_name.split("_")[3]
     if model_type == "ellip":
@@ -48,8 +48,8 @@ for model_root in glob.glob('/home/wangnxr/current_models/*itr_1*_3900_best.h5')
 	            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_%s/test/' % (sbj)
 	        elif model_type == "interp":
 	            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_interp_%s/test/' % (sbj)
-		elif model_root_name.split("_")[3] == "ellip":
-		    main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_ellip_interp_%s/test/' % (sbj)
+		elif model_root_name.split("_")[3] == "ellipv2":
+		    main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_ellipv2_interp_%s/test/' % (sbj)
 		# Data generation ECoG
                 channels = np.arange(100)
 

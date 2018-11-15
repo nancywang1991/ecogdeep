@@ -21,8 +21,9 @@ import glob
 #PARAMS
 #sbj_to_do = ["a0f", "d65", "cb4", "c95"]
 sbj_to_do = ["a0f", "d65", "cb4", "c95", "a0f_d65"]
+#sbj_to_do = ["a0f"]
 jitter = True
-imputation_type = "zero"
+imputation_type = "deep"
 data_dir = "/data2/users/wangnxr/dataset/"
 model_dir = "/home/wangnxr/models/"
 history_dir = "/home/wangnxr/history/"
@@ -34,7 +35,7 @@ for itr in range(1):
 	if imputation_type == "interp":
 		main_ecog_dir = '/%s/ecog_mni_ellipv2_interp_%s/' % (data_dir, sbj)
 	if imputation_type == "deep":
-        	main_ecog_dir = '/%s/ecog_mni_ellipv2_deep_impute_%s/' % (data_dir, sbj)
+        	main_ecog_dir = '/%s/ecog_mni_ellipv2_4sbj_deep_impute_%s/' % (data_dir, sbj)
 
         for t, time in enumerate(start_times):
 	    print sbj

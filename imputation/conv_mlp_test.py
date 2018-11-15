@@ -24,9 +24,9 @@ for s, sbj in enumerate(sbj_to_do):
     #main_ecog_dir = '/data2/users/wangnxr/dataset/standardized_clips/'
     loss = selected_loss(input=np.zeros(shape=(1,1,1,1), dtype='float32'))
 
-    model_file =  "/home/wangnxr/models/ecog_model_ellipv2_impute_jitter_True_all_itr_0_best.h5"
+    model_file3 =  "/home/wangnxr/models/ecog_model_ellipv2_impute_jitter_True_all_plus_itr_0_3d_best.h5"
     model_file2 = "/home/wangnxr/models/ecog_model_ellipv2_impute_jitter_True_all_itr_0_3d_best.h5" 
-    model_file3 = "/home/wangnxr/models/ecog_model_ellipv2_impute_all_itr_0_3d_best.h5"
+    model_file = "/home/wangnxr/models/ecog_model_ellipv2_impute_all_itr_0_3d_best.h5"
     model = load_model(model_file, custom_objects={'loss':loss})
     model2 = load_model(model_file2, custom_objects={'loss':loss})
     model3 = load_model(model_file3, custom_objects={'loss':loss})
@@ -65,7 +65,7 @@ for s, sbj in enumerate(sbj_to_do):
     averages = []
     test = validation_generator.next()
     test2 = (np.array([x.reshape(1,10,10,20) for x in test[0]]), test[1])
-    prediction = model.predict(test[0])
+    prediction = model.predict(test2[0])
     prediction2 = model2.predict(test2[0])
     prediction3 = model3.predict(test2[0])
     #prediction3 = model3.predict(test2[0][:,:,:,:,-8:])
@@ -77,7 +77,7 @@ for s, sbj in enumerate(sbj_to_do):
 	#print prediction2[b][inds]
 	#print test[1][b][inds]
 	#print np.mean(test[1][b][np.where(test[1][b]!=0)])
-   	predictions.append(np.abs( test[1][b][inds]- prediction[b][inds]))
+   	predictions.append(np.abs( test2[1][b][inds]- prediction[b][inds]))
 	predictions2.append(np.abs( test2[1][b][inds]- prediction2[b][inds]))
 	predictions3.append(np.abs( test2[1][b][inds]- prediction3[b][inds]))
         grid_loc = (inds/10, inds%10)

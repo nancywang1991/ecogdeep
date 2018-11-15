@@ -17,9 +17,9 @@ import matplotlib.pyplot as plt
 
 for sbj in ["a0f", "cb4", "c95", "d65"]:
     loss = selected_loss(input=np.zeros(shape=(1,1,1,1), dtype='float32'))
-    main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_%s' % (sbj)
+    main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_ellipv2_%s' % (sbj)
     #model_file = "/home/wangnxr/models/ecog_model_impute_ablate_more_a0f_d65_c95_cb4_itr_0_best.h5"
-    model_file = "/home/wangnxr/models/ecog_model_impute_ablate_more_all_plus_itr_0_best.h5"
+    model_file = "/home/wangnxr/models/ecog_model_ellipv2_impute_all_itr_0_3d_best.h5"
     ## Data generation ECoG
     channels = np.arange(100)
     model = load_model(model_file, custom_objects={"loss":loss})
@@ -33,9 +33,9 @@ for sbj in ["a0f", "cb4", "c95", "d65"]:
 	new = copy(orig)
 #	new2 = copy(orig)
 	fill_inds = np.where(orig[:,0]==0)[0]
-	orig_batch = np.zeros(shape=(orig.shape[-1],1,orig.shape[0], 20))
+	orig_batch = np.zeros(shape=(orig.shape[-1],1,10,10, 20))
 	for t in xrange(20, orig.shape[-1]):
-	    orig_batch[t] = orig[:,t-20:t]
+	    orig_batch[t] = np.reshape(orig[:,t-20:t], (10,10,20))
 	new[fill_inds] = model.predict(orig_batch)[:,fill_inds].T
 #	new2[fill_inds] = model2.predict(orig_batch)[:,fill_inds].T
 #	for c in xrange(100):
@@ -44,9 +44,9 @@ for sbj in ["a0f", "cb4", "c95", "d65"]:
 #	print fill_inds
 #	pdb.set_trace()
         try:
-  	    np.save("%s/ecog_mni_deep_impute_%s/%s" % ("/".join(main_ecog_dir.split("/")[:-1]), sbj, "/".join(file.split("/")[-3:])), new)
+  	    np.save("%s/ecog_mni_ellipv2_4sbj_deep_impute_%s/%s" % ("/".join(main_ecog_dir.split("/")[:-1]), sbj, "/".join(file.split("/")[-3:])), new)
 	except IOError:
-	    os.makedirs("%s/ecog_mni_deep_impute_%s/%s" % ("/".join(main_ecog_dir.split("/")[:-1]), sbj, "/".join(file.split("/")[-3:-1])))
-	    np.save("%s/ecog_mni_deep_impute_%s/%s" % ("/".join(main_ecog_dir.split("/")[:-1]), sbj, "/".join(file.split("/")[-3:])), new)
+	    os.makedirs("%s/ecog_mni_ellipv2_4sbj_deep_impute_%s/%s" % ("/".join(main_ecog_dir.split("/")[:-1]), sbj, "/".join(file.split("/")[-3:-1])))
+	    np.save("%s/ecog_mni_ellipv2_4sbj_deep_impute_%s/%s" % ("/".join(main_ecog_dir.split("/")[:-1]), sbj, "/".join(file.split("/")[-3:])), new)
 
 

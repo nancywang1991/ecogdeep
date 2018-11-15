@@ -19,23 +19,24 @@ import pickle
 import glob
 
 #PARAMS
-sbj_to_do = ["a0f", "cb4", "c95"]
+sbj_to_do = ["a0f", "c95", "cb4", "d65", "a0f_d65"]
+sbj_to_do = ["a0f_d65"]
 jitter = True
-imputation_type = "interp"
-data_dir = "/data2/users/nancy/dataset/"
-model_dir = "/home/nancy/models/"
-history_dir = "/home/nancy/history/"
+imputation_type = "zero"
+data_dir = "/data2/users/wangnxr/dataset/"
+model_dir = "/home/wangnxr/models/"
+history_dir = "/home/wangnxr/history/"
 
-for itr in range(1, 3):
+for itr in range(1):
     for s, sbj in enumerate(sbj_to_do):
 	if imputation_type == "zero":
-		main_ecog_dir = '/%s/ecog_mni_%s/' % (data_dir, sbj)
+		main_ecog_dir = '/%s/ecog_mni_ellipv2_%s/' % (data_dir, sbj)
 	if imputation_type == "interp":
-		main_ecog_dir = '/%s/ecog_mni_interp_%s/' % (data_dir, sbj)
+		main_ecog_dir = '/%s/ecog_mni_ellipv2_interp_%s/' % (data_dir, sbj)
 	if imputation_type == "deep":
-        	main_ecog_dir = '/%s/ecog_mni_deep_impute_%s/' % (data_dir, sbj)
+        	main_ecog_dir = '/%s/ecog_mni_ellipv2_deep_impute_%s/' % (data_dir, sbj)
 
-        for t, time in enumerate(start_times):
+        for t, time in enumerate(start_times[2:]):
 	    print sbj
 	    print time
             ## Data generation ECoG
@@ -108,7 +109,7 @@ for itr in range(1, 3):
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
 
-            model_savepath = "%s/ecog_model_mni_%s_jitter_%s_%s_itr_%i_t_%i_3d" % (model_dir,imputation_type, jitter, sbj,itr,time)
+            model_savepath = "%s/ecog_model_mni_ellipv2_%s_jitter_%s_%s_itr_%i_t_%i_3d" % (model_dir,imputation_type, jitter, sbj,itr,time)
             
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',

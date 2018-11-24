@@ -81,6 +81,7 @@ class EcogDataGenerator(object):
                  ablate_range=None,
                  dim_ordering='default',
                  start_time=0,
+		 test=False,
 		 three_d = False,
                  seq_len=None):
         if dim_ordering == 'default':
@@ -102,13 +103,26 @@ class EcogDataGenerator(object):
             directory, self, dim_ordering=self.dim_ordering, batch_size=batch_size, shuffle=shuffle,
             seed=seed, pre_shuffle_ind=pre_shuffle_ind, channels=channels, ablate_range=ablate_range, seq_len=self.seq_len, spatial_shift=spatial_shift)
 
-    def random_transform(self, x, seq_len, ablate_range, spatial_shift):
+    def random_transform(self, x, test, seq_len, ablate_range, spatial_shift):
         channels_to_ablate = list(set(np.where(x > 0)[1]))
-	x_orig = copy.copy(x)
-        np.random.shuffle(channels_to_ablate)
-        rand_start = np.random.randint(seq_len, x.shape[-1]-seq_len)
-        x[0,channels_to_ablate[:np.random.randint(*ablate_range)]] = 0
-	
+	if not test:
+		if len(channels_to_ablate) < 15:
+                	x_orig = copy.copy(x)
+                	np.random.shuffle(channels_to_ablate)
+                	x[0,channels_to_ablate[:1]] = 0
+                	rand_start = np.random.randint(seq_len, x.shape[-1]-seq_len)
+		else:
+			x[0,channels_to_ablate[5:10]] = 0
+			x_orig = copy.copy(x)
+			channels_to_ablate = list(set(np.where(x > 0)[1]))
+        		np.random.shuffle(channels_to_ablate)
+        		x[0,channels_to_ablate[:np.random.randint(*ablate_range)]] = 0
+			rand_start = np.random.randint(seq_len, x.shape[-1]-seq_len)
+	else:
+		x_orig = copy.copy(x)
+		x[0,channels_to_ablate[5:10]] = 0
+		rand_start = 0
+
 	if spatial_shift:
 	    x_grid = np.reshape(x, (10, 10, x.shape[-1]))
             x_grid_new = np.zeros(shape=x_grid.shape)
@@ -167,7 +181,7 @@ class Iterator(object):
 
 class DirectoryIterator(Iterator):
     def __init__(self, directory, EcogDataGenerator,
-                 dim_ordering='default', three_d = False,
+                 dim_ordering='default', test=False, three_d = False,
                  batch_size=32, shuffle=True, seed=None,
                  pre_shuffle_ind=None, channels=None, 
 		 ablate_range=None, seq_len=None, spatial_shift = False):
@@ -178,6 +192,7 @@ class DirectoryIterator(Iterator):
         self.dim_ordering = dim_ordering
         self.seq_len = seq_len
 	self.three_d = three_d
+	self.test = test
         self.image_shape = (1,len(channels), seq_len)
         self.channels = channels
         self.ablate_range = ablate_range
@@ -230,7 +245,7 @@ class DirectoryIterator(Iterator):
         for i, j in enumerate(index_array):
             fname = self.filenames[j]
             x = load_edf(os.path.join(self.directory, fname), self.channels)
-            x, x_orig = self.ecog_data_generator.random_transform(x, self.seq_len, self.ablate_range, self.spatial_shift)
+            x, x_orig = self.ecog_data_generator.random_transform(x, self.ecog_data_generator.test, self.seq_len, self.ablate_range, self.spatial_shift)
 	    if self.ecog_data_generator.three_d:
                 x = np.reshape(x, (10,10,x.shape[-1]))
             batch_x[i,0] = x

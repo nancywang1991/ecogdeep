@@ -14,6 +14,7 @@ import numpy as np
 import pdb
 import glob
 import pickle
+import os
 
 def my_train_val_save_fig(data, xlabel, ylabel, ylim, title, savename):
     plt.plot(data[0], label = "train")
@@ -33,6 +34,8 @@ for model_root in glob.glob('/home/wangnxr/models/*ellipv2*itr_0*_3900_best.h5')
     model_type = model_root_name.split("_")[3]
     if model_type == "ellipv2":
 	model_type = model_root_name.split("_")[4]
+    if os.path.exists("/home/wangnxr/results/%s.txt" % model_root_name):
+	continue
     with open("/home/wangnxr/results/%s.txt" % model_root_name, "w") as summary_writer:
         for time in [2700, 3300, 3900]:
 	    model_file = "%s_%i_best.h5" % ("_".join(model_root.split("_")[:-2]), time)
@@ -43,7 +46,9 @@ for model_root in glob.glob('/home/wangnxr/models/*ellipv2*itr_0*_3900_best.h5')
             #my_train_val_save_fig([history_file["acc"], history_file["val_acc"]], "Epochs",  "Accuracy", [0,1], model_name, "/home/wangnxr/results/%s.png" % model_name)  
 	    for s, sbj in enumerate(["d65", "a0f", "cb4", "c95"]):
 	        if model_type == "deep":
-                    main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_deep_impute_ellipv2_%s/test/' % (sbj)
+                    main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_ellipv2_4sbj_deep_impute_%s/test/' % (sbj)
+		elif model_type == "deepv2":
+		    main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_ellipv2_deep_impute_%s/test/' % (sbj)
 	        elif model_type == "zero":
 	            main_ecog_dir = '/data2/users/wangnxr/dataset/ecog_mni_ellipv2_%s/test/' % (sbj)
 	        elif model_type == "interp":

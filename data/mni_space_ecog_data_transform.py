@@ -138,6 +138,7 @@ def main():
             print file
             orig = np.load(file)
             new = np.zeros(shape=(100, orig.shape[1]))
+	    pdb.set_trace()
             for old_c, new_c in mapping.iteritems():
                 if old_c < 64:
                     new[new_c] = orig[old_c]

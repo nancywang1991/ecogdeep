@@ -57,6 +57,8 @@ def main():
             
             train_generator = dgdx_edf
             validation_generator = dgdx_val_edf
+	    test=validation_generator.next()
+	    pdb.set_trace()
 	    ecog_series = Input(shape=(1, len(channels), 20))
             x = Convolution2D(16, (1, 2), padding='same', name='block1_conv1')(ecog_series)
             # x = BatchNormalization(axis=1)(x)

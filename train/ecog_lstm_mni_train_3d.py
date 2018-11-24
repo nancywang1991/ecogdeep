@@ -20,9 +20,9 @@ import glob
 
 #PARAMS
 sbj_to_do = ["a0f", "c95", "cb4", "d65", "a0f_d65"]
-sbj_to_do = ["a0f_d65"]
+sbj_to_do = ["d65", "a0f_d65"]
 jitter = True
-imputation_type = "zero"
+imputation_type = "interp"
 data_dir = "/data2/users/wangnxr/dataset/"
 model_dir = "/home/wangnxr/models/"
 history_dir = "/home/wangnxr/history/"

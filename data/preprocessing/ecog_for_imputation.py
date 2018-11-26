@@ -104,7 +104,7 @@ class EcogDataGenerator(object):
             seed=seed, pre_shuffle_ind=pre_shuffle_ind, channels=channels, ablate_range=ablate_range, seq_len=self.seq_len, spatial_shift=spatial_shift)
 
     def random_transform(self, x, test, seq_len, ablate_range, spatial_shift):
-        channels_to_ablate = list(set(np.where(x > 0)[1]))
+        channels_to_ablate = list(set(np.where(x != 0)[1]))
 	if not test:
 		if len(channels_to_ablate) < 15:
                 	x_orig = copy.copy(x)
@@ -112,15 +112,15 @@ class EcogDataGenerator(object):
                 	x[0,channels_to_ablate[:1]] = 0
                 	rand_start = np.random.randint(seq_len, x.shape[-1]-seq_len)
 		else:
-			x[0,channels_to_ablate[5:10]] = 0
+			x[0,channels_to_ablate[5:6]] = 0
 			x_orig = copy.copy(x)
-			channels_to_ablate = list(set(np.where(x > 0)[1]))
+			channels_to_ablate = list(set(np.where(x != 0)[1]))
         		np.random.shuffle(channels_to_ablate)
         		x[0,channels_to_ablate[:np.random.randint(*ablate_range)]] = 0
 			rand_start = np.random.randint(seq_len, x.shape[-1]-seq_len)
 	else:
 		x_orig = copy.copy(x)
-		x[0,channels_to_ablate[5:10]] = 0
+		x[0,channels_to_ablate[5:6]] = 0
 		rand_start = 0
 
 	if spatial_shift:

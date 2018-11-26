@@ -29,17 +29,17 @@ def main():
     for itr in range(1):
         for s, sbj in enumerate(sbj_to_do):
             main_ecog_dir = '/data2/users/wangnxr/dataset/standardized_clips_ellip/' 
-	    main_ecog_dir2 = '/data2/users/wangnxr/dataset/ecog_mni_ellipv2_%s/' % ('a0f_d65_c95_cb4')
+	    main_ecog_dir2 = '/data2/users/wangnxr/dataset/ecog_mni_ellipv2_%s/' % ('a0f_d65_cb4_c95')
             ## Data generation ECoG
             channels = np.arange(100)
             train_datagen_edf = EcogDataGenerator(
-                seq_len=20,
+                seq_len=80,
 		three_d = True,
 		test = False	
             )
 
             test_datagen_edf = EcogDataGenerator(
-                seq_len=20,
+                seq_len=80,
 		three_d = True,
 		test = True
             )
@@ -62,20 +62,20 @@ def main():
             train_generator = dgdx_edf
             validation_generator = dgdx_val_edf
 	    test = train_generator.next()
-	    ecog_series = Input(shape=(1, 10,10, 20))
-            x = Convolution3D(16, (1, 1, 2), padding='same', name='block1_conv1')(ecog_series)
+	    ecog_series = Input(shape=(1, 10,10, 80))
+            x = Convolution3D(16, (1, 1, 3), padding='same', name='block1_conv1')(ecog_series)
             # x = BatchNormalization(axis=1)(x)
             x = Activation('tanh')(x)
             x = MaxPooling3D((2, 2, 1), name='block1_pool')(x)
-
+	   
             # Block 2
-            x = Convolution3D(32, (1, 1, 4), padding='same', name='block2_conv1')(x)
+            x = Convolution3D(32, (1, 1, 5), padding='same', name='block2_conv1')(x)
             # x = BatchNormalization(axis=1)(x)
             x = Activation('tanh')(x)
             #x = MaxPooling2D((1, 3), name='block2_pool')(x)
 
             # Block 3
-            x = Convolution3D(64, (1, 1, 8), padding='same', name='block3_conv1')(x)
+            x = Convolution3D(64, (1, 1, 9), padding='same', name='block3_conv1')(x)
             # x = BatchNormalization(axis=1)(x)
             x = Activation('tanh')(x)
 	    x = Flatten(name='flatten')(x)
@@ -89,7 +89,7 @@ def main():
 
             model = Model(inputs=[ecog_series], outputs=predictions)
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
-            model_savepath = "/home/wangnxr/models/ecog_model_ellipv2_impute_allloss_%s_itr_%i_3d" % (sbj, itr)
+            model_savepath = "/home/wangnxr/models/ecog_model_ellipv2_impute_allloss_long80_%s_itr_%i_3d" % (sbj, itr)
             model.compile(optimizer=sgd,
                       loss=[selected_loss(input=ecog_series)])
             early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
@@ -98,7 +98,7 @@ def main():
             history_callback = model.fit_generator(
             train_generator,
             steps_per_epoch=len(dgdx_edf.filenames)/24,
-            epochs=40,
+            epochs=60,
             validation_data=validation_generator,
             validation_steps=len(dgdx_val_edf.filenames), callbacks=[checkpoint]
 	    )

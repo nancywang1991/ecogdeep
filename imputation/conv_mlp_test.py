@@ -43,7 +43,7 @@ for s, sbj in enumerate(sbj_to_do):
     loss = selected_loss(input=np.zeros(shape=(1,1,1,1), dtype='float32'))
 
     model_file =  "/home/wangnxr/models/ecog_model_ellipv2_impute_allloss_all_itr_0_3d_best.h5"
-    model_file2 = "/home/wangnxr/models/ecog_model_ellipv2_impute_allloss_all_plus_itr_0_3d_best.h5" 
+    model_file2 = "/home/wangnxr/models/ecog_model_ellipv2_impute_allloss_long80_all_plus_itr_0_3d_best.h5" 
     model_file3 = "/home/wangnxr/models/ecog_model_ellipv2_impute_allloss_long80_all_itr_0_3d_best.h5"
     model = load_model(model_file, custom_objects={'loss':loss})
     model2 = load_model(model_file2, custom_objects={'loss':loss})
@@ -58,8 +58,8 @@ for s, sbj in enumerate(sbj_to_do):
 
 
     dgdx_val_edf = test_datagen_edf.flow_from_directory(
-            '%s/val/' % main_ecog_dir,
-            batch_size=len(glob.glob( '%s/val/*/*' % main_ecog_dir)),
+            '%s/test/' % main_ecog_dir,
+            batch_size=len(glob.glob( '%s/test/*/*' % main_ecog_dir)),
             ablate_range = (1,2),
             channels=channels)
 
@@ -77,21 +77,19 @@ for s, sbj in enumerate(sbj_to_do):
     test = validation_generator.next()
     test2 = (np.array([x.reshape(1,10,10,80) for x in test[0]]), test[1])
     prediction = model.predict(test2[0][:,:,:,:,-20:])
-    prediction2 = model2.predict(test2[0][:,:,:,:,-20:])
+    prediction2 = model2.predict(test2[0][:,:,:,:,-80:])
     prediction3 = model3.predict(test2[0][:,:,:,:,-80:])
     interp = interpolate_data(test[0][:,0,:,-1])
     #prediction3 = model3.predict(test2[0][:,:,:,:,-8:])
 
-    inds = np.where(test[0][0,0,:,-1] != test[1][0])[0]
     for b in xrange(len(files)):
+	inds = np.where(test[0][b,0,:,-1] != test[1][b])[0]
 	#inds = np.where(test[1][b]!=0)[0][0]
 	#print "sample" + str(b)
 	#print prediction[b][inds]
 	#print prediction2[b][inds]
 	#print test[1][b][inds]
 	#print np.mean(test[1][b][np.where(test[1][b]!=0)])
-	if np.any(np.abs( test2[1][b][inds]- prediction[b][inds])**2 > 1):
-		pdb.set_trace()  
  	predictions = predictions + list(np.abs( test2[1][b][inds]- prediction[b][inds])**2)
 	predictions2 = predictions2 + list(np.abs( test2[1][b][inds]- prediction2[b][inds])**2)
 	predictions3 = predictions3 + list(np.abs( test2[1][b][inds]- prediction3[b][inds])**2)

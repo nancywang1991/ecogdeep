@@ -4,8 +4,8 @@ import pdb
 
 #sbjs = ["a0f", "d65", "cb4", "c95"]
 sbjs = ["a0f", "d65"]
-new_dirname = "/data2/users/wangnxr/dataset/ecog_mni_ellipv2_%s" % "_".join(sbjs)
-old_dirroot = "/data2/users/wangnxr/dataset/ecog_mni_ellipv2"
+new_dirname = "/data2/users/wangnxr/dataset/ecog_mni_ellipv2_deep_impute_%s" % "_".join(sbjs)
+old_dirroot = "/data2/users/wangnxr/dataset/ecog_mni_ellipv2_deep_impute"
 
 for sbj in sbjs:
     old_dirname = old_dirroot + "_" + sbj

@@ -1,11 +1,9 @@
 import keras
-from ecogdeep.data.preprocessing.ecog import EcogDataGenerator
-from ecogdeep.data.preprocessing.image2 import ImageDataGenerator, center_crop
+from ecogdeep.data.preprocessing.ecog_sequence import EcogDataGenerator
 from keras.layers import Flatten, Dense, Input, Dropout, Activation, merge, TimeDistributed
 from keras.layers.normalization import BatchNormalization
 from keras.layers.recurrent import LSTM
 from keras.models import Model
-from hyperopt import Trials, fmin, tpe, hp, STATUS_OK
 from keras.regularizers import l2
 from itertools import izip
 from keras.callbacks import ModelCheckpoint, EarlyStopping
@@ -37,56 +35,55 @@ for itr in range(1):
 	if imputation_type == "deep":
         	main_ecog_dir = '/%s/ecog_mni_ellipv2_deep_impute_%s/' % (data_dir, sbj)
 
-        for t, time in enumerate(start_times):
+	# Data Param Prep
+	classes_dict = {cl.split("/")[-1]:c for c, cl in enumerate(sorted(glob.glob(main_ecog_dir + "/train/*")))}
+	train_IDs = glob.glob(main_ecog_dir + "/train/*/*.npy")
+	val_IDs = glob.glob(main_ecog_dir + "/val/*/*.npy")
+	np.random.shuffle(train_IDs)
+	np.random.shuffle(val_IDs)
+	train_label = {ID:classes_dict[ID.split("/")[-2]] for ID in train_IDs}
+	val_label = {ID:classes_dict[ID.split("/")[-2]] for ID in val_IDs}
+	for t, time in enumerate(start_times):
 	    print sbj
 	    print time
             ## Data generation ECoG
-            channels = np.arange(100)
             train_datagen_edf = EcogDataGenerator(
+		train_IDs,
+		train_label,
+		dim = (100, 1000),
                 time_shift_range=200,
                 center=False,
                 seq_len=200,
                 start_time=time,
                 seq_num = 5,
                 seq_st = 200,
-		spatial_shift = jitter
+		batch_size = 24,
+		spatial_shift = jitter,
+		shuffle=True,
+		n_classes = len(classes_dict),
+		n_channels = 1
             )
 
             test_datagen_edf = EcogDataGenerator(
+		val_IDs,
+		val_label,
+		dim = (100,1000),
                 time_shift_range=200,
                 center=True,
                 seq_len=200,
                 start_time=time,
                 seq_num=5,
-                seq_st=200
+		batch_size = 10,
+                seq_st=200,
+		spatial_shift = False,
+		shuffle=False,
+ 	        n_classes = len(classes_dict),
+                n_channels = 1
+
             )
-            
-            dgdx_edf = train_datagen_edf.flow_from_directory(
-                '%s/train/' % main_ecog_dir,
-                batch_size=24,
-                class_mode='binary',
-                shuffle=False,
-                channels = channels,
-                pre_shuffle_ind=1,
-                target_size=(1, len(channels), 1000),
-                final_size=(1,len(channels),200),
-                )
-
-            dgdx_val_edf = test_datagen_edf.flow_from_directory(
-                '%s/val/' % main_ecog_dir,
-                batch_size=10,
-                shuffle=False,
-                target_size=(1, len(channels), 1000),
-                final_size=(1,len(channels),200),
-                channels = channels,
-                class_mode='binary')
-            pdb.set_trace()
-	    ecog_model = ecog_1d_model(channels=len(channels))
-            train_generator =  dgdx_edf
-            validation_generator =  dgdx_val_edf
+	    ecog_model = ecog_1d_model(channels=100)
             base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
-
-            ecog_series = Input(shape=(5,1,len(channels),200))
+            ecog_series = Input(shape=(5, 1, 100, 200))
 
             x = base_model_ecog(ecog_series)
 
@@ -103,12 +100,10 @@ for itr in range(1):
             for layer in base_model_ecog.layers:
                 layer.trainable = True
 
-
             model = Model(inputs=[ecog_series], outputs=predictions)
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
-
-            model_savepath = "%s/ecog_model_mni_ellipv2_%s_jitter_%s_%s_itr_%i_t_%i" % (model_dir,imputation_type, jitter, sbj,itr,time)
+            model_savepath = "%s/ecog_model_mni_ellipv2_%s_sequence_%s_itr_%i_t_%i" % (model_dir,imputation_type, sbj,itr,time)
             
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',
@@ -116,14 +111,13 @@ for itr in range(1):
             early_stop = EarlyStopping(monitor='loss', min_delta=0.001, patience=10, verbose=0, mode='auto')
             checkpoint = ModelCheckpoint("%s_best.h5" % model_savepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
             history_callback = model.fit_generator(
-                train_generator,
-                steps_per_epoch=len(dgdx_edf.filenames)/24,
+                train_datagen_edf,
                 epochs=200,
-                validation_data=validation_generator,
-                validation_steps=len(dgdx_val_edf.filenames)/10, 
+                validation_data=test_datagen_edf,
 		callbacks=[checkpoint, early_stop],
-		workers=4
+		workers=8,
+		use_multiprocessing=True
 	    )
-
+	    
             model.save("%s.h5" % model_savepath)
             pickle.dump(history_callback.history, open("%s/%s.p" % (history_dir, model_savepath.split("/")[-1].split(".")[0]), "wb"))

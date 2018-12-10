@@ -17,9 +17,8 @@ import pickle
 import glob
 
 #PARAMS
-#sbj_to_do = ["a0f", "d65", "cb4", "c95"]
-sbj_to_do = ["cb4"]
-#sbj_to_do = ["a0f"]
+#sbj_to_do = ["a0f", "d65", "cb4"]
+sbj_to_do = ["a0f_d65"]
 jitter = True
 imputation_type = "deep"
 data_dir = "/data2/users/wangnxr/dataset/"
@@ -29,11 +28,11 @@ history_dir = "/home/wangnxr/history/"
 for itr in range(1):
     for s, sbj in enumerate(sbj_to_do):
 	if imputation_type == "zero":
-		main_ecog_dir = '/%s/ecog_mni_ellipv2_%s/' % (data_dir, sbj)
+		main_ecog_dir = '/%s/ecog_mni_ellip_%s/' % (data_dir, sbj)
 	if imputation_type == "interp":
-		main_ecog_dir = '/%s/ecog_mni_ellipv2_interp_%s/' % (data_dir, sbj)
+		main_ecog_dir = '/%s/ecog_mni_ellip_interp_%s/' % (data_dir, sbj)
 	if imputation_type == "deep":
-        	main_ecog_dir = '/%s/ecog_mni_ellipv2_deep_impute_%s/' % (data_dir, sbj)
+        	main_ecog_dir = '/%s/ecog_mni_ellip_deep_impute_%s/' % (data_dir, sbj)
 
 	# Data Param Prep
 	classes_dict = {cl.split("/")[-1]:c for c, cl in enumerate(sorted(glob.glob(main_ecog_dir + "/train/*")))}
@@ -103,7 +102,7 @@ for itr in range(1):
             model = Model(inputs=[ecog_series], outputs=predictions)
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
-            model_savepath = "%s/ecog_model_mni_ellipv2_%s_sequence_%s_itr_%i_t_%i" % (model_dir,imputation_type, sbj,itr,time)
+            model_savepath = "%s/ecog_model_mni_ellip_%s_sequence_%s_itr_%i_t_%i" % (model_dir,imputation_type, sbj,itr,time)
             
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',

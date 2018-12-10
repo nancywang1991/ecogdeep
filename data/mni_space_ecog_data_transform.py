@@ -87,8 +87,8 @@ def VirtualGrid_ellipsoid_mapping(realCoords):
     phiVals=np.zeros((N,N))
     thetaVals=np.zeros((N,N))
     for i in range(N):
-        phiVals[i,:]=np.linspace(20,140,N) #max/min phi angles
-        thetaVals[:,i]=np.linspace(-120,120,N) #max/min theta angles
+        phiVals[i,:]=np.linspace(10,105,N) #max/min phi angles
+        thetaVals[:,i]=np.linspace(-130,130,N) #max/min theta angles
 
     #Downsample to appropriate grid size
     phiVals2=np.transpose(phiVals[:int(N/2),:])
@@ -115,9 +115,9 @@ def VirtualGrid_ellipsoid_mapping(realCoords):
     zmin = virtualCoords_pos[2].min()
 
     for i in range(N_real):
-        if (realCoords[i,0] < xmax+1) & (realCoords[i,0] > xmin-1) & \
-                (realCoords[i,1] < ymax+1) & (realCoords[i,1] > ymin-1) & \
-                (realCoords[i,2] < zmax+1) & (realCoords[i,2] > zmin-1):
+        if (realCoords[i,0] < xmax+5) & (realCoords[i,0] > xmin-5) & \
+                (realCoords[i,1] < ymax+5) & (realCoords[i,1] > ymin-5) & \
+                (realCoords[i,2] < zmax+5) & (realCoords[i,2] > zmin-5):
             distances=np.sqrt(np.square(realCoords[i,0]-virtualCoords_pos[0,:])+np.square(realCoords[i,1]-virtualCoords_pos[1,:])+ \
                               np.square(realCoords[i,2]-virtualCoords_pos[2,:]))
 
@@ -131,24 +131,27 @@ def main():
     mni_dir = '/home/wangnxr/Documents/mni_coords/'
     main_data_dir = "/data2/users/wangnxr/dataset/"
     for subject in subjects:
+	
         print "Working on subject %s" % subject
         mni_file = np.loadtxt("%s/%s_Trodes_MNIcoords.txt" % (mni_dir, subject), delimiter=",")
         mapping=VirtualGrid_ellipsoid_mapping(mni_file)
-        for file in glob.glob("%s/ecog_vid_combined_%s_day*/*/*/*.npy" % (main_data_dir, subject_id_map[subject])):
+	for file in glob.glob("%s/ecog_vid_combined_%s_day*/*/*/*.npy" % (main_data_dir, subject_id_map[subject])):
             print file
+	    if not os.path.exists("%s/ecog_mni_ellipv2_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file.split("/")[-3:]))):
+		print "skip"
+		continue
             orig = np.load(file)
             new = np.zeros(shape=(100, orig.shape[1]))
-	    pdb.set_trace()
             for old_c, new_c in mapping.iteritems():
                 if old_c < 64:
                     new[new_c] = orig[old_c]
             file_parts = file.split("/")
             try:
-                np.save("%s/ecog_mni_ellipv2_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:])), new)
+                np.save("%s/ecog_mni_ellip_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:])), new)
             except IOError:
-                os.makedirs("%s/ecog_mni_ellipv2_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:-1])))
+                os.makedirs("%s/ecog_mni_ellip_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:-1])))
                 np.save(
-                    "%s/ecog_mni_ellipv2_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:])),
+                    "%s/ecog_mni_ellip_%s/%s" % (main_data_dir, subject_id_map[subject], "/".join(file_parts[-3:])),
                     new)
 
 if __name__=='__main__':

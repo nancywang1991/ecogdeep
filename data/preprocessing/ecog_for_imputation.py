@@ -59,9 +59,7 @@ def load_edf(path, channels=None):
 
 
 def list_edfs(directory, ext='npy'):
-    return [os.path.join(root, f)
-            for root, dirs, files in os.walk(directory) for f in files
-            if re.match('([\w]+\.(?:' + ext + '))', f)]
+    return glob.glob(directory + "/*/*.npy") +glob.glob(directory + "/*/*/*.npy") 
 
 
 class EcogDataGenerator(object):
@@ -112,7 +110,7 @@ class EcogDataGenerator(object):
                 	x[0,channels_to_ablate[:1]] = 0
                 	rand_start = np.random.randint(seq_len, x.shape[-1]-seq_len)
 		else:
-			x[0,channels_to_ablate[5:6]] = 0
+			x[0,channels_to_ablate[5:10]] = 0
 			x_orig = copy.copy(x)
 			channels_to_ablate = list(set(np.where(x != 0)[1]))
         		np.random.shuffle(channels_to_ablate)
@@ -120,7 +118,7 @@ class EcogDataGenerator(object):
 			rand_start = np.random.randint(seq_len, x.shape[-1]-seq_len)
 	else:
 		x_orig = copy.copy(x)
-		x[0,channels_to_ablate[5:6]] = 0
+		x[0,channels_to_ablate[5:10]] = 0
 		rand_start = 0
 
 	if spatial_shift:

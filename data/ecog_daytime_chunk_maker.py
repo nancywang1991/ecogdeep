@@ -21,46 +21,40 @@ for gridlabid, sbj in subject_id_map.iteritems():
 	try:
 		os.makedirs("%s/%s/train/" % (save_main, sbj))
 		os.makedirs("%s/%s/test/" % (save_main, sbj))
+		os.makedirs("%s/%s/val/" % (save_main, sbj))
 	except OSError:
 		pass
 
-	for file in files[:-2]:
+	for file in files:
 		data = pyedflib.EdfReader(file)
 		start_time = data.getStartdatetime()
-		n_channels = data.getSignalLabels().index("EOGL")-1
+		n_channels = 64
 		mean = np.zeros(n_channels)
 		std = np.zeros(n_channels)
-		for c in range(1,n_channels):
+		if data.file_duration < 60000:
+                        #Too short
+                        continue
+		for c in range(1,n_channels+1):
 			print "normalising channel %i" % (c-1)
-			temp_data = data.readSignal(c)
+			temp_data = data.readSignal(c, 0, 3*60*60*1000)
 			mean[c-1] = np.mean(temp_data)
 			std[c-1] = np.std(temp_data)	
-		for t in range(0,data.file_duration*1000-5000, 120000):
+		for t in range(120000,data.file_duration*1000-5000, 120000):
 			if (start_time + datetime.timedelta(t/1000)).hour > 7:
 				chunk = np.zeros(shape=(100, 5000))
 				for old_c, new_c in mapping.items():
-				    chunk[new_c] = (data.readSignal(old_c, start=t, n=5000)-mean[old_c-1])/std[old_c-1]
-				print "Saving time=%i from file %s" % (t, file)
-				np.save("%s/%s/train/%s_t_%i" % (save_main, sbj, file.split("/")[-1].split(".")[0], t/1000), chunk)
-	
-	for file in files[-2:]:
-		data = pyedflib.EdfReader(file)
-		start_time = data.getStartdatetime()
-                
-		mean = np.zeros(n_channels)
-		std = np.zeros(n_channels)
-		for c in range(1,n_channels):
-			print "normalizing channel %i" % (c-1)
-			temp_data = data.readSignal(c)
-			mean[c-1] = np.mean(temp_data)
-			std[c-1] = np.std(temp_data)	
-		for t in range(0,data.file_duration*1000 - 5000, 120000):
-			if (start_time + datetime.timedelta(t/1000)).hour > 7:
-				chunk = np.zeros(shape=(100, 5000))
-				for old_c, new_c in mapping.items():
-                                    chunk[new_c] = (data.readSignal(old_c, start=t, n=5000)-mean[old_c-1])/std[old_c-1]
-				print "Saving time=%i from file %s" % (t, file)
-				np.save("%s/%s/test/%s_t_%is" % (save_main, sbj, file.split("/")[-1].split(".")[0], t/1000), chunk)
+				    if old_c<64: 
+				        chunk[new_c] = (data.readSignal(old_c+1, start=t, n=5000)-mean[old_c])/std[old_c]
+				if not np.any(np.abs(chunk) > 2):
+				    randnum = np.random.randint(100)
+				    print "Saving time=%i from file %s" % (t, file)
+				    if randnum<90:
+				        np.save("%s/%s/train/%s_t_%i" % (save_main, sbj, file.split("/")[-1].split(".")[0], t/1000), chunk)
+				    elif randnum<95:
+					np.save("%s/%s/val/%s_t_%i" % (save_main, sbj, file.split("/")[-1].split(".")[0], t/1000), chunk)
+				    else:
+					np.save("%s/%s/test/%s_t_%i" % (save_main, sbj, file.split("/")[-1].split(".")[0], t/1000), chunk)
+
 
 
 		

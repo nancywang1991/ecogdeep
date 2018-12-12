@@ -27,60 +27,60 @@ history_dir = "/home/wangnxr/history/"
 
 for itr in range(1):
     for s, sbj in enumerate(sbj_to_do):
-	if imputation_type == "zero":
-		main_ecog_dir = '/%s/ecog_mni_ellip_%s/' % (data_dir, sbj)
-	if imputation_type == "interp":
-		main_ecog_dir = '/%s/ecog_mni_ellip_interp_%s/' % (data_dir, sbj)
-	if imputation_type == "deep":
-        	main_ecog_dir = '/%s/ecog_mni_ellip_deep_impute_%s/' % (data_dir, sbj)
+        if imputation_type == "zero":
+            main_ecog_dir = '/%s/ecog_mni_ellip_%s/' % (data_dir, sbj)
+        if imputation_type == "interp":
+            main_ecog_dir = '/%s/ecog_mni_ellip_interp_%s/' % (data_dir, sbj)
+        if imputation_type == "deep":
+            main_ecog_dir = '/%s/ecog_mni_ellip_deep_impute_%s/' % (data_dir, sbj)
 
-	# Data Param Prep
-	classes_dict = {cl.split("/")[-1]:c for c, cl in enumerate(sorted(glob.glob(main_ecog_dir + "/train/*")))}
-	train_IDs = glob.glob(main_ecog_dir + "/train/*/*.npy")
-	val_IDs = glob.glob(main_ecog_dir + "/val/*/*.npy")
-	np.random.shuffle(train_IDs)
-	np.random.shuffle(val_IDs)
-	train_label = {ID:classes_dict[ID.split("/")[-2]] for ID in train_IDs}
-	val_label = {ID:classes_dict[ID.split("/")[-2]] for ID in val_IDs}
-	for t, time in enumerate(start_times):
-	    print sbj
-	    print time
+        # Data Param Prep
+        classes_dict = {cl.split("/")[-1]:c for c, cl in enumerate(sorted(glob.glob(main_ecog_dir + "/train/*")))}
+        train_IDs = glob.glob(main_ecog_dir + "/train/*/*.npy")
+        val_IDs = glob.glob(main_ecog_dir + "/val/*/*.npy")
+        np.random.shuffle(train_IDs)
+        np.random.shuffle(val_IDs)
+        train_label = {ID:classes_dict[ID.split("/")[-2]] for ID in train_IDs}
+        val_label = {ID:classes_dict[ID.split("/")[-2]] for ID in val_IDs}
+        for t, time in enumerate(start_times):
+            print sbj
+            print time
             ## Data generation ECoG
             train_datagen_edf = EcogDataGenerator(
-		train_IDs,
-		train_label,
-		dim = (100, 1000),
+                train_IDs,
+                train_label,
+                dim = (100, 1000),
                 time_shift_range=200,
                 center=False,
                 seq_len=200,
                 start_time=time,
                 seq_num = 5,
                 seq_st = 200,
-		batch_size = 24,
-		spatial_shift = jitter,
-		shuffle=True,
-		n_classes = len(classes_dict),
-		n_channels = 1
+                batch_size = 24,
+                spatial_shift = jitter,
+                shuffle=True,
+                n_classes = len(classes_dict),
+                n_channels = 1
             )
 
             test_datagen_edf = EcogDataGenerator(
-		val_IDs,
-		val_label,
-		dim = (100,1000),
+                val_IDs,
+                val_label,
+                dim = (100,1000),
                 time_shift_range=200,
                 center=True,
                 seq_len=200,
                 start_time=time,
                 seq_num=5,
-		batch_size = 10,
+                batch_size = 10,
                 seq_st=200,
-		spatial_shift = False,
-		shuffle=False,
- 	        n_classes = len(classes_dict),
+                spatial_shift = False,
+                shuffle=False,
+                n_classes = len(classes_dict),
                 n_channels = 1
 
             )
-	    ecog_model = ecog_1d_model(channels=100)
+            ecog_model = ecog_1d_model(channels=100)
             base_model_ecog = Model(ecog_model.input, ecog_model.get_layer("fc1").output)
             ecog_series = Input(shape=(5, 1, 100, 200))
 
@@ -103,7 +103,7 @@ for itr in range(1):
 
             sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9)
             model_savepath = "%s/ecog_model_mni_ellip_%s_sequence_%s_itr_%i_t_%i" % (model_dir,imputation_type, sbj,itr,time)
-            
+
             model.compile(optimizer=sgd,
                           loss='binary_crossentropy',
                           metrics=['accuracy'])
@@ -113,10 +113,10 @@ for itr in range(1):
                 train_datagen_edf,
                 epochs=200,
                 validation_data=test_datagen_edf,
-		callbacks=[checkpoint, early_stop],
-		workers=8,
-		use_multiprocessing=True
-	    )
-	    
+                callbacks=[checkpoint, early_stop],
+                workers=8,
+                use_multiprocessing=True
+            )
+
             model.save("%s.h5" % model_savepath)
             pickle.dump(history_callback.history, open("%s/%s.p" % (history_dir, model_savepath.split("/")[-1].split(".")[0]), "wb"))

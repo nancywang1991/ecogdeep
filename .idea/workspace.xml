@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imputation/model_comparison.py" />
+    <list default="true" id="5fbd70bd-a6e1-4e7b-beb2-26f4876bf412" name="Default" comment="made imputation code easier to read">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/deep_impute_inference.py" afterPath="$PROJECT_DIR$/data/deep_impute_inference.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/interp_data.py" afterPath="$PROJECT_DIR$/data/interp_data.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/display/merge_model_comparison.py" afterPath="$PROJECT_DIR$/display/merge_model_comparison.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/ecog_daytime_chunk_maker.py" afterPath="$PROJECT_DIR$/data/ecog_daytime_chunk_maker.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imputation/conv_mlp_test.py" afterPath="$PROJECT_DIR$/imputation/conv_mlp_test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_lstm_mni_train_sequence.py" afterPath="$PROJECT_DIR$/train/ecog_lstm_mni_train_sequence.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train/ecog_mni_test_summary.py" afterPath="$PROJECT_DIR$/train/ecog_mni_test_summary.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,7 +30,7 @@
       <file leaf-file-name="merge_model_comparison.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/display/merge_model_comparison.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
+            <state relative-caret-position="-2062">
               <caret line="73" column="62" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -36,33 +39,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="result_tabulation_v2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/display/result_tabulation_v2.py">
+      <file leaf-file-name="ecog_daytime_chunk_maker.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/ecog_daytime_chunk_maker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="1683">
+              <caret line="51" column="49" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
               <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ecog_for_imputation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/preprocessing/ecog_for_imputation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7854">
-              <caret line="238" column="22" selection-start-line="238" selection-start-column="22" selection-end-line="238" selection-end-column="22" />
-              <folding>
-                <marker date="1544566507888" expanded="true" signature="169:550" ph="import ..." />
-                <marker date="1544566507888" expanded="true" signature="609:1420" ph="..." />
-                <marker date="1544566507888" expanded="true" signature="677:820" ph="..." />
-                <marker date="1544566507888" expanded="true" signature="703:810" ph="'...'" />
-                <marker date="1544566507888" expanded="true" signature="1012:1169" ph="..." />
-                <marker date="1544566507888" expanded="true" signature="1242:1363" ph="..." />
-                <marker date="1544566507888" expanded="true" signature="1457:1669" ph="..." />
-                <marker date="1544566507888" expanded="true" signature="1462:1586" ph="&quot;&quot;&quot;Load an edf into numpy format....&quot;&quot;&quot;" />
-                <marker date="1544566507888" expanded="true" signature="1708:1720" ph="..." />
+                <element signature="e#0#15#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -71,8 +54,8 @@
       <file leaf-file-name="deep_impute_inference.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/deep_impute_inference.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="954">
-              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="49" selection-end-column="57" />
+            <state relative-caret-position="870">
+              <caret line="43" column="26" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -95,10 +78,34 @@
       <file leaf-file-name="model_comparison.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imputation/model_comparison.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1155">
+            <state relative-caret-position="660">
               <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ecog_mni_test_summary_3d.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train/ecog_mni_test_summary_3d.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ecog_mni_test_summary.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train/ecog_mni_test_summary.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="31" column="81" selection-start-line="31" selection-start-column="81" selection-end-line="31" selection-end-column="81" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -118,23 +125,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ecog_sequence.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/preprocessing/ecog_sequence.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ecog_lstm_mni_train_sequence.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train/ecog_lstm_mni_train_sequence.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1353">
-              <caret line="41" column="30" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="30" />
+            <state relative-caret-position="858">
+              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -142,19 +137,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mni_space_ecog_data_transform.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/mni_space_ecog_data_transform.py">
+      <file leaf-file-name="conv_mlp_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imputation/conv_mlp_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4851">
-              <caret line="154" column="24" selection-start-line="154" selection-start-column="24" selection-end-line="154" selection-end-column="24" />
+            <state relative-caret-position="441">
+              <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
               <folding>
-                <marker date="1544566507873" expanded="false" signature="0:7" ph="import ..." />
-                <marker date="1544566507873" expanded="true" signature="1431:2596" ph="..." />
-                <marker date="1544566507873" expanded="true" signature="1921:2067" ph="..." />
-                <marker date="1544566507873" expanded="true" signature="2644:3226" ph="..." />
-                <marker date="1544566507873" expanded="true" signature="2649:2720" ph="..." />
-                <marker date="1544566507873" expanded="true" signature="2773:2833" ph="..." />
-                <marker date="1544566507873" expanded="true" signature="3192:3226" ph="..." />
+                <element signature="e#0#12#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -182,10 +171,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/train/ecog_lstm_test_reg.py" />
-        <option value="$PROJECT_DIR$/train/ecog_1d_model_seq_reg.py" />
-        <option value="$PROJECT_DIR$/train/ecog_lstm_train_reg.py" />
-        <option value="$PROJECT_DIR$/data/movement_xy_ecog_data_reg_gen.py" />
         <option value="$PROJECT_DIR$/train/ecog_lstm_train_reg_xy.py" />
         <option value="$PROJECT_DIR$/train/vid_model_reg.py" />
         <option value="$PROJECT_DIR$/train/ecog_lstm_test_reg_xy.py" />
@@ -233,12 +218,16 @@
         <option value="$PROJECT_DIR$/imputation/model_comparison.py" />
         <option value="$PROJECT_DIR$/data/deep_impute_inference.py" />
         <option value="$PROJECT_DIR$/data/interp_data.py" />
+        <option value="$PROJECT_DIR$/data/ecog_daytime_chunk_maker.py" />
+        <option value="$PROJECT_DIR$/imputation/conv_mlp_test.py" />
+        <option value="$PROJECT_DIR$/train/ecog_lstm_mni_train_sequence.py" />
+        <option value="$PROJECT_DIR$/train/ecog_mni_test_summary.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2054" />
-    <option name="y" value="266" />
+    <option name="x" value="4" />
+    <option name="y" value="18" />
     <option name="width" value="3671" />
     <option name="height" value="2074" />
   </component>
@@ -823,13 +812,6 @@
       <option name="presentableId" value="Default" />
       <updated>1481234227765</updated>
     </task>
-    <task id="LOCAL-00281" summary="regression">
-      <created>1499284994851</created>
-      <option name="number" value="00281" />
-      <option name="presentableId" value="LOCAL-00281" />
-      <option name="project" value="LOCAL" />
-      <updated>1499284994851</updated>
-    </task>
     <task id="LOCAL-00282" summary="regression">
       <created>1500334580362</created>
       <option name="number" value="00282" />
@@ -1166,16 +1148,24 @@
       <option name="project" value="LOCAL" />
       <updated>1541715678395</updated>
     </task>
-    <option name="localTasksCounter" value="330" />
+    <task id="LOCAL-00330" summary="made imputation code easier to read">
+      <created>1544656384522</created>
+      <option name="number" value="00330" />
+      <option name="presentableId" value="LOCAL-00330" />
+      <option name="project" value="LOCAL" />
+      <updated>1544656384522</updated>
+    </task>
+    <option name="localTasksCounter" value="331" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2054" y="266" width="3671" height="2074" extended-state="0" />
+    <frame x="4" y="18" width="3671" height="2074" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27617478" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06263499" sideWeight="0.50625" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27765608" sideWeight="0.49375" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28587076" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1189,7 +1179,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1225,7 +1214,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added ecog training" />
     <MESSAGE value="changed ecog data gen" />
     <MESSAGE value="added randomization to ecog data generation" />
     <MESSAGE value="adjusted data gen memory needs&#10;" />
@@ -1250,7 +1238,8 @@
     <MESSAGE value="toward away scheme for ecog movement regression&#10;" />
     <MESSAGE value="mni" />
     <MESSAGE value="imputation code" />
-    <option name="LAST_COMMIT_MESSAGE" value="imputation code" />
+    <MESSAGE value="made imputation code easier to read" />
+    <option name="LAST_COMMIT_MESSAGE" value="made imputation code easier to read" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1259,34 +1248,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/train/ecog_vid_test_reg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="689">
-          <caret line="88" column="24" selection-start-line="88" selection-start-column="24" selection-end-line="88" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_test_reg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1135">
-          <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/ecog_reg_xy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1067">
-          <caret line="387" column="18" selection-start-line="387" selection-start-column="18" selection-end-line="387" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_1d_model_seq_reg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1089">
-          <caret line="42" column="33" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../keras/keras/preprocessing/image_reg.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1400">
@@ -1573,16 +1534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_mni_train_sequence.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1353">
-          <caret line="41" column="30" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/display/result_tabulation_v2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1623,26 +1574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imputation/model_comparison.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/deep_impute_inference.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="954">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="49" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/interp_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -1653,9 +1584,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/ecog_daytime_chunk_maker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1683">
+          <caret line="51" column="49" selection-start-line="51" selection-start-column="49" selection-end-line="51" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imputation/conv_mlp_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/deep_impute_inference.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="870">
+          <caret line="43" column="26" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_lstm_mni_train_sequence.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="858">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imputation/model_comparison.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_mni_test_summary_3d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train/ecog_mni_test_summary.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="31" column="81" selection-start-line="31" selection-start-column="81" selection-end-line="31" selection-end-column="81" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/display/merge_model_comparison.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
+        <state relative-caret-position="-2062">
           <caret line="73" column="62" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />

@@ -57,8 +57,6 @@ for s, sbj in enumerate(sbj_to_do):
 
     #sbj_full = glob.glob('%s/%s*' % (main_ecog_dir,sbj))[0].split("/")[-1]
     dgdx_val_edf = test_datagen_edf.flow_from_directory(
-        #'%s/test/' % (main_ecog_dir),
-        #batch_size=len(glob.glob( '%s/test/*/*' % (main_ecog_dir))),
         '%s/test/' % (main_ecog_dir),
         batch_size=len(glob.glob( '%s/test/*/*' % (main_ecog_dir))),
         ablate_range = (1,2),
@@ -85,12 +83,6 @@ for s, sbj in enumerate(sbj_to_do):
 
     for b in xrange(len(files)):
         inds = np.where(test[0][b,0,:,-1] != test[1][b])[0]
-        #inds = np.where(test[1][b]!=0)[0][0]
-        #print "sample" + str(b)
-        #print prediction[b][inds]
-        #print prediction2[b][inds]
-        #print test[1][b][inds]
-        #print np.mean(test[1][b][np.where(test[1][b]!=0)])
         predictions = predictions + list(np.abs( test2[1][b][inds]- prediction[b][inds])**2)
         predictions2 = predictions2 + list(np.abs( test2[1][b][inds]- prediction2[b][inds])**2)
         predictions3 = predictions3 + list(np.abs( test2[1][b][inds]- prediction3[b][inds])**2)
